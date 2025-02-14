@@ -12,6 +12,6 @@ public class Proyect_Y {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        //Abril dice Hola Mundo, again
+        //Abril dice Hola Mundo
     }
 }
