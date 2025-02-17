@@ -4,6 +4,8 @@
 
 package com.mycompany.proyect_y;
 
+import javax.swing.UIManager;
+
 /**
  *
  * @author dafmo
@@ -18,5 +20,12 @@ public class Proyect_Y {
         //No teman
         
         //Comentario de Ian
+        Configuracion In = new Configuracion();
+        In.setVisible(true);
+        
+        UIManager.put( "Button.arc", 999 );
+UIManager.put( "Component.arc", 999 );
+UIManager.put( "ProgressBar.arc", 999 );
+UIManager.put( "TextComponent.arc", 999 );
     }
 }
