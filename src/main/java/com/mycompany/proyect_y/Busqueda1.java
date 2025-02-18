@@ -1233,6 +1233,7 @@ public class Busqueda1 extends javax.swing.JFrame {
 
     private void CuentaBtn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn6ActionPerformed
         // TODO add your handling code here:coment
+        //ola
     }//GEN-LAST:event_CuentaBtn6ActionPerformed
 
     private void CuentaBtn18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn18ActionPerformed
