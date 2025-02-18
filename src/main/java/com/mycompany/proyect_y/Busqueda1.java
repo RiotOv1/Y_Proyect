@@ -44,25 +44,16 @@ public class Busqueda1 extends javax.swing.JFrame {
         PerfilBtn2 = new javax.swing.JButton();
         PerfilBtn3 = new javax.swing.JButton();
         PerfilBtn4 = new javax.swing.JButton();
-        jLabel37 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel38 = new javax.swing.JLabel();
         CuentaBtn1 = new javax.swing.JButton();
-        CuentaBtn4 = new javax.swing.JButton();
-        CuentaBtn5 = new javax.swing.JButton();
         CuentaBtn7 = new javax.swing.JButton();
-        SeguridadYAccesoBtn3 = new javax.swing.JButton();
         IdUsuario = new javax.swing.JLabel();
         NombreUsuario = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel39 = new javax.swing.JLabel();
-        CuentaBtn8 = new javax.swing.JButton();
-        CuentaBtn9 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        CuentaBtn10 = new javax.swing.JButton();
-        CuentaBtn11 = new javax.swing.JButton();
-        CuentaBtn12 = new javax.swing.JButton();
         CuentaBtn13 = new javax.swing.JButton();
         CuentaBtn14 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -75,15 +66,12 @@ public class Busqueda1 extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
         jSeparator9 = new javax.swing.JSeparator();
-        CuentaBtn2 = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         CuentaBtn6 = new javax.swing.JButton();
         CuentaBtn18 = new javax.swing.JButton();
         CuentaBtn19 = new javax.swing.JButton();
-        CuentaBtn3 = new javax.swing.JButton();
         CuentaBtn20 = new javax.swing.JButton();
-        CuentaBtn21 = new javax.swing.JButton();
         CuentaBtn22 = new javax.swing.JButton();
         CuentaBtn23 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -92,9 +80,30 @@ public class Busqueda1 extends javax.swing.JFrame {
         SeguridadYAccesoBtn4 = new javax.swing.JButton();
         SeguridadYAccesoBtn5 = new javax.swing.JButton();
         SeguridadYAccesoBtn6 = new javax.swing.JButton();
-        SeguridadYAccesoBtn7 = new javax.swing.JButton();
         SeguridadYAccesoBtn8 = new javax.swing.JButton();
         SeguridadYAccesoBtn = new javax.swing.JButton();
+        SeguridadYAccesoBtn7 = new javax.swing.JButton();
+        SeguridadYAccesoBtn9 = new javax.swing.JButton();
+        SeguridadYAccesoBtn10 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        SeguridadYAccesoBtn3 = new javax.swing.JButton();
+        jLabel37 = new javax.swing.JLabel();
+        CuentaBtn10 = new javax.swing.JButton();
+        CuentaBtn11 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        SeguridadYAccesoBtn11 = new javax.swing.JButton();
+        jLabel41 = new javax.swing.JLabel();
+        CuentaBtn2 = new javax.swing.JButton();
+        CuentaBtn5 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        SeguridadYAccesoBtn12 = new javax.swing.JButton();
+        jLabel42 = new javax.swing.JLabel();
+        CuentaBtn4 = new javax.swing.JButton();
+        CuentaBtn12 = new javax.swing.JButton();
+        PostearBtn1 = new javax.swing.JButton();
+        PostearBtn2 = new javax.swing.JButton();
+        PostearBtn3 = new javax.swing.JButton();
+        PostearBtn4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -201,18 +210,19 @@ public class Busqueda1 extends javax.swing.JFrame {
         jPanel1.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 570, 200, 40));
 
         PostearBtn.setBackground(new java.awt.Color(166, 77, 121));
-        PostearBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        PostearBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         PostearBtn.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn.setText(" Exponer");
+        PostearBtn.setText("Menciones de ti");
         PostearBtn.setToolTipText("");
         PostearBtn.setAlignmentY(0.0F);
         PostearBtn.setBorderPainted(false);
+        PostearBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         PostearBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PostearBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(PostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 920, 200, 40));
+        jPanel1.add(PostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 660, 210, 50));
 
         jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
@@ -244,7 +254,7 @@ public class Busqueda1 extends javax.swing.JFrame {
                 CuentaBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(CuentaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 480, 100, 50));
+        jPanel1.add(CuentaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 490, 100, 30));
 
         PerfilBtn1.setBackground(new java.awt.Color(26, 26, 29));
         PerfilBtn1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -314,15 +324,9 @@ public class Busqueda1 extends javax.swing.JFrame {
         });
         jPanel1.add(PerfilBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 520, 200, 40));
 
-        jLabel37.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel37.setText("Usuario");
-        jPanel1.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 170, 30));
-
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setBackground(new java.awt.Color(166, 77, 121));
         jButton2.setText("Eliminar busquedas");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 330, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, 140, 30));
 
         jLabel38.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(204, 204, 204));
@@ -331,7 +335,7 @@ public class Busqueda1 extends javax.swing.JFrame {
 
         CuentaBtn1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         CuentaBtn1.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn1.setText("🗓Se unio en mes y año");
+        CuentaBtn1.setText("Ver todo");
         CuentaBtn1.setBorder(null);
         CuentaBtn1.setBorderPainted(false);
         CuentaBtn1.setContentAreaFilled(false);
@@ -342,37 +346,7 @@ public class Busqueda1 extends javax.swing.JFrame {
                 CuentaBtn1ActionPerformed(evt);
             }
         });
-        jPanel1.add(CuentaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 420, 450, 50));
-
-        CuentaBtn4.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        CuentaBtn4.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn4.setText("**");
-        CuentaBtn4.setBorder(null);
-        CuentaBtn4.setBorderPainted(false);
-        CuentaBtn4.setContentAreaFilled(false);
-        CuentaBtn4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 80, 50));
-
-        CuentaBtn5.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        CuentaBtn5.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn5.setText("0");
-        CuentaBtn5.setBorder(null);
-        CuentaBtn5.setBorderPainted(false);
-        CuentaBtn5.setContentAreaFilled(false);
-        CuentaBtn5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn5ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 460, 80, 50));
+        jPanel1.add(CuentaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 100, 70, 40));
 
         CuentaBtn7.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         CuentaBtn7.setForeground(new java.awt.Color(204, 204, 204));
@@ -388,22 +362,6 @@ public class Busqueda1 extends javax.swing.JFrame {
             }
         });
         jPanel1.add(CuentaBtn7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 220, 80, 50));
-
-        SeguridadYAccesoBtn3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        SeguridadYAccesoBtn3.setForeground(new java.awt.Color(204, 204, 204));
-        SeguridadYAccesoBtn3.setText("@Usuario");
-        SeguridadYAccesoBtn3.setToolTipText("");
-        SeguridadYAccesoBtn3.setBorder(null);
-        SeguridadYAccesoBtn3.setBorderPainted(false);
-        SeguridadYAccesoBtn3.setContentAreaFilled(false);
-        SeguridadYAccesoBtn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SeguridadYAccesoBtn3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        SeguridadYAccesoBtn3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguridadYAccesoBtn3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(SeguridadYAccesoBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 100, 50));
 
         IdUsuario.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         IdUsuario.setForeground(new java.awt.Color(106, 30, 85));
@@ -426,91 +384,17 @@ public class Busqueda1 extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(0, 0, 0));
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("🔍Buscar");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 450, 30));
+        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 450, 30));
 
         jLabel39.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(204, 204, 204));
         jLabel39.setText("Usuario");
-        jPanel1.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 170, 30));
-
-        CuentaBtn8.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        CuentaBtn8.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn8.setText("0");
-        CuentaBtn8.setBorder(null);
-        CuentaBtn8.setBorderPainted(false);
-        CuentaBtn8.setContentAreaFilled(false);
-        CuentaBtn8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn8ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 460, 80, 50));
-
-        CuentaBtn9.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        CuentaBtn9.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn9.setText("Siguientes");
-        CuentaBtn9.setBorder(null);
-        CuentaBtn9.setBorderPainted(false);
-        CuentaBtn9.setContentAreaFilled(false);
-        CuentaBtn9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn9ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 460, 80, 50));
+        jPanel1.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 100, 30));
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setText("Seguir");
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 230, -1, -1));
-
-        CuentaBtn10.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        CuentaBtn10.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn10.setText("''''''''");
-        CuentaBtn10.setBorder(null);
-        CuentaBtn10.setBorderPainted(false);
-        CuentaBtn10.setContentAreaFilled(false);
-        CuentaBtn10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn10ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, 80, 50));
-
-        CuentaBtn11.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        CuentaBtn11.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn11.setText("''''''''");
-        CuentaBtn11.setBorder(null);
-        CuentaBtn11.setBorderPainted(false);
-        CuentaBtn11.setContentAreaFilled(false);
-        CuentaBtn11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn11ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, 80, 50));
-
-        CuentaBtn12.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        CuentaBtn12.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn12.setText("''''''''");
-        CuentaBtn12.setBorder(null);
-        CuentaBtn12.setBorderPainted(false);
-        CuentaBtn12.setContentAreaFilled(false);
-        CuentaBtn12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn12ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, 80, 50));
 
         CuentaBtn13.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         CuentaBtn13.setForeground(new java.awt.Color(204, 204, 204));
@@ -612,21 +496,6 @@ public class Busqueda1 extends javax.swing.JFrame {
         jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 300, 280, 20));
         jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 80, 280, 10));
 
-        CuentaBtn2.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        CuentaBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn2.setText("Seguidores");
-        CuentaBtn2.setBorder(null);
-        CuentaBtn2.setBorderPainted(false);
-        CuentaBtn2.setContentAreaFilled(false);
-        CuentaBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 460, 80, 50));
-
         jLabel40.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(204, 204, 204));
         jLabel40.setText("Te puede interesar");
@@ -654,7 +523,7 @@ public class Busqueda1 extends javax.swing.JFrame {
                 CuentaBtn6ActionPerformed(evt);
             }
         });
-        jPanel1.add(CuentaBtn6, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 440, 80, 50));
+        jPanel1.add(CuentaBtn6, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 450, 80, 30));
 
         CuentaBtn18.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         CuentaBtn18.setForeground(new java.awt.Color(204, 204, 204));
@@ -686,21 +555,6 @@ public class Busqueda1 extends javax.swing.JFrame {
         });
         jPanel1.add(CuentaBtn19, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 510, 80, 50));
 
-        CuentaBtn3.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
-        CuentaBtn3.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn3.setText("Tendencia");
-        CuentaBtn3.setBorder(null);
-        CuentaBtn3.setBorderPainted(false);
-        CuentaBtn3.setContentAreaFilled(false);
-        CuentaBtn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 370, 80, 50));
-
         CuentaBtn20.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
         CuentaBtn20.setForeground(new java.awt.Color(204, 204, 204));
         CuentaBtn20.setText("Tendencia");
@@ -714,26 +568,11 @@ public class Busqueda1 extends javax.swing.JFrame {
                 CuentaBtn20ActionPerformed(evt);
             }
         });
-        jPanel1.add(CuentaBtn20, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 370, 80, 50));
-
-        CuentaBtn21.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
-        CuentaBtn21.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn21.setText("1000 publicaciones");
-        CuentaBtn21.setBorder(null);
-        CuentaBtn21.setBorderPainted(false);
-        CuentaBtn21.setContentAreaFilled(false);
-        CuentaBtn21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn21ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn21, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 410, 100, 50));
+        jPanel1.add(CuentaBtn20, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 380, 80, 30));
 
         CuentaBtn22.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         CuentaBtn22.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn22.setText("0000");
+        CuentaBtn22.setText("#0000");
         CuentaBtn22.setBorder(null);
         CuentaBtn22.setBorderPainted(false);
         CuentaBtn22.setContentAreaFilled(false);
@@ -832,21 +671,6 @@ public class Busqueda1 extends javax.swing.JFrame {
             }
         });
 
-        SeguridadYAccesoBtn7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        SeguridadYAccesoBtn7.setForeground(new java.awt.Color(204, 204, 204));
-        SeguridadYAccesoBtn7.setText("Artículos");
-        SeguridadYAccesoBtn7.setToolTipText("");
-        SeguridadYAccesoBtn7.setBorder(null);
-        SeguridadYAccesoBtn7.setBorderPainted(false);
-        SeguridadYAccesoBtn7.setContentAreaFilled(false);
-        SeguridadYAccesoBtn7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SeguridadYAccesoBtn7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        SeguridadYAccesoBtn7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguridadYAccesoBtn7ActionPerformed(evt);
-            }
-        });
-
         SeguridadYAccesoBtn8.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         SeguridadYAccesoBtn8.setForeground(new java.awt.Color(204, 204, 204));
         SeguridadYAccesoBtn8.setToolTipText("");
@@ -876,19 +700,68 @@ public class Busqueda1 extends javax.swing.JFrame {
             }
         });
 
+        SeguridadYAccesoBtn7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        SeguridadYAccesoBtn7.setForeground(new java.awt.Color(204, 204, 204));
+        SeguridadYAccesoBtn7.setText("Todo");
+        SeguridadYAccesoBtn7.setToolTipText("");
+        SeguridadYAccesoBtn7.setBorder(null);
+        SeguridadYAccesoBtn7.setBorderPainted(false);
+        SeguridadYAccesoBtn7.setContentAreaFilled(false);
+        SeguridadYAccesoBtn7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguridadYAccesoBtn7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguridadYAccesoBtn7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguridadYAccesoBtn7ActionPerformed(evt);
+            }
+        });
+
+        SeguridadYAccesoBtn9.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        SeguridadYAccesoBtn9.setForeground(new java.awt.Color(204, 204, 204));
+        SeguridadYAccesoBtn9.setText("Eventos");
+        SeguridadYAccesoBtn9.setToolTipText("");
+        SeguridadYAccesoBtn9.setBorder(null);
+        SeguridadYAccesoBtn9.setBorderPainted(false);
+        SeguridadYAccesoBtn9.setContentAreaFilled(false);
+        SeguridadYAccesoBtn9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguridadYAccesoBtn9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguridadYAccesoBtn9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguridadYAccesoBtn9ActionPerformed(evt);
+            }
+        });
+
+        SeguridadYAccesoBtn10.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        SeguridadYAccesoBtn10.setForeground(new java.awt.Color(204, 204, 204));
+        SeguridadYAccesoBtn10.setText("Multimedia");
+        SeguridadYAccesoBtn10.setToolTipText("");
+        SeguridadYAccesoBtn10.setBorder(null);
+        SeguridadYAccesoBtn10.setBorderPainted(false);
+        SeguridadYAccesoBtn10.setContentAreaFilled(false);
+        SeguridadYAccesoBtn10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguridadYAccesoBtn10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguridadYAccesoBtn10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguridadYAccesoBtn10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
+                .addComponent(SeguridadYAccesoBtn7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SeguridadYAccesoBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SeguridadYAccesoBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(SeguridadYAccesoBtn6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SeguridadYAccesoBtn7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SeguridadYAccesoBtn9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SeguridadYAccesoBtn10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SeguridadYAccesoBtn8, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(126, 126, 126)
@@ -903,29 +776,344 @@ public class Busqueda1 extends javax.swing.JFrame {
                     .addComponent(SeguridadYAccesoBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SeguridadYAccesoBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SeguridadYAccesoBtn6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SeguridadYAccesoBtn7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SeguridadYAccesoBtn8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SeguridadYAccesoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SeguridadYAccesoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SeguridadYAccesoBtn7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SeguridadYAccesoBtn9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SeguridadYAccesoBtn10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 490, 40));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 490, 40));
+
+        jPanel3.setBackground(new java.awt.Color(106, 30, 85));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        SeguridadYAccesoBtn3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        SeguridadYAccesoBtn3.setForeground(new java.awt.Color(204, 204, 204));
+        SeguridadYAccesoBtn3.setText("@Usuario");
+        SeguridadYAccesoBtn3.setToolTipText("");
+        SeguridadYAccesoBtn3.setBorder(null);
+        SeguridadYAccesoBtn3.setBorderPainted(false);
+        SeguridadYAccesoBtn3.setContentAreaFilled(false);
+        SeguridadYAccesoBtn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguridadYAccesoBtn3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguridadYAccesoBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguridadYAccesoBtn3ActionPerformed(evt);
+            }
+        });
+
+        jLabel37.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel37.setText("Usuario");
+
+        CuentaBtn10.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        CuentaBtn10.setForeground(new java.awt.Color(204, 204, 204));
+        CuentaBtn10.setText("Seguidores");
+        CuentaBtn10.setBorder(null);
+        CuentaBtn10.setBorderPainted(false);
+        CuentaBtn10.setContentAreaFilled(false);
+        CuentaBtn10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CuentaBtn10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CuentaBtn10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CuentaBtn10ActionPerformed(evt);
+            }
+        });
+
+        CuentaBtn11.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        CuentaBtn11.setForeground(new java.awt.Color(204, 204, 204));
+        CuentaBtn11.setText("0");
+        CuentaBtn11.setBorder(null);
+        CuentaBtn11.setBorderPainted(false);
+        CuentaBtn11.setContentAreaFilled(false);
+        CuentaBtn11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CuentaBtn11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CuentaBtn11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CuentaBtn11ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SeguridadYAccesoBtn3)
+                    .addComponent(jLabel37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                .addComponent(CuentaBtn11, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CuentaBtn10, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SeguridadYAccesoBtn3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CuentaBtn10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CuentaBtn11))
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 470, 70));
+
+        jPanel4.setBackground(new java.awt.Color(59, 28, 50));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        SeguridadYAccesoBtn11.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        SeguridadYAccesoBtn11.setForeground(new java.awt.Color(204, 204, 204));
+        SeguridadYAccesoBtn11.setText("@Usuario");
+        SeguridadYAccesoBtn11.setToolTipText("");
+        SeguridadYAccesoBtn11.setBorder(null);
+        SeguridadYAccesoBtn11.setBorderPainted(false);
+        SeguridadYAccesoBtn11.setContentAreaFilled(false);
+        SeguridadYAccesoBtn11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguridadYAccesoBtn11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguridadYAccesoBtn11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguridadYAccesoBtn11ActionPerformed(evt);
+            }
+        });
+
+        jLabel41.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel41.setText("Usuario");
+
+        CuentaBtn2.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        CuentaBtn2.setForeground(new java.awt.Color(204, 204, 204));
+        CuentaBtn2.setText("Seguidores");
+        CuentaBtn2.setBorder(null);
+        CuentaBtn2.setBorderPainted(false);
+        CuentaBtn2.setContentAreaFilled(false);
+        CuentaBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CuentaBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CuentaBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CuentaBtn2ActionPerformed(evt);
+            }
+        });
+
+        CuentaBtn5.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        CuentaBtn5.setForeground(new java.awt.Color(204, 204, 204));
+        CuentaBtn5.setText("0");
+        CuentaBtn5.setBorder(null);
+        CuentaBtn5.setBorderPainted(false);
+        CuentaBtn5.setContentAreaFilled(false);
+        CuentaBtn5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CuentaBtn5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CuentaBtn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CuentaBtn5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SeguridadYAccesoBtn11)
+                    .addComponent(jLabel41))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                .addComponent(CuentaBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CuentaBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SeguridadYAccesoBtn11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CuentaBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CuentaBtn5))
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 470, 70));
+
+        jPanel5.setBackground(new java.awt.Color(166, 77, 121));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        SeguridadYAccesoBtn12.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        SeguridadYAccesoBtn12.setForeground(new java.awt.Color(204, 204, 204));
+        SeguridadYAccesoBtn12.setText("@Usuario");
+        SeguridadYAccesoBtn12.setToolTipText("");
+        SeguridadYAccesoBtn12.setBorder(null);
+        SeguridadYAccesoBtn12.setBorderPainted(false);
+        SeguridadYAccesoBtn12.setContentAreaFilled(false);
+        SeguridadYAccesoBtn12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguridadYAccesoBtn12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguridadYAccesoBtn12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguridadYAccesoBtn12ActionPerformed(evt);
+            }
+        });
+
+        jLabel42.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel42.setText("Usuario");
+
+        CuentaBtn4.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        CuentaBtn4.setForeground(new java.awt.Color(204, 204, 204));
+        CuentaBtn4.setText("Seguidores");
+        CuentaBtn4.setBorder(null);
+        CuentaBtn4.setBorderPainted(false);
+        CuentaBtn4.setContentAreaFilled(false);
+        CuentaBtn4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CuentaBtn4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CuentaBtn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CuentaBtn4ActionPerformed(evt);
+            }
+        });
+
+        CuentaBtn12.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        CuentaBtn12.setForeground(new java.awt.Color(204, 204, 204));
+        CuentaBtn12.setText("0");
+        CuentaBtn12.setBorder(null);
+        CuentaBtn12.setBorderPainted(false);
+        CuentaBtn12.setContentAreaFilled(false);
+        CuentaBtn12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CuentaBtn12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CuentaBtn12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CuentaBtn12ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SeguridadYAccesoBtn12)
+                    .addComponent(jLabel42))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                .addComponent(CuentaBtn12, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CuentaBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SeguridadYAccesoBtn12)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CuentaBtn4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CuentaBtn12))
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, -1, -1));
+
+        PostearBtn1.setBackground(new java.awt.Color(166, 77, 121));
+        PostearBtn1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        PostearBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        PostearBtn1.setText(" Exponer");
+        PostearBtn1.setToolTipText("");
+        PostearBtn1.setAlignmentY(0.0F);
+        PostearBtn1.setBorderPainted(false);
+        PostearBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PostearBtn1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(PostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 920, 200, 40));
+
+        PostearBtn2.setBackground(new java.awt.Color(106, 30, 85));
+        PostearBtn2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        PostearBtn2.setForeground(new java.awt.Color(204, 204, 204));
+        PostearBtn2.setText(" Cumpleaños");
+        PostearBtn2.setToolTipText("");
+        PostearBtn2.setAlignmentY(0.0F);
+        PostearBtn2.setBorderPainted(false);
+        PostearBtn2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        PostearBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PostearBtn2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(PostearBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 660, 210, 50));
+
+        PostearBtn3.setBackground(new java.awt.Color(106, 30, 85));
+        PostearBtn3.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        PostearBtn3.setForeground(new java.awt.Color(204, 204, 204));
+        PostearBtn3.setText("Tus Yap's");
+        PostearBtn3.setToolTipText("");
+        PostearBtn3.setAlignmentY(0.0F);
+        PostearBtn3.setBorderPainted(false);
+        PostearBtn3.setHideActionText(true);
+        PostearBtn3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        PostearBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PostearBtn3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(PostearBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 590, 210, 50));
+
+        PostearBtn4.setBackground(new java.awt.Color(166, 77, 121));
+        PostearBtn4.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        PostearBtn4.setForeground(new java.awt.Color(204, 204, 204));
+        PostearBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Icon-Usuario.png"))); // NOI18N
+        PostearBtn4.setText("Amigos");
+        PostearBtn4.setToolTipText("");
+        PostearBtn4.setAlignmentY(0.0F);
+        PostearBtn4.setBorderPainted(false);
+        PostearBtn4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        PostearBtn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PostearBtn4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(PostearBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 590, 210, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1042, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -987,10 +1175,6 @@ public class Busqueda1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CuentaBtn1ActionPerformed
 
-    private void CuentaBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn4ActionPerformed
-
     private void CuentaBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CuentaBtn5ActionPerformed
@@ -1022,26 +1206,6 @@ public class Busqueda1 extends javax.swing.JFrame {
     private void SeguridadYAccesoBtn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtn8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SeguridadYAccesoBtn8ActionPerformed
-
-    private void CuentaBtn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn8ActionPerformed
-
-    private void CuentaBtn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn9ActionPerformed
-
-    private void CuentaBtn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn10ActionPerformed
-
-    private void CuentaBtn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn11ActionPerformed
-
-    private void CuentaBtn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn12ActionPerformed
 
     private void CuentaBtn13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn13ActionPerformed
         // TODO add your handling code here:
@@ -1079,17 +1243,9 @@ public class Busqueda1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CuentaBtn19ActionPerformed
 
-    private void CuentaBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn3ActionPerformed
-
     private void CuentaBtn20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn20ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CuentaBtn20ActionPerformed
-
-    private void CuentaBtn21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn21ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn21ActionPerformed
 
     private void CuentaBtn22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn22ActionPerformed
         // TODO add your handling code here:
@@ -1102,6 +1258,54 @@ public class Busqueda1 extends javax.swing.JFrame {
     private void CuentaBtn24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn24ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CuentaBtn24ActionPerformed
+
+    private void SeguridadYAccesoBtn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtn9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeguridadYAccesoBtn9ActionPerformed
+
+    private void SeguridadYAccesoBtn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtn10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeguridadYAccesoBtn10ActionPerformed
+
+    private void SeguridadYAccesoBtn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtn11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeguridadYAccesoBtn11ActionPerformed
+
+    private void SeguridadYAccesoBtn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtn12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SeguridadYAccesoBtn12ActionPerformed
+
+    private void CuentaBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CuentaBtn4ActionPerformed
+
+    private void CuentaBtn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CuentaBtn10ActionPerformed
+
+    private void CuentaBtn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CuentaBtn11ActionPerformed
+
+    private void CuentaBtn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CuentaBtn12ActionPerformed
+
+    private void PostearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostearBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostearBtn1ActionPerformed
+
+    private void PostearBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostearBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostearBtn2ActionPerformed
+
+    private void PostearBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostearBtn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostearBtn3ActionPerformed
+
+    private void PostearBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostearBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostearBtn4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1155,17 +1359,13 @@ public class Busqueda1 extends javax.swing.JFrame {
     private javax.swing.JButton CuentaBtn19;
     private javax.swing.JButton CuentaBtn2;
     private javax.swing.JButton CuentaBtn20;
-    private javax.swing.JButton CuentaBtn21;
     private javax.swing.JButton CuentaBtn22;
     private javax.swing.JButton CuentaBtn23;
     private javax.swing.JButton CuentaBtn24;
-    private javax.swing.JButton CuentaBtn3;
     private javax.swing.JButton CuentaBtn4;
     private javax.swing.JButton CuentaBtn5;
     private javax.swing.JButton CuentaBtn6;
     private javax.swing.JButton CuentaBtn7;
-    private javax.swing.JButton CuentaBtn8;
-    private javax.swing.JButton CuentaBtn9;
     private javax.swing.JButton ExplorarBtn;
     private javax.swing.JButton GuardadoBtn;
     private javax.swing.JLabel IdUsuario;
@@ -1180,13 +1380,21 @@ public class Busqueda1 extends javax.swing.JFrame {
     private javax.swing.JPanel PerfilPanel;
     private javax.swing.JLabel Perfil_Img;
     private javax.swing.JButton PostearBtn;
+    private javax.swing.JButton PostearBtn1;
+    private javax.swing.JButton PostearBtn2;
+    private javax.swing.JButton PostearBtn3;
+    private javax.swing.JButton PostearBtn4;
     private javax.swing.JButton SeguridadYAccesoBtn;
+    private javax.swing.JButton SeguridadYAccesoBtn10;
+    private javax.swing.JButton SeguridadYAccesoBtn11;
+    private javax.swing.JButton SeguridadYAccesoBtn12;
     private javax.swing.JButton SeguridadYAccesoBtn3;
     private javax.swing.JButton SeguridadYAccesoBtn4;
     private javax.swing.JButton SeguridadYAccesoBtn5;
     private javax.swing.JButton SeguridadYAccesoBtn6;
     private javax.swing.JButton SeguridadYAccesoBtn7;
     private javax.swing.JButton SeguridadYAccesoBtn8;
+    private javax.swing.JButton SeguridadYAccesoBtn9;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1199,8 +1407,13 @@ public class Busqueda1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
