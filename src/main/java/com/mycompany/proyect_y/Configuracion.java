@@ -699,7 +699,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         SilenciarYBloquearBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         SilenciarYBloquearBtn.setForeground(new java.awt.Color(204, 204, 204));
-        SilenciarYBloquearBtn.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Silenciar y bloquear</p>\n<br> <p style=\"font-size: 7 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\"> Administra las cuentas y notificaciones que has silenciado o bloqueado</p>\n </html>");
+        SilenciarYBloquearBtn.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\"> Silenciar y bloquear</p>\n<br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\"> Administra las cuentas y notificaciones que has silenciado o bloqueado</p>\n </html>");
         SilenciarYBloquearBtn.setBorderPainted(false);
         SilenciarYBloquearBtn.setContentAreaFilled(false);
         SilenciarYBloquearBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -710,7 +710,7 @@ public class Configuracion extends javax.swing.JFrame {
         });
         jPanel13.add(SilenciarYBloquearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 660, 60));
 
-        jLabel40.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel40.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(204, 204, 204));
         jLabel40.setText("Administra qué información ves y compartes en Y.");
         jLabel40.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -728,7 +728,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         TusPostBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         TusPostBtn.setForeground(new java.awt.Color(204, 204, 204));
-        TusPostBtn.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Tus publicaciones</p>\n<br> <p style=\"font-size: 7 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\"> Administra la información asociada a tus publicaciones</p>\n </html>");
+        TusPostBtn.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\"> Tus publicaciones</p>\n<br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\"> Administra la información asociada a tus publicaciones</p>\n </html>");
         TusPostBtn.setBorderPainted(false);
         TusPostBtn.setContentAreaFilled(false);
         TusPostBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -751,7 +751,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         ContenidoVesBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         ContenidoVesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ContenidoVesBtn.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Contenido que ves</p>\n<br> <p style=\"font-size: 7 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\"> Decide lo que ves en Y según tus preferencias, como temas e intereses.</p>\n </html>");
+        ContenidoVesBtn.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\"> Contenido que ves</p>\n<br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\"> Decide lo que ves en Y según tus preferencias, como temas e intereses.</p>\n </html>");
         ContenidoVesBtn.setBorderPainted(false);
         ContenidoVesBtn.setContentAreaFilled(false);
         ContenidoVesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -777,7 +777,7 @@ public class Configuracion extends javax.swing.JFrame {
         L_PS_Title1.setText("Notificaciones");
         jPanel16.add(L_PS_Title1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
 
-        jLabel46.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel46.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(204, 204, 204));
         jLabel46.setText("Selecciona los tipos de notificaciones que recibes sobre tus actividades, intereses y recomendaciones.");
         jLabel46.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -785,7 +785,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         TusPostBtn1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         TusPostBtn1.setForeground(new java.awt.Color(204, 204, 204));
-        TusPostBtn1.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\">Preferencias</p>\n<br> <p style=\"font-size: 7 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\">Seleccione sus preferencias por tipo de notificación.</p>\n </html>");
+        TusPostBtn1.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\">Preferencias</p>\n<br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\">Seleccione sus preferencias por tipo de notificación.</p>\n </html>");
         TusPostBtn1.setBorderPainted(false);
         TusPostBtn1.setContentAreaFilled(false);
         TusPostBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -808,7 +808,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         TusPostBtn2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         TusPostBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        TusPostBtn2.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Filtros</p>\n<br> <p style=\"font-size: 7 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\">Elige las notificaciones que deseas ver y las que no.</p>\n </html>");
+        TusPostBtn2.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\"> Filtros</p>\n<br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\">Elige las notificaciones que deseas ver y las que no.</p>\n </html>");
         TusPostBtn2.setBorderPainted(false);
         TusPostBtn2.setContentAreaFilled(false);
         TusPostBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -829,14 +829,15 @@ public class Configuracion extends javax.swing.JFrame {
         L_PS_Title2.setText("Tus publicaciones");
         jPanel17.add(L_PS_Title2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
 
-        jLabel48.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel48.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel48.setForeground(new java.awt.Color(204, 204, 204));
         jLabel48.setText("Administra la información asociada a tus publicaciones.");
         jLabel48.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jPanel17.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 510, 30));
 
         jCheckBox1.setForeground(new java.awt.Color(204, 204, 204));
-        jCheckBox1.setText("<html>         \n<p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\">Marca los medios que publicas como que tienen material que puede ser confidencial</p>\n<br> <p style=\"font-size: 7 px; padding: -1px -1px -1px 30px; color: rgba(255,255,255,0.5);\">Cuando esta opción está habilitada, las imágenes y los videos que publiques se marcarán \n<br>como confidenciales para las personas que no quieran ver contenido confidencial.</p>\n</html>");
+        jCheckBox1.setText("<html>         \n<p style=\"font-size: 11px; padding:  0px 0px 0px 30px;\">Marca los medios que publicas como que tienen material que puede ser confidencial</p>\n<br> <p style=\"font-size: 8px; padding: -1px -1px -1px 30px; color: rgba(255,255,255,0.5);\">Cuando esta opción está habilitada, las imágenes y los videos que publiques se marcarán \n<br>como confidenciales para las personas que no quieran ver contenido confidencial.</p>\n</html>");
+        jCheckBox1.setContentAreaFilled(false);
         jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
         jCheckBox1.setIconTextGap(70);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -844,11 +845,11 @@ public class Configuracion extends javax.swing.JFrame {
                 jCheckBox1ActionPerformed(evt);
             }
         });
-        jPanel17.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 620, -1));
+        jPanel17.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 620, -1));
 
         AnadeInfBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         AnadeInfBtn.setForeground(new java.awt.Color(204, 204, 204));
-        AnadeInfBtn.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Añade información de ubicación a tus publicaciones</p>\n\n </html>");
+        AnadeInfBtn.setText("Añade información de ubicación a tus publicaciones\n ");
         AnadeInfBtn.setBorderPainted(false);
         AnadeInfBtn.setContentAreaFilled(false);
         AnadeInfBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -857,12 +858,12 @@ public class Configuracion extends javax.swing.JFrame {
                 AnadeInfBtnActionPerformed(evt);
             }
         });
-        jPanel17.add(AnadeInfBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 650, 60));
+        jPanel17.add(AnadeInfBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 530, 60));
 
         jLabel49.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
         jLabel49.setForeground(new java.awt.Color(204, 204, 204));
         jLabel49.setText(">");
-        jPanel17.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 190, 50, 60));
+        jPanel17.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 190, 50, 60));
 
         JPanelGeneraPanel.addTab("Tus Posts", jPanel17);
 
@@ -874,7 +875,7 @@ public class Configuracion extends javax.swing.JFrame {
         L_PS_Title3.setText("Contenido que ves");
         jPanel18.add(L_PS_Title3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
 
-        jLabel50.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel50.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel50.setForeground(new java.awt.Color(204, 204, 204));
         jLabel50.setText("Decide lo que ves en Y según tus preferencias, como temas e intereses.");
         jLabel50.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -882,7 +883,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         TemasBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         TemasBtn.setForeground(new java.awt.Color(204, 204, 204));
-        TemasBtn.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Temas</p>\n\n </html>");
+        TemasBtn.setText("Temas");
         TemasBtn.setBorderPainted(false);
         TemasBtn.setContentAreaFilled(false);
         TemasBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -891,11 +892,11 @@ public class Configuracion extends javax.swing.JFrame {
                 TemasBtnActionPerformed(evt);
             }
         });
-        jPanel18.add(TemasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 570, 60));
+        jPanel18.add(TemasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 570, 60));
 
         InteresesBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         InteresesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        InteresesBtn.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Intereses</p>\n\n </html>");
+        InteresesBtn.setText("Intereses ");
         InteresesBtn.setBorderPainted(false);
         InteresesBtn.setContentAreaFilled(false);
         InteresesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -904,11 +905,11 @@ public class Configuracion extends javax.swing.JFrame {
                 InteresesBtnActionPerformed(evt);
             }
         });
-        jPanel18.add(InteresesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 600, 60));
+        jPanel18.add(InteresesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 600, 60));
 
         ExpoConfigBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         ExpoConfigBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ExpoConfigBtn.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Explorar configuraciones</p>\n\n </html>");
+        ExpoConfigBtn.setText("Explorar configuraciones ");
         ExpoConfigBtn.setBorderPainted(false);
         ExpoConfigBtn.setContentAreaFilled(false);
         ExpoConfigBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -917,11 +918,11 @@ public class Configuracion extends javax.swing.JFrame {
                 ExpoConfigBtnActionPerformed(evt);
             }
         });
-        jPanel18.add(ExpoConfigBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 600, 60));
+        jPanel18.add(ExpoConfigBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 600, 60));
 
         BusqConfigBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         BusqConfigBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusqConfigBtn.setText("<html><p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\"> Configuración de búsqueda</p>\n\n </html>");
+        BusqConfigBtn.setText("Configuración de búsqueda");
         BusqConfigBtn.setBorderPainted(false);
         BusqConfigBtn.setContentAreaFilled(false);
         BusqConfigBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -930,38 +931,41 @@ public class Configuracion extends javax.swing.JFrame {
                 BusqConfigBtnActionPerformed(evt);
             }
         });
-        jPanel18.add(BusqConfigBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 600, 60));
+        jPanel18.add(BusqConfigBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 600, 60));
 
         jLabel52.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
         jLabel52.setForeground(new java.awt.Color(204, 204, 204));
         jLabel52.setText(">");
-        jPanel18.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, 50, 60));
+        jPanel18.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 50, 60));
 
         jLabel53.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
         jLabel53.setForeground(new java.awt.Color(204, 204, 204));
         jLabel53.setText(">");
-        jPanel18.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 250, 50, 60));
+        jPanel18.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 50, 60));
 
         jLabel54.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
         jLabel54.setForeground(new java.awt.Color(204, 204, 204));
         jLabel54.setText(">");
-        jPanel18.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 50, 60));
+        jPanel18.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 50, 60));
 
         jLabel55.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
         jLabel55.setForeground(new java.awt.Color(204, 204, 204));
         jLabel55.setText(">");
-        jPanel18.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 50, 60));
+        jPanel18.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, 50, 60));
 
+        jCheckBox2.setBackground(new java.awt.Color(0, 0, 0));
+        jCheckBox2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jCheckBox2.setForeground(new java.awt.Color(204, 204, 204));
-        jCheckBox2.setText("<html>         \n<p style=\"font-size: 10px; padding:  0px 0px 0px 30px;\">Mostrar medios que puedan contener contenido sensible</p>\n<\n</html>");
+        jCheckBox2.setText("Mostrar medios que puedan contener contenido sensible");
+        jCheckBox2.setContentAreaFilled(false);
         jCheckBox2.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        jCheckBox2.setIconTextGap(150);
+        jCheckBox2.setIconTextGap(230);
         jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox2ActionPerformed(evt);
             }
         });
-        jPanel18.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 620, -1));
+        jPanel18.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 620, -1));
 
         JPanelGeneraPanel.addTab("Contenido que ves", jPanel18);
 
