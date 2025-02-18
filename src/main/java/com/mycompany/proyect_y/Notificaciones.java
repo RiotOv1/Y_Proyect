@@ -1118,11 +1118,11 @@ public class Notificaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_PerfilBtnActionPerformed
 
     private void CuentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtnActionPerformed
-        JPanelGeneraPanel.setSelectedIndex(0);
+        
     }//GEN-LAST:event_CuentaBtnActionPerformed
 
     private void SeguridadYAccesoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtnActionPerformed
-        JPanelGeneraPanel.setSelectedIndex(9);
+        
     }//GEN-LAST:event_SeguridadYAccesoBtnActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
