@@ -1144,11 +1144,11 @@ public class Busqueda1 extends javax.swing.JFrame {
     }//GEN-LAST:event_PostearBtnActionPerformed
 
     private void CuentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtnActionPerformed
-        JPanelGeneraPanel.setSelectedIndex(0);
+        
     }//GEN-LAST:event_CuentaBtnActionPerformed
 
     private void SeguridadYAccesoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtnActionPerformed
-        JPanelGeneraPanel.setSelectedIndex(9);
+
     }//GEN-LAST:event_SeguridadYAccesoBtnActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
@@ -1232,7 +1232,7 @@ public class Busqueda1 extends javax.swing.JFrame {
     }//GEN-LAST:event_CuentaBtn2ActionPerformed
 
     private void CuentaBtn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn6ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:coment
     }//GEN-LAST:event_CuentaBtn6ActionPerformed
 
     private void CuentaBtn18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn18ActionPerformed
