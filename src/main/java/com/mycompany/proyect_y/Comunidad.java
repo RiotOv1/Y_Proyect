@@ -1656,11 +1656,11 @@ public class Comunidad extends javax.swing.JFrame {
     }//GEN-LAST:event_PerfilBtnActionPerformed
 
     private void CuentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtnActionPerformed
-        JPanelGeneraPanel.setSelectedIndex(0);
+        
     }//GEN-LAST:event_CuentaBtnActionPerformed
 
     private void SeguridadYAccesoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtnActionPerformed
-        JPanelGeneraPanel.setSelectedIndex(9);
+        
     }//GEN-LAST:event_SeguridadYAccesoBtnActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
@@ -1684,7 +1684,7 @@ public class Comunidad extends javax.swing.JFrame {
     }//GEN-LAST:event_PerfilBtn4ActionPerformed
 
     private void CuentaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn1ActionPerformed
-S        // TODO add your handling code here:
+     // TODO add your handling code here:
     }//GEN-LAST:event_CuentaBtn1ActionPerformed
 
     private void CuentaBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn5ActionPerformed
@@ -1931,7 +1931,7 @@ S        // TODO add your handling code here:
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
+        //</editor-fold>comenttt
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
