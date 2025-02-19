@@ -781,18 +781,16 @@ public class Notificaciones extends javax.swing.JFrame {
         PostearBtn4.setBackground(new java.awt.Color(166, 77, 121));
         PostearBtn4.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         PostearBtn4.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Icon-Notificaciones.png"))); // NOI18N
         PostearBtn4.setToolTipText("");
         PostearBtn4.setAlignmentY(0.0F);
         PostearBtn4.setBorderPainted(false);
         PostearBtn4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        PostearBtn4.setLabel("");
         PostearBtn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PostearBtn4ActionPerformed(evt);
             }
         });
-        jPanel1.add(PostearBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+        jPanel1.add(PostearBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 40, 40));
 
         jLabel41.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(204, 204, 204));
