@@ -1086,7 +1086,6 @@ public class Busqueda1 extends javax.swing.JFrame {
         PostearBtn4.setBackground(new java.awt.Color(166, 77, 121));
         PostearBtn4.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         PostearBtn4.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Icon-Usuario.png"))); // NOI18N
         PostearBtn4.setText("Amigos");
         PostearBtn4.setToolTipText("");
         PostearBtn4.setAlignmentY(0.0F);
