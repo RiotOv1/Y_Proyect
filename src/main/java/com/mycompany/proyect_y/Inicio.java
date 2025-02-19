@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.proyect_y;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -15,6 +17,12 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        
+        String url="src/main/java/Multimedia/YSinFondo.png";
+        ImageIcon image = new ImageIcon(url);
+        Image img = image.getImage().getScaledInstance(550,550, Image.SCALE_DEFAULT );
+        ImageIcon icono = new ImageIcon(img);
+        L_in.setIcon(icono);
     }
 
     /**
@@ -39,6 +47,24 @@ public class Inicio extends javax.swing.JFrame {
         B_RegisG = new javax.swing.JButton();
         L_YaCuenta = new javax.swing.JLabel();
         B_IniciaS = new javax.swing.JButton();
+        L_in = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -118,59 +144,173 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        L_in.setText("jLabel1");
+
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("Sobre");
+
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setText("Descarga la aplicación de Y");
+
+        jLabel3.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel3.setText("Ayuda");
+
+        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel4.setText("Terminos de Servicio");
+
+        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel5.setText("Política de Privacidad");
+
+        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel6.setText("© 2025 Y Corp.");
+
+        jLabel7.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel7.setText("Accesibilidad");
+
+        jLabel8.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel8.setText("Blogs");
+
+        jLabel9.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel9.setText("Informacion sobre los anuncios");
+
+        jLabel10.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel10.setText("Marketing");
+
+        jLabel11.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel11.setText("Carreras");
+
+        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel12.setText("Ajustes");
+
+        jLabel13.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel13.setText("Y para negocios");
+
+        jLabel14.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel14.setText("Anunciate");
+
+        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel15.setText("Desarrolladores");
+
+        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel16.setText("Directorio");
+
+        jLabel17.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel17.setText("Política de Cookies");
+
         javax.swing.GroupLayout BGLayout = new javax.swing.GroupLayout(BG);
         BG.setLayout(BGLayout);
         BGLayout.setHorizontalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addGap(776, 776, 776)
                 .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(B_IniciaS, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(L_YaCuenta)
-                    .addComponent(B_RegisG, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(L_PrivCookies, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(B_CreaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(L_UneteHoy)
-                    .addComponent(B_RegisApp, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(BGLayout.createSequentialGroup()
-                        .addComponent(SeparadorIzq, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LabelOR, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SeparadorDer, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(415, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGLayout.createSequentialGroup()
-                .addContainerGap(764, Short.MAX_VALUE)
-                .addComponent(L_LoQuePAsa, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
+                        .addGap(165, 165, 165)
+                        .addComponent(L_in, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(150, 150, 150)
+                        .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(L_LoQuePAsa, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(B_IniciaS, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(L_YaCuenta)
+                            .addComponent(B_RegisG, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(L_PrivCookies, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(B_CreaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(L_UneteHoy)
+                            .addComponent(B_RegisApp, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(BGLayout.createSequentialGroup()
+                                .addComponent(SeparadorIzq, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LabelOR, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(SeparadorDer, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(BGLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel14)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel15)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel16)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12))
+                    .addGroup(BGLayout.createSequentialGroup()
+                        .addGap(715, 715, 715)
+                        .addComponent(jLabel6)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         BGLayout.setVerticalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(L_LoQuePAsa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
+                .addComponent(L_LoQuePAsa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(L_UneteHoy)
-                .addGap(29, 29, 29)
+                .addGap(26, 26, 26)
                 .addComponent(B_RegisG, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(BGLayout.createSequentialGroup()
                         .addComponent(B_RegisApp, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(30, 30, 30)
                         .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(SeparadorIzq, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(SeparadorDer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(LabelOR, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(B_CreaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(L_PrivCookies, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(L_YaCuenta)
                 .addGap(18, 18, 18)
                 .addComponent(B_IniciaS, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
+            .addGroup(BGLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(L_in, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addGroup(BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addGap(9, 9, 9))
         );
 
         B_RegisApp.getAccessibleContext().setAccessibleName("InicioS");
@@ -180,37 +320,31 @@ public class Inicio extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, 1521, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(BG, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void B_RegisAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_RegisAppActionPerformed
+    private void B_IniciaSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciaSActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_B_RegisAppActionPerformed
-
-    private void B_CreaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_CreaCuentaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B_CreaCuentaActionPerformed
+    }//GEN-LAST:event_B_IniciaSActionPerformed
 
     private void B_RegisGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_RegisGActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_B_RegisGActionPerformed
 
-    private void B_IniciaSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciaSActionPerformed
+    private void B_CreaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_CreaCuentaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_B_IniciaSActionPerformed
+    }//GEN-LAST:event_B_CreaCuentaActionPerformed
+
+    private void B_RegisAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_RegisAppActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_B_RegisAppActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,9 +392,27 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel L_PrivCookies;
     private javax.swing.JLabel L_UneteHoy;
     private javax.swing.JLabel L_YaCuenta;
+    private javax.swing.JLabel L_in;
     private javax.swing.JLabel LabelOR;
     private javax.swing.JSeparator SeparadorDer;
     private javax.swing.JSeparator SeparadorIzq;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }
