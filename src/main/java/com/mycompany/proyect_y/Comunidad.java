@@ -100,7 +100,6 @@ public class Comunidad extends javax.swing.JFrame {
         CuentaBtn25 = new javax.swing.JButton();
         jLabel41 = new javax.swing.JLabel();
         SeguridadYAccesoBtn11 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         CuentaBtn3 = new javax.swing.JButton();
         CuentaBtn8 = new javax.swing.JButton();
@@ -828,7 +827,6 @@ public class Comunidad extends javax.swing.JFrame {
         PostearBtn4.setBackground(new java.awt.Color(166, 77, 121));
         PostearBtn4.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         PostearBtn4.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Icon-Comunidades.png"))); // NOI18N
         PostearBtn4.setToolTipText("");
         PostearBtn4.setAlignmentY(0.0F);
         PostearBtn4.setBorderPainted(false);
@@ -931,7 +929,6 @@ public class Comunidad extends javax.swing.JFrame {
         PostearBtn5.setBackground(new java.awt.Color(166, 77, 121));
         PostearBtn5.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         PostearBtn5.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Icon-Comunidades.png"))); // NOI18N
         PostearBtn5.setToolTipText("");
         PostearBtn5.setAlignmentY(0.0F);
         PostearBtn5.setBorderPainted(false);
@@ -1078,7 +1075,7 @@ public class Comunidad extends javax.swing.JFrame {
                         .addGap(36, 36, 36))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(PostearBtn5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1116,10 +1113,6 @@ public class Comunidad extends javax.swing.JFrame {
             }
         });
         jPanel1.add(SeguridadYAccesoBtn11, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, -1, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Icon-Atras.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 40, 30));
 
         jLabel43.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(204, 204, 204));
@@ -1229,7 +1222,6 @@ public class Comunidad extends javax.swing.JFrame {
         PostearBtn6.setBackground(new java.awt.Color(166, 77, 121));
         PostearBtn6.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         PostearBtn6.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Icon-Comunidades.png"))); // NOI18N
         PostearBtn6.setToolTipText("");
         PostearBtn6.setAlignmentY(0.0F);
         PostearBtn6.setBorderPainted(false);
@@ -1448,7 +1440,6 @@ public class Comunidad extends javax.swing.JFrame {
         PostearBtn7.setBackground(new java.awt.Color(166, 77, 121));
         PostearBtn7.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         PostearBtn7.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/Icon-Comunidades.png"))); // NOI18N
         PostearBtn7.setToolTipText("");
         PostearBtn7.setAlignmentY(0.0F);
         PostearBtn7.setBorderPainted(false);
@@ -2021,7 +2012,6 @@ public class Comunidad extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
