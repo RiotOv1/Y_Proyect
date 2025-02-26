@@ -82,7 +82,7 @@ public class Inicio extends javax.swing.JFrame {
         L_LoQuePAsa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         L_LoQuePAsa.setText("<html>Lo que está pasando ahora <html> ");
 
-        B_RegisApp.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_RegisApp.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         B_RegisApp.setLabel("Registrarse con Apple");
         B_RegisApp.setPreferredSize(new java.awt.Dimension(90, 25));
         B_RegisApp.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +92,7 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         B_CreaCuenta.setBackground(new java.awt.Color(166, 77, 121));
-        B_CreaCuenta.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_CreaCuenta.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         B_CreaCuenta.setForeground(new java.awt.Color(255, 255, 255));
         B_CreaCuenta.setActionCommand("Crea una Cuenta");
         B_CreaCuenta.setLabel("Crea una cuenta");
@@ -117,7 +117,7 @@ public class Inicio extends javax.swing.JFrame {
         L_PrivCookies.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         L_PrivCookies.setText("<html>Al registrarte, aceptas los Términos de servicio y la Política de privacidad, incluida la política de Uso de Cookies. <html>");
 
-        B_RegisG.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_RegisG.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         B_RegisG.setLabel("Registrarse con Google");
         B_RegisG.setPreferredSize(new java.awt.Dimension(90, 25));
         B_RegisG.addActionListener(new java.awt.event.ActionListener() {
@@ -131,7 +131,7 @@ public class Inicio extends javax.swing.JFrame {
         L_YaCuenta.setText("Ya tienes una cuenta?");
 
         B_IniciaS.setBackground(new java.awt.Color(26, 26, 29));
-        B_IniciaS.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_IniciaS.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         B_IniciaS.setForeground(new java.awt.Color(166, 77, 121));
         B_IniciaS.setActionCommand("Crea una Cuenta");
         B_IniciaS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(166, 77, 121)));
@@ -320,7 +320,7 @@ public class Inicio extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BG, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, 1550, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
