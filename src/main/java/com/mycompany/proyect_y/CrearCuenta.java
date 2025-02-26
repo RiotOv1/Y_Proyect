@@ -64,25 +64,25 @@ public class CrearCuenta extends javax.swing.JFrame {
         TP_ReaContra.setBackground(new java.awt.Color(26, 26, 29));
         TP_ReaContra.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         TP_ReaContra.setContentType("email"); // NOI18N
-        TP_ReaContra.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        TP_ReaContra.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         TP_ReaContra.setForeground(new java.awt.Color(166, 77, 121));
         TP_ReaContra.setText(" ");
         TP_ReaContra.setToolTipText("");
         TP_ReaContra.setName("Télefono"); // NOI18N
         jScrollPane1.setViewportView(TP_ReaContra);
 
-        L_Telefono.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        L_Telefono.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         L_Telefono.setForeground(new java.awt.Color(255, 255, 255));
         L_Telefono.setText("Télefono, correo o nombre de usuario");
 
-        L_Contra.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        L_Contra.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         L_Contra.setForeground(new java.awt.Color(255, 255, 255));
         L_Contra.setText("Contraseña");
 
         TP_Correo.setBackground(new java.awt.Color(26, 26, 29));
         TP_Correo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         TP_Correo.setContentType("email"); // NOI18N
-        TP_Correo.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        TP_Correo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         TP_Correo.setForeground(new java.awt.Color(166, 77, 121));
         TP_Correo.setToolTipText("");
         TP_Correo.setName("Télefono"); // NOI18N
@@ -91,24 +91,24 @@ public class CrearCuenta extends javax.swing.JFrame {
         TP_Nombre.setBackground(new java.awt.Color(26, 26, 29));
         TP_Nombre.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         TP_Nombre.setContentType("email"); // NOI18N
-        TP_Nombre.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        TP_Nombre.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         TP_Nombre.setForeground(new java.awt.Color(166, 77, 121));
         TP_Nombre.setToolTipText("");
         TP_Nombre.setName("Nombre"); // NOI18N
         jScrollPane3.setViewportView(TP_Nombre);
 
-        L_Nombre.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        L_Nombre.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         L_Nombre.setForeground(new java.awt.Color(255, 255, 255));
         L_Nombre.setText("Nombre");
 
-        L_ReaContra.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        L_ReaContra.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         L_ReaContra.setForeground(new java.awt.Color(255, 255, 255));
         L_ReaContra.setText("Confirmar contraseña");
 
         TP_Contra.setBackground(new java.awt.Color(26, 26, 29));
         TP_Contra.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         TP_Contra.setContentType("email"); // NOI18N
-        TP_Contra.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        TP_Contra.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         TP_Contra.setForeground(new java.awt.Color(166, 77, 121));
         TP_Contra.setText(" ");
         TP_Contra.setToolTipText("");
@@ -116,7 +116,7 @@ public class CrearCuenta extends javax.swing.JFrame {
         jScrollPane4.setViewportView(TP_Contra);
 
         Siguiente.setBackground(new java.awt.Color(166, 77, 121));
-        Siguiente.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        Siguiente.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         Siguiente.setForeground(new java.awt.Color(255, 255, 255));
         Siguiente.setActionCommand("Siguiente");
         Siguiente.setLabel("Siguiente");
@@ -127,13 +127,13 @@ public class CrearCuenta extends javax.swing.JFrame {
             }
         });
 
-        CB_Mes.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        CB_Mes.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         CB_Mes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Noviembre", "Diciembre" }));
 
-        CB_Dia.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        CB_Dia.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         CB_Dia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
-        CB_Anio.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        CB_Anio.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         CB_Anio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913", "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905" }));
 
         javax.swing.GroupLayout PanelFlotanteLayout = new javax.swing.GroupLayout(PanelFlotante);
@@ -203,16 +203,16 @@ public class CrearCuenta extends javax.swing.JFrame {
         BGLayout.setHorizontalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addGap(465, 465, 465)
+                .addGap(464, 464, 464)
                 .addComponent(PanelFlotante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(468, Short.MAX_VALUE))
+                .addContainerGap(469, Short.MAX_VALUE))
         );
         BGLayout.setVerticalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(PanelFlotante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         PanelFlotante.getAccessibleContext().setAccessibleName("PanelFlot");
@@ -221,7 +221,7 @@ public class CrearCuenta extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
