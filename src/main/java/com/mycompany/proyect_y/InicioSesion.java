@@ -60,7 +60,7 @@ public class InicioSesion extends javax.swing.JFrame {
         L_Inicia.setForeground(new java.awt.Color(255, 255, 255));
         L_Inicia.setText("Inicia Sesión en Y");
 
-        B_IniciaSApp.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_IniciaSApp.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         B_IniciaSApp.setActionCommand("InicioSesionApple");
         B_IniciaSApp.setLabel("Inicia Sesión con Apple");
         B_IniciaSApp.setPreferredSize(new java.awt.Dimension(90, 25));
@@ -71,7 +71,7 @@ public class InicioSesion extends javax.swing.JFrame {
         });
 
         B_Registrate.setBackground(new java.awt.Color(26, 26, 29));
-        B_Registrate.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_Registrate.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         B_Registrate.setForeground(new java.awt.Color(166, 77, 121));
         B_Registrate.setActionCommand("Crea una Cuenta");
         B_Registrate.setBorder(null);
@@ -87,7 +87,7 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
 
-        L_YaCuenta.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        L_YaCuenta.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         L_YaCuenta.setForeground(new java.awt.Color(255, 255, 255));
         L_YaCuenta.setText("Aún no tienes una cuenta?");
 
@@ -96,7 +96,7 @@ public class InicioSesion extends javax.swing.JFrame {
         LabelOR.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabelOR.setText("o");
 
-        B_RegisG.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_RegisG.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         B_RegisG.setActionCommand("IniciaSG");
         B_RegisG.setLabel("Inicia Sesión con Google");
         B_RegisG.setPreferredSize(new java.awt.Dimension(90, 25));
@@ -107,7 +107,7 @@ public class InicioSesion extends javax.swing.JFrame {
         });
 
         B_Olvidar.setBackground(new java.awt.Color(26, 26, 29));
-        B_Olvidar.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_Olvidar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         B_Olvidar.setForeground(new java.awt.Color(255, 255, 255));
         B_Olvidar.setActionCommand("OlvContra");
         B_Olvidar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(166, 77, 121)));
@@ -120,7 +120,7 @@ public class InicioSesion extends javax.swing.JFrame {
         });
 
         B_Siguiente.setBackground(new java.awt.Color(166, 77, 121));
-        B_Siguiente.setFont(new java.awt.Font("Sans Serif Collection", 1, 14)); // NOI18N
+        B_Siguiente.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         B_Siguiente.setForeground(new java.awt.Color(255, 255, 255));
         B_Siguiente.setActionCommand("Siguiente");
         B_Siguiente.setLabel("Siguiente");
@@ -134,25 +134,25 @@ public class InicioSesion extends javax.swing.JFrame {
         TP_Contra.setBackground(new java.awt.Color(26, 26, 29));
         TP_Contra.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         TP_Contra.setContentType("email"); // NOI18N
-        TP_Contra.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        TP_Contra.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         TP_Contra.setForeground(new java.awt.Color(166, 77, 121));
         TP_Contra.setText(" ");
         TP_Contra.setToolTipText("");
         TP_Contra.setName("Télefono"); // NOI18N
         jScrollPane1.setViewportView(TP_Contra);
 
-        L_Correo.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        L_Correo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         L_Correo.setForeground(new java.awt.Color(255, 255, 255));
         L_Correo.setText("Télefono, correo o nombre de usuario");
 
-        L_Contra.setFont(new java.awt.Font("Sans Serif Collection", 0, 14)); // NOI18N
+        L_Contra.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         L_Contra.setForeground(new java.awt.Color(255, 255, 255));
         L_Contra.setText("Contraseña");
 
         TP_Correo.setBackground(new java.awt.Color(26, 26, 29));
         TP_Correo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         TP_Correo.setContentType("email"); // NOI18N
-        TP_Correo.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        TP_Correo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         TP_Correo.setForeground(new java.awt.Color(166, 77, 121));
         TP_Correo.setToolTipText("");
         TP_Correo.setName("Télefono"); // NOI18N
@@ -172,9 +172,10 @@ public class InicioSesion extends javax.swing.JFrame {
                     .addGroup(PanelFLotanteLayout.createSequentialGroup()
                         .addGroup(PanelFLotanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelFLotanteLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
                                 .addComponent(L_YaCuenta)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(B_Registrate, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(B_Registrate, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(B_IniciaSApp, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(B_RegisG, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(139, Short.MAX_VALUE))
@@ -235,16 +236,16 @@ public class InicioSesion extends javax.swing.JFrame {
         BGLayout.setHorizontalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addGap(479, 479, 479)
+                .addGap(466, 466, 466)
                 .addComponent(PanelFLotante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(503, Short.MAX_VALUE))
+                .addContainerGap(479, Short.MAX_VALUE))
         );
         BGLayout.setVerticalGroup(
             BGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BGLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(88, 88, 88)
                 .addComponent(PanelFLotante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         PanelFLotante.getAccessibleContext().setAccessibleName("PanelFlot");
@@ -253,11 +254,11 @@ public class InicioSesion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(BG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
