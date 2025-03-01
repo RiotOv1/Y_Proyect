@@ -105,7 +105,7 @@ public class Configuracion extends javax.swing.JFrame {
         //IconoAtrasBtn
         String url8 = "src\\main\\java\\Multimedia\\Icon-Atras.png";
         ImageIcon image8 = new ImageIcon(url8);
-        Image img8 = image8.getImage().getScaledInstance(50, 50, 0);
+        Image img8 = image8.getImage().getScaledInstance(30, 30, 0);
         ImageIcon Icono8 = new ImageIcon(img8);
         AtrasBtn.setIcon(Icono8);
         AtrasBtn1.setIcon(Icono8);
@@ -375,12 +375,13 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
         UsuarioLabel2 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
         UsuarioLabel4 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         UsuarioLabel3 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
+        Sig8 = new javax.swing.JLabel();
+        Sig9 = new javax.swing.JLabel();
+        Sig10 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         L_PS_Title = new javax.swing.JLabel();
         SilenciarYBloquearBtn = new javax.swing.JButton();
@@ -721,7 +722,7 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("Informacion Cuenta");
-        InfCuenta.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, 40));
+        InfCuenta.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, 40));
 
         AtrasBtn.setBackground(new java.awt.Color(204, 204, 204));
         AtrasBtn.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
@@ -733,7 +734,7 @@ public class Configuracion extends javax.swing.JFrame {
                 AtrasBtnActionPerformed(evt);
             }
         });
-        InfCuenta.add(AtrasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 23, 90, 30));
+        InfCuenta.add(AtrasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, 40));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -785,7 +786,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         jPanel2.add(EditarPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 250, 40));
 
-        InfCuenta.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 610, 60));
+        InfCuenta.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 610, 60));
 
         jPanel6.setBackground(new java.awt.Color(102, 102, 102));
         jPanel6.setOpaque(false);
@@ -836,7 +837,7 @@ public class Configuracion extends javax.swing.JFrame {
         CorreoLabel.setForeground(new java.awt.Color(204, 204, 204));
         jPanel6.add(CorreoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 130, 20));
 
-        InfCuenta.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 610, 60));
+        InfCuenta.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 610, 60));
 
         jPanel5.setBackground(new java.awt.Color(102, 102, 102));
         jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -901,7 +902,7 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel5.add(EditarPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 310, 40));
         jPanel5.add(BanderaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 30, 20));
 
-        InfCuenta.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 610, 60));
+        InfCuenta.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 610, 60));
         InfCuenta.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 640, 10));
 
         jPanel3.setOpaque(false);
@@ -917,7 +918,7 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel19.setText("Creacion de la Cuenta");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        InfCuenta.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 650, 70));
+        InfCuenta.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 650, 70));
         InfCuenta.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 640, -1));
 
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
@@ -944,7 +945,7 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel13.setText("Perfil");
         jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, -1, -1));
 
-        InfCuenta.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 610, 60));
+        InfCuenta.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 610, 60));
 
         jPanel8.setBackground(new java.awt.Color(51, 51, 51));
         jPanel8.setOpaque(false);
@@ -969,7 +970,7 @@ public class Configuracion extends javax.swing.JFrame {
         });
         jPanel8.add(Editar6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 50, 60));
 
-        InfCuenta.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 610, 60));
+        InfCuenta.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 610, 60));
 
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
         jPanel4.setOpaque(false);
@@ -1019,7 +1020,7 @@ public class Configuracion extends javax.swing.JFrame {
         BanderaLabel1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jPanel4.add(BanderaLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 30, 20));
 
-        InfCuenta.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 610, 60));
+        InfCuenta.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 610, 60));
         InfCuenta.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 640, 10));
 
         jPanel9.setBackground(new java.awt.Color(51, 51, 51));
@@ -1083,7 +1084,7 @@ public class Configuracion extends javax.swing.JFrame {
         GeneroLabel.setText("Indefinido");
         jPanel9.add(GeneroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 20));
 
-        InfCuenta.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 610, 60));
+        InfCuenta.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 610, 60));
 
         JPanelGeneraPanel.addTab("InfCuenta", InfCuenta);
 
@@ -1102,12 +1103,12 @@ public class Configuracion extends javax.swing.JFrame {
                 AtrasBtn2ActionPerformed(evt);
             }
         });
-        jPanel23.add(AtrasBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 50, 30));
+        jPanel23.add(AtrasBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, 40));
 
         jLabel94.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel94.setForeground(new java.awt.Color(204, 204, 204));
         jLabel94.setText("Actualizar Contaseña");
-        jPanel23.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, 40));
+        jPanel23.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, 40));
 
         jPanel24.setOpaque(false);
         jPanel24.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1221,7 +1222,7 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel11.setBackground(new java.awt.Color(0, 0, 0));
         jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel15.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(204, 204, 204));
         jLabel15.setText("Que mas debes saber");
         jPanel11.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, 40));
@@ -1236,24 +1237,24 @@ public class Configuracion extends javax.swing.JFrame {
                 AtrasBtn1ActionPerformed(evt);
             }
         });
-        jPanel11.add(AtrasBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 60, 30));
+        jPanel11.add(AtrasBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 50, 40));
         jPanel11.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 53, 640, 10));
 
         jPanel10.setOpaque(false);
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel10.add(FotoPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 60));
 
-        NombreUsuario1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        NombreUsuario1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         NombreUsuario1.setForeground(new java.awt.Color(204, 204, 204));
         NombreUsuario1.setText("Usuario Ejemplo");
         jPanel10.add(NombreUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        IdUsuario1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        IdUsuario1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         IdUsuario1.setForeground(new java.awt.Color(106, 30, 85));
         IdUsuario1.setText("@Usuario1");
         jPanel10.add(IdUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
 
-        jPanel11.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 660, 60));
+        jPanel11.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 630, 60));
         jPanel11.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 640, 10));
 
         jLabel16.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -1269,9 +1270,9 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(204, 204, 204));
         jLabel24.setText("Desactivar Cuenta");
-        jPanel11.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, 40));
+        jPanel11.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, 40));
 
-        jLabel27.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(204, 204, 204));
         jLabel27.setText(" Esta acción desactivará tu cuenta");
         jPanel11.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 40));
@@ -1343,11 +1344,6 @@ public class Configuracion extends javax.swing.JFrame {
         UsuarioLabel2.setText("cuenta y las aplicaciones que conectaste con ella.");
         jPanel14.add(UsuarioLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
-        jLabel34.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel34.setText(">");
-        jPanel14.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, -1, 50, 60));
-
         UsuarioLabel4.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         UsuarioLabel4.setForeground(new java.awt.Color(204, 204, 204));
         UsuarioLabel4.setText("Consulta la informacion sobre cuando iniciaste sesion en tu ");
@@ -1370,12 +1366,25 @@ public class Configuracion extends javax.swing.JFrame {
         UsuarioLabel3.setText("Administra la seguridad de tu cuenta");
         jPanel15.add(UsuarioLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
 
-        jLabel36.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel36.setText(">");
-        jPanel15.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, -1, 50, 60));
-
         SeguridadPanel.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 570, 60));
+
+        Sig8.setBackground(new java.awt.Color(255, 255, 0));
+        Sig8.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
+        Sig8.setOpaque(true);
+        SeguridadPanel.add(Sig8, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 50, 60));
+
+        Sig9.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
+        Sig9.setForeground(new java.awt.Color(204, 204, 204));
+        Sig9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Sig9MouseClicked(evt);
+            }
+        });
+        SeguridadPanel.add(Sig9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 50, 60));
+
+        Sig10.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
+        Sig10.setForeground(new java.awt.Color(204, 204, 204));
+        SeguridadPanel.add(Sig10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 50, 60));
 
         JPanelGeneraPanel.addTab("Seguridad", SeguridadPanel);
 
@@ -1840,7 +1849,7 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_NotiFicacionesBtnActionPerformed
 
     private void SeguridadYAccesoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtnActionPerformed
-        // TODO add your handling code here:
+        JPanelGeneraPanel.setSelectedIndex(4);
     }//GEN-LAST:event_SeguridadYAccesoBtnActionPerformed
 
     private void PrivacidadYSeguridadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrivacidadYSeguridadBtnActionPerformed
@@ -2304,6 +2313,10 @@ public class Configuracion extends javax.swing.JFrame {
         DesactivarBtn.setContentAreaFilled(false);
     }//GEN-LAST:event_DesactivarBtnMouseExited
 
+    private void Sig9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sig9MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Sig9MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2420,12 +2433,15 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPanel SeguridadPanel;
     private javax.swing.JButton SeguridadYAccesoBtn;
     private javax.swing.JLabel Sig1;
+    private javax.swing.JLabel Sig10;
     private javax.swing.JLabel Sig2;
     private javax.swing.JLabel Sig3;
     private javax.swing.JLabel Sig4;
     private javax.swing.JLabel Sig5;
     private javax.swing.JLabel Sig6;
     private javax.swing.JLabel Sig7;
+    private javax.swing.JLabel Sig8;
+    private javax.swing.JLabel Sig9;
     private javax.swing.JButton SilenciarYBloquearBtn;
     private javax.swing.JLabel SubDesc;
     private javax.swing.JLabel SubLlave;
@@ -2474,9 +2490,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
