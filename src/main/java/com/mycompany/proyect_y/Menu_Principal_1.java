@@ -916,7 +916,7 @@ public class Menu_Principal_1 extends javax.swing.JFrame {
     }//GEN-LAST:event_PostearBtnActionPerformed
 
     private void CuentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtnActionPerformed
-        JPanelGeneraPanel.setSelectedIndex(0);
+       
     }//GEN-LAST:event_CuentaBtnActionPerformed
 
     private void PerfilBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtn1ActionPerformed

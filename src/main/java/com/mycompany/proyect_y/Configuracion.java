@@ -29,8 +29,12 @@ public class Configuracion extends javax.swing.JFrame {
         BuscarBtn.setVisible(false);
         CambioContraseña.setVisible(false);
         ContraseñaActualizada.setVisible(false);
+        DefinirGenero.setVisible(false);
         EditarPanel1.setVisible(false);
         EditarPanel2.setVisible(false);
+        EditarPanel3.setVisible(false);
+        EditarPanel4.setVisible(false);
+        EditarPanel5.setVisible(false);
     }
 
     public void Img() {
@@ -46,6 +50,7 @@ public class Configuracion extends javax.swing.JFrame {
         ImageIcon Icono = new ImageIcon(img);
         //Ponemos la imagen la etiqueta que querramos
         Perfil_Img.setIcon(Icono);
+        FotoPerfil.setIcon(Icono);
 
         //IconoInicio
         String url1 = "src\\main\\java\\Multimedia\\Icon-Inicio.png";
@@ -103,6 +108,7 @@ public class Configuracion extends javax.swing.JFrame {
         Image img8 = image8.getImage().getScaledInstance(50, 50, 0);
         ImageIcon Icono8 = new ImageIcon(img8);
         AtrasBtn.setIcon(Icono8);
+        AtrasBtn1.setIcon(Icono8);
         AtrasBtn2.setIcon(Icono8);
 
         //Icono SubMenu Usuario
@@ -167,6 +173,10 @@ public class Configuracion extends javax.swing.JFrame {
         ImageIcon Icono16 = new ImageIcon(img16);
         Editar1.setIcon(Icono16);
         Editar2.setIcon(Icono16);
+        Editar3.setIcon(Icono16);
+        Editar4.setIcon(Icono16);
+        Editar5.setIcon(Icono16);
+        Editar6.setIcon(Icono16);
 
         //Icono Guardar
         String urlSalvar = "src\\main\\java\\Multimedia\\Icono_Guardar.png";
@@ -175,7 +185,10 @@ public class Configuracion extends javax.swing.JFrame {
         ImageIcon Icono17 = new ImageIcon(img17);
         Save_Icono1.setIcon(Icono17);
         Save_Icono2.setIcon(Icono17);
-
+        Save_Icono3.setIcon(Icono17);
+        Save_Icono4.setIcon(Icono17);
+        Save_Icono5.setIcon(Icono17);
+       
     }
 
     //Metodo para controlar que la contraseña sea igual a la de la base de datos.
@@ -276,9 +289,12 @@ public class Configuracion extends javax.swing.JFrame {
         NombreUsuarioEditar = new javax.swing.JTextField();
         Save_Icono1 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        CorreoBtn = new javax.swing.JButton();
+        Editar3 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        EditarPanel3 = new javax.swing.JPanel();
+        CorreoEditar = new javax.swing.JTextField();
+        Save_Icono3 = new javax.swing.JButton();
+        CorreoLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         TelefonoLabel = new javax.swing.JLabel();
@@ -287,6 +303,7 @@ public class Configuracion extends javax.swing.JFrame {
         TelefonoEditar = new javax.swing.JTextField();
         Save_Icono2 = new javax.swing.JButton();
         Pais = new javax.swing.JComboBox<>();
+        BanderaLabel = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
@@ -295,18 +312,29 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
+        Editar6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        PaisLabel = new javax.swing.JLabel();
+        Editar4 = new javax.swing.JButton();
+        EditarPanel4 = new javax.swing.JPanel();
+        Save_Icono4 = new javax.swing.JButton();
+        PaisComboBox = new javax.swing.JComboBox<>();
+        BanderaLabel1 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
         jPanel9 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        Editar5 = new javax.swing.JButton();
+        EditarPanel5 = new javax.swing.JPanel();
+        Save_Icono5 = new javax.swing.JButton();
+        GeneroComboBox = new javax.swing.JComboBox<>();
+        DefinirGenero = new javax.swing.JTextField();
+        GeneroLabel = new javax.swing.JLabel();
         PassPanel = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         AtrasBtn2 = new javax.swing.JButton();
@@ -323,11 +351,23 @@ public class Configuracion extends javax.swing.JFrame {
         ConfirmarContraseña = new javax.swing.JTextField();
         ContraseñaActualizada = new javax.swing.JButton();
         jSeparator11 = new javax.swing.JSeparator();
-        NomUserPanel = new javax.swing.JPanel();
-        CorreoPanel = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
+        DesactivarPanel = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        AtrasBtn1 = new javax.swing.JButton();
+        jSeparator12 = new javax.swing.JSeparator();
+        jPanel10 = new javax.swing.JPanel();
+        FotoPerfil = new javax.swing.JLabel();
+        NombreUsuario1 = new javax.swing.JLabel();
+        IdUsuario1 = new javax.swing.JLabel();
+        jSeparator13 = new javax.swing.JSeparator();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        DesactivarBtn = new javax.swing.JButton();
         SeguridadPanel = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
@@ -720,6 +760,7 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel2.add(UsuarioLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         EditarPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        EditarPanel1.setOpaque(false);
         EditarPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         NombreUsuarioEditar.setBackground(new java.awt.Color(0, 0, 0));
@@ -734,6 +775,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         Save_Icono1.setBackground(new java.awt.Color(0, 0, 0));
         Save_Icono1.setBorderPainted(false);
+        Save_Icono1.setContentAreaFilled(false);
         Save_Icono1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Save_Icono1ActionPerformed(evt);
@@ -749,25 +791,50 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel16.setFont(new java.awt.Font("Roboto Mono Light", 0, 24)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel16.setText(">");
-        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, -1, 50, 60));
-
-        CorreoBtn.setBorderPainted(false);
-        CorreoBtn.setContentAreaFilled(false);
-        CorreoBtn.addActionListener(new java.awt.event.ActionListener() {
+        Editar3.setBorderPainted(false);
+        Editar3.setContentAreaFilled(false);
+        Editar3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CorreoBtnActionPerformed(evt);
+                Editar3ActionPerformed(evt);
             }
         });
-        jPanel6.add(CorreoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 600, 60));
+        jPanel6.add(Editar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 50, 60));
 
         jLabel17.setBackground(new java.awt.Color(0, 0, 0));
         jLabel17.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(204, 204, 204));
         jLabel17.setText("Correo Electronico");
-        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 20));
+        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+
+        EditarPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        EditarPanel3.setOpaque(false);
+        EditarPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        CorreoEditar.setBackground(new java.awt.Color(0, 0, 0));
+        CorreoEditar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        CorreoEditar.setForeground(new java.awt.Color(204, 204, 204));
+        CorreoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CorreoEditarActionPerformed(evt);
+            }
+        });
+        EditarPanel3.add(CorreoEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 40));
+
+        Save_Icono3.setBackground(new java.awt.Color(0, 0, 0));
+        Save_Icono3.setBorderPainted(false);
+        Save_Icono3.setContentAreaFilled(false);
+        Save_Icono3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Save_Icono3ActionPerformed(evt);
+            }
+        });
+        EditarPanel3.add(Save_Icono3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 40, 40));
+
+        jPanel6.add(EditarPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 250, 40));
+
+        CorreoLabel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        CorreoLabel.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel6.add(CorreoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 130, 20));
 
         InfCuenta.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 610, 60));
 
@@ -784,8 +851,8 @@ public class Configuracion extends javax.swing.JFrame {
 
         TelefonoLabel.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         TelefonoLabel.setForeground(new java.awt.Color(204, 204, 204));
-        TelefonoLabel.setText("+ 52 656 123 4567");
-        jPanel5.add(TelefonoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+        TelefonoLabel.setText(" 656 123 4567");
+        jPanel5.add(TelefonoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, 20));
 
         Editar2.setBorderPainted(false);
         Editar2.setContentAreaFilled(false);
@@ -797,6 +864,7 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel5.add(Editar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 50, 60));
 
         EditarPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        EditarPanel2.setOpaque(false);
         EditarPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TelefonoEditar.setBackground(new java.awt.Color(0, 0, 0));
@@ -807,32 +875,34 @@ public class Configuracion extends javax.swing.JFrame {
                 TelefonoEditarActionPerformed(evt);
             }
         });
-        EditarPanel2.add(TelefonoEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 200, 40));
+        EditarPanel2.add(TelefonoEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 200, 40));
 
         Save_Icono2.setBackground(new java.awt.Color(0, 0, 0));
         Save_Icono2.setBorderPainted(false);
+        Save_Icono2.setContentAreaFilled(false);
         Save_Icono2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Save_Icono2ActionPerformed(evt);
             }
         });
-        EditarPanel2.add(Save_Icono2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 40, 40));
+        EditarPanel2.add(Save_Icono2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 40, 40));
 
         Pais.setBackground(new java.awt.Color(0, 0, 0));
         Pais.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         Pais.setForeground(new java.awt.Color(204, 204, 204));
-        Pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MX(+52)", "USA(+1)" }));
+        Pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "+52", "+1" }));
         Pais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PaisActionPerformed(evt);
             }
         });
-        EditarPanel2.add(Pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 90, 40));
+        EditarPanel2.add(Pais, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 40));
 
-        jPanel5.add(EditarPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 330, 40));
+        jPanel5.add(EditarPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 310, 40));
+        jPanel5.add(BanderaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 30, 20));
 
         InfCuenta.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 610, 60));
-        InfCuenta.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 610, 10));
+        InfCuenta.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 640, 10));
 
         jPanel3.setOpaque(false);
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -847,8 +917,8 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel19.setText("Creacion de la Cuenta");
         jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        InfCuenta.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 610, 70));
-        InfCuenta.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 610, -1));
+        InfCuenta.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 650, 70));
+        InfCuenta.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 640, -1));
 
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
         jPanel7.setOpaque(false);
@@ -864,6 +934,16 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel25.setText("00 / 00 / 0000");
         jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
+        jLabel12.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel12.setText("Actualiza tu fecha de nacimiento desde ");
+        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel13.setText("Perfil");
+        jPanel7.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, -1, -1));
+
         InfCuenta.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 610, 60));
 
         jPanel8.setBackground(new java.awt.Color(51, 51, 51));
@@ -875,15 +955,19 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel22.setText("Edad");
         jPanel8.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel24.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel24.setText(">");
-        jPanel8.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, -1, 50, 60));
-
         jLabel28.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(166, 77, 121));
         jLabel28.setText("18");
         jPanel8.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 20, -1));
+
+        Editar6.setBorderPainted(false);
+        Editar6.setContentAreaFilled(false);
+        Editar6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Editar6ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(Editar6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 50, 60));
 
         InfCuenta.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 610, 60));
 
@@ -891,23 +975,52 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel4.setOpaque(false);
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel11.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
         jLabel11.setText("País");
-        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel15.setText("México");
-        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        PaisLabel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        PaisLabel.setForeground(new java.awt.Color(204, 204, 204));
+        PaisLabel.setText("Indefinido");
+        jPanel4.add(PaisLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, 20));
 
-        jLabel20.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel20.setText(">");
-        jPanel4.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, -1, 50, 60));
+        Editar4.setBorderPainted(false);
+        Editar4.setContentAreaFilled(false);
+        Editar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Editar4ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(Editar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 50, 60));
+
+        EditarPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        EditarPanel4.setOpaque(false);
+        EditarPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Save_Icono4.setBackground(new java.awt.Color(0, 0, 0));
+        Save_Icono4.setBorderPainted(false);
+        Save_Icono4.setContentAreaFilled(false);
+        Save_Icono4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Save_Icono4ActionPerformed(evt);
+            }
+        });
+        EditarPanel4.add(Save_Icono4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 40, 40));
+
+        PaisComboBox.setBackground(new java.awt.Color(0, 0, 0));
+        PaisComboBox.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        PaisComboBox.setForeground(new java.awt.Color(204, 204, 204));
+        PaisComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Indefinido", "Mexico", "Estados Unidos" }));
+        EditarPanel4.add(PaisComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 40));
+
+        jPanel4.add(EditarPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 250, 40));
+
+        BanderaLabel1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jPanel4.add(BanderaLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 30, 20));
 
         InfCuenta.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 610, 60));
-        InfCuenta.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 610, 10));
+        InfCuenta.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 640, 10));
 
         jPanel9.setBackground(new java.awt.Color(51, 51, 51));
         jPanel9.setOpaque(false);
@@ -916,12 +1029,59 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(204, 204, 204));
         jLabel26.setText("Género");
-        jPanel9.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jPanel9.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel27.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel27.setText(">");
-        jPanel9.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, -1, 50, 60));
+        Editar5.setBorderPainted(false);
+        Editar5.setContentAreaFilled(false);
+        Editar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Editar5ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(Editar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 50, 60));
+
+        EditarPanel5.setBackground(new java.awt.Color(204, 204, 204));
+        EditarPanel5.setOpaque(false);
+        EditarPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Save_Icono5.setBackground(new java.awt.Color(0, 0, 0));
+        Save_Icono5.setBorderPainted(false);
+        Save_Icono5.setContentAreaFilled(false);
+        Save_Icono5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Save_Icono5ActionPerformed(evt);
+            }
+        });
+        EditarPanel5.add(Save_Icono5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 40, 40));
+
+        GeneroComboBox.setBackground(new java.awt.Color(0, 0, 0));
+        GeneroComboBox.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        GeneroComboBox.setForeground(new java.awt.Color(204, 204, 204));
+        GeneroComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Indefinido", "Hombre", "Mujer ", "Agregar tu genero" }));
+        GeneroComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GeneroComboBoxActionPerformed(evt);
+            }
+        });
+        EditarPanel5.add(GeneroComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 40));
+
+        DefinirGenero.setBackground(new java.awt.Color(0, 0, 0));
+        DefinirGenero.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        DefinirGenero.setForeground(new java.awt.Color(204, 204, 204));
+        DefinirGenero.setText("Define tu genero");
+        DefinirGenero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DefinirGeneroMouseClicked(evt);
+            }
+        });
+        EditarPanel5.add(DefinirGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 150, 40));
+
+        jPanel9.add(EditarPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 410, 40));
+
+        GeneroLabel.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        GeneroLabel.setForeground(new java.awt.Color(204, 204, 204));
+        GeneroLabel.setText("Indefinido");
+        jPanel9.add(GeneroLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 20));
 
         InfCuenta.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 610, 60));
 
@@ -942,7 +1102,7 @@ public class Configuracion extends javax.swing.JFrame {
                 AtrasBtn2ActionPerformed(evt);
             }
         });
-        jPanel23.add(AtrasBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 13, 50, 40));
+        jPanel23.add(AtrasBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 50, 30));
 
         jLabel94.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         jLabel94.setForeground(new java.awt.Color(204, 204, 204));
@@ -984,7 +1144,7 @@ public class Configuracion extends javax.swing.JFrame {
                 EnviarContraseñaActionPerformed(evt);
             }
         });
-        jPanel24.add(EnviarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, 40));
+        jPanel24.add(EnviarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 110, 40));
 
         CambioContraseña.setBackground(new java.awt.Color(0, 0, 0));
         CambioContraseña.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1050,16 +1210,104 @@ public class Configuracion extends javax.swing.JFrame {
 
         jPanel24.add(CambioContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 640, 250));
 
-        jPanel23.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 670, 330));
+        jPanel23.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 660, 330));
 
-        PassPanel.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 760));
+        PassPanel.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 760));
 
         JPanelGeneraPanel.addTab("Pass", PassPanel);
-        JPanelGeneraPanel.addTab("NomUser", NomUserPanel);
-        JPanelGeneraPanel.addTab("Correo", CorreoPanel);
-        JPanelGeneraPanel.addTab("Pais", jPanel10);
-        JPanelGeneraPanel.addTab("Genero", jPanel11);
-        JPanelGeneraPanel.addTab("Edad", jPanel12);
+
+        DesactivarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel11.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel15.setText("Que mas debes saber");
+        jPanel11.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, 40));
+
+        AtrasBtn1.setBackground(new java.awt.Color(204, 204, 204));
+        AtrasBtn1.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
+        AtrasBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        AtrasBtn1.setBorderPainted(false);
+        AtrasBtn1.setContentAreaFilled(false);
+        AtrasBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtrasBtn1ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(AtrasBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 60, 30));
+        jPanel11.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 53, 640, 10));
+
+        jPanel10.setOpaque(false);
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel10.add(FotoPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 60));
+
+        NombreUsuario1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        NombreUsuario1.setForeground(new java.awt.Color(204, 204, 204));
+        NombreUsuario1.setText("Usuario Ejemplo");
+        jPanel10.add(NombreUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        IdUsuario1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        IdUsuario1.setForeground(new java.awt.Color(106, 30, 85));
+        IdUsuario1.setText("@Usuario1");
+        jPanel10.add(IdUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
+
+        jPanel11.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 660, 60));
+        jPanel11.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 640, 10));
+
+        jLabel16.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel16.setText("de su desactivación.");
+        jPanel11.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+
+        jLabel20.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel20.setText("Si tu cuenta de Y se desactivó por error o accidentalmente, tienes un plazo de 30 días para restaurarla después");
+        jPanel11.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+
+        jLabel24.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel24.setText("Desactivar Cuenta");
+        jPanel11.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, 40));
+
+        jLabel27.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel27.setText(" Esta acción desactivará tu cuenta");
+        jPanel11.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, 40));
+
+        jLabel31.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel31.setText("Estás por iniciar el proceso de desactivación de tu cuenta. Tu nombre visible, tu @nombre de usuario y tu perfil ");
+        jPanel11.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+
+        jLabel32.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel32.setText("publico ya no se podra ver en Y.");
+        jPanel11.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+
+        DesactivarBtn.setBackground(new java.awt.Color(245, 242, 193));
+        DesactivarBtn.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        DesactivarBtn.setForeground(new java.awt.Color(255, 0, 51));
+        DesactivarBtn.setText("Desactivar Cuenta");
+        DesactivarBtn.setAlignmentY(0.0F);
+        DesactivarBtn.setBorder(null);
+        DesactivarBtn.setBorderPainted(false);
+        DesactivarBtn.setContentAreaFilled(false);
+        DesactivarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DesactivarBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                DesactivarBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                DesactivarBtnMouseExited(evt);
+            }
+        });
+        jPanel11.add(DesactivarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 650, 40));
+
+        DesactivarPanel.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 760));
+
+        JPanelGeneraPanel.addTab("Desactivar", DesactivarPanel);
 
         SeguridadPanel.setBackground(new java.awt.Color(0, 0, 0));
         SeguridadPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1411,7 +1659,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         JPanelGeneraPanel.addTab("Contenido que ves", jPanel18);
 
-        jPanel1.add(JPanelGeneraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 660, 820));
+        jPanel1.add(JPanelGeneraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 670, 820));
 
         CuentaBtn.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         CuentaBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1682,7 +1930,7 @@ public class Configuracion extends javax.swing.JFrame {
         ImageIcon image16 = new ImageIcon(url16);
         Image img16 = image16.getImage().getScaledInstance(24, 24, 0);
         ImageIcon Icono16 = new ImageIcon(img16);
-        EnviarContraseña.setIcon(Icono16);
+        ContraseñaActualizada.setIcon(Icono16);
     }//GEN-LAST:event_ContraseñaActualizadaActionPerformed
 
     private void ConfirmarContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ConfirmarContraseñaKeyReleased
@@ -1714,43 +1962,59 @@ public class Configuracion extends javax.swing.JFrame {
         ControlContraseñaNueva();
     }//GEN-LAST:event_EnviarContraseñaActionPerformed
 
-    private void ContraseñaActualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContraseñaActualKeyReleased
-        //Icono EnviarContraseñaVerde
-        String url16 = "src\\main\\java\\Multimedia\\Listo_Verde.png";
-        ImageIcon image16 = new ImageIcon(url16);
-        Image img16 = image16.getImage().getScaledInstance(24, 24, 0);
-        ImageIcon Icono16 = new ImageIcon(img16);
-        EnviarContraseña.setIcon(Icono16);
-    }//GEN-LAST:event_ContraseñaActualKeyReleased
-
     private void ContraseñaActualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ContraseñaActualMouseClicked
         ContraseñaActual.setText("");
     }//GEN-LAST:event_ContraseñaActualMouseClicked
 
     private void AtrasBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasBtn2ActionPerformed
-        // TODO add your handling code here:
+        JPanelGeneraPanel.setSelectedIndex(0);
     }//GEN-LAST:event_AtrasBtn2ActionPerformed
 
     private void Save_Icono2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_Icono2ActionPerformed
-
+     
+        //Icono Banderas Mexico
+        String Ban1 = "src\\main\\java\\Multimedia\\Icono_Bandera_Mexico.png";
+        ImageIcon imageBan1 = new ImageIcon(Ban1);
+        Image imgBan1 = imageBan1.getImage().getScaledInstance(16, 16, 0);
+        ImageIcon IconoBan1 = new ImageIcon(imgBan1);
+       
+        
+        //Icono Banderas Estados Unidos
+        String Ban2 = "src\\main\\java\\Multimedia\\Icono_Bandera_USA.png";
+        ImageIcon imageBan2 = new ImageIcon(Ban2);
+        Image imgBan2 = imageBan2.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon IconoBan2 = new ImageIcon(imgBan2);
+       
+        
         //Declaramos Variables
         String Telefono = TelefonoLabel.getText();
         String TelefonoCambio = TelefonoEditar.getText();
+        
+        int Defecto = Pais.getSelectedIndex();
         //Comprobamos si es diferente a el nombre anterior
-        if (!Telefono.equals(TelefonoCambio)) {
+        if (!Telefono.equals(TelefonoCambio) 
+                && Pais.getSelectedIndex() == Defecto){
             //Ocultamos panel de edicion
             EditarPanel2.setVisible(false);
             //Mostramos el boton de edicion
             Editar2.setVisible(true);
             //Guardamos Nuevo Valor
             TelefonoLabel.setText(TelefonoCambio);
-        } else {
+            //Esta comprobacion depende de que valor entre 0 y 1 tome dependiendo es este (Valor obtenido de comboBox)
+            //Cambiara el icono de la bandera
+            if(Pais.getSelectedIndex()==1){
+            BanderaLabel.setIcon(IconoBan1);
+            }else if(Pais.getSelectedIndex()==2){
+                BanderaLabel.setIcon(IconoBan2);
+            }
+        } else{
+            //En caso de que no se pueda, mandara un mensaje a consola
             System.err.println("No se puede hacer el cambio ya que es igual");
         }
     }//GEN-LAST:event_Save_Icono2ActionPerformed
 
     private void TelefonoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefonoEditarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_TelefonoEditarActionPerformed
 
     private void Editar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar2ActionPerformed
@@ -1765,9 +2029,16 @@ public class Configuracion extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Editar2ActionPerformed
 
-    private void CorreoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CorreoBtnActionPerformed
-
-    }//GEN-LAST:event_CorreoBtnActionPerformed
+    private void Editar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar3ActionPerformed
+        //Mostramos panel de edicion
+        EditarPanel3.setVisible(true);
+        //Declaramos Variables
+        String Correo = CorreoLabel.getText();
+        //Traemos el nombre antiguo
+        CorreoEditar.setText(Correo);
+        //Ocultamos el boton de edicion
+        Editar3.setVisible(false);
+    }//GEN-LAST:event_Editar3ActionPerformed
 
     private void Save_Icono1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_Icono1ActionPerformed
 
@@ -1809,7 +2080,7 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_AtrasBtnActionPerformed
 
     private void DesactivarCuentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DesactivarCuentaBtnActionPerformed
-        // TODO add your handling code here:
+        JPanelGeneraPanel.setSelectedIndex(3);
     }//GEN-LAST:event_DesactivarCuentaBtnActionPerformed
 
     private void InfCuentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InfCuentaBtnActionPerformed
@@ -1817,7 +2088,7 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_InfCuentaBtnActionPerformed
 
     private void CambiarPassBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarPassBtnActionPerformed
-        // TODO add your handling code here:
+        JPanelGeneraPanel.setSelectedIndex(2);
     }//GEN-LAST:event_CambiarPassBtnActionPerformed
 
     private void Sig6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Sig6MouseClicked
@@ -1825,8 +2096,213 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_Sig6MouseClicked
 
     private void PaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaisActionPerformed
-
+            if(Pais.getSelectedIndex()==0){
+            System.err.println("0");
+            }else if(Pais.getSelectedIndex()==1){
+                System.out.println("1");
+            }
     }//GEN-LAST:event_PaisActionPerformed
+
+    private void CorreoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CorreoEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CorreoEditarActionPerformed
+
+    private void Save_Icono3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_Icono3ActionPerformed
+       
+        //Declaramos Variables
+        String Correo = CorreoLabel.getText();
+        String CorreoCambio = CorreoEditar.getText();
+        //Comprobamos si es diferente a el nombre anterior
+        if (!Correo.equals(CorreoCambio)) {
+            //Colocamos el nuevo nombre de usuario en el label
+            CorreoLabel.setText(CorreoCambio);
+            //Ocultamos panel de edicion
+            EditarPanel3.setVisible(false);
+            //Mostramos el boton de edicion
+            Editar3.setVisible(true);
+        } else {
+            System.err.println("No se puede hacer el cambio ya que es igual");
+        }
+
+    }//GEN-LAST:event_Save_Icono3ActionPerformed
+
+    private void Editar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar4ActionPerformed
+         //Mostramos panel de edicion
+        EditarPanel4.setVisible(true);
+        //Ocultamos el boton de edicion
+        Editar4.setVisible(false);
+    }//GEN-LAST:event_Editar4ActionPerformed
+
+    private void Save_Icono4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_Icono4ActionPerformed
+
+        
+        //Icono Banderas Mexico
+        String Ban1 = "src\\main\\java\\Multimedia\\Icono_Bandera_Mexico.png";
+        ImageIcon imageBan1 = new ImageIcon(Ban1);
+        Image imgBan1 = imageBan1.getImage().getScaledInstance(16, 16, 0);
+        ImageIcon IconoBan1 = new ImageIcon(imgBan1);
+       
+        
+        //Icono Banderas Estados Unidos
+        String Ban2 = "src\\main\\java\\Multimedia\\Icono_Bandera_USA.png";
+        ImageIcon imageBan2 = new ImageIcon(Ban2);
+        Image imgBan2 = imageBan2.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon IconoBan2 = new ImageIcon(imgBan2);
+       
+        //Declaramos variables 
+        int PaisSelect = PaisComboBox.getSelectedIndex();
+        
+        //Esta comprobacion depende de que valor entre 0,1 y 2 tome dependiendo es este (Valor obtenido de comboBox)
+        //Cambiara el icono de la bandera
+        //Cambiar a swich para mas paises//
+        switch (PaisSelect) {
+            case 1:
+                BanderaLabel1.setIcon(IconoBan1);
+                PaisLabel.setText("Mexico");
+                 //Ocultamos panel de edicion
+        EditarPanel4.setVisible(false);
+        //Mostramos el boton de edicion
+        Editar4.setVisible(true);
+                break;
+            case 2:
+                BanderaLabel1.setIcon(IconoBan2);
+                PaisLabel.setText("Estados Unidos");
+                 //Ocultamos panel de edicion
+        EditarPanel4.setVisible(false);
+        //Mostramos el boton de edicion
+        Editar4.setVisible(true);
+                break;
+            default:
+                BanderaLabel1.setIcon(null);
+                PaisLabel.setText("Indefinido");
+                EditarPanel4.setVisible(false);
+                //Mostramos el boton de edicion
+                Editar4.setVisible(true);
+                break;
+        }
+       
+        
+    }//GEN-LAST:event_Save_Icono4ActionPerformed
+
+    private void Editar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar5ActionPerformed
+        //Mostramos panel de edicion
+        EditarPanel5.setVisible(true);
+        //Ocultamos el boton de edicion
+        Editar5.setVisible(false);
+    }//GEN-LAST:event_Editar5ActionPerformed
+
+    private void Editar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Editar6ActionPerformed
+
+    private void ContraseñaActualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ContraseñaActualKeyReleased
+         //Icono EnviarContraseñaVerde
+        String url16 = "src\\main\\java\\Multimedia\\Listo_Verde.png";
+        ImageIcon image16 = new ImageIcon(url16);
+        Image img16 = image16.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon Icono16 = new ImageIcon(img16);
+        //Icono enviar Contraseña gris
+        String url15 = "src\\main\\java\\Multimedia\\Listo_Gris.png";
+        ImageIcon image15 = new ImageIcon(url15);
+        Image img15 = image15.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon Icono15 = new ImageIcon(img15);
+        //Obtenemos el valor de contraseña actual
+        String Con = ContraseñaActual.getText();
+        //Contamos los caracteres
+        int contra = Con.length();
+        //Comprobamos que sea diferente a 0
+        if(contra != 0){
+            //Ponemos icono verde
+            EnviarContraseña.setIcon(Icono16);
+        } else {
+            //Ponemos icono Gris
+        EnviarContraseña.setIcon(Icono15);
+        }
+    }//GEN-LAST:event_ContraseñaActualKeyReleased
+
+    private void Save_Icono5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_Icono5ActionPerformed
+        //Obtenemos el texto de combo box
+        String Genero = GeneroComboBox.getSelectedItem().toString();
+        //Obtenemos el index del combo box
+        int GeneroSelected = GeneroComboBox.getSelectedIndex();
+        //Serie de intruscciones dependiendo de cual sea la opcion elegida
+        switch (GeneroSelected){
+            
+            case 0:
+                //Ocultamos el panel
+                EditarPanel5.setVisible(false);
+                //Mostramos icono de Edicion
+                Editar5.setVisible(true);
+                //Obtenemos el texto del genero seleccionado
+                GeneroLabel.setText(Genero);
+                break;
+            
+            case 1: 
+                //Ocultamos el panel
+                EditarPanel5.setVisible(false);
+                //Mostramos icono de Edicion
+                Editar5.setVisible(true);
+                //Obtenemos el texto del genero seleccionado
+                GeneroLabel.setText(Genero);
+                break;
+            
+            case 2:
+                //Ocultamos el panel
+                EditarPanel5.setVisible(false);
+                //Mostramos icono de Edicion
+                Editar5.setVisible(true);
+                //Obtenemos el texto del genero seleccionado
+                GeneroLabel.setText(Genero);
+                break;
+                
+            case 3:
+                //Ocultamos el panel
+                EditarPanel5.setVisible(false);
+                //Mostramos icono de Edicion
+                Editar5.setVisible(true);
+                //Obtenemos el texto del genero seleccionado
+                String GeneroUsuario = DefinirGenero.getText();
+                //Mostramos el recuadro de texto
+                GeneroLabel.setText(GeneroUsuario);
+                break;
+                
+            default:
+                //Obtenemos el texto del genero seleccionado
+                GeneroLabel.setText("Indefinido");
+                break;
+            
+            
+        }
+        
+    }//GEN-LAST:event_Save_Icono5ActionPerformed
+
+    private void GeneroComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GeneroComboBoxActionPerformed
+        //Obtenemos el index del combo box
+        int GeneroSelected = GeneroComboBox.getSelectedIndex();
+        if (GeneroSelected==3){
+            DefinirGenero.setVisible(true);   
+        }else{
+            DefinirGenero.setVisible(false);
+        }
+    }//GEN-LAST:event_GeneroComboBoxActionPerformed
+
+    private void DefinirGeneroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DefinirGeneroMouseClicked
+        DefinirGenero.setText("");
+    }//GEN-LAST:event_DefinirGeneroMouseClicked
+
+    private void AtrasBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasBtn1ActionPerformed
+        JPanelGeneraPanel.setSelectedIndex(0);
+    }//GEN-LAST:event_AtrasBtn1ActionPerformed
+
+    private void DesactivarBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DesactivarBtnMouseEntered
+        //Para el cambio de color de fondo cuando el mouse entre en el elemento
+        DesactivarBtn.setContentAreaFilled(true);
+    }//GEN-LAST:event_DesactivarBtnMouseEntered
+
+    private void DesactivarBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DesactivarBtnMouseExited
+        //Para el cambio de color de fondo cuando el mouse salga del elemento
+        DesactivarBtn.setContentAreaFilled(false);
+    }//GEN-LAST:event_DesactivarBtnMouseExited
 
     /**
      * @param args the command line arguments
@@ -1866,7 +2342,10 @@ public class Configuracion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AnadeInfBtn;
     private javax.swing.JButton AtrasBtn;
+    private javax.swing.JButton AtrasBtn1;
     private javax.swing.JButton AtrasBtn2;
+    private javax.swing.JLabel BanderaLabel;
+    private javax.swing.JLabel BanderaLabel1;
     private javax.swing.JTextField Buscador;
     private javax.swing.JLabel BuscadorImagen;
     private javax.swing.JButton BuscarBtn;
@@ -1881,19 +2360,33 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JTextField ContraseñaActual;
     private javax.swing.JButton ContraseñaActualizada;
     private javax.swing.JTextField ContraseñaNueva1;
-    private javax.swing.JButton CorreoBtn;
-    private javax.swing.JPanel CorreoPanel;
+    private javax.swing.JTextField CorreoEditar;
+    private javax.swing.JLabel CorreoLabel;
     private javax.swing.JButton CuentaBtn;
+    private javax.swing.JTextField DefinirGenero;
+    private javax.swing.JButton DesactivarBtn;
     private javax.swing.JButton DesactivarCuentaBtn;
+    private javax.swing.JPanel DesactivarPanel;
     private javax.swing.JButton Editar1;
     private javax.swing.JButton Editar2;
+    private javax.swing.JButton Editar3;
+    private javax.swing.JButton Editar4;
+    private javax.swing.JButton Editar5;
+    private javax.swing.JButton Editar6;
     private javax.swing.JPanel EditarPanel1;
     private javax.swing.JPanel EditarPanel2;
+    private javax.swing.JPanel EditarPanel3;
+    private javax.swing.JPanel EditarPanel4;
+    private javax.swing.JPanel EditarPanel5;
     private javax.swing.JButton EnviarContraseña;
     private javax.swing.JButton ExplorarBtn;
     private javax.swing.JButton ExpoConfigBtn;
+    private javax.swing.JLabel FotoPerfil;
+    private javax.swing.JComboBox<String> GeneroComboBox;
+    private javax.swing.JLabel GeneroLabel;
     private javax.swing.JButton GuardadoBtn;
     private javax.swing.JLabel IdUsuario;
+    private javax.swing.JLabel IdUsuario1;
     private javax.swing.JPanel InfCuenta;
     private javax.swing.JButton InfCuentaBtn;
     private javax.swing.JPanel InformacionCuentaPanel;
@@ -1904,12 +2397,14 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel L_PS_Title1;
     private javax.swing.JLabel L_PS_Title2;
     private javax.swing.JLabel L_PS_Title3;
-    private javax.swing.JPanel NomUserPanel;
     private javax.swing.JLabel NombreUsuario;
+    private javax.swing.JLabel NombreUsuario1;
     private javax.swing.JTextField NombreUsuarioEditar;
     private javax.swing.JButton NotiFicacionesBtn;
     private javax.swing.JButton NotificacionesBtn;
     private javax.swing.JComboBox<String> Pais;
+    private javax.swing.JComboBox<String> PaisComboBox;
+    private javax.swing.JLabel PaisLabel;
     private javax.swing.JPanel PanelCuenta;
     private javax.swing.JPanel PassPanel;
     private javax.swing.JButton PerfilBtn;
@@ -1919,6 +2414,9 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton PrivacidadYSeguridadBtn;
     private javax.swing.JButton Save_Icono1;
     private javax.swing.JButton Save_Icono2;
+    private javax.swing.JButton Save_Icono3;
+    private javax.swing.JButton Save_Icono4;
+    private javax.swing.JButton Save_Icono5;
     private javax.swing.JPanel SeguridadPanel;
     private javax.swing.JButton SeguridadYAccesoBtn;
     private javax.swing.JLabel Sig1;
@@ -1952,6 +2450,8 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1971,6 +2471,8 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -2002,7 +2504,6 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -2026,6 +2527,8 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
