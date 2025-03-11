@@ -110,6 +110,8 @@ public class Configuracion extends javax.swing.JFrame {
         AtrasBtn.setIcon(Icono8);
         AtrasBtn1.setIcon(Icono8);
         AtrasBtn2.setIcon(Icono8);
+        AtrasTPostBtn.setIcon(Icono8);
+        AtrasContVesBtn.setIcon(Icono8);
 
         //Icono SubMenu Usuario
         String url9 = "src\\main\\java\\Multimedia\\Icon-Sub-Usuario.png";
@@ -130,6 +132,19 @@ public class Configuracion extends javax.swing.JFrame {
         Sig5.setIcon(Icono10);
         Sig6.setIcon(Icono10);
         Sig7.setIcon(Icono10);
+        
+            //Iconos siguientes de privacidad, notificaciones, etc son labels
+            L_sig.setIcon(Icono10);
+            L_sig_tusPosts.setIcon(Icono10);
+            L_sig_ContVes.setIcon(Icono10);
+            L_sig_filtros.setIcon(Icono10);
+            L_sig_pref.setIcon(Icono10);
+            L_sig_AddInfPo.setIcon(Icono10);
+            L_sig_CSTemas.setIcon(Icono10);
+            L_sig_CSExplorarC.setIcon(Icono10);
+            L_sig_CSInte.setIcon(Icono10);
+            L_sig_CSConfigBus.setIcon(Icono10);
+            
 
         //Icono SubMenu Llave
         String url11 = "src\\main\\java\\Multimedia\\Icon-Sub-Llave.png";
@@ -188,6 +203,41 @@ public class Configuracion extends javax.swing.JFrame {
         Save_Icono3.setIcon(Icono17);
         Save_Icono4.setIcon(Icono17);
         Save_Icono5.setIcon(Icono17);
+        
+        //Icono post
+        String urlPost_ed = "src\\main\\java\\Multimedia\\edit-pencil-Icon.png";
+        ImageIcon image18 = new ImageIcon(urlPost_ed);
+        Image img18 = image18.getImage().getScaledInstance(24,24,0);
+        ImageIcon Icono18 = new ImageIcon(img18);
+        TusPostBtn.setIcon(Icono18);
+        
+        //Icono contenido que ves
+         String urlContenido_ves="src\\main\\java\\Multimedia\\Post-Icon.png";
+         ImageIcon image19 = new ImageIcon(urlContenido_ves);
+         Image img19 = image19.getImage().getScaledInstance(24, 24, 0);
+         ImageIcon Icono19 = new ImageIcon(img19);
+         ContenidoVesBtn.setIcon(Icono19);
+        
+       //Icono Silenciar y bloquear
+       String urlSileBloq="src\\main\\java\\Multimedia\\Mute-and-Block-Icon.png";
+       ImageIcon image20 = new ImageIcon(urlSileBloq);
+       Image img20 = image20.getImage().getScaledInstance(24, 24, 0);
+       ImageIcon Icono20 = new ImageIcon(img20);
+       SilenciarYBloquearBtn.setIcon(Icono20);
+       
+       //Icono Filtros de notificaciones
+       String urlFilNot="src\\main\\java\\Multimedia\\Filters-Config-Icon.png";
+       ImageIcon image21 = new ImageIcon(urlFilNot);
+       Image img21 = image21.getImage().getScaledInstance(50, 50, 0);
+       ImageIcon Icono21 = new ImageIcon(img21);
+       FiltrosNotConfBtn.setIcon(Icono21);
+       
+       //Icono Preferencias de notificaciones
+       String urlPref="src\\main\\java\\Multimedia\\Preferences-Icon.png";
+       ImageIcon image22 = new ImageIcon(urlPref);
+       Image img22 = image22.getImage().getScaledInstance(50, 50, 0);
+       ImageIcon Icono22 = new ImageIcon(img22);
+       PreferenciasBtn.setIcon(Icono22);
        
     }
 
@@ -382,42 +432,43 @@ public class Configuracion extends javax.swing.JFrame {
         Sig8 = new javax.swing.JLabel();
         Sig9 = new javax.swing.JLabel();
         Sig10 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
+        PrivacidadTabPane = new javax.swing.JPanel();
         L_PS_Title = new javax.swing.JLabel();
         SilenciarYBloquearBtn = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
+        L_sig = new javax.swing.JLabel();
         TusPostBtn = new javax.swing.JButton();
-        jLabel41 = new javax.swing.JLabel();
-        jLabel42 = new javax.swing.JLabel();
+        L_sig_tusPosts = new javax.swing.JLabel();
         ContenidoVesBtn = new javax.swing.JButton();
-        jLabel43 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
+        L_sig_ContVes = new javax.swing.JLabel();
+        NotificacionesTabPane = new javax.swing.JPanel();
         L_PS_Title1 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
-        TusPostBtn1 = new javax.swing.JButton();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        TusPostBtn2 = new javax.swing.JButton();
-        jPanel17 = new javax.swing.JPanel();
+        PreferenciasBtn = new javax.swing.JButton();
+        FiltrosNotConfBtn = new javax.swing.JButton();
+        L_sig_pref = new javax.swing.JLabel();
+        L_sig_filtros = new javax.swing.JLabel();
+        TusPostTabPane = new javax.swing.JPanel();
         L_PS_Title2 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         AnadeInfBtn = new javax.swing.JButton();
-        jLabel49 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
+        AtrasTPostBtn = new javax.swing.JButton();
+        L_sig_AddInfPo = new javax.swing.JLabel();
+        ContVesTabPane = new javax.swing.JPanel();
         L_PS_Title3 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
         TemasBtn = new javax.swing.JButton();
         InteresesBtn = new javax.swing.JButton();
         ExpoConfigBtn = new javax.swing.JButton();
         BusqConfigBtn = new javax.swing.JButton();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel53 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
         jCheckBox2 = new javax.swing.JCheckBox();
+        AtrasContVesBtn = new javax.swing.JButton();
+        L_sig_CSTemas = new javax.swing.JLabel();
+        L_sig_CSExplorarC = new javax.swing.JLabel();
+        L_sig_CSInte = new javax.swing.JLabel();
+        L_sig_CSConfigBus = new javax.swing.JLabel();
         CuentaBtn = new javax.swing.JButton();
         NotiFicacionesBtn = new javax.swing.JButton();
         jSeparator9 = new javax.swing.JSeparator();
@@ -1388,13 +1439,13 @@ public class Configuracion extends javax.swing.JFrame {
 
         JPanelGeneraPanel.addTab("Seguridad", SeguridadPanel);
 
-        jPanel13.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PrivacidadTabPane.setBackground(new java.awt.Color(0, 0, 0));
+        PrivacidadTabPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         L_PS_Title.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         L_PS_Title.setForeground(new java.awt.Color(204, 204, 204));
         L_PS_Title.setText("Privacidad y seguridad");
-        jPanel13.add(L_PS_Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
+        PrivacidadTabPane.add(L_PS_Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
 
         SilenciarYBloquearBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         SilenciarYBloquearBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1407,27 +1458,27 @@ public class Configuracion extends javax.swing.JFrame {
                 SilenciarYBloquearBtnActionPerformed(evt);
             }
         });
-        jPanel13.add(SilenciarYBloquearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 660, 60));
+        PrivacidadTabPane.add(SilenciarYBloquearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 630, 60));
 
         jLabel40.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(204, 204, 204));
         jLabel40.setText("Administra qué información ves y compartes en Y.");
         jLabel40.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jPanel13.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 510, 30));
+        PrivacidadTabPane.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 510, 30));
 
         jLabel39.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(255, 255, 255));
         jLabel39.setText(">");
-        jPanel13.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 210, 20, 50));
+        PrivacidadTabPane.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 210, 20, 50));
 
-        jLabel37.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel37.setText(">");
-        jPanel13.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, 20, 50));
+        L_sig.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig.setText(">");
+        PrivacidadTabPane.add(L_sig, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 250, 20, 50));
 
         TusPostBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         TusPostBtn.setForeground(new java.awt.Color(204, 204, 204));
-        TusPostBtn.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\"> Tus publicaciones</p>\n<br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\"> Administra la información asociada a tus publicaciones</p>\n </html>");
+        TusPostBtn.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\"> Tus publicaciones</p> <br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\"> Administra la información asociada a tus publicaciones</p>  </html>");
         TusPostBtn.setBorderPainted(false);
         TusPostBtn.setContentAreaFilled(false);
         TusPostBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1436,17 +1487,12 @@ public class Configuracion extends javax.swing.JFrame {
                 TusPostBtnActionPerformed(evt);
             }
         });
-        jPanel13.add(TusPostBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 650, 60));
+        PrivacidadTabPane.add(TusPostBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 580, 60));
 
-        jLabel41.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel41.setText(">");
-        jPanel13.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 20, 50));
-
-        jLabel42.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel42.setText(">");
-        jPanel13.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 20, 50));
+        L_sig_tusPosts.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_tusPosts.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_tusPosts.setText(">");
+        PrivacidadTabPane.add(L_sig_tusPosts, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 20, 50));
 
         ContenidoVesBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         ContenidoVesBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1459,80 +1505,80 @@ public class Configuracion extends javax.swing.JFrame {
                 ContenidoVesBtnActionPerformed(evt);
             }
         });
-        jPanel13.add(ContenidoVesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 650, 60));
+        PrivacidadTabPane.add(ContenidoVesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 630, 60));
 
-        jLabel43.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel43.setText(">");
-        jPanel13.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 20, 50));
+        L_sig_ContVes.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_ContVes.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_ContVes.setText(">");
+        PrivacidadTabPane.add(L_sig_ContVes, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 20, 50));
 
-        JPanelGeneraPanel.addTab("Privacidad", jPanel13);
+        JPanelGeneraPanel.addTab("Privacidad", PrivacidadTabPane);
 
-        jPanel16.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        NotificacionesTabPane.setBackground(new java.awt.Color(0, 0, 0));
+        NotificacionesTabPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         L_PS_Title1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         L_PS_Title1.setForeground(new java.awt.Color(204, 204, 204));
         L_PS_Title1.setText("Notificaciones");
-        jPanel16.add(L_PS_Title1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
+        NotificacionesTabPane.add(L_PS_Title1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
 
         jLabel46.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(204, 204, 204));
         jLabel46.setText("Selecciona los tipos de notificaciones que recibes sobre tus actividades, intereses y recomendaciones.");
         jLabel46.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jPanel16.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 560, 30));
+        NotificacionesTabPane.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 560, 30));
 
-        TusPostBtn1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        TusPostBtn1.setForeground(new java.awt.Color(204, 204, 204));
-        TusPostBtn1.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\">Preferencias</p>\n<br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\">Seleccione sus preferencias por tipo de notificación.</p>\n </html>");
-        TusPostBtn1.setBorderPainted(false);
-        TusPostBtn1.setContentAreaFilled(false);
-        TusPostBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        TusPostBtn1.addActionListener(new java.awt.event.ActionListener() {
+        PreferenciasBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        PreferenciasBtn.setForeground(new java.awt.Color(204, 204, 204));
+        PreferenciasBtn.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\">Preferencias</p> <br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\">Seleccione sus preferencias por tipo de notificación.</p>  </html>");
+        PreferenciasBtn.setBorderPainted(false);
+        PreferenciasBtn.setContentAreaFilled(false);
+        PreferenciasBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PreferenciasBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TusPostBtn1ActionPerformed(evt);
+                PreferenciasBtnActionPerformed(evt);
             }
         });
-        jPanel16.add(TusPostBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 650, 60));
+        NotificacionesTabPane.add(PreferenciasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 640, 60));
 
-        jLabel45.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
-        jLabel45.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel45.setText(">");
-        jPanel16.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, 50, 60));
-
-        jLabel47.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel47.setText(">");
-        jPanel16.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, 50, 60));
-
-        TusPostBtn2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        TusPostBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        TusPostBtn2.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\"> Filtros</p>\n<br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\">Elige las notificaciones que deseas ver y las que no.</p>\n </html>");
-        TusPostBtn2.setBorderPainted(false);
-        TusPostBtn2.setContentAreaFilled(false);
-        TusPostBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        TusPostBtn2.addActionListener(new java.awt.event.ActionListener() {
+        FiltrosNotConfBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        FiltrosNotConfBtn.setForeground(new java.awt.Color(204, 204, 204));
+        FiltrosNotConfBtn.setText("<html><p style=\"font-size: 12px; padding:  0px 0px 0px 30px;\"> Filtros</p> <br> <p style=\"font-size: 9 px; padding: 0px 0px 0px 30px; color: rgba(255,255,255,0.5);\">Elige las notificaciones que deseas ver y las que no.</p>  </html>");
+        FiltrosNotConfBtn.setBorderPainted(false);
+        FiltrosNotConfBtn.setContentAreaFilled(false);
+        FiltrosNotConfBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        FiltrosNotConfBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TusPostBtn2ActionPerformed(evt);
+                FiltrosNotConfBtnActionPerformed(evt);
             }
         });
-        jPanel16.add(TusPostBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 650, 60));
+        NotificacionesTabPane.add(FiltrosNotConfBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 580, 60));
 
-        JPanelGeneraPanel.addTab("Notificaciones", jPanel16);
+        L_sig_pref.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_pref.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_pref.setText(">");
+        NotificacionesTabPane.add(L_sig_pref, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, 20, 50));
 
-        jPanel17.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        L_sig_filtros.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_filtros.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_filtros.setText(">");
+        NotificacionesTabPane.add(L_sig_filtros, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 20, 50));
+
+        JPanelGeneraPanel.addTab("Notificaciones", NotificacionesTabPane);
+
+        TusPostTabPane.setBackground(new java.awt.Color(0, 0, 0));
+        TusPostTabPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         L_PS_Title2.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         L_PS_Title2.setForeground(new java.awt.Color(204, 204, 204));
         L_PS_Title2.setText("Tus publicaciones");
-        jPanel17.add(L_PS_Title2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
+        TusPostTabPane.add(L_PS_Title2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 300, -1));
 
         jLabel48.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel48.setForeground(new java.awt.Color(204, 204, 204));
         jLabel48.setText("Administra la información asociada a tus publicaciones.");
         jLabel48.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jPanel17.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 510, 30));
+        TusPostTabPane.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 510, 30));
 
         jCheckBox1.setForeground(new java.awt.Color(204, 204, 204));
         jCheckBox1.setText("<html>         \n<p style=\"font-size: 11px; padding:  0px 0px 0px 30px;\">Marca los medios que publicas como que tienen material que puede ser confidencial</p>\n<br> <p style=\"font-size: 8px; padding: -1px -1px -1px 30px; color: rgba(255,255,255,0.5);\">Cuando esta opción está habilitada, las imágenes y los videos que publiques se marcarán \n<br>como confidenciales para las personas que no quieran ver contenido confidencial.</p>\n</html>");
@@ -1544,7 +1590,7 @@ public class Configuracion extends javax.swing.JFrame {
                 jCheckBox1ActionPerformed(evt);
             }
         });
-        jPanel17.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 620, -1));
+        TusPostTabPane.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 620, -1));
 
         AnadeInfBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         AnadeInfBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1557,28 +1603,40 @@ public class Configuracion extends javax.swing.JFrame {
                 AnadeInfBtnActionPerformed(evt);
             }
         });
-        jPanel17.add(AnadeInfBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 530, 60));
+        TusPostTabPane.add(AnadeInfBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 530, 60));
 
-        jLabel49.setFont(new java.awt.Font("Roboto Light", 0, 24)); // NOI18N
-        jLabel49.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel49.setText(">");
-        jPanel17.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 190, 50, 60));
+        AtrasTPostBtn.setBackground(new java.awt.Color(204, 204, 204));
+        AtrasTPostBtn.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
+        AtrasTPostBtn.setForeground(new java.awt.Color(255, 255, 255));
+        AtrasTPostBtn.setBorderPainted(false);
+        AtrasTPostBtn.setContentAreaFilled(false);
+        AtrasTPostBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtrasTPostBtnActionPerformed(evt);
+            }
+        });
+        TusPostTabPane.add(AtrasTPostBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, 40));
 
-        JPanelGeneraPanel.addTab("Tus Posts", jPanel17);
+        L_sig_AddInfPo.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_AddInfPo.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_AddInfPo.setText(">");
+        TusPostTabPane.add(L_sig_AddInfPo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 190, 20, 50));
 
-        jPanel18.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        JPanelGeneraPanel.addTab("Tus Posts", TusPostTabPane);
+
+        ContVesTabPane.setBackground(new java.awt.Color(0, 0, 0));
+        ContVesTabPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         L_PS_Title3.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         L_PS_Title3.setForeground(new java.awt.Color(204, 204, 204));
         L_PS_Title3.setText("Contenido que ves");
-        jPanel18.add(L_PS_Title3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 25, 300, -1));
+        ContVesTabPane.add(L_PS_Title3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 300, -1));
 
         jLabel50.setFont(new java.awt.Font("Roboto", 0, 13)); // NOI18N
         jLabel50.setForeground(new java.awt.Color(204, 204, 204));
         jLabel50.setText("Decide lo que ves en Y según tus preferencias, como temas e intereses.");
         jLabel50.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jPanel18.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 510, 30));
+        ContVesTabPane.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 510, 30));
 
         TemasBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         TemasBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1591,7 +1649,7 @@ public class Configuracion extends javax.swing.JFrame {
                 TemasBtnActionPerformed(evt);
             }
         });
-        jPanel18.add(TemasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 570, 60));
+        ContVesTabPane.add(TemasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 600, 60));
 
         InteresesBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         InteresesBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1604,7 +1662,7 @@ public class Configuracion extends javax.swing.JFrame {
                 InteresesBtnActionPerformed(evt);
             }
         });
-        jPanel18.add(InteresesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 600, 60));
+        ContVesTabPane.add(InteresesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 600, 60));
 
         ExpoConfigBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         ExpoConfigBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1617,7 +1675,7 @@ public class Configuracion extends javax.swing.JFrame {
                 ExpoConfigBtnActionPerformed(evt);
             }
         });
-        jPanel18.add(ExpoConfigBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 600, 60));
+        ContVesTabPane.add(ExpoConfigBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 600, 60));
 
         BusqConfigBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         BusqConfigBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1630,27 +1688,7 @@ public class Configuracion extends javax.swing.JFrame {
                 BusqConfigBtnActionPerformed(evt);
             }
         });
-        jPanel18.add(BusqConfigBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 600, 60));
-
-        jLabel52.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
-        jLabel52.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel52.setText(">");
-        jPanel18.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 50, 60));
-
-        jLabel53.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
-        jLabel53.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel53.setText(">");
-        jPanel18.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 50, 60));
-
-        jLabel54.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
-        jLabel54.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel54.setText(">");
-        jPanel18.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 50, 60));
-
-        jLabel55.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
-        jLabel55.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel55.setText(">");
-        jPanel18.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, 50, 60));
+        ContVesTabPane.add(BusqConfigBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 600, 60));
 
         jCheckBox2.setBackground(new java.awt.Color(0, 0, 0));
         jCheckBox2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1664,9 +1702,41 @@ public class Configuracion extends javax.swing.JFrame {
                 jCheckBox2ActionPerformed(evt);
             }
         });
-        jPanel18.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 620, -1));
+        ContVesTabPane.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 620, -1));
 
-        JPanelGeneraPanel.addTab("Contenido que ves", jPanel18);
+        AtrasContVesBtn.setBackground(new java.awt.Color(204, 204, 204));
+        AtrasContVesBtn.setFont(new java.awt.Font("Roboto Mono ExtraLight", 0, 24)); // NOI18N
+        AtrasContVesBtn.setForeground(new java.awt.Color(255, 255, 255));
+        AtrasContVesBtn.setBorderPainted(false);
+        AtrasContVesBtn.setContentAreaFilled(false);
+        AtrasContVesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtrasContVesBtnActionPerformed(evt);
+            }
+        });
+        ContVesTabPane.add(AtrasContVesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 50, 40));
+
+        L_sig_CSTemas.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_CSTemas.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_CSTemas.setText(">");
+        ContVesTabPane.add(L_sig_CSTemas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 20, 50));
+
+        L_sig_CSExplorarC.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_CSExplorarC.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_CSExplorarC.setText(">");
+        ContVesTabPane.add(L_sig_CSExplorarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 20, 50));
+
+        L_sig_CSInte.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_CSInte.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_CSInte.setText(">");
+        ContVesTabPane.add(L_sig_CSInte, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, 20, 50));
+
+        L_sig_CSConfigBus.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        L_sig_CSConfigBus.setForeground(new java.awt.Color(255, 255, 255));
+        L_sig_CSConfigBus.setText(">");
+        ContVesTabPane.add(L_sig_CSConfigBus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 20, 50));
+
+        JPanelGeneraPanel.addTab("Contenido que ves", ContVesTabPane);
 
         jPanel1.add(JPanelGeneraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 670, 820));
 
@@ -1687,7 +1757,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         NotiFicacionesBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         NotiFicacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        NotiFicacionesBtn.setText("   Notificaciones ");
+        NotiFicacionesBtn.setText("  Notificaciones ");
         NotiFicacionesBtn.setToolTipText("");
         NotiFicacionesBtn.setBorder(null);
         NotiFicacionesBtn.setBorderPainted(false);
@@ -1844,17 +1914,19 @@ public class Configuracion extends javax.swing.JFrame {
         JPanelGeneraPanel.setSelectedIndex(0);
     }//GEN-LAST:event_CuentaBtnActionPerformed
 
+    //Notificaciones del JTabbedPanel
     private void NotiFicacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotiFicacionesBtnActionPerformed
-        JPanelGeneraPanel.setSelectedIndex(13);
+        JPanelGeneraPanel.setSelectedIndex(6);
     }//GEN-LAST:event_NotiFicacionesBtnActionPerformed
 
     private void SeguridadYAccesoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtnActionPerformed
         JPanelGeneraPanel.setSelectedIndex(4);
     }//GEN-LAST:event_SeguridadYAccesoBtnActionPerformed
 
+    //Privacidad y seguridad
     private void PrivacidadYSeguridadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrivacidadYSeguridadBtnActionPerformed
         // TODO add your handling code here:
-        JPanelGeneraPanel.setSelectedIndex(12);
+        JPanelGeneraPanel.setSelectedIndex(5);
     }//GEN-LAST:event_PrivacidadYSeguridadBtnActionPerformed
 
     private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
@@ -1913,20 +1985,22 @@ public class Configuracion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void TusPostBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TusPostBtn2ActionPerformed
+    private void FiltrosNotConfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltrosNotConfBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TusPostBtn2ActionPerformed
+    }//GEN-LAST:event_FiltrosNotConfBtnActionPerformed
 
-    private void TusPostBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TusPostBtn1ActionPerformed
+    private void PreferenciasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PreferenciasBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TusPostBtn1ActionPerformed
+    }//GEN-LAST:event_PreferenciasBtnActionPerformed
 
     private void ContenidoVesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContenidoVesBtnActionPerformed
         // TODO add your handling code here:
+        JPanelGeneraPanel.setSelectedIndex(8);
     }//GEN-LAST:event_ContenidoVesBtnActionPerformed
 
     private void TusPostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TusPostBtnActionPerformed
         // TODO add your handling code here:
+        JPanelGeneraPanel.setSelectedIndex(7);
     }//GEN-LAST:event_TusPostBtnActionPerformed
 
     private void SilenciarYBloquearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SilenciarYBloquearBtnActionPerformed
@@ -2317,6 +2391,16 @@ public class Configuracion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Sig9MouseClicked
 
+    private void AtrasContVesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasContVesBtnActionPerformed
+        // TODO add your handling code here:
+        JPanelGeneraPanel.setSelectedIndex(5);
+    }//GEN-LAST:event_AtrasContVesBtnActionPerformed
+
+    private void AtrasTPostBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasTPostBtnActionPerformed
+        // TODO add your handling code here:
+        JPanelGeneraPanel.setSelectedIndex(5);
+    }//GEN-LAST:event_AtrasTPostBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2357,6 +2441,8 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton AtrasBtn;
     private javax.swing.JButton AtrasBtn1;
     private javax.swing.JButton AtrasBtn2;
+    private javax.swing.JButton AtrasContVesBtn;
+    private javax.swing.JButton AtrasTPostBtn;
     private javax.swing.JLabel BanderaLabel;
     private javax.swing.JLabel BanderaLabel1;
     private javax.swing.JTextField Buscador;
@@ -2369,6 +2455,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel ConBus;
     private javax.swing.JButton ConfiBtn;
     private javax.swing.JTextField ConfirmarContraseña;
+    private javax.swing.JPanel ContVesTabPane;
     private javax.swing.JButton ContenidoVesBtn;
     private javax.swing.JTextField ContraseñaActual;
     private javax.swing.JButton ContraseñaActualizada;
@@ -2394,6 +2481,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton EnviarContraseña;
     private javax.swing.JButton ExplorarBtn;
     private javax.swing.JButton ExpoConfigBtn;
+    private javax.swing.JButton FiltrosNotConfBtn;
     private javax.swing.JLabel FotoPerfil;
     private javax.swing.JComboBox<String> GeneroComboBox;
     private javax.swing.JLabel GeneroLabel;
@@ -2410,11 +2498,22 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel L_PS_Title1;
     private javax.swing.JLabel L_PS_Title2;
     private javax.swing.JLabel L_PS_Title3;
+    private javax.swing.JLabel L_sig;
+    private javax.swing.JLabel L_sig_AddInfPo;
+    private javax.swing.JLabel L_sig_CSConfigBus;
+    private javax.swing.JLabel L_sig_CSExplorarC;
+    private javax.swing.JLabel L_sig_CSInte;
+    private javax.swing.JLabel L_sig_CSTemas;
+    private javax.swing.JLabel L_sig_ContVes;
+    private javax.swing.JLabel L_sig_filtros;
+    private javax.swing.JLabel L_sig_pref;
+    private javax.swing.JLabel L_sig_tusPosts;
     private javax.swing.JLabel NombreUsuario;
     private javax.swing.JLabel NombreUsuario1;
     private javax.swing.JTextField NombreUsuarioEditar;
     private javax.swing.JButton NotiFicacionesBtn;
     private javax.swing.JButton NotificacionesBtn;
+    private javax.swing.JPanel NotificacionesTabPane;
     private javax.swing.JComboBox<String> Pais;
     private javax.swing.JComboBox<String> PaisComboBox;
     private javax.swing.JLabel PaisLabel;
@@ -2424,6 +2523,8 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPanel PerfilPanel;
     private javax.swing.JLabel Perfil_Img;
     private javax.swing.JButton PostearBtn;
+    private javax.swing.JButton PreferenciasBtn;
+    private javax.swing.JPanel PrivacidadTabPane;
     private javax.swing.JButton PrivacidadYSeguridadBtn;
     private javax.swing.JButton Save_Icono1;
     private javax.swing.JButton Save_Icono2;
@@ -2450,8 +2551,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel TelefonoLabel;
     private javax.swing.JButton TemasBtn;
     private javax.swing.JButton TusPostBtn;
-    private javax.swing.JButton TusPostBtn1;
-    private javax.swing.JButton TusPostBtn2;
+    private javax.swing.JPanel TusPostTabPane;
     private javax.swing.JLabel UsuarioLabel;
     private javax.swing.JLabel UsuarioLabel1;
     private javax.swing.JLabel UsuarioLabel2;
@@ -2491,25 +2591,14 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2518,12 +2607,8 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
