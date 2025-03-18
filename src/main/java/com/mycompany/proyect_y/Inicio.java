@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.proyect_y;
+import Conection.DB_Conection;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -17,7 +18,8 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
-        
+        DB_Conection db = new DB_Conection();
+        //db.DB_Conection_o(); 
         String url="src/main/java/Multimedia/YSinFondo.png";
         ImageIcon image = new ImageIcon(url);
         Image img = image.getImage().getScaledInstance(550,550, Image.SCALE_DEFAULT );
