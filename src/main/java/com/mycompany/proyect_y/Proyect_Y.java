@@ -20,8 +20,9 @@ public class Proyect_Y {
         //No teman
         
         //Comentario de Ian
-        Configuracion In = new Configuracion();
+        Busqueda In = new Busqueda();
         In.setVisible(true);
+        
         
         UIManager.put( "Button.arc", 999 );
 UIManager.put( "Component.arc", 999 );
