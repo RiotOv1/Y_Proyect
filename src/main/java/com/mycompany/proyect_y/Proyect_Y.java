@@ -20,7 +20,7 @@ public class Proyect_Y {
         //No teman
         
         //Comentario de Ian
-        Busqueda In = new Busqueda();
+        Explorar In = new Explorar();
         In.setVisible(true);
         
         
