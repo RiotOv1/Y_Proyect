@@ -91,14 +91,10 @@ public class Notificaciones extends javax.swing.JFrame {
 
         PanelTotalNotificaciones = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
         CuentaBtn1 = new javax.swing.JButton();
-        jSeparator5 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         FiltroSeguidores = new javax.swing.JButton();
         FiltroYaps = new javax.swing.JButton();
-        SeguridadYAccesoBtn8 = new javax.swing.JButton();
-        SeguridadYAccesoBtn = new javax.swing.JButton();
         FiltroTodo = new javax.swing.JButton();
         PanelNot4 = new javax.swing.JPanel();
         UsuarioNot4 = new javax.swing.JButton();
@@ -119,11 +115,25 @@ public class Notificaciones extends javax.swing.JFrame {
         jPanel21 = new javax.swing.JPanel();
         Y_logo = new javax.swing.JLabel();
         PostearBtn = new javax.swing.JButton();
+        PanelNot2 = new javax.swing.JPanel();
+        UsuarioNot2 = new javax.swing.JButton();
+        NombreNot2 = new javax.swing.JLabel();
+        DescripcionNot2 = new javax.swing.JLabel();
+        ImgNot2 = new javax.swing.JLabel();
+        PanelNot1 = new javax.swing.JPanel();
+        UsuarioNot1 = new javax.swing.JButton();
+        NombreNot1 = new javax.swing.JLabel();
+        DescripcionNot1 = new javax.swing.JLabel();
+        ImgNot1 = new javax.swing.JLabel();
+        PanelNot3 = new javax.swing.JPanel();
+        UsuarioNot3 = new javax.swing.JButton();
+        NombreNot3 = new javax.swing.JLabel();
+        DescripcionNot3 = new javax.swing.JLabel();
+        ImgNot3 = new javax.swing.JLabel();
         PerfilPanel = new javax.swing.JPanel();
         Perfil_Img1 = new javax.swing.JLabel();
         NombreUsuario = new javax.swing.JLabel();
         IdUsuario2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         Perfil_Img = new javax.swing.JLabel();
         PublicacionesBtn2 = new javax.swing.JButton();
         QuePasa = new javax.swing.JLabel();
@@ -147,21 +157,7 @@ public class Notificaciones extends javax.swing.JFrame {
         UserInt3 = new javax.swing.JButton();
         UserInt1 = new javax.swing.JButton();
         UserInt2 = new javax.swing.JButton();
-        PanelNot2 = new javax.swing.JPanel();
-        UsuarioNot2 = new javax.swing.JButton();
-        NombreNot2 = new javax.swing.JLabel();
-        DescripcionNot2 = new javax.swing.JLabel();
-        ImgNot2 = new javax.swing.JLabel();
-        PanelNot1 = new javax.swing.JPanel();
-        UsuarioNot1 = new javax.swing.JButton();
-        NombreNot1 = new javax.swing.JLabel();
-        DescripcionNot1 = new javax.swing.JLabel();
-        ImgNot1 = new javax.swing.JLabel();
-        PanelNot3 = new javax.swing.JPanel();
-        UsuarioNot3 = new javax.swing.JButton();
-        NombreNot3 = new javax.swing.JLabel();
-        DescripcionNot3 = new javax.swing.JLabel();
-        ImgNot3 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -175,11 +171,6 @@ public class Notificaciones extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         PanelTotalNotificaciones.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 0, -1, 1040));
-
-        jSeparator4.setBackground(new java.awt.Color(153, 153, 153));
-        jSeparator4.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        PanelTotalNotificaciones.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 0, 10, 1040));
 
         CuentaBtn1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         CuentaBtn1.setForeground(new java.awt.Color(204, 204, 204));
@@ -195,11 +186,6 @@ public class Notificaciones extends javax.swing.JFrame {
             }
         });
         PanelTotalNotificaciones.add(CuentaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 990, 70, 40));
-
-        jSeparator5.setBackground(new java.awt.Color(153, 153, 153));
-        jSeparator5.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        PanelTotalNotificaciones.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 0, 10, 1040));
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -234,35 +220,6 @@ public class Notificaciones extends javax.swing.JFrame {
             }
         });
 
-        SeguridadYAccesoBtn8.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        SeguridadYAccesoBtn8.setForeground(new java.awt.Color(204, 204, 204));
-        SeguridadYAccesoBtn8.setToolTipText("");
-        SeguridadYAccesoBtn8.setBorder(null);
-        SeguridadYAccesoBtn8.setBorderPainted(false);
-        SeguridadYAccesoBtn8.setContentAreaFilled(false);
-        SeguridadYAccesoBtn8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SeguridadYAccesoBtn8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        SeguridadYAccesoBtn8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguridadYAccesoBtn8ActionPerformed(evt);
-            }
-        });
-
-        SeguridadYAccesoBtn.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        SeguridadYAccesoBtn.setForeground(new java.awt.Color(204, 204, 204));
-        SeguridadYAccesoBtn.setText("Le gusta");
-        SeguridadYAccesoBtn.setToolTipText("");
-        SeguridadYAccesoBtn.setBorder(null);
-        SeguridadYAccesoBtn.setBorderPainted(false);
-        SeguridadYAccesoBtn.setContentAreaFilled(false);
-        SeguridadYAccesoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SeguridadYAccesoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        SeguridadYAccesoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguridadYAccesoBtnActionPerformed(evt);
-            }
-        });
-
         FiltroTodo.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         FiltroTodo.setForeground(new java.awt.Color(204, 204, 204));
         FiltroTodo.setText("Todo");
@@ -283,32 +240,27 @@ public class Notificaciones extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(84, 84, 84)
                 .addComponent(FiltroTodo)
-                .addGap(96, 96, 96)
+                .addGap(206, 206, 206)
                 .addComponent(FiltroSeguidores)
-                .addGap(90, 90, 90)
+                .addGap(200, 200, 200)
                 .addComponent(FiltroYaps, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(SeguridadYAccesoBtn8, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126)
-                .addComponent(SeguridadYAccesoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(10, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FiltroSeguidores, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FiltroYaps, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SeguridadYAccesoBtn8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SeguridadYAccesoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FiltroTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(FiltroTodo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(FiltroYaps, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FiltroSeguidores, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        PanelTotalNotificaciones.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 490, 40));
+        PanelTotalNotificaciones.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 750, 40));
 
         PanelNot4.setBackground(new java.awt.Color(59, 28, 50));
         PanelNot4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -354,7 +306,7 @@ public class Notificaciones extends javax.swing.JFrame {
                         .addComponent(NombreNot4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(UsuarioNot4)
-                        .addGap(0, 240, Short.MAX_VALUE)))
+                        .addGap(0, 510, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelNot4Layout.setVerticalGroup(
@@ -370,7 +322,7 @@ public class Notificaciones extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelTotalNotificaciones.add(PanelNot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 650, 460, 140));
+        PanelTotalNotificaciones.add(PanelNot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 600, 730, 130));
 
         IconoNotificaciones.setBackground(new java.awt.Color(166, 77, 121));
         IconoNotificaciones.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -536,7 +488,7 @@ public class Notificaciones extends javax.swing.JFrame {
         PostearBtn.setBackground(new java.awt.Color(166, 77, 121));
         PostearBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         PostearBtn.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn.setText("Publicacion");
+        PostearBtn.setText("Publicación");
         PostearBtn.setToolTipText("");
         PostearBtn.setAlignmentY(0.0F);
         PostearBtn.setBorderPainted(false);
@@ -545,232 +497,7 @@ public class Notificaciones extends javax.swing.JFrame {
                 PostearBtnActionPerformed(evt);
             }
         });
-        PanelTotalNotificaciones.add(PostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 650, 200, 40));
-
-        PerfilPanel.setBackground(new java.awt.Color(0, 0, 0));
-        PerfilPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        PerfilPanel.add(Perfil_Img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
-
-        NombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        NombreUsuario.setForeground(new java.awt.Color(204, 204, 204));
-        NombreUsuario.setText("Usuario Ejemplo");
-        PerfilPanel.add(NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
-
-        IdUsuario2.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        IdUsuario2.setForeground(new java.awt.Color(106, 30, 85));
-        IdUsuario2.setText("@Usuario1");
-        PerfilPanel.add(IdUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
-
-        jButton1.setBackground(new java.awt.Color(106, 30, 85));
-        jButton1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(106, 30, 85));
-        jButton1.setText("...");
-        jButton1.setAlignmentY(0.0F);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        PerfilPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 50, 40));
-
-        PanelTotalNotificaciones.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 270, 60));
-        PanelTotalNotificaciones.add(Perfil_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
-
-        PublicacionesBtn2.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
-        PublicacionesBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        PublicacionesBtn2.setText("1000 publicaciones");
-        PublicacionesBtn2.setBorder(null);
-        PublicacionesBtn2.setBorderPainted(false);
-        PublicacionesBtn2.setContentAreaFilled(false);
-        PublicacionesBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PublicacionesBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        PublicacionesBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PublicacionesBtn2ActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(PublicacionesBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 560, 100, 30));
-
-        QuePasa.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        QuePasa.setForeground(new java.awt.Color(204, 204, 204));
-        QuePasa.setText("Qué pasa");
-        PanelTotalNotificaciones.add(QuePasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 370, 210, 30));
-
-        SeguirCuentaBtn3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        SeguirCuentaBtn3.setText("Seguir");
-        PanelTotalNotificaciones.add(SeguirCuentaBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 230, -1, 30));
-
-        SeguirCuentaBtn1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        SeguirCuentaBtn1.setText("Seguir");
-        PanelTotalNotificaciones.add(SeguirCuentaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 133, -1, 30));
-
-        SeguirCuentaBtn2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        SeguirCuentaBtn2.setText("Seguir");
-        PanelTotalNotificaciones.add(SeguirCuentaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 180, -1, 30));
-
-        jSeparator6.setBackground(new java.awt.Color(153, 153, 153));
-        jSeparator6.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        PanelTotalNotificaciones.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 80, 30, 220));
-
-        jSeparator7.setBackground(new java.awt.Color(153, 153, 153));
-        jSeparator7.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        PanelTotalNotificaciones.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 80, 20, 220));
-        PanelTotalNotificaciones.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 300, 280, 20));
-        PanelTotalNotificaciones.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 80, 280, 10));
-
-        jLabel40.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel40.setText("Te puede interesar");
-        PanelTotalNotificaciones.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 80, 210, 30));
-
-        TendenciaYapBtn2.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        TendenciaYapBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        TendenciaYapBtn2.setText("Descripción");
-        TendenciaYapBtn2.setBorder(null);
-        TendenciaYapBtn2.setBorderPainted(false);
-        TendenciaYapBtn2.setContentAreaFilled(false);
-        TendenciaYapBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        TendenciaYapBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        TendenciaYapBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TendenciaYapBtn2ActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(TendenciaYapBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 490, 130, 50));
-
-        MostrarMasTendenciaBtn.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
-        MostrarMasTendenciaBtn.setForeground(new java.awt.Color(204, 204, 204));
-        MostrarMasTendenciaBtn.setText("Mostrar mas");
-        MostrarMasTendenciaBtn.setBorder(null);
-        MostrarMasTendenciaBtn.setBorderPainted(false);
-        MostrarMasTendenciaBtn.setContentAreaFilled(false);
-        MostrarMasTendenciaBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MostrarMasTendenciaBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MostrarMasTendenciaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarMasTendenciaBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(MostrarMasTendenciaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 570, 80, 50));
-
-        CuentaBtn20.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
-        CuentaBtn20.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn20.setText("Tendencias");
-        CuentaBtn20.setBorder(null);
-        CuentaBtn20.setBorderPainted(false);
-        CuentaBtn20.setContentAreaFilled(false);
-        CuentaBtn20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn20ActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(CuentaBtn20, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 390, 80, 30));
-
-        TendenciaYapBtn1.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        TendenciaYapBtn1.setForeground(new java.awt.Color(204, 204, 204));
-        TendenciaYapBtn1.setText("Descripción");
-        TendenciaYapBtn1.setBorder(null);
-        TendenciaYapBtn1.setBorderPainted(false);
-        TendenciaYapBtn1.setContentAreaFilled(false);
-        TendenciaYapBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        TendenciaYapBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        TendenciaYapBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TendenciaYapBtn1ActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(TendenciaYapBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 410, 130, 50));
-
-        PublicacionesBtn1.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
-        PublicacionesBtn1.setForeground(new java.awt.Color(204, 204, 204));
-        PublicacionesBtn1.setText("1000 publicaciones");
-        PublicacionesBtn1.setBorder(null);
-        PublicacionesBtn1.setBorderPainted(false);
-        PublicacionesBtn1.setContentAreaFilled(false);
-        PublicacionesBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PublicacionesBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        PublicacionesBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PublicacionesBtn1ActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(PublicacionesBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 460, 100, 50));
-
-        MostrarMasInteresBtn.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
-        MostrarMasInteresBtn.setForeground(new java.awt.Color(204, 204, 204));
-        MostrarMasInteresBtn.setText("Mostrar mas");
-        MostrarMasInteresBtn.setBorder(null);
-        MostrarMasInteresBtn.setBorderPainted(false);
-        MostrarMasInteresBtn.setContentAreaFilled(false);
-        MostrarMasInteresBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        MostrarMasInteresBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MostrarMasInteresBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarMasInteresBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(MostrarMasInteresBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 260, 80, 50));
-
-        ImgInt3.setForeground(new java.awt.Color(255, 255, 255));
-        ImgInt3.setText("ImgInteres2");
-        PanelTotalNotificaciones.add(ImgInt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 220, 60, 50));
-
-        ImgInt1.setForeground(new java.awt.Color(255, 255, 255));
-        ImgInt1.setText("ImgInteres1");
-        PanelTotalNotificaciones.add(ImgInt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 120, 60, 50));
-
-        ImgInt2.setForeground(new java.awt.Color(255, 255, 255));
-        ImgInt2.setText("ImgInteres2");
-        PanelTotalNotificaciones.add(ImgInt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 170, 60, 50));
-
-        UserInt3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UserInt3.setForeground(new java.awt.Color(204, 204, 204));
-        UserInt3.setText("@Usuario");
-        UserInt3.setToolTipText("");
-        UserInt3.setBorder(null);
-        UserInt3.setBorderPainted(false);
-        UserInt3.setContentAreaFilled(false);
-        UserInt3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UserInt3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UserInt3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserInt3ActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(UserInt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 230, -1, 30));
-
-        UserInt1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UserInt1.setForeground(new java.awt.Color(204, 204, 204));
-        UserInt1.setText("@Usuario");
-        UserInt1.setToolTipText("");
-        UserInt1.setBorder(null);
-        UserInt1.setBorderPainted(false);
-        UserInt1.setContentAreaFilled(false);
-        UserInt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UserInt1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UserInt1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserInt1ActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(UserInt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 130, -1, 30));
-
-        UserInt2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UserInt2.setForeground(new java.awt.Color(204, 204, 204));
-        UserInt2.setText("@Usuario");
-        UserInt2.setToolTipText("");
-        UserInt2.setBorder(null);
-        UserInt2.setBorderPainted(false);
-        UserInt2.setContentAreaFilled(false);
-        UserInt2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UserInt2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UserInt2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserInt2ActionPerformed(evt);
-            }
-        });
-        PanelTotalNotificaciones.add(UserInt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 180, -1, 30));
+        PanelTotalNotificaciones.add(PostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 680, 200, 40));
 
         PanelNot2.setBackground(new java.awt.Color(106, 30, 85));
         PanelNot2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -816,7 +543,7 @@ public class Notificaciones extends javax.swing.JFrame {
                         .addComponent(NombreNot2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(UsuarioNot2)
-                        .addGap(0, 240, Short.MAX_VALUE)))
+                        .addGap(0, 510, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelNot2Layout.setVerticalGroup(
@@ -832,7 +559,7 @@ public class Notificaciones extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelTotalNotificaciones.add(PanelNot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 460, 140));
+        PanelTotalNotificaciones.add(PanelNot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 730, 140));
 
         PanelNot1.setBackground(new java.awt.Color(59, 28, 50));
         PanelNot1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -878,7 +605,7 @@ public class Notificaciones extends javax.swing.JFrame {
                         .addComponent(NombreNot1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(UsuarioNot1)
-                        .addGap(0, 240, Short.MAX_VALUE)))
+                        .addGap(0, 510, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelNot1Layout.setVerticalGroup(
@@ -894,7 +621,7 @@ public class Notificaciones extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelTotalNotificaciones.add(PanelNot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 460, 140));
+        PanelTotalNotificaciones.add(PanelNot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 730, 130));
 
         PanelNot3.setBackground(new java.awt.Color(166, 77, 121));
         PanelNot3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -940,7 +667,7 @@ public class Notificaciones extends javax.swing.JFrame {
                         .addComponent(NombreNot3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(UsuarioNot3)
-                        .addGap(0, 240, Short.MAX_VALUE)))
+                        .addGap(0, 510, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelNot3Layout.setVerticalGroup(
@@ -956,31 +683,248 @@ public class Notificaciones extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelTotalNotificaciones.add(PanelNot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 460, 140));
+        PanelTotalNotificaciones.add(PanelNot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 450, 730, 130));
+
+        PerfilPanel.setBackground(new java.awt.Color(0, 0, 0));
+        PerfilPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PerfilPanel.add(Perfil_Img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
+
+        NombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        NombreUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        NombreUsuario.setText("Usuario");
+        PerfilPanel.add(NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        IdUsuario2.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        IdUsuario2.setForeground(new java.awt.Color(106, 30, 85));
+        IdUsuario2.setText("@Usuario1");
+        PerfilPanel.add(IdUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
+        PerfilPanel.add(Perfil_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
+
+        PanelTotalNotificaciones.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 270, 60));
+
+        PublicacionesBtn2.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
+        PublicacionesBtn2.setForeground(new java.awt.Color(204, 204, 204));
+        PublicacionesBtn2.setText("1000 publicaciones");
+        PublicacionesBtn2.setBorder(null);
+        PublicacionesBtn2.setBorderPainted(false);
+        PublicacionesBtn2.setContentAreaFilled(false);
+        PublicacionesBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PublicacionesBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PublicacionesBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PublicacionesBtn2ActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(PublicacionesBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 560, 100, 30));
+
+        QuePasa.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        QuePasa.setForeground(new java.awt.Color(204, 204, 204));
+        QuePasa.setText("Qué pasa");
+        PanelTotalNotificaciones.add(QuePasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 370, 210, 30));
+
+        SeguirCuentaBtn3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SeguirCuentaBtn3.setText("Seguir");
+        PanelTotalNotificaciones.add(SeguirCuentaBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 230, -1, 30));
+
+        SeguirCuentaBtn1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SeguirCuentaBtn1.setText("Seguir");
+        PanelTotalNotificaciones.add(SeguirCuentaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 130, -1, 30));
+
+        SeguirCuentaBtn2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SeguirCuentaBtn2.setText("Seguir");
+        PanelTotalNotificaciones.add(SeguirCuentaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 180, -1, 30));
+
+        jSeparator6.setBackground(new java.awt.Color(153, 153, 153));
+        jSeparator6.setForeground(new java.awt.Color(153, 153, 153));
+        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelTotalNotificaciones.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 80, 30, 220));
+
+        jSeparator7.setBackground(new java.awt.Color(153, 153, 153));
+        jSeparator7.setForeground(new java.awt.Color(153, 153, 153));
+        jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelTotalNotificaciones.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1490, 80, 20, 220));
+        PanelTotalNotificaciones.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 300, 280, 20));
+        PanelTotalNotificaciones.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 80, 280, 10));
+
+        jLabel40.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel40.setText("Te puede interesar");
+        PanelTotalNotificaciones.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 80, 210, 30));
+
+        TendenciaYapBtn2.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        TendenciaYapBtn2.setForeground(new java.awt.Color(204, 204, 204));
+        TendenciaYapBtn2.setText("Descripción");
+        TendenciaYapBtn2.setBorder(null);
+        TendenciaYapBtn2.setBorderPainted(false);
+        TendenciaYapBtn2.setContentAreaFilled(false);
+        TendenciaYapBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TendenciaYapBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        TendenciaYapBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TendenciaYapBtn2ActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(TendenciaYapBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 490, 130, 50));
+
+        MostrarMasTendenciaBtn.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
+        MostrarMasTendenciaBtn.setForeground(new java.awt.Color(204, 204, 204));
+        MostrarMasTendenciaBtn.setText("Mostrar mas");
+        MostrarMasTendenciaBtn.setBorder(null);
+        MostrarMasTendenciaBtn.setBorderPainted(false);
+        MostrarMasTendenciaBtn.setContentAreaFilled(false);
+        MostrarMasTendenciaBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MostrarMasTendenciaBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MostrarMasTendenciaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarMasTendenciaBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(MostrarMasTendenciaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 580, 80, 50));
+
+        CuentaBtn20.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
+        CuentaBtn20.setForeground(new java.awt.Color(204, 204, 204));
+        CuentaBtn20.setText("Tendencias");
+        CuentaBtn20.setBorder(null);
+        CuentaBtn20.setBorderPainted(false);
+        CuentaBtn20.setContentAreaFilled(false);
+        CuentaBtn20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CuentaBtn20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        CuentaBtn20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CuentaBtn20ActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(CuentaBtn20, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 390, 80, 30));
+
+        TendenciaYapBtn1.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        TendenciaYapBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        TendenciaYapBtn1.setText("Descripción");
+        TendenciaYapBtn1.setBorder(null);
+        TendenciaYapBtn1.setBorderPainted(false);
+        TendenciaYapBtn1.setContentAreaFilled(false);
+        TendenciaYapBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        TendenciaYapBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        TendenciaYapBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TendenciaYapBtn1ActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(TendenciaYapBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 410, 130, 50));
+
+        PublicacionesBtn1.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
+        PublicacionesBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        PublicacionesBtn1.setText("1000 publicaciones");
+        PublicacionesBtn1.setBorder(null);
+        PublicacionesBtn1.setBorderPainted(false);
+        PublicacionesBtn1.setContentAreaFilled(false);
+        PublicacionesBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PublicacionesBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PublicacionesBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PublicacionesBtn1ActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(PublicacionesBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 460, 100, 50));
+
+        MostrarMasInteresBtn.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
+        MostrarMasInteresBtn.setForeground(new java.awt.Color(204, 204, 204));
+        MostrarMasInteresBtn.setText("Mostrar mas");
+        MostrarMasInteresBtn.setBorder(null);
+        MostrarMasInteresBtn.setBorderPainted(false);
+        MostrarMasInteresBtn.setContentAreaFilled(false);
+        MostrarMasInteresBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        MostrarMasInteresBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MostrarMasInteresBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MostrarMasInteresBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(MostrarMasInteresBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 260, 80, 50));
+
+        ImgInt3.setForeground(new java.awt.Color(255, 255, 255));
+        ImgInt3.setText("ImgInteres2");
+        PanelTotalNotificaciones.add(ImgInt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 220, 60, 50));
+
+        ImgInt1.setForeground(new java.awt.Color(255, 255, 255));
+        ImgInt1.setText("ImgInteres1");
+        PanelTotalNotificaciones.add(ImgInt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 120, 60, 50));
+
+        ImgInt2.setForeground(new java.awt.Color(255, 255, 255));
+        ImgInt2.setText("ImgInteres2");
+        PanelTotalNotificaciones.add(ImgInt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 170, 60, 50));
+
+        UserInt3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserInt3.setForeground(new java.awt.Color(204, 204, 204));
+        UserInt3.setText("@Usuario");
+        UserInt3.setToolTipText("");
+        UserInt3.setBorder(null);
+        UserInt3.setBorderPainted(false);
+        UserInt3.setContentAreaFilled(false);
+        UserInt3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserInt3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserInt3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserInt3ActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(UserInt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 230, -1, 30));
+
+        UserInt1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserInt1.setForeground(new java.awt.Color(204, 204, 204));
+        UserInt1.setText("@Usuario");
+        UserInt1.setToolTipText("");
+        UserInt1.setBorder(null);
+        UserInt1.setBorderPainted(false);
+        UserInt1.setContentAreaFilled(false);
+        UserInt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserInt1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserInt1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserInt1ActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(UserInt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 130, -1, 30));
+
+        UserInt2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserInt2.setForeground(new java.awt.Color(204, 204, 204));
+        UserInt2.setText("@Usuario");
+        UserInt2.setToolTipText("");
+        UserInt2.setBorder(null);
+        UserInt2.setBorderPainted(false);
+        UserInt2.setContentAreaFilled(false);
+        UserInt2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserInt2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserInt2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserInt2ActionPerformed(evt);
+            }
+        });
+        PanelTotalNotificaciones.add(UserInt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 180, -1, 30));
+
+        jSeparator4.setBackground(new java.awt.Color(153, 153, 153));
+        jSeparator4.setForeground(new java.awt.Color(153, 153, 153));
+        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        PanelTotalNotificaciones.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 0, 10, 1040));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(PanelTotalNotificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(PanelTotalNotificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SeguridadYAccesoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtnActionPerformed
-        
-    }//GEN-LAST:event_SeguridadYAccesoBtnActionPerformed
 
     private void CuentaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn1ActionPerformed
         // TODO add your handling code here:
@@ -1001,10 +945,6 @@ public class Notificaciones extends javax.swing.JFrame {
     private void FiltroTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltroTodoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FiltroTodoActionPerformed
-
-    private void SeguridadYAccesoBtn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguridadYAccesoBtn8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SeguridadYAccesoBtn8ActionPerformed
 
     private void IconoNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IconoNotificacionesActionPerformed
         // TODO add your handling code here:
@@ -1046,6 +986,18 @@ public class Notificaciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PostearBtnActionPerformed
 
+    private void UsuarioNot2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioNot2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioNot2ActionPerformed
+
+    private void UsuarioNot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioNot1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioNot1ActionPerformed
+
+    private void UsuarioNot3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioNot3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioNot3ActionPerformed
+
     private void PublicacionesBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PublicacionesBtn2ActionPerformed
 
     }//GEN-LAST:event_PublicacionesBtn2ActionPerformed
@@ -1085,18 +1037,6 @@ public class Notificaciones extends javax.swing.JFrame {
     private void UserInt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserInt2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UserInt2ActionPerformed
-
-    private void UsuarioNot2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioNot2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioNot2ActionPerformed
-
-    private void UsuarioNot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioNot1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioNot1ActionPerformed
-
-    private void UsuarioNot3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioNot3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioNot3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1186,8 +1126,6 @@ public class Notificaciones extends javax.swing.JFrame {
     private javax.swing.JButton SeguirCuentaBtn1;
     private javax.swing.JButton SeguirCuentaBtn2;
     private javax.swing.JButton SeguirCuentaBtn3;
-    private javax.swing.JButton SeguridadYAccesoBtn;
-    private javax.swing.JButton SeguridadYAccesoBtn8;
     private javax.swing.JButton TendenciaYapBtn1;
     private javax.swing.JButton TendenciaYapBtn2;
     private javax.swing.JButton UserInt1;
@@ -1199,13 +1137,11 @@ public class Notificaciones extends javax.swing.JFrame {
     private javax.swing.JButton UsuarioNot3;
     private javax.swing.JButton UsuarioNot4;
     private javax.swing.JLabel Y_logo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
