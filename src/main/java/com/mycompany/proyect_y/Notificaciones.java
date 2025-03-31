@@ -47,6 +47,12 @@ public class Notificaciones extends javax.swing.JFrame {
         Image img3 = image3.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono3 = new ImageIcon(img3);
         NotificacionesBtn.setIcon(Icono3);
+        
+        String url89 = "src\\main\\java\\Multimedia\\Icon-Notificaciones.png";
+        ImageIcon image389 = new ImageIcon(url89);
+        Image img389 = image389.getImage().getScaledInstance(32, 32, 0);
+        ImageIcon Icono389 = new ImageIcon(img389);
+        IconoNotificaciones.setIcon(Icono389);
 
         //IconoComunidades
         String url4 = "src\\main\\java\\Multimedia\\Icon-Comunidades.png";
@@ -336,12 +342,12 @@ public class Notificaciones extends javax.swing.JFrame {
                 IconoNotificacionesActionPerformed(evt);
             }
         });
-        PanelTotalNotificaciones.add(IconoNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 40, 40));
+        PanelTotalNotificaciones.add(IconoNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 60, 60));
 
         Seccion.setFont(new java.awt.Font("Roboto Black", 1, 36)); // NOI18N
         Seccion.setForeground(new java.awt.Color(204, 204, 204));
         Seccion.setText("Notificaciones");
-        PanelTotalNotificaciones.add(Seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 250, 40));
+        PanelTotalNotificaciones.add(Seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 250, 40));
 
         IdUsuario.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         IdUsuario.setForeground(new java.awt.Color(166, 77, 121));
@@ -910,17 +916,17 @@ public class Notificaciones extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PanelTotalNotificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PanelTotalNotificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
