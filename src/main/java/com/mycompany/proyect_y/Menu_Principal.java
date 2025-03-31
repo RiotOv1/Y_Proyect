@@ -32,6 +32,12 @@ public class Menu_Principal extends javax.swing.JFrame {
         Image img1 = image1.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono1 = new ImageIcon(img1);
         InicioBtn2.setIcon(Icono1);
+        
+        String url15 = "src\\main\\java\\Multimedia\\Icon-Inicio.png";
+        ImageIcon image15 = new ImageIcon(url15);
+        Image img15 = image15.getImage().getScaledInstance(32, 32, 0);
+        ImageIcon Icono15 = new ImageIcon(img15);
+        IconoParaTi.setIcon(Icono15);
 
         //IconoExplorar
         String url2 = "src\\main\\java\\Multimedia\\Icon-Explorar.png";
@@ -119,7 +125,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         DescripcionPub3 = new javax.swing.JLabel();
         ImgPub3 = new javax.swing.JLabel();
         ConfiBtn = new javax.swing.JButton();
-        InicioBtn2 = new javax.swing.JButton();
+        InicioBtn1 = new javax.swing.JButton();
         ExplorarBtn = new javax.swing.JButton();
         ComunidadesBtn = new javax.swing.JButton();
         NotificacionesBtn = new javax.swing.JButton();
@@ -158,7 +164,8 @@ public class Menu_Principal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         PostearBtn = new javax.swing.JButton();
-        InicioBtn1 = new javax.swing.JButton();
+        InicioBtn2 = new javax.swing.JButton();
+        IconoParaTi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -534,21 +541,21 @@ public class Menu_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 250, 40));
 
-        InicioBtn2.setBackground(new java.awt.Color(26, 26, 29));
-        InicioBtn2.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        InicioBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        InicioBtn2.setText("Para tí");
-        InicioBtn2.setToolTipText("");
-        InicioBtn2.setAlignmentY(0.0F);
-        InicioBtn2.setBorderPainted(false);
-        InicioBtn2.setContentAreaFilled(false);
-        InicioBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        InicioBtn2.addActionListener(new java.awt.event.ActionListener() {
+        InicioBtn1.setBackground(new java.awt.Color(26, 26, 29));
+        InicioBtn1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        InicioBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        InicioBtn1.setText("Para tí");
+        InicioBtn1.setToolTipText("");
+        InicioBtn1.setAlignmentY(0.0F);
+        InicioBtn1.setBorderPainted(false);
+        InicioBtn1.setContentAreaFilled(false);
+        InicioBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        InicioBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InicioBtn2ActionPerformed(evt);
+                InicioBtn1ActionPerformed(evt);
             }
         });
-        jPanel1.add(InicioBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 250, 40));
+        jPanel1.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 250, 40));
 
         ExplorarBtn.setBackground(new java.awt.Color(26, 26, 29));
         ExplorarBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -883,21 +890,35 @@ public class Menu_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(PostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 680, 200, 40));
 
-        InicioBtn1.setBackground(new java.awt.Color(26, 26, 29));
-        InicioBtn1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        InicioBtn1.setForeground(new java.awt.Color(204, 204, 204));
-        InicioBtn1.setText("   Inicio");
-        InicioBtn1.setToolTipText("");
-        InicioBtn1.setAlignmentY(0.0F);
-        InicioBtn1.setBorderPainted(false);
-        InicioBtn1.setContentAreaFilled(false);
-        InicioBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        InicioBtn1.addActionListener(new java.awt.event.ActionListener() {
+        InicioBtn2.setBackground(new java.awt.Color(26, 26, 29));
+        InicioBtn2.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        InicioBtn2.setForeground(new java.awt.Color(204, 204, 204));
+        InicioBtn2.setText("   Inicio");
+        InicioBtn2.setToolTipText("");
+        InicioBtn2.setAlignmentY(0.0F);
+        InicioBtn2.setBorderPainted(false);
+        InicioBtn2.setContentAreaFilled(false);
+        InicioBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        InicioBtn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InicioBtn1ActionPerformed(evt);
+                InicioBtn2ActionPerformed(evt);
             }
         });
-        jPanel1.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 250, 40));
+        jPanel1.add(InicioBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 250, 40));
+
+        IconoParaTi.setBackground(new java.awt.Color(166, 77, 121));
+        IconoParaTi.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        IconoParaTi.setForeground(new java.awt.Color(204, 204, 204));
+        IconoParaTi.setToolTipText("");
+        IconoParaTi.setAlignmentY(0.0F);
+        IconoParaTi.setBorderPainted(false);
+        IconoParaTi.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        IconoParaTi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IconoParaTiActionPerformed(evt);
+            }
+        });
+        jPanel1.add(IconoParaTi, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 60, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -953,9 +974,9 @@ public class Menu_Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
-    private void InicioBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn2ActionPerformed
+    private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InicioBtn2ActionPerformed
+    }//GEN-LAST:event_InicioBtn1ActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
         // TODO add your handling code here:
@@ -1021,9 +1042,13 @@ public class Menu_Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PostearBtnActionPerformed
 
-    private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
+    private void InicioBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InicioBtn1ActionPerformed
+    }//GEN-LAST:event_InicioBtn2ActionPerformed
+
+    private void IconoParaTiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IconoParaTiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IconoParaTiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1074,6 +1099,7 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JButton FiltroTodo;
     private javax.swing.JButton FiltroYaps;
     private javax.swing.JButton GuardadoBtn;
+    private javax.swing.JButton IconoParaTi;
     private javax.swing.JLabel IdUsuario2;
     private javax.swing.JLabel ImgInt1;
     private javax.swing.JLabel ImgInt2;
