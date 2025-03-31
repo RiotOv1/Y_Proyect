@@ -55,6 +55,13 @@ public class Comunidad extends javax.swing.JFrame {
         Image img4 = image4.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono4 = new ImageIcon(img4);
         ComunidadesBtn.setIcon(Icono4);
+        
+                //IconoComunidades
+        String url43 = "src\\main\\java\\Multimedia\\Icon-Comunidades.png";
+        ImageIcon image43 = new ImageIcon(url43);
+        Image img43 = image43.getImage().getScaledInstance(32, 32, 0);
+        ImageIcon Icono43 = new ImageIcon(img43);
+        FotodeComunidadBtn.setIcon(Icono43);
 
         //IconoGuardados
         String url5 = "src\\main\\java\\Multimedia\\Icon-Guardado.png";
@@ -105,7 +112,6 @@ public class Comunidad extends javax.swing.JFrame {
         SeguidoresBtn = new javax.swing.JButton();
         NoSeguidoresBtn = new javax.swing.JButton();
         CuentaBtn1 = new javax.swing.JButton();
-        FotodeComunidadBtn = new javax.swing.JButton();
         UsuarioComunidad = new javax.swing.JButton();
         NombreComunidad = new javax.swing.JLabel();
         YapsBtn = new javax.swing.JButton();
@@ -166,6 +172,7 @@ public class Comunidad extends javax.swing.JFrame {
         IdUsuario2 = new javax.swing.JLabel();
         Perfil_Img = new javax.swing.JLabel();
         PostearBtn = new javax.swing.JButton();
+        FotodeComunidadBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -362,50 +369,30 @@ public class Comunidad extends javax.swing.JFrame {
             }
         });
 
-        FotodeComunidadBtn.setBackground(new java.awt.Color(166, 77, 121));
-        FotodeComunidadBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        FotodeComunidadBtn.setForeground(new java.awt.Color(204, 204, 204));
-        FotodeComunidadBtn.setToolTipText("");
-        FotodeComunidadBtn.setAlignmentY(0.0F);
-        FotodeComunidadBtn.setBorderPainted(false);
-        FotodeComunidadBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        FotodeComunidadBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FotodeComunidadBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout PortadaPanelLayout = new javax.swing.GroupLayout(PortadaPanel);
         PortadaPanel.setLayout(PortadaPanelLayout);
         PortadaPanelLayout.setHorizontalGroup(
             PortadaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PortadaPanelLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(FotodeComunidadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(PortadaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PortadaPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(NoSeguidoresBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SeguidoresBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(PortadaPanelLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(CuentaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(441, Short.MAX_VALUE))))
+                .addContainerGap(636, Short.MAX_VALUE)
+                .addComponent(NoSeguidoresBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SeguidoresBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+            .addGroup(PortadaPanelLayout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(CuentaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(456, Short.MAX_VALUE))
         );
         PortadaPanelLayout.setVerticalGroup(
             PortadaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PortadaPanelLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(PortadaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FotodeComunidadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PortadaPanelLayout.createSequentialGroup()
-                        .addComponent(CuentaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addGroup(PortadaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SeguidoresBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NoSeguidoresBtn))))
+                .addComponent(CuentaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(PortadaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SeguidoresBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NoSeguidoresBtn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -425,12 +412,12 @@ public class Comunidad extends javax.swing.JFrame {
                 UsuarioComunidadActionPerformed(evt);
             }
         });
-        PanelTotalComunidad.add(UsuarioComunidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, -1, -1));
+        PanelTotalComunidad.add(UsuarioComunidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, -1, -1));
 
         NombreComunidad.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
         NombreComunidad.setForeground(new java.awt.Color(204, 204, 204));
         NombreComunidad.setText("Comunidad");
-        PanelTotalComunidad.add(NombreComunidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, 19));
+        PanelTotalComunidad.add(NombreComunidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, -1, 19));
 
         YapsBtn.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         YapsBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -475,7 +462,7 @@ public class Comunidad extends javax.swing.JFrame {
                 DescripcionComunidadBtnActionPerformed(evt);
             }
         });
-        PanelTotalComunidad.add(DescripcionComunidadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 640, 50));
+        PanelTotalComunidad.add(DescripcionComunidadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 570, 50));
 
         ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
         ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -1030,6 +1017,20 @@ public class Comunidad extends javax.swing.JFrame {
         });
         PanelTotalComunidad.add(PostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 680, 200, 40));
 
+        FotodeComunidadBtn.setBackground(new java.awt.Color(166, 77, 121));
+        FotodeComunidadBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        FotodeComunidadBtn.setForeground(new java.awt.Color(204, 204, 204));
+        FotodeComunidadBtn.setToolTipText("");
+        FotodeComunidadBtn.setAlignmentY(0.0F);
+        FotodeComunidadBtn.setBorderPainted(false);
+        FotodeComunidadBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        FotodeComunidadBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FotodeComunidadBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(FotodeComunidadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 60, 60));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1041,10 +1042,10 @@ public class Comunidad extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(PanelTotalComunidad, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
