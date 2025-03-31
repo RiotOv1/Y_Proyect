@@ -39,6 +39,14 @@ public class Explorar extends javax.swing.JFrame {
         Image img2 = image2.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono2 = new ImageIcon(img2);
         ExplorarBtn2.setIcon(Icono2);
+        
+        //IconoExplorar
+        String url21 = "src\\main\\java\\Multimedia\\Icon-Explorar.png";
+        ImageIcon image23 = new ImageIcon(url21);
+        Image img23 = image23.getImage().getScaledInstance(32, 32, 0);
+        ImageIcon Icono23 = new ImageIcon(img23);
+        ExplorarBtn1.setIcon(Icono23);
+        
         //BuscadorImagen.setIcon(Icono2);
 
         //IconoNotificaciones
@@ -122,7 +130,6 @@ public class Explorar extends javax.swing.JFrame {
         PerfilBtn = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
         Y_logo = new javax.swing.JLabel();
-        Perfil_Img = new javax.swing.JLabel();
         EjemploBusquedas1 = new javax.swing.JPanel();
         UserResu1 = new javax.swing.JButton();
         NombreResu1 = new javax.swing.JLabel();
@@ -174,6 +181,7 @@ public class Explorar extends javax.swing.JFrame {
         NombreUsuario = new javax.swing.JLabel();
         IdUsuario2 = new javax.swing.JLabel();
         Perfil_Img2 = new javax.swing.JLabel();
+        Perfil_Img = new javax.swing.JLabel();
         PostearBtn = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JSeparator();
         ExplorarBtn1 = new javax.swing.JButton();
@@ -625,7 +633,6 @@ public class Explorar extends javax.swing.JFrame {
         jPanel21.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 60, 40));
 
         PanelTotalExplorar.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 70, 50));
-        PanelTotalExplorar.add(Perfil_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
 
         EjemploBusquedas1.setBackground(new java.awt.Color(59, 28, 50));
         EjemploBusquedas1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1149,6 +1156,7 @@ public class Explorar extends javax.swing.JFrame {
         IdUsuario2.setText("@Usuario1");
         PerfilPanel.add(IdUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
         PerfilPanel.add(Perfil_Img2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
+        PerfilPanel.add(Perfil_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
 
         PanelTotalExplorar.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 270, 60));
 
@@ -1191,17 +1199,15 @@ public class Explorar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(2102, Short.MAX_VALUE))
+                .addGap(0, 2108, Short.MAX_VALUE))
         );
 
         pack();
