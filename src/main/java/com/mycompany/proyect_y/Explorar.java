@@ -36,7 +36,7 @@ public class Explorar extends javax.swing.JFrame {
         //IconoExplorar
         String url2 = "src\\main\\java\\Multimedia\\Icon-Explorar.png";
         ImageIcon image2 = new ImageIcon(url2);
-        Image img2 = image2.getImage().getScaledInstance(32, 32, 0);
+        Image img2 = image2.getImage().getScaledInstance(40, 40, 0);
         ImageIcon Icono2 = new ImageIcon(img2);
         ExplorarBtn2.setIcon(Icono2);
         
@@ -83,6 +83,13 @@ public class Explorar extends javax.swing.JFrame {
         Image img13 = image13.getImage().getScaledInstance(50, 50, 0);
         ImageIcon Icono13 = new ImageIcon(img13);
         Y_logo.setIcon(Icono13);
+        
+        //Icono Tus Yaps
+        String url132 = "src\\main\\java\\Multimedia\\Yap-Icon.png";
+        ImageIcon image132 = new ImageIcon(url132);
+        Image img132 = image132.getImage().getScaledInstance(34, 34, 0);
+        ImageIcon Icono132 = new ImageIcon(img132);
+        TusYapsImg.setIcon(Icono132);
 
         //Icono Configuracion
         String url14 = "src\\main\\java\\Multimedia\\Icono-Configuracion.png";
@@ -90,7 +97,41 @@ public class Explorar extends javax.swing.JFrame {
         Image img14 = image14.getImage().getScaledInstance(34, 34, 0);
         ImageIcon Icono14 = new ImageIcon(img14);
         ConfiBtn.setIcon(Icono14);
+        
+        //Icono Menciones
+        String url147 = "src\\main\\java\\Multimedia\\Mencion-Icon.png";
+        ImageIcon image147 = new ImageIcon(url147);
+        Image img147 = image147.getImage().getScaledInstance(34, 34, 0);
+        ImageIcon Icono147 = new ImageIcon(img147);
+        MencionesImg.setIcon(Icono147);
+        
+        //Icono Cumple
+        String url143 = "src\\main\\java\\Multimedia\\Cump-Icon.png";
+        ImageIcon image143 = new ImageIcon(url143);
+        Image img143= image143.getImage().getScaledInstance(34, 34, 0);
+        ImageIcon Icono143= new ImageIcon(img143);
+        CumpImg.setIcon(Icono143);
 
+        //Icono Amigos
+        String url141 = "src\\main\\java\\Multimedia\\Amigo-Icon.png";
+        ImageIcon image141 = new ImageIcon(url141);
+        Image img141= image141.getImage().getScaledInstance(34, 34, 0);
+        ImageIcon Icono141= new ImageIcon(img141);
+        AmigosImg1.setIcon(Icono141);
+        
+        //Icono Tendencias
+        String url149 = "src\\main\\java\\Multimedia\\Tend-Icon.png";
+        ImageIcon image149 = new ImageIcon(url149);
+        Image img149= image149.getImage().getScaledInstance(34, 34, 0);
+        ImageIcon Icono149= new ImageIcon(img149);
+        TendenciaImg.setIcon(Icono149);
+        
+        //Icono Recientes
+        String url144 = "src\\main\\java\\Multimedia\\Reciente-Icon.png";
+        ImageIcon image144 = new ImageIcon(url144);
+        Image img144= image144.getImage().getScaledInstance(34, 34, 0);
+        ImageIcon Icono144= new ImageIcon(img144);
+        RecientesImg.setIcon(Icono144);
     }
     
     @SuppressWarnings("unchecked")
@@ -98,6 +139,10 @@ public class Explorar extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelTotalExplorar = new javax.swing.JPanel();
+        AmigosImg1 = new javax.swing.JLabel();
+        CumpImg = new javax.swing.JLabel();
+        TusYapsImg = new javax.swing.JLabel();
+        MencionesImg = new javax.swing.JLabel();
         MencionesBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -122,9 +167,9 @@ public class Explorar extends javax.swing.JFrame {
         AmigosBtn = new javax.swing.JButton();
         ConfiBtn = new javax.swing.JButton();
         InicioBtn1 = new javax.swing.JButton();
-        TusYapsBtn = new javax.swing.JButton();
         ExplorarBtn2 = new javax.swing.JButton();
         ComunidadesBtn = new javax.swing.JButton();
+        TusYapsBtn = new javax.swing.JButton();
         NotificacionesBtn = new javax.swing.JButton();
         GuardadoBtn = new javax.swing.JButton();
         PerfilBtn = new javax.swing.JButton();
@@ -151,10 +196,6 @@ public class Explorar extends javax.swing.JFrame {
         NoSeguidoresResu3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         ImgResu3 = new javax.swing.JLabel();
-        CumpImg = new javax.swing.JLabel();
-        TusYapsImg = new javax.swing.JLabel();
-        MencionesImg = new javax.swing.JLabel();
-        AmigosImg1 = new javax.swing.JLabel();
         PublicacionesBtn2 = new javax.swing.JButton();
         QuePasa = new javax.swing.JLabel();
         SeguirCuentaBtn3 = new javax.swing.JButton();
@@ -163,7 +204,7 @@ public class Explorar extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
         jSeparator9 = new javax.swing.JSeparator();
-        jLabel40 = new javax.swing.JLabel();
+        TePuedeInteresarLbl = new javax.swing.JLabel();
         TendenciaYapBtn2 = new javax.swing.JButton();
         MostrarMasTendenciaBtn = new javax.swing.JButton();
         CuentaBtn20 = new javax.swing.JButton();
@@ -185,6 +226,10 @@ public class Explorar extends javax.swing.JFrame {
         PostearBtn = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JSeparator();
         ExplorarBtn1 = new javax.swing.JButton();
+        TendenciaImg = new javax.swing.JLabel();
+        TendenciaBtn = new javax.swing.JButton();
+        RecientesImg = new javax.swing.JLabel();
+        RecienteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -192,6 +237,22 @@ public class Explorar extends javax.swing.JFrame {
         PanelTotalExplorar.setBackground(new java.awt.Color(0, 0, 0));
         PanelTotalExplorar.setPreferredSize(new java.awt.Dimension(1550, 820));
         PanelTotalExplorar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        AmigosImg1.setForeground(new java.awt.Color(255, 255, 255));
+        AmigosImg1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PanelTotalExplorar.add(AmigosImg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 620, 70, 70));
+
+        CumpImg.setForeground(new java.awt.Color(255, 255, 255));
+        CumpImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PanelTotalExplorar.add(CumpImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 710, 70, 70));
+
+        TusYapsImg.setForeground(new java.awt.Color(255, 255, 255));
+        TusYapsImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PanelTotalExplorar.add(TusYapsImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, 70, 70));
+
+        MencionesImg.setForeground(new java.awt.Color(255, 255, 255));
+        MencionesImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PanelTotalExplorar.add(MencionesImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 710, 70, 70));
 
         MencionesBtn.setBackground(new java.awt.Color(166, 77, 121));
         MencionesBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -206,7 +267,7 @@ public class Explorar extends javax.swing.JFrame {
                 MencionesBtnActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(MencionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 700, 180, 70));
+        PanelTotalExplorar.add(MencionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 710, 180, 70));
 
         jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
@@ -467,7 +528,7 @@ public class Explorar extends javax.swing.JFrame {
 
         PanelTotalExplorar.add(EjemploBusqueda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 470, 730, 90));
 
-        CumpleBtn.setBackground(new java.awt.Color(106, 30, 85));
+        CumpleBtn.setBackground(new java.awt.Color(166, 77, 121));
         CumpleBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         CumpleBtn.setForeground(new java.awt.Color(204, 204, 204));
         CumpleBtn.setText(" Cumpleaños");
@@ -480,7 +541,7 @@ public class Explorar extends javax.swing.JFrame {
                 CumpleBtnActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(CumpleBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 700, 180, 70));
+        PanelTotalExplorar.add(CumpleBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 710, 180, 70));
 
         AmigosBtn.setBackground(new java.awt.Color(166, 77, 121));
         AmigosBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -495,7 +556,7 @@ public class Explorar extends javax.swing.JFrame {
                 AmigosBtnActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(AmigosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 620, 180, 70));
+        PanelTotalExplorar.add(AmigosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 620, 180, 70));
 
         ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
         ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -530,22 +591,6 @@ public class Explorar extends javax.swing.JFrame {
         });
         PanelTotalExplorar.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 250, 40));
 
-        TusYapsBtn.setBackground(new java.awt.Color(106, 30, 85));
-        TusYapsBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TusYapsBtn.setForeground(new java.awt.Color(204, 204, 204));
-        TusYapsBtn.setText("Tus Yap's");
-        TusYapsBtn.setToolTipText("");
-        TusYapsBtn.setAlignmentY(0.0F);
-        TusYapsBtn.setBorderPainted(false);
-        TusYapsBtn.setHideActionText(true);
-        TusYapsBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        TusYapsBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TusYapsBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(TusYapsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 620, 180, 70));
-
         ExplorarBtn2.setBackground(new java.awt.Color(26, 26, 29));
         ExplorarBtn2.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         ExplorarBtn2.setForeground(new java.awt.Color(204, 204, 204));
@@ -577,6 +622,24 @@ public class Explorar extends javax.swing.JFrame {
             }
         });
         PanelTotalExplorar.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 250, 40));
+
+        TusYapsBtn.setBackground(new java.awt.Color(166, 77, 121));
+        TusYapsBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TusYapsBtn.setForeground(new java.awt.Color(204, 204, 204));
+        TusYapsBtn.setText("Tus Yap's");
+        TusYapsBtn.setToolTipText("");
+        TusYapsBtn.setAlignmentY(0.0F);
+        TusYapsBtn.setBorderPainted(false);
+        TusYapsBtn.setDisplayedMnemonicIndex(2);
+        TusYapsBtn.setHideActionText(true);
+        TusYapsBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        TusYapsBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        TusYapsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TusYapsBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalExplorar.add(TusYapsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, 180, 70));
 
         NotificacionesBtn.setBackground(new java.awt.Color(26, 26, 29));
         NotificacionesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -895,7 +958,7 @@ public class Explorar extends javax.swing.JFrame {
                     .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(UserResu3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
                         .addComponent(NoSeguidoresResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NombreResu3))
@@ -927,22 +990,6 @@ public class Explorar extends javax.swing.JFrame {
         );
 
         PanelTotalExplorar.add(EjemploBusqueda6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 730, 90));
-
-        CumpImg.setForeground(new java.awt.Color(255, 255, 255));
-        CumpImg.setText("CumpImg");
-        PanelTotalExplorar.add(CumpImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 700, 70, 70));
-
-        TusYapsImg.setForeground(new java.awt.Color(255, 255, 255));
-        TusYapsImg.setText("TusYapsImg");
-        PanelTotalExplorar.add(TusYapsImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 620, 70, 70));
-
-        MencionesImg.setForeground(new java.awt.Color(255, 255, 255));
-        MencionesImg.setText("MencionesImg");
-        PanelTotalExplorar.add(MencionesImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 700, 70, 70));
-
-        AmigosImg1.setForeground(new java.awt.Color(255, 255, 255));
-        AmigosImg1.setText("AmigosImg");
-        PanelTotalExplorar.add(AmigosImg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 620, 70, 70));
 
         PublicacionesBtn2.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
         PublicacionesBtn2.setForeground(new java.awt.Color(204, 204, 204));
@@ -983,10 +1030,10 @@ public class Explorar extends javax.swing.JFrame {
         PanelTotalExplorar.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 300, 280, 20));
         PanelTotalExplorar.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 80, 280, 10));
 
-        jLabel40.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel40.setText("Te puede interesar");
-        PanelTotalExplorar.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 80, 210, 30));
+        TePuedeInteresarLbl.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
+        TePuedeInteresarLbl.setForeground(new java.awt.Color(204, 204, 204));
+        TePuedeInteresarLbl.setText("Te puede interesar");
+        PanelTotalExplorar.add(TePuedeInteresarLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 80, 210, 30));
 
         TendenciaYapBtn2.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         TendenciaYapBtn2.setForeground(new java.awt.Color(204, 204, 204));
@@ -1195,19 +1242,59 @@ public class Explorar extends javax.swing.JFrame {
         });
         PanelTotalExplorar.add(ExplorarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 250, 40));
 
+        TendenciaImg.setForeground(new java.awt.Color(255, 255, 255));
+        TendenciaImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PanelTotalExplorar.add(TendenciaImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 620, 70, 70));
+
+        TendenciaBtn.setBackground(new java.awt.Color(166, 77, 121));
+        TendenciaBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TendenciaBtn.setForeground(new java.awt.Color(204, 204, 204));
+        TendenciaBtn.setText("Tendencia");
+        TendenciaBtn.setToolTipText("");
+        TendenciaBtn.setAlignmentY(0.0F);
+        TendenciaBtn.setBorderPainted(false);
+        TendenciaBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        TendenciaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TendenciaBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalExplorar.add(TendenciaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 620, 180, 70));
+
+        RecientesImg.setForeground(new java.awt.Color(255, 255, 255));
+        RecientesImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PanelTotalExplorar.add(RecientesImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 710, 70, 70));
+
+        RecienteBtn.setBackground(new java.awt.Color(166, 77, 121));
+        RecienteBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        RecienteBtn.setForeground(new java.awt.Color(204, 204, 204));
+        RecienteBtn.setText("Recientes");
+        RecienteBtn.setToolTipText("");
+        RecienteBtn.setAlignmentY(0.0F);
+        RecienteBtn.setBorderPainted(false);
+        RecienteBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        RecienteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecienteBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalExplorar.add(RecienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 710, 180, 70));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2108, Short.MAX_VALUE))
+                .addContainerGap(2102, Short.MAX_VALUE))
         );
 
         pack();
@@ -1381,6 +1468,14 @@ public class Explorar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ExplorarBtn1ActionPerformed
 
+    private void TendenciaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TendenciaBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TendenciaBtnActionPerformed
+
+    private void RecienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecienteBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RecienteBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1479,6 +1574,8 @@ public class Explorar extends javax.swing.JFrame {
     private javax.swing.JButton PublicacionesBtn1;
     private javax.swing.JButton PublicacionesBtn2;
     private javax.swing.JLabel QuePasa;
+    private javax.swing.JButton RecienteBtn;
+    private javax.swing.JLabel RecientesImg;
     private javax.swing.JButton SeguidoresResu1;
     private javax.swing.JButton SeguidoresResu2;
     private javax.swing.JButton SeguidoresResu3;
@@ -1486,6 +1583,9 @@ public class Explorar extends javax.swing.JFrame {
     private javax.swing.JButton SeguirCuentaBtn1;
     private javax.swing.JButton SeguirCuentaBtn2;
     private javax.swing.JButton SeguirCuentaBtn3;
+    private javax.swing.JLabel TePuedeInteresarLbl;
+    private javax.swing.JButton TendenciaBtn;
+    private javax.swing.JLabel TendenciaImg;
     private javax.swing.JButton TendenciaYapBtn1;
     private javax.swing.JButton TendenciaYapBtn2;
     private javax.swing.JButton TusYapsBtn;
@@ -1500,7 +1600,6 @@ public class Explorar extends javax.swing.JFrame {
     private javax.swing.JLabel Y_logo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
