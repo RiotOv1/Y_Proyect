@@ -147,7 +147,6 @@ public class Explorar extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         EliminarBusquedasBtn = new javax.swing.JButton();
-        BusquedaVerTodoBtn = new javax.swing.JButton();
         BarraBusquedaBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BusquedaPersonasBtn = new javax.swing.JButton();
@@ -230,6 +229,7 @@ public class Explorar extends javax.swing.JFrame {
         TendenciaBtn = new javax.swing.JButton();
         RecientesImg = new javax.swing.JLabel();
         RecienteBtn = new javax.swing.JButton();
+        BusquedaVerTodoBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -278,21 +278,6 @@ public class Explorar extends javax.swing.JFrame {
         EliminarBusquedasBtn.setBackground(new java.awt.Color(166, 77, 121));
         EliminarBusquedasBtn.setText("Eliminar busquedas");
         PanelTotalExplorar.add(EliminarBusquedasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 20, 140, 30));
-
-        BusquedaVerTodoBtn.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        BusquedaVerTodoBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusquedaVerTodoBtn.setText("Ver todo");
-        BusquedaVerTodoBtn.setBorder(null);
-        BusquedaVerTodoBtn.setBorderPainted(false);
-        BusquedaVerTodoBtn.setContentAreaFilled(false);
-        BusquedaVerTodoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BusquedaVerTodoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        BusquedaVerTodoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BusquedaVerTodoBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(BusquedaVerTodoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 100, 70, 40));
 
         BarraBusquedaBtn.setBackground(new java.awt.Color(0, 0, 0));
         BarraBusquedaBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -492,14 +477,18 @@ public class Explorar extends javax.swing.JFrame {
                 .addComponent(ImgResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(EjemploBusqueda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusqueda1Layout.createSequentialGroup()
+                        .addGroup(EjemploBusqueda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EjemploBusqueda1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(UserResu4))
+                            .addComponent(NombreResu4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
+                        .addComponent(NoSeguidoresResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68))
                     .addGroup(EjemploBusqueda1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(UserResu4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
-                        .addComponent(NoSeguidoresResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreResu4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(SeguidoresResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1279,6 +1268,21 @@ public class Explorar extends javax.swing.JFrame {
             }
         });
         PanelTotalExplorar.add(RecienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 710, 180, 70));
+
+        BusquedaVerTodoBtn.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        BusquedaVerTodoBtn.setForeground(new java.awt.Color(204, 204, 204));
+        BusquedaVerTodoBtn.setText("Ver todo");
+        BusquedaVerTodoBtn.setBorder(null);
+        BusquedaVerTodoBtn.setBorderPainted(false);
+        BusquedaVerTodoBtn.setContentAreaFilled(false);
+        BusquedaVerTodoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BusquedaVerTodoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BusquedaVerTodoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BusquedaVerTodoBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalExplorar.add(BusquedaVerTodoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 560, 70, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

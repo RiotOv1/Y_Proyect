@@ -1179,6 +1179,11 @@ public class Configuracion extends javax.swing.JFrame {
                 ContraseñaActualMouseClicked(evt);
             }
         });
+        ContraseñaActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContraseñaActualActionPerformed(evt);
+            }
+        });
         ContraseñaActual.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 ContraseñaActualKeyReleased(evt);
@@ -1218,6 +1223,11 @@ public class Configuracion extends javax.swing.JFrame {
         ContraseñaNueva1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ContraseñaNueva1MouseClicked(evt);
+            }
+        });
+        ContraseñaNueva1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContraseñaNueva1ActionPerformed(evt);
             }
         });
         CambioContraseña.add(ContraseñaNueva1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 470, 40));
@@ -2400,6 +2410,14 @@ public class Configuracion extends javax.swing.JFrame {
         // TODO add your handling code here:
         JPanelGeneraPanel.setSelectedIndex(5);
     }//GEN-LAST:event_AtrasTPostBtnActionPerformed
+
+    private void ContraseñaActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaActualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContraseñaActualActionPerformed
+
+    private void ContraseñaNueva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaNueva1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContraseñaNueva1ActionPerformed
 
     /**
      * @param args the command line arguments
