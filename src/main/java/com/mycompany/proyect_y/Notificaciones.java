@@ -961,23 +961,30 @@ public class Notificaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_UsuarioBtnActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
-        // TODO add your handling code here:
+               this.dispose();
+       new Configuracion().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
     private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
+       new Menu_Principal().setVisible(true);         // TODO add your handling code here:
     }//GEN-LAST:event_InicioBtn1ActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
-        // TODO add your handling code here:
+               this.dispose();
+       new Explorar().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ExplorarBtnActionPerformed
 
     private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
-        // TODO add your handling code here:
+        
+       this.dispose();
+       new Comunidad().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ComunidadesBtnActionPerformed
 
     private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-        // TODO add your handling code here:
+        
+       this.dispose();
+       new Notificaciones().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_NotificacionesBtnActionPerformed
 
     private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
@@ -985,7 +992,8 @@ public class Notificaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_GuardadoBtnActionPerformed
 
     private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
-        // TODO add your handling code here:
+              this.dispose();
+       new Perfil().setVisible(true);  // TODO add your handling code here:
     }//GEN-LAST:event_PerfilBtnActionPerformed
 
     private void PostearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostearBtnActionPerformed
