@@ -461,6 +461,11 @@ public class Menu_Principal extends javax.swing.JFrame {
         PanelNot1.add(meGustaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
 
         comentarBtn.setText("Comentar");
+        comentarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comentarBtnActionPerformed(evt);
+            }
+        });
         PanelNot1.add(comentarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
         repostearBtn.setBackground(new java.awt.Color(59, 28, 50));
@@ -1127,23 +1132,29 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_FiltroTodoActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
-        // TODO add your handling code here:
+        
+       this.dispose();
+       new Configuracion().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
     private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
-        // TODO add your handling code here:
+              this.dispose();
+       new Menu_Principal().setVisible(true);  // TODO add your handling code here:
     }//GEN-LAST:event_InicioBtn1ActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
+       new Explorar().setVisible(true);         // TODO add your handling code here:
     }//GEN-LAST:event_ExplorarBtnActionPerformed
 
     private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
-        // TODO add your handling code here:
+               this.dispose();
+       new Comunidad().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ComunidadesBtnActionPerformed
 
     private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-        // TODO add your handling code here:
+               this.dispose();
+       new Notificaciones().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_NotificacionesBtnActionPerformed
 
     private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
@@ -1273,6 +1284,10 @@ public class Menu_Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblUsuario2AncestorAdded
 
+    private void comentarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comentarBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1334,7 +1349,6 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JButton Nombre_usuarioBtn;
     private javax.swing.JButton Nombre_usuarioBtn1;
     private javax.swing.JButton Nombre_usuarioBtn2;
-    private javax.swing.JButton NotiFicacionesBtn;
     private javax.swing.JButton NotificacionesBtn;
     private javax.swing.JPanel PanelNot1;
     private javax.swing.JPanel PanelNot4;
