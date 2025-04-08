@@ -178,7 +178,7 @@ public class Inicio extends javax.swing.JFrame {
         
         //Obtener los valores del check box       
         //Arreglo para los valores obtenidos de los checkbox
-        int [] checkBoxArreglo = new int [21];
+        int [] checkBoxArreglo = new int [22];
         
         int indice = 0; // Contador para posiciones válidas del arreglo
 
@@ -195,7 +195,7 @@ public class Inicio extends javax.swing.JFrame {
         indice++;
         }
         if (Check_Fotografia.isSelected()) {
-        checkBoxArreglo[indice] = (int) Check_Fotografia.getClientProperty("Fotografia");;
+        checkBoxArreglo[indice] = (int) Check_Fotografia.getClientProperty("Fotografia");
         indice++;
         }
         if (Check_Famosos.isSelected()) {
@@ -207,7 +207,7 @@ public class Inicio extends javax.swing.JFrame {
         indice++;
         }
         if (Check_Series.isSelected()) {
-        checkBoxArreglo[indice] = (int) Check_Peliculas.getClientProperty("Series");
+        checkBoxArreglo[indice] = (int) Check_Series.getClientProperty("Series");
         indice++;
         }
         if (Check_Peliculas.isSelected()) {

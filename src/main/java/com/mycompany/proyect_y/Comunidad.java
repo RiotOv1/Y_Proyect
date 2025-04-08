@@ -1104,11 +1104,14 @@ public class Comunidad extends javax.swing.JFrame {
     }//GEN-LAST:event_DescripcionComunidadBtnActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new Configuracion().setVisible(true);
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
     private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Menu_Principal().setVisible(true);
     }//GEN-LAST:event_InicioBtn1ActionPerformed
 
     private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
@@ -1116,19 +1119,19 @@ public class Comunidad extends javax.swing.JFrame {
     }//GEN-LAST:event_ComunidadesBtnActionPerformed
 
     private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
+        new Notificaciones().setVisible(true);
     }//GEN-LAST:event_NotificacionesBtnActionPerformed
 
-    private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GuardadoBtnActionPerformed
-
     private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
-        // TODO add your handling code here:
+       this.dispose();
+        new Perfil().setVisible(true);
     }//GEN-LAST:event_PerfilBtnActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Explorar().setVisible(true);
     }//GEN-LAST:event_ExplorarBtnActionPerformed
 
     private void FotodeComunidadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FotodeComunidadBtnActionPerformed
@@ -1136,7 +1139,8 @@ public class Comunidad extends javax.swing.JFrame {
     }//GEN-LAST:event_FotodeComunidadBtnActionPerformed
 
     private void PublicacionesBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PublicacionesBtn2ActionPerformed
-
+        this.dispose();
+        new Menu_Principal().setVisible(true);
     }//GEN-LAST:event_PublicacionesBtn2ActionPerformed
 
     private void TendenciaYapBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TendenciaYapBtn2ActionPerformed
@@ -1190,6 +1194,10 @@ public class Comunidad extends javax.swing.JFrame {
     private void PostearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostearBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PostearBtnActionPerformed
+
+    private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
+
+    }//GEN-LAST:event_GuardadoBtnActionPerformed
 
     /**
      * @param args the command line arguments

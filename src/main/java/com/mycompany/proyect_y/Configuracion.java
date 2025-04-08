@@ -1897,23 +1897,31 @@ public class Configuracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void InicioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtnActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+this.dispose();
+        new Menu_Principal().setVisible(true);
     }//GEN-LAST:event_InicioBtnActionPerformed
 
     private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Comunidad().setVisible(true);
     }//GEN-LAST:event_ComunidadesBtnActionPerformed
 
     private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Notificaciones().setVisible(true);
     }//GEN-LAST:event_NotificacionesBtnActionPerformed
 
     private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_GuardadoBtnActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new Configuracion().setVisible(true);
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
     private void PostearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostearBtnActionPerformed
@@ -1940,7 +1948,8 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_PrivacidadYSeguridadBtnActionPerformed
 
     private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        new Perfil().setVisible(true);
     }//GEN-LAST:event_PerfilBtnActionPerformed
 
     private void BuscadorMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuscadorMouseDragged
