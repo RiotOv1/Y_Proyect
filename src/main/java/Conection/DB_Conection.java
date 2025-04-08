@@ -15,21 +15,15 @@ import java.util.logging.Logger;
  * @author gisel
  */
 public class DB_Conection {
-    public String connectionstring = "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=CONVERT_TO_NULL"; //Buscar el Connection String en su DBMS
-    
-    Connection cn;
-    
-    public void DB_Conection_o(Connection cn)
-    {
+    public static Connection conectar(){
         try {
-            cn = DriverManager.getConnection(connectionstring, "Abril", "pass");
-            System.out.print("Si se pudo");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/y_bd?useSSL=false&serverTimezone=UTC", "root", "");
+            System.out.println("Conexión exitosa");
+            return cn;
         } catch (SQLException ex) {
-            Logger.getLogger(DB_Conection.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.print("No se pudo conectar");
+            Logger.getLogger(DB_Conection.class.getName()).log(Level.SEVERE, "No se pudo conectar", ex);
+            return null;
         }
-        
-        
     }
 
     

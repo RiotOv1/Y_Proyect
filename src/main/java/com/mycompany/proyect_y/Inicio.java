@@ -122,7 +122,7 @@ public class Inicio extends javax.swing.JFrame {
         L_Aviso2.setText("Despues de conectar");
         
         try {
-                    L_Aviso2.setText("Dentro del try");
+            L_Aviso2.setText("Dentro del try");
             // Consulta SQL para insertar un nuevo usuario
             String sql = "INSERT INTO usuario (id_usuario, contrasena, sexo, correo, telefono, fecha_nac , nombre, apellido, pais) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -137,7 +137,8 @@ public class Inicio extends javax.swing.JFrame {
             ps.setString(9, pais);
             
      
-            int filasInsertadas = ps.executeUpdate(); // Ejecutar la consulta
+            int filasInsertadas = ps.executeUpdate();// Ejecutar la consulta
+            SeleccionesCheckBox();
         
             if (filasInsertadas > 0) {
                 L_Aviso2.setText("aceptado ");
@@ -151,7 +152,88 @@ public class Inicio extends javax.swing.JFrame {
             L_Aviso2.setText( "Error al registrar usuario: " + e.getMessage());
         }
     }
+         public void SeleccionesCheckBox(){
+        //identificar a los chekc box con un valor unico
+        Check_Musica.putClientProperty("Musica", 1);
+        Check_Deporte.putClientProperty("Deporte", 2);
+        Check_Arte.putClientProperty("Arte", 3);
+        Check_Fotografia.putClientProperty("Fotografia", 4);
+        Check_Famosos.putClientProperty("Famosos", 5);
+        Check_Anime.putClientProperty("Anime", 6);
+        Check_Series.putClientProperty("Series", 7);
+        Check_Peliculas.putClientProperty("Peliculas", 8);
+        Check_Manualidades.putClientProperty("Manualidades", 9);
+        Check_Espacio.putClientProperty("Espacio", 9);
+        Check_Astrologia.putClientProperty("Astrologia", 11);
+        
+        
+        //Obtener los valores del check box       
+        //Arreglo para los valores obtenidos de los checkbox
+        int [] checkBoxArreglo = new int [11];
+        
+        int indice = 0; // Contador para posiciones válidas del arreglo
 
+        if (Check_Musica.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Musica.getClientProperty("Musica");
+        indice++;
+        }
+        if (Check_Deporte.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Deporte.getClientProperty("Deporte");
+        indice++;
+        }
+        if (Check_Arte.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Arte.getClientProperty("Arte");
+        indice++;
+        }
+        if (Check_Fotografia.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Fotografia.getClientProperty("Fotografia");;
+        indice++;
+        }
+        if (Check_Famosos.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Famosos.getClientProperty("Famosos");
+        indice++;
+        }
+        if (Check_Anime.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Anime.getClientProperty("Anime");
+        indice++;
+        }
+        if (Check_Series.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Peliculas.getClientProperty("Series");
+        indice++;
+        }
+        if (Check_Peliculas.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Peliculas.getClientProperty("Peliculas");
+        indice++;
+        }
+        if (Check_Manualidades.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Manualidades.getClientProperty("Manualidades");
+        indice++;
+        }
+        if (Check_Espacio.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Espacio.getClientProperty("Espacio");
+        indice++;
+        }
+        if (Check_Astrologia.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Astrologia.getClientProperty("Astrologia");
+        indice++;
+        }
+        
+        Connection con = DB_Conection.conectar();
+        
+        try{
+            for(int i=0;i<=indice;i++){
+                String sql = "INSERT INTO usuario_intereses (usuario_id, interest_id) VALUES (?,?)";
+                PreparedStatement st = con.prepareStatement(sql);
+                st.setString(1, TP_Usuario.getText());
+                st.setInt(2, checkBoxArreglo[i]); // Usa el valor del arreglo
+                st.executeUpdate();
+            } 
+            JOptionPane.showConfirmDialog(null, "Datos aceptados");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
