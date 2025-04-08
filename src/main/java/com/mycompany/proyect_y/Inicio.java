@@ -163,13 +163,22 @@ public class Inicio extends javax.swing.JFrame {
         Check_Series.putClientProperty("Series", 7);
         Check_Peliculas.putClientProperty("Peliculas", 8);
         Check_Manualidades.putClientProperty("Manualidades", 9);
-        Check_Espacio.putClientProperty("Espacio", 9);
+        Check_Espacio.putClientProperty("Espacio", 10);
         Check_Astrologia.putClientProperty("Astrologia", 11);
-        
+        Check_VideoJuegos.putClientProperty("Videojuegos", 12);
+        Check_Cine.putClientProperty("Cine", 13);
+        Check_Animales.putClientProperty("Animales", 14);
+        Check_Tecnologia.putClientProperty("Tecnologia", 15);
+        Check_Noticias.putClientProperty("Noticias", 16);
+        Check_Viaje.putClientProperty("Viaje", 17);
+        Check_Cocina.putClientProperty("Cocina", 18);
+        Check_Moda.putClientProperty("Moda", 19);
+        Check_Teatro.putClientProperty("Teatro", 20);
+        Check_Programacion.putClientProperty("Programacion", 21);
         
         //Obtener los valores del check box       
         //Arreglo para los valores obtenidos de los checkbox
-        int [] checkBoxArreglo = new int [11];
+        int [] checkBoxArreglo = new int [21];
         
         int indice = 0; // Contador para posiciones válidas del arreglo
 
@@ -217,6 +226,47 @@ public class Inicio extends javax.swing.JFrame {
         checkBoxArreglo[indice] = (int) Check_Astrologia.getClientProperty("Astrologia");
         indice++;
         }
+        if (Check_VideoJuegos.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_VideoJuegos.getClientProperty("Videojuegos");
+        indice++;
+        }
+        if (Check_Cine.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Cine.getClientProperty("Cine");
+        indice++;
+        }
+        if (Check_Animales.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Animales.getClientProperty("Animales");
+        indice++;
+        }
+        if (Check_Tecnologia.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Tecnologia.getClientProperty("Tecnologia");
+        indice++;
+        }
+        if (Check_Noticias.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Noticias.getClientProperty("Noticias");
+        indice++;
+        }
+        if (Check_Viaje.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Viaje.getClientProperty("Viaje");
+        indice++;
+        }
+        if (Check_Cocina.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Cocina.getClientProperty("Cocina");
+        indice++;
+        }
+        if (Check_Moda.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Moda.getClientProperty("Moda");
+        indice++;
+        }
+        if (Check_Teatro.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Teatro.getClientProperty("Teatro");
+        indice++;
+        }
+        if (Check_Programacion.isSelected()) {
+        checkBoxArreglo[indice] = (int) Check_Programacion.getClientProperty("Programacion");
+        indice++;
+        }
+        
         
         Connection con = DB_Conection.conectar();
         
