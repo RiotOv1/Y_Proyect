@@ -50,6 +50,8 @@ public class PublicacionDAO {
         }
         return publicaciones;
     }
+   
+   //Metodos de reacciones
 
     public boolean darLike(int idPublicacion) {
         String sql = "UPDATE Publicacion SET num_reacciones = num_reacciones + 1 WHERE id_publicacion = ?";
@@ -61,6 +63,17 @@ public class PublicacionDAO {
             return false;
         }
     }
+    
+    public boolean quitarLike(int idPublicacion){
+        String sql = "UPDATE Publicacion SET num_reacciones = num_reacciones - 1 WHERE id_publicacion = ?";
+        try(PreparedStatement ps = connection.prepareCall(sql)){
+            ps.setInt(1,idPublicacion);
+            return ps.executeUpdate() > 0;
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
     public boolean repostear(int idPublicacion) {
         String sql = "UPDATE Publicacion SET num_compartidos = num_compartidos + 1 WHERE id_publicacion = ?";
@@ -68,6 +81,17 @@ public class PublicacionDAO {
             ps.setInt(1, idPublicacion);
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean quitarRepost(int idPublicacion){
+        String sql = "UPDATE Publicacion SET num_compartidos = num_compartidos - 1 WHERE id_publicacion = ?";
+        try(PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setInt(1, idPublicacion);
+            return ps.executeUpdate() > 0;
+        } catch(SQLException ex){
             ex.printStackTrace();
             return false;
         }
