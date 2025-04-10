@@ -39,7 +39,7 @@ public class Comunidad extends javax.swing.JFrame {
         ImageIcon image2 = new ImageIcon(url2);
         Image img2 = image2.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono2 = new ImageIcon(img2);
-        ExplorarBtn.setIcon(Icono2);
+        ExplorarBtn1.setIcon(Icono2);
         //BuscadorImagen.setIcon(Icono2);
 
         //IconoNotificaciones
@@ -80,7 +80,7 @@ public class Comunidad extends javax.swing.JFrame {
         //Icono Y Logo
         String url13 = "src\\main\\java\\Multimedia\\YSinfondo.png";
         ImageIcon image13 = new ImageIcon(url13);
-        Image img13 = image13.getImage().getScaledInstance(50, 50, 0);
+        Image img13 = image13.getImage().getScaledInstance(90, 90, 0);
         ImageIcon Icono13 = new ImageIcon(img13);
         Y_logo.setIcon(Icono13);
 
@@ -117,15 +117,6 @@ public class Comunidad extends javax.swing.JFrame {
         YapsBtn = new javax.swing.JButton();
         ContadorYaps = new javax.swing.JButton();
         DescripcionComunidadBtn = new javax.swing.JButton();
-        ConfiBtn = new javax.swing.JButton();
-        InicioBtn1 = new javax.swing.JButton();
-        ExplorarBtn = new javax.swing.JButton();
-        ComunidadesBtn = new javax.swing.JButton();
-        NotificacionesBtn = new javax.swing.JButton();
-        GuardadoBtn = new javax.swing.JButton();
-        PerfilBtn = new javax.swing.JButton();
-        jPanel21 = new javax.swing.JPanel();
-        Y_logo = new javax.swing.JLabel();
         PublicacionesBtn2 = new javax.swing.JButton();
         QuePasa = new javax.swing.JLabel();
         SeguirCuentaBtn3 = new javax.swing.JButton();
@@ -173,9 +164,22 @@ public class Comunidad extends javax.swing.JFrame {
         Perfil_Img = new javax.swing.JLabel();
         PostearBtn = new javax.swing.JButton();
         FotodeComunidadBtn = new javax.swing.JButton();
+        ConfiBtn = new javax.swing.JButton();
+        InicioBtn1 = new javax.swing.JButton();
+        ComunidadesBtn = new javax.swing.JButton();
+        NotificacionesBtn = new javax.swing.JButton();
+        GuardadoBtn = new javax.swing.JButton();
+        PerfilBtn = new javax.swing.JButton();
+        ExplorarBtn1 = new javax.swing.JButton();
+        Y_logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(1550, 820));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1550, 820));
+        setResizable(false);
 
         PanelTotalComunidad.setBackground(new java.awt.Color(0, 0, 0));
         PanelTotalComunidad.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -463,127 +467,6 @@ public class Comunidad extends javax.swing.JFrame {
             }
         });
         PanelTotalComunidad.add(DescripcionComunidadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 570, 50));
-
-        ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
-        ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        ConfiBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ConfiBtn.setText("Configuracion");
-        ConfiBtn.setToolTipText("");
-        ConfiBtn.setAlignmentY(0.0F);
-        ConfiBtn.setBorderPainted(false);
-        ConfiBtn.setContentAreaFilled(false);
-        ConfiBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ConfiBtn.setVerifyInputWhenFocusTarget(false);
-        ConfiBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConfiBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalComunidad.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 250, 40));
-
-        InicioBtn1.setBackground(new java.awt.Color(26, 26, 29));
-        InicioBtn1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        InicioBtn1.setForeground(new java.awt.Color(204, 204, 204));
-        InicioBtn1.setText("   Inicio");
-        InicioBtn1.setToolTipText("");
-        InicioBtn1.setAlignmentY(0.0F);
-        InicioBtn1.setBorderPainted(false);
-        InicioBtn1.setContentAreaFilled(false);
-        InicioBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        InicioBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InicioBtn1ActionPerformed(evt);
-            }
-        });
-        PanelTotalComunidad.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 250, 40));
-
-        ExplorarBtn.setBackground(new java.awt.Color(26, 26, 29));
-        ExplorarBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        ExplorarBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ExplorarBtn.setText("  Explorar");
-        ExplorarBtn.setToolTipText("");
-        ExplorarBtn.setAlignmentY(0.0F);
-        ExplorarBtn.setBorderPainted(false);
-        ExplorarBtn.setContentAreaFilled(false);
-        ExplorarBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ExplorarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExplorarBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalComunidad.add(ExplorarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 250, 40));
-
-        ComunidadesBtn.setBackground(new java.awt.Color(26, 26, 29));
-        ComunidadesBtn.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        ComunidadesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ComunidadesBtn.setText("  Comunidades");
-        ComunidadesBtn.setToolTipText("");
-        ComunidadesBtn.setAlignmentY(0.0F);
-        ComunidadesBtn.setBorderPainted(false);
-        ComunidadesBtn.setContentAreaFilled(false);
-        ComunidadesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ComunidadesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComunidadesBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalComunidad.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 250, 40));
-
-        NotificacionesBtn.setBackground(new java.awt.Color(26, 26, 29));
-        NotificacionesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        NotificacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        NotificacionesBtn.setText("  Notificaciones");
-        NotificacionesBtn.setToolTipText("");
-        NotificacionesBtn.setAlignmentY(0.0F);
-        NotificacionesBtn.setBorderPainted(false);
-        NotificacionesBtn.setContentAreaFilled(false);
-        NotificacionesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        NotificacionesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NotificacionesBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalComunidad.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 250, 40));
-
-        GuardadoBtn.setBackground(new java.awt.Color(26, 26, 29));
-        GuardadoBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        GuardadoBtn.setForeground(new java.awt.Color(204, 204, 204));
-        GuardadoBtn.setText("  Guardados");
-        GuardadoBtn.setToolTipText("");
-        GuardadoBtn.setAlignmentY(0.0F);
-        GuardadoBtn.setBorderPainted(false);
-        GuardadoBtn.setContentAreaFilled(false);
-        GuardadoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        GuardadoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        GuardadoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardadoBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalComunidad.add(GuardadoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 250, 40));
-
-        PerfilBtn.setBackground(new java.awt.Color(26, 26, 29));
-        PerfilBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        PerfilBtn.setForeground(new java.awt.Color(204, 204, 204));
-        PerfilBtn.setText("  Perfil");
-        PerfilBtn.setToolTipText("");
-        PerfilBtn.setAlignmentY(0.0F);
-        PerfilBtn.setBorderPainted(false);
-        PerfilBtn.setContentAreaFilled(false);
-        PerfilBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        PerfilBtn.setVerifyInputWhenFocusTarget(false);
-        PerfilBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PerfilBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalComunidad.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 250, 40));
-
-        jPanel21.setOpaque(false);
-        jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel21.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 60, 40));
-
-        PanelTotalComunidad.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 70, 50));
 
         PublicacionesBtn2.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
         PublicacionesBtn2.setForeground(new java.awt.Color(204, 204, 204));
@@ -1031,21 +914,135 @@ public class Comunidad extends javax.swing.JFrame {
         });
         PanelTotalComunidad.add(FotodeComunidadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 60, 60));
 
+        ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
+        ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        ConfiBtn.setForeground(new java.awt.Color(204, 204, 204));
+        ConfiBtn.setText("Configuracion");
+        ConfiBtn.setToolTipText("");
+        ConfiBtn.setAlignmentY(0.0F);
+        ConfiBtn.setBorderPainted(false);
+        ConfiBtn.setContentAreaFilled(false);
+        ConfiBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ConfiBtn.setVerifyInputWhenFocusTarget(false);
+        ConfiBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfiBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 500, 260, 40));
+
+        InicioBtn1.setBackground(new java.awt.Color(26, 26, 29));
+        InicioBtn1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        InicioBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        InicioBtn1.setText("   Inicio");
+        InicioBtn1.setToolTipText("");
+        InicioBtn1.setAlignmentY(0.0F);
+        InicioBtn1.setBorderPainted(false);
+        InicioBtn1.setContentAreaFilled(false);
+        InicioBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        InicioBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InicioBtn1ActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 250, 40));
+
+        ComunidadesBtn.setBackground(new java.awt.Color(26, 26, 29));
+        ComunidadesBtn.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        ComunidadesBtn.setForeground(new java.awt.Color(204, 204, 204));
+        ComunidadesBtn.setText("  Comunidades");
+        ComunidadesBtn.setToolTipText("");
+        ComunidadesBtn.setAlignmentY(0.0F);
+        ComunidadesBtn.setBorderPainted(false);
+        ComunidadesBtn.setContentAreaFilled(false);
+        ComunidadesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ComunidadesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComunidadesBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 250, 40));
+
+        NotificacionesBtn.setBackground(new java.awt.Color(26, 26, 29));
+        NotificacionesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        NotificacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
+        NotificacionesBtn.setText("  Notificaciones");
+        NotificacionesBtn.setToolTipText("");
+        NotificacionesBtn.setAlignmentY(0.0F);
+        NotificacionesBtn.setBorderPainted(false);
+        NotificacionesBtn.setContentAreaFilled(false);
+        NotificacionesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        NotificacionesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NotificacionesBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 250, 40));
+
+        GuardadoBtn.setBackground(new java.awt.Color(26, 26, 29));
+        GuardadoBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        GuardadoBtn.setForeground(new java.awt.Color(204, 204, 204));
+        GuardadoBtn.setText("  Guardados");
+        GuardadoBtn.setToolTipText("");
+        GuardadoBtn.setAlignmentY(0.0F);
+        GuardadoBtn.setBorderPainted(false);
+        GuardadoBtn.setContentAreaFilled(false);
+        GuardadoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        GuardadoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        GuardadoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardadoBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(GuardadoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 250, 40));
+
+        PerfilBtn.setBackground(new java.awt.Color(26, 26, 29));
+        PerfilBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        PerfilBtn.setForeground(new java.awt.Color(204, 204, 204));
+        PerfilBtn.setText("  Perfil");
+        PerfilBtn.setToolTipText("");
+        PerfilBtn.setAlignmentY(0.0F);
+        PerfilBtn.setBorderPainted(false);
+        PerfilBtn.setContentAreaFilled(false);
+        PerfilBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PerfilBtn.setVerifyInputWhenFocusTarget(false);
+        PerfilBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PerfilBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 250, 40));
+
+        ExplorarBtn1.setBackground(new java.awt.Color(26, 26, 29));
+        ExplorarBtn1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        ExplorarBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        ExplorarBtn1.setText("  Explorar");
+        ExplorarBtn1.setToolTipText("");
+        ExplorarBtn1.setAlignmentY(0.0F);
+        ExplorarBtn1.setBorderPainted(false);
+        ExplorarBtn1.setContentAreaFilled(false);
+        ExplorarBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ExplorarBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExplorarBtn1ActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(ExplorarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 250, 40));
+        PanelTotalComunidad.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 90, 80));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelTotalComunidad, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelTotalComunidad, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -1102,35 +1099,6 @@ public class Comunidad extends javax.swing.JFrame {
     private void DescripcionComunidadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionComunidadBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DescripcionComunidadBtnActionPerformed
-
-    private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
-        this.dispose();
-        new Configuracion().setVisible(true);
-    }//GEN-LAST:event_ConfiBtnActionPerformed
-
-    private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
-        this.dispose();
-        new Menu_Principal().setVisible(true);
-    }//GEN-LAST:event_InicioBtn1ActionPerformed
-
-    private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComunidadesBtnActionPerformed
-
-    private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-       this.dispose();
-        new Notificaciones().setVisible(true);
-    }//GEN-LAST:event_NotificacionesBtnActionPerformed
-
-    private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
-       this.dispose();
-        new Perfil().setVisible(true);
-    }//GEN-LAST:event_PerfilBtnActionPerformed
-
-    private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
-        this.dispose();
-        new Explorar().setVisible(true);
-    }//GEN-LAST:event_ExplorarBtnActionPerformed
 
     private void FotodeComunidadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FotodeComunidadBtnActionPerformed
         // TODO add your handling code here:
@@ -1193,9 +1161,40 @@ public class Comunidad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PostearBtnActionPerformed
 
-    private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
+    private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
+        this.dispose();
+        new Configuracion().setVisible(true);
+    }//GEN-LAST:event_ConfiBtnActionPerformed
 
+    private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
+        this.dispose();
+        new Menu_Principal().setVisible(true);
+    }//GEN-LAST:event_InicioBtn1ActionPerformed
+
+    private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
+        this.dispose();
+        new Comunidad().setVisible(true);
+    }//GEN-LAST:event_ComunidadesBtnActionPerformed
+
+    private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
+        this.dispose();
+        new Notificaciones().setVisible(true);
+    }//GEN-LAST:event_NotificacionesBtnActionPerformed
+
+    private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
+        this.dispose();
+        new Guardados().setVisible(true);
     }//GEN-LAST:event_GuardadoBtnActionPerformed
+
+    private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
+        this.dispose();
+        new Perfil().setVisible(true);
+    }//GEN-LAST:event_PerfilBtnActionPerformed
+
+    private void ExplorarBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtn1ActionPerformed
+        this.dispose();
+        new Explorar().setVisible(true);
+    }//GEN-LAST:event_ExplorarBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1246,7 +1245,7 @@ public class Comunidad extends javax.swing.JFrame {
     private javax.swing.JLabel DescripcionPub1;
     private javax.swing.JLabel DescripcionPub2;
     private javax.swing.JLabel DescripcionPub3;
-    private javax.swing.JButton ExplorarBtn;
+    private javax.swing.JButton ExplorarBtn1;
     private javax.swing.JButton FiltrarDestacados;
     private javax.swing.JButton FiltrarEventos;
     private javax.swing.JButton FiltrarMultimedia;
@@ -1305,7 +1304,6 @@ public class Comunidad extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;

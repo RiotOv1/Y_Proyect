@@ -1,14 +1,20 @@
 
 package com.mycompany.proyect_y;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 public class Menu_Principal extends javax.swing.JFrame {
     private PublicacionDAO publicacionDAO;
@@ -45,19 +51,19 @@ public class Menu_Principal extends javax.swing.JFrame {
                         lblUsuario1, Nombre_usuarioBtn1, UsuarioPub6,
                         lblTexto_publicacion1,Fecha_Label1,
                         meGustaBtn1,lblLikesLabel1,
-                        repostearBtn1,lblRepostearLabel1,ImagenPublicacion_lbl2 ,comentarBtn1
+                        repostearBtn1,lblRepostearLabel1,ImagenPublicacion_lbl1 ,comentarBtn1
                 );
             }
             
             //Panel 3
             if(publicaciones.size()>2){
-                configurarPanelPublicacion(
+               /* configurarPanelPublicacion(
                         PanelNot5,publicaciones.get(2),
                         lblUsuario2, Nombre_usuarioBtn2, UsuarioPub7,
                         lblTexto_publicacion2, Fecha_Label2,
                         meGustaBtn2, lblLikesLabel2,
                         repostearBtn2,lblRepostearLabel2,ImagenPublicacion_lbl3,comentarBtn2
-                );
+                );*/
             }
         }
         
@@ -65,6 +71,49 @@ public class Menu_Principal extends javax.swing.JFrame {
     
     public void Img() {
 
+        Border outer = BorderFactory.createLineBorder(new Color(166,77,121), 3);
+        Border inner = BorderFactory.createLineBorder(new Color(106,30,85), 2);
+        Border compound = BorderFactory.createCompoundBorder(outer, inner);
+        
+        Border outer2 = BorderFactory.createLineBorder(new Color(106,30,85), 2);
+        Border inner2 = BorderFactory.createLineBorder(new Color(166,77,121), 3);
+        Border compound2 = BorderFactory.createCompoundBorder(inner2,outer2);
+        CrearPublicacion.setBorder(compound);
+        
+        PanelNot1.setBorder(compound);
+        PanelNot4.setBorder(compound2);
+        
+        CrearPublicacion.setOpaque(true);
+        CrearPublicacion.setBackground(new Color(59,28,50));
+        CrearPublicacion.setForeground(Color.WHITE);
+        CrearPublicacion.setFont(new Font("Roboto", Font.PLAIN, 14));
+        CrearPublicacion.setBorder(BorderFactory.createCompoundBorder(
+        BorderFactory.createLineBorder(new Color(160, 160, 160), 2, true),
+        BorderFactory.createEmptyBorder(8, 12, 8, 12)
+            )); 
+        
+        NuevoTexto.setText("Que estas Yapeando?..");
+        NuevoTexto.setForeground(Color.LIGHT_GRAY);
+
+        // Al enfocarse: borrar el texto si es el placeholder
+        NuevoTexto.addFocusListener(new java.awt.event.FocusAdapter() {
+             @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (NuevoTexto.getText().equals("Escribe aquí...")) {
+                    NuevoTexto.setText("");
+                    NuevoTexto.setForeground(Color.BLACK); // Color de texto normal
+        }
+    }
+
+         @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+               if (NuevoTexto.getText().isEmpty()) {
+                   NuevoTexto.setForeground(Color.GRAY);
+                  NuevoTexto.setText("Escribe aquí...");
+               }
+          }
+        });
+        
         //Creamos el objeto UIManager.setLookAndFeel();
         //Definimos la ruta de la imagen
         String url = "src\\main\\java\\Multimedia\\Img-Perfil.png";
@@ -82,20 +131,26 @@ public class Menu_Principal extends javax.swing.JFrame {
         ImageIcon image1 = new ImageIcon(url1);
         Image img1 = image1.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono1 = new ImageIcon(img1);
-        InicioBtn2.setIcon(Icono1);
+        InicioBtn3.setIcon(Icono1);
         
         String url15 = "src\\main\\java\\Multimedia\\Icon-Inicio.png";
         ImageIcon image15 = new ImageIcon(url15);
         Image img15 = image15.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono15 = new ImageIcon(img15);
         IconoParaTi.setIcon(Icono15);
-
-        //IconoExplorar
-        String url2 = "src\\main\\java\\Multimedia\\Icon-Explorar.png";
+        
+        String url2 = "src\\main\\java\\Multimedia\\Icon-Inicio.png";
         ImageIcon image2 = new ImageIcon(url2);
         Image img2 = image2.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono2 = new ImageIcon(img2);
-        ExplorarBtn.setIcon(Icono2);
+        lblUsuario.setIcon(Icono2);
+
+        //IconoExplorar
+        String url20 = "src\\main\\java\\Multimedia\\Icon-Explorar.png";
+        ImageIcon image20 = new ImageIcon(url20);
+        Image img20 = image20.getImage().getScaledInstance(32, 32, 0);
+        ImageIcon Icono20 = new ImageIcon(img20);
+        ExplorarBtn1.setIcon(Icono20);
         //BuscadorImagen.setIcon(Icono2);
 
         //IconoNotificaciones
@@ -129,7 +184,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         //Icono Y Logo
         String url13 = "src\\main\\java\\Multimedia\\YSinfondo.png";
         ImageIcon image13 = new ImageIcon(url13);
-        Image img13 = image13.getImage().getScaledInstance(50, 50, 0);
+        Image img13 = image13.getImage().getScaledInstance(90, 90, 0);
         ImageIcon Icono13 = new ImageIcon(img13);
         Y_logo.setIcon(Icono13);
 
@@ -141,6 +196,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         ConfiBtn.setIcon(Icono14);
  
     }
+    
     boolean bandera_likes = false; //Variable para verificar que no haya likes repetidos
     boolean bandera_repost = false; //Variable para verificar que no haya repost repetidos
     private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JButton nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
@@ -149,19 +205,19 @@ public class Menu_Principal extends javax.swing.JFrame {
         
         
         // Configurar iconos iniciales
-        String likeIcon = "src\\main\\java\\Multimedia\\heart-icon-noFill.png";
+        String likeIcon = "src\\main\\java\\Multimedia\\MeYusta-Icon.png";
         ImageIcon imageLike = new ImageIcon(likeIcon);
         Image imgLike = imageLike.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoLike = new ImageIcon(imgLike);
         btnLike.setIcon(IconoLike);
 
-        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-notHigh.png";
+        String repostIcon = "src\\main\\java\\Multimedia\\Yapear-Icon.png";
         ImageIcon imageRepost = new ImageIcon(repostIcon);
         Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoRepost = new ImageIcon(imgRepost);
         btnRepost.setIcon(IconoRepost);
         
-        String comentarioIcon = "src\\main\\java\\Multimedia\\Comment-icon-notHigh.png";
+        String comentarioIcon = "src\\main\\java\\Multimedia\\Com-Icon.png";
         ImageIcon imageComentario = new ImageIcon(comentarioIcon);
         Image imgComentario = imageComentario.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoComentario = new ImageIcon(imgComentario);
@@ -205,7 +261,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         
                         //Cambiar icono del like
-                        String likeIcon2 = "src\\main\\java\\Multimedia\\heart-icon-Filled.png";
+                        String likeIcon2 = "src\\main\\java\\Multimedia\\MeYustaFill-Icon.png";
                         ImageIcon imageLike2 = new ImageIcon(likeIcon2);
                         Image imgLike2 = imageLike2.getImage().getScaledInstance(24, 24, 0);
                         btnLike.setIcon(new ImageIcon(imgLike2));
@@ -233,7 +289,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                     lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
 
                     // Cambiar icono de repost
-                    String repostIcon2 = "src\\main\\java\\Multimedia\\repost-icon-High.png";
+                    String repostIcon2 = "src\\main\\java\\Multimedia\\YapearFill-Icon.png";
                     ImageIcon imageRepost2 = new ImageIcon(repostIcon2);
                     Image imgRepost2 = imageRepost2.getImage().getScaledInstance(24, 24, 0);
                     btnRepost.setIcon(new ImageIcon(imgRepost2));
@@ -320,15 +376,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         UsuarioPub5 = new javax.swing.JButton();
         Fecha_Label = new javax.swing.JLabel();
         lblTexto_publicacion = new javax.swing.JLabel();
-        ConfiBtn = new javax.swing.JButton();
         InicioBtn1 = new javax.swing.JButton();
-        ExplorarBtn = new javax.swing.JButton();
-        ComunidadesBtn = new javax.swing.JButton();
-        NotificacionesBtn = new javax.swing.JButton();
-        GuardadoBtn = new javax.swing.JButton();
-        PerfilBtn = new javax.swing.JButton();
-        jPanel21 = new javax.swing.JPanel();
-        Y_logo = new javax.swing.JLabel();
         PerfilPanel = new javax.swing.JPanel();
         NombreUsuario = new javax.swing.JLabel();
         IdUsuario2 = new javax.swing.JLabel();
@@ -356,11 +404,18 @@ public class Menu_Principal extends javax.swing.JFrame {
         UserInt1 = new javax.swing.JButton();
         UserInt2 = new javax.swing.JButton();
         ImagenPublicacion_lbl = new javax.swing.JLabel();
-        ImagenPublicacion_lbl2 = new javax.swing.JLabel();
-        ImagenPublicacion_lbl3 = new javax.swing.JLabel();
-        PostearBtn = new javax.swing.JButton();
-        InicioBtn2 = new javax.swing.JButton();
         IconoParaTi = new javax.swing.JButton();
+        ConfiBtn = new javax.swing.JButton();
+        InicioBtn3 = new javax.swing.JButton();
+        ComunidadesBtn = new javax.swing.JButton();
+        NotificacionesBtn = new javax.swing.JButton();
+        GuardadoBtn = new javax.swing.JButton();
+        PerfilBtn = new javax.swing.JButton();
+        ExplorarBtn1 = new javax.swing.JButton();
+        Y_logo = new javax.swing.JLabel();
+        CrearPublicacion = new javax.swing.JPanel();
+        NuevoTexto = new javax.swing.JTextField();
+        PostearBtn = new javax.swing.JButton();
         PanelNot4 = new javax.swing.JPanel();
         lblUsuario1 = new javax.swing.JLabel();
         meGustaBtn1 = new javax.swing.JButton();
@@ -373,20 +428,12 @@ public class Menu_Principal extends javax.swing.JFrame {
         UsuarioPub6 = new javax.swing.JButton();
         Fecha_Label1 = new javax.swing.JLabel();
         lblTexto_publicacion1 = new javax.swing.JLabel();
-        PanelNot5 = new javax.swing.JPanel();
-        lblUsuario2 = new javax.swing.JLabel();
-        meGustaBtn2 = new javax.swing.JButton();
-        comentarBtn2 = new javax.swing.JButton();
-        repostearBtn2 = new javax.swing.JButton();
-        lblLikesLabel2 = new javax.swing.JLabel();
-        lblComentarLabel2 = new javax.swing.JLabel();
-        lblRepostearLabel2 = new javax.swing.JLabel();
-        Nombre_usuarioBtn2 = new javax.swing.JButton();
-        UsuarioPub7 = new javax.swing.JButton();
-        Fecha_Label2 = new javax.swing.JLabel();
-        lblTexto_publicacion2 = new javax.swing.JLabel();
+        ImagenPublicacion_lbl1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(1550, 820));
@@ -496,13 +543,11 @@ public class Menu_Principal extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 750, 40));
 
         PanelNot1.setBackground(new java.awt.Color(59, 28, 50));
-        PanelNot1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         PanelNot1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelNot1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuario.setText("ImgNot");
-        PanelNot1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
+        PanelNot1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 50));
 
         meGustaBtn.setBackground(new java.awt.Color(59, 28, 50));
         meGustaBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -515,7 +560,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                 meGustaBtnActionPerformed(evt);
             }
         });
-        PanelNot1.add(meGustaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
+        PanelNot1.add(meGustaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 40, 40));
 
         comentarBtn.setBackground(new java.awt.Color(59, 28, 50));
         comentarBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -528,7 +573,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                 comentarBtnActionPerformed(evt);
             }
         });
-        PanelNot1.add(comentarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+        PanelNot1.add(comentarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 40, 40));
 
         repostearBtn.setBackground(new java.awt.Color(59, 28, 50));
         repostearBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -541,19 +586,19 @@ public class Menu_Principal extends javax.swing.JFrame {
                 repostearBtnActionPerformed(evt);
             }
         });
-        PanelNot1.add(repostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
+        PanelNot1.add(repostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 40, 40));
 
         lblLikesLabel.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel.setText("0");
-        PanelNot1.add(lblLikesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 80, -1));
+        PanelNot1.add(lblLikesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 20, -1));
 
         lblComentarLabel.setForeground(new java.awt.Color(255, 255, 255));
         lblComentarLabel.setText("0");
-        PanelNot1.add(lblComentarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 80, -1));
+        PanelNot1.add(lblComentarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 10, -1));
 
         lblRepostearLabel.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel.setText("0");
-        PanelNot1.add(lblRepostearLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 90, -1));
+        PanelNot1.add(lblRepostearLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 20, -1));
 
         Nombre_usuarioBtn.setBackground(new java.awt.Color(59, 28, 50));
         Nombre_usuarioBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -581,33 +626,16 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         Fecha_Label.setForeground(new java.awt.Color(255, 255, 255));
         Fecha_Label.setText("Fecha_posts");
-        PanelNot1.add(Fecha_Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 130, -1));
+        PanelNot1.add(Fecha_Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 130, -1));
 
         lblTexto_publicacion.setForeground(new java.awt.Color(255, 255, 255));
         lblTexto_publicacion.setText("Texto_publicacion");
-        PanelNot1.add(lblTexto_publicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 80));
+        PanelNot1.add(lblTexto_publicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 100));
 
-        jPanel1.add(PanelNot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 450, 200));
-
-        ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
-        ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        ConfiBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ConfiBtn.setText("Configuracion");
-        ConfiBtn.setToolTipText("");
-        ConfiBtn.setAlignmentY(0.0F);
-        ConfiBtn.setBorderPainted(false);
-        ConfiBtn.setContentAreaFilled(false);
-        ConfiBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ConfiBtn.setVerifyInputWhenFocusTarget(false);
-        ConfiBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ConfiBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 250, 40));
+        jPanel1.add(PanelNot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 460, 200));
 
         InicioBtn1.setBackground(new java.awt.Color(26, 26, 29));
-        InicioBtn1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        InicioBtn1.setFont(new java.awt.Font("Roboto", 1, 30)); // NOI18N
         InicioBtn1.setForeground(new java.awt.Color(204, 204, 204));
         InicioBtn1.setText("Para tí");
         InicioBtn1.setToolTipText("");
@@ -621,94 +649,6 @@ public class Menu_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 250, 40));
-
-        ExplorarBtn.setBackground(new java.awt.Color(26, 26, 29));
-        ExplorarBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        ExplorarBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ExplorarBtn.setText("  Explorar");
-        ExplorarBtn.setToolTipText("");
-        ExplorarBtn.setAlignmentY(0.0F);
-        ExplorarBtn.setBorderPainted(false);
-        ExplorarBtn.setContentAreaFilled(false);
-        ExplorarBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ExplorarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExplorarBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(ExplorarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 250, 40));
-
-        ComunidadesBtn.setBackground(new java.awt.Color(26, 26, 29));
-        ComunidadesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        ComunidadesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ComunidadesBtn.setText("  Comunidades");
-        ComunidadesBtn.setToolTipText("");
-        ComunidadesBtn.setAlignmentY(0.0F);
-        ComunidadesBtn.setBorderPainted(false);
-        ComunidadesBtn.setContentAreaFilled(false);
-        ComunidadesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ComunidadesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComunidadesBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 250, 40));
-
-        NotificacionesBtn.setBackground(new java.awt.Color(26, 26, 29));
-        NotificacionesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        NotificacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        NotificacionesBtn.setText("  Notificaciones");
-        NotificacionesBtn.setToolTipText("");
-        NotificacionesBtn.setAlignmentY(0.0F);
-        NotificacionesBtn.setBorderPainted(false);
-        NotificacionesBtn.setContentAreaFilled(false);
-        NotificacionesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        NotificacionesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NotificacionesBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 250, 40));
-
-        GuardadoBtn.setBackground(new java.awt.Color(26, 26, 29));
-        GuardadoBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        GuardadoBtn.setForeground(new java.awt.Color(204, 204, 204));
-        GuardadoBtn.setText("  Guardados");
-        GuardadoBtn.setToolTipText("");
-        GuardadoBtn.setAlignmentY(0.0F);
-        GuardadoBtn.setBorderPainted(false);
-        GuardadoBtn.setContentAreaFilled(false);
-        GuardadoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        GuardadoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        GuardadoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuardadoBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(GuardadoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 250, 40));
-
-        PerfilBtn.setBackground(new java.awt.Color(26, 26, 29));
-        PerfilBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        PerfilBtn.setForeground(new java.awt.Color(204, 204, 204));
-        PerfilBtn.setText("  Perfil");
-        PerfilBtn.setToolTipText("");
-        PerfilBtn.setAlignmentY(0.0F);
-        PerfilBtn.setBorderPainted(false);
-        PerfilBtn.setContentAreaFilled(false);
-        PerfilBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        PerfilBtn.setVerifyInputWhenFocusTarget(false);
-        PerfilBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PerfilBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 260, 40));
-
-        jPanel21.setOpaque(false);
-        jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel21.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 60, 40));
-
-        jPanel1.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 70, 50));
 
         PerfilPanel.setBackground(new java.awt.Color(0, 0, 0));
         PerfilPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -927,45 +867,7 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         ImagenPublicacion_lbl.setForeground(new java.awt.Color(255, 255, 255));
         ImagenPublicacion_lbl.setText("ImagenPublicacion1");
-        jPanel1.add(ImagenPublicacion_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 280, 150));
-
-        ImagenPublicacion_lbl2.setForeground(new java.awt.Color(255, 255, 255));
-        ImagenPublicacion_lbl2.setText("ImagenPublicacion2");
-        jPanel1.add(ImagenPublicacion_lbl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 350, 280, 150));
-
-        ImagenPublicacion_lbl3.setForeground(new java.awt.Color(255, 255, 255));
-        ImagenPublicacion_lbl3.setText("ImagenPublicacion3");
-        jPanel1.add(ImagenPublicacion_lbl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 560, 280, 150));
-
-        PostearBtn.setBackground(new java.awt.Color(166, 77, 121));
-        PostearBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        PostearBtn.setForeground(new java.awt.Color(204, 204, 204));
-        PostearBtn.setText("Publicación");
-        PostearBtn.setToolTipText("");
-        PostearBtn.setAlignmentY(0.0F);
-        PostearBtn.setBorderPainted(false);
-        PostearBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PostearBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(PostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 680, 200, 40));
-
-        InicioBtn2.setBackground(new java.awt.Color(26, 26, 29));
-        InicioBtn2.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        InicioBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        InicioBtn2.setText("   Inicio");
-        InicioBtn2.setToolTipText("");
-        InicioBtn2.setAlignmentY(0.0F);
-        InicioBtn2.setBorderPainted(false);
-        InicioBtn2.setContentAreaFilled(false);
-        InicioBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        InicioBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InicioBtn2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(InicioBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 250, 40));
+        jPanel1.add(ImagenPublicacion_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 350, 280, 200));
 
         IconoParaTi.setBackground(new java.awt.Color(166, 77, 121));
         IconoParaTi.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -981,14 +883,173 @@ public class Menu_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(IconoParaTi, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 60, 60));
 
-        PanelNot4.setBackground(new java.awt.Color(106, 30, 85));
-        PanelNot4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
+        ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        ConfiBtn.setForeground(new java.awt.Color(204, 204, 204));
+        ConfiBtn.setText("Configuracion");
+        ConfiBtn.setToolTipText("");
+        ConfiBtn.setAlignmentY(0.0F);
+        ConfiBtn.setBorderPainted(false);
+        ConfiBtn.setContentAreaFilled(false);
+        ConfiBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ConfiBtn.setVerifyInputWhenFocusTarget(false);
+        ConfiBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfiBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 500, 260, 40));
+
+        InicioBtn3.setBackground(new java.awt.Color(26, 26, 29));
+        InicioBtn3.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        InicioBtn3.setForeground(new java.awt.Color(204, 204, 204));
+        InicioBtn3.setText("   Inicio");
+        InicioBtn3.setToolTipText("");
+        InicioBtn3.setAlignmentY(0.0F);
+        InicioBtn3.setBorderPainted(false);
+        InicioBtn3.setContentAreaFilled(false);
+        InicioBtn3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        InicioBtn3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InicioBtn3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(InicioBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 250, 40));
+
+        ComunidadesBtn.setBackground(new java.awt.Color(26, 26, 29));
+        ComunidadesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        ComunidadesBtn.setForeground(new java.awt.Color(204, 204, 204));
+        ComunidadesBtn.setText("  Comunidades");
+        ComunidadesBtn.setToolTipText("");
+        ComunidadesBtn.setAlignmentY(0.0F);
+        ComunidadesBtn.setBorderPainted(false);
+        ComunidadesBtn.setContentAreaFilled(false);
+        ComunidadesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ComunidadesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComunidadesBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 250, 40));
+
+        NotificacionesBtn.setBackground(new java.awt.Color(26, 26, 29));
+        NotificacionesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        NotificacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
+        NotificacionesBtn.setText("  Notificaciones");
+        NotificacionesBtn.setToolTipText("");
+        NotificacionesBtn.setAlignmentY(0.0F);
+        NotificacionesBtn.setBorderPainted(false);
+        NotificacionesBtn.setContentAreaFilled(false);
+        NotificacionesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        NotificacionesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NotificacionesBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 250, 40));
+
+        GuardadoBtn.setBackground(new java.awt.Color(26, 26, 29));
+        GuardadoBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        GuardadoBtn.setForeground(new java.awt.Color(204, 204, 204));
+        GuardadoBtn.setText("  Guardados");
+        GuardadoBtn.setToolTipText("");
+        GuardadoBtn.setAlignmentY(0.0F);
+        GuardadoBtn.setBorderPainted(false);
+        GuardadoBtn.setContentAreaFilled(false);
+        GuardadoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        GuardadoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        GuardadoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardadoBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(GuardadoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 250, 40));
+
+        PerfilBtn.setBackground(new java.awt.Color(26, 26, 29));
+        PerfilBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        PerfilBtn.setForeground(new java.awt.Color(204, 204, 204));
+        PerfilBtn.setText("  Perfil");
+        PerfilBtn.setToolTipText("");
+        PerfilBtn.setAlignmentY(0.0F);
+        PerfilBtn.setBorderPainted(false);
+        PerfilBtn.setContentAreaFilled(false);
+        PerfilBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        PerfilBtn.setVerifyInputWhenFocusTarget(false);
+        PerfilBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PerfilBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 250, 40));
+
+        ExplorarBtn1.setBackground(new java.awt.Color(26, 26, 29));
+        ExplorarBtn1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        ExplorarBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        ExplorarBtn1.setText("  Explorar");
+        ExplorarBtn1.setToolTipText("");
+        ExplorarBtn1.setAlignmentY(0.0F);
+        ExplorarBtn1.setBorderPainted(false);
+        ExplorarBtn1.setContentAreaFilled(false);
+        ExplorarBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ExplorarBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExplorarBtn1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ExplorarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 250, 40));
+        jPanel1.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 90, 80));
+
+        CrearPublicacion.setBackground(new java.awt.Color(106, 30, 85));
+
+        NuevoTexto.setBackground(new java.awt.Color(166, 77, 121));
+        NuevoTexto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        NuevoTexto.setAlignmentX(1.0F);
+        NuevoTexto.setAlignmentY(1.0F);
+        NuevoTexto.setBorder(null);
+        NuevoTexto.setSelectionColor(new java.awt.Color(59, 28, 50));
+
+        PostearBtn.setBackground(new java.awt.Color(166, 77, 121));
+        PostearBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        PostearBtn.setForeground(new java.awt.Color(204, 204, 204));
+        PostearBtn.setText("Publicar");
+        PostearBtn.setToolTipText("");
+        PostearBtn.setAlignmentY(0.0F);
+        PostearBtn.setBorderPainted(false);
+        PostearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PostearBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout CrearPublicacionLayout = new javax.swing.GroupLayout(CrearPublicacion);
+        CrearPublicacion.setLayout(CrearPublicacionLayout);
+        CrearPublicacionLayout.setHorizontalGroup(
+            CrearPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CrearPublicacionLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(NuevoTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(PostearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+        CrearPublicacionLayout.setVerticalGroup(
+            CrearPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearPublicacionLayout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addGroup(CrearPublicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PostearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NuevoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
+        );
+
+        jPanel1.add(CrearPublicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 750, 200));
+
+        PanelNot4.setBackground(new java.awt.Color(166, 77, 121));
         PanelNot4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelNot4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblUsuario1.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuario1.setText("ImgNot");
-        PanelNot4.add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
+        PanelNot4.add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 50));
 
         meGustaBtn1.setBackground(new java.awt.Color(59, 28, 50));
         meGustaBtn1.setForeground(new java.awt.Color(255, 255, 255));
@@ -1001,15 +1062,20 @@ public class Menu_Principal extends javax.swing.JFrame {
                 meGustaBtn1ActionPerformed(evt);
             }
         });
-        PanelNot4.add(meGustaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
+        PanelNot4.add(meGustaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 40, 40));
 
-        comentarBtn1.setBackground(new java.awt.Color(106, 30, 85));
+        comentarBtn1.setBackground(new java.awt.Color(59, 28, 50));
         comentarBtn1.setForeground(new java.awt.Color(255, 255, 255));
         comentarBtn1.setText("-");
         comentarBtn1.setBorder(null);
         comentarBtn1.setBorderPainted(false);
         comentarBtn1.setContentAreaFilled(false);
-        PanelNot4.add(comentarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+        comentarBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comentarBtn1ActionPerformed(evt);
+            }
+        });
+        PanelNot4.add(comentarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 40, 40));
 
         repostearBtn1.setBackground(new java.awt.Color(59, 28, 50));
         repostearBtn1.setForeground(new java.awt.Color(255, 255, 255));
@@ -1022,21 +1088,21 @@ public class Menu_Principal extends javax.swing.JFrame {
                 repostearBtn1ActionPerformed(evt);
             }
         });
-        PanelNot4.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
+        PanelNot4.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 40, 40));
 
         lblLikesLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel1.setText("0");
-        PanelNot4.add(lblLikesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 80, -1));
+        PanelNot4.add(lblLikesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 20, -1));
 
         lblComentarLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblComentarLabel1.setText("0");
-        PanelNot4.add(lblComentarLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 80, -1));
+        PanelNot4.add(lblComentarLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 10, -1));
 
         lblRepostearLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel1.setText("0");
-        PanelNot4.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 90, -1));
+        PanelNot4.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 20, -1));
 
-        Nombre_usuarioBtn1.setBackground(new java.awt.Color(106, 30, 85));
+        Nombre_usuarioBtn1.setBackground(new java.awt.Color(59, 28, 50));
         Nombre_usuarioBtn1.setForeground(new java.awt.Color(255, 255, 255));
         Nombre_usuarioBtn1.setText("Nombre_usuario");
         Nombre_usuarioBtn1.setBorder(null);
@@ -1062,126 +1128,31 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         Fecha_Label1.setForeground(new java.awt.Color(255, 255, 255));
         Fecha_Label1.setText("Fecha_posts");
-        PanelNot4.add(Fecha_Label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 130, -1));
+        PanelNot4.add(Fecha_Label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 130, -1));
 
         lblTexto_publicacion1.setForeground(new java.awt.Color(255, 255, 255));
         lblTexto_publicacion1.setText("Texto_publicacion");
-        PanelNot4.add(lblTexto_publicacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 80));
+        PanelNot4.add(lblTexto_publicacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 100));
 
-        jPanel1.add(PanelNot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, 450, 200));
+        jPanel1.add(PanelNot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 570, 460, 200));
 
-        PanelNot5.setBackground(new java.awt.Color(166, 77, 121));
-        PanelNot5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        PanelNot5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNot5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblUsuario2.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuario2.setText("ImgNot");
-        lblUsuario2.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                lblUsuario2AncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        PanelNot5.add(lblUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
-
-        meGustaBtn2.setBackground(new java.awt.Color(59, 28, 50));
-        meGustaBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        meGustaBtn2.setText("-");
-        meGustaBtn2.setBorder(null);
-        meGustaBtn2.setBorderPainted(false);
-        meGustaBtn2.setContentAreaFilled(false);
-        meGustaBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                meGustaBtn2ActionPerformed(evt);
-            }
-        });
-        PanelNot5.add(meGustaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
-
-        comentarBtn2.setBackground(new java.awt.Color(166, 77, 121));
-        comentarBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        comentarBtn2.setText("-");
-        comentarBtn2.setBorder(null);
-        comentarBtn2.setBorderPainted(false);
-        comentarBtn2.setContentAreaFilled(false);
-        PanelNot5.add(comentarBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
-
-        repostearBtn2.setBackground(new java.awt.Color(59, 28, 50));
-        repostearBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        repostearBtn2.setText("-");
-        repostearBtn2.setBorder(null);
-        repostearBtn2.setBorderPainted(false);
-        repostearBtn2.setContentAreaFilled(false);
-        repostearBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                repostearBtn2ActionPerformed(evt);
-            }
-        });
-        PanelNot5.add(repostearBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, -1));
-
-        lblLikesLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        lblLikesLabel2.setText("0");
-        PanelNot5.add(lblLikesLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 80, -1));
-
-        lblComentarLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        lblComentarLabel2.setText("0");
-        PanelNot5.add(lblComentarLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 80, -1));
-
-        lblRepostearLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        lblRepostearLabel2.setText("0");
-        PanelNot5.add(lblRepostearLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 90, -1));
-
-        Nombre_usuarioBtn2.setBackground(new java.awt.Color(106, 30, 85));
-        Nombre_usuarioBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        Nombre_usuarioBtn2.setText("Nombre_usuario");
-        Nombre_usuarioBtn2.setBorder(null);
-        Nombre_usuarioBtn2.setBorderPainted(false);
-        Nombre_usuarioBtn2.setContentAreaFilled(false);
-        PanelNot5.add(Nombre_usuarioBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
-
-        UsuarioPub7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UsuarioPub7.setForeground(new java.awt.Color(204, 204, 204));
-        UsuarioPub7.setText("@Usuario");
-        UsuarioPub7.setToolTipText("");
-        UsuarioPub7.setBorder(null);
-        UsuarioPub7.setBorderPainted(false);
-        UsuarioPub7.setContentAreaFilled(false);
-        UsuarioPub7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UsuarioPub7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UsuarioPub7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuarioPub7ActionPerformed(evt);
-            }
-        });
-        PanelNot5.add(UsuarioPub7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
-
-        Fecha_Label2.setForeground(new java.awt.Color(255, 255, 255));
-        Fecha_Label2.setText("Fecha_posts");
-        PanelNot5.add(Fecha_Label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 130, -1));
-
-        lblTexto_publicacion2.setForeground(new java.awt.Color(255, 255, 255));
-        lblTexto_publicacion2.setText("Texto_publicacion");
-        PanelNot5.add(lblTexto_publicacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 80));
-
-        jPanel1.add(PanelNot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 560, 450, 200));
+        ImagenPublicacion_lbl1.setForeground(new java.awt.Color(255, 255, 255));
+        ImagenPublicacion_lbl1.setText("ImagenPublicacion1");
+        jPanel1.add(ImagenPublicacion_lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 570, 280, 200));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -1203,38 +1174,9 @@ public class Menu_Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_FiltroTodoActionPerformed
 
-    private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
-       this.dispose();
-       new Configuracion().setVisible(true); // TODO add your handling code here:
-    }//GEN-LAST:event_ConfiBtnActionPerformed
-
     private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
-       this.dispose();
-       new Menu_Principal().setVisible(true);  // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_InicioBtn1ActionPerformed
-
-    private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
-       this.dispose();
-       new Explorar().setVisible(true);         // TODO add your handling code here:
-    }//GEN-LAST:event_ExplorarBtnActionPerformed
-
-    private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
-       this.dispose();
-       new Comunidad().setVisible(true); // TODO add your handling code here:
-    }//GEN-LAST:event_ComunidadesBtnActionPerformed
-
-    private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-       this.dispose();
-       new Notificaciones().setVisible(true); // TODO add your handling code here:
-    }//GEN-LAST:event_NotificacionesBtnActionPerformed
-
-    private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GuardadoBtnActionPerformed
-
-    private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PerfilBtnActionPerformed
 
     private void PublicacionesBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PublicacionesBtn2ActionPerformed
 
@@ -1280,10 +1222,6 @@ public class Menu_Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PostearBtnActionPerformed
 
-    private void InicioBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_InicioBtn2ActionPerformed
-
     private void IconoParaTiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IconoParaTiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IconoParaTiActionPerformed
@@ -1300,9 +1238,52 @@ public class Menu_Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_repostearBtnActionPerformed
 
+    private void comentarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comentarBtnActionPerformed
+
+    private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
+        this.dispose();
+        new Configuracion().setVisible(true);
+    }//GEN-LAST:event_ConfiBtnActionPerformed
+
+    private void InicioBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn3ActionPerformed
+        this.dispose();
+        new Menu_Principal().setVisible(true);
+    }//GEN-LAST:event_InicioBtn3ActionPerformed
+
+    private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
+        this.dispose();
+        new Comunidad().setVisible(true);
+    }//GEN-LAST:event_ComunidadesBtnActionPerformed
+
+    private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
+        this.dispose();
+        new Notificaciones().setVisible(true);
+    }//GEN-LAST:event_NotificacionesBtnActionPerformed
+
+    private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
+        this.dispose();
+        new Guardados().setVisible(true);
+    }//GEN-LAST:event_GuardadoBtnActionPerformed
+
+    private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
+        this.dispose();
+        new Perfil().setVisible(true);
+    }//GEN-LAST:event_PerfilBtnActionPerformed
+
+    private void ExplorarBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtn1ActionPerformed
+        this.dispose();
+        new Explorar().setVisible(true);
+    }//GEN-LAST:event_ExplorarBtn1ActionPerformed
+
     private void meGustaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_meGustaBtn1ActionPerformed
+
+    private void comentarBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comentarBtn1ActionPerformed
 
     private void repostearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn1ActionPerformed
         // TODO add your handling code here:
@@ -1311,26 +1292,6 @@ public class Menu_Principal extends javax.swing.JFrame {
     private void UsuarioPub6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioPub6ActionPerformed
-
-    private void meGustaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn2ActionPerformed
-
-    private void repostearBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn2ActionPerformed
-
-    private void UsuarioPub7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub7ActionPerformed
-
-    private void lblUsuario2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_lblUsuario2AncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblUsuario2AncestorAdded
-
-    private void comentarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comentarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1371,11 +1332,11 @@ public class Menu_Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ComunidadesBtn;
     private javax.swing.JButton ConfiBtn;
+    private javax.swing.JPanel CrearPublicacion;
     private javax.swing.JButton CuentaBtn20;
-    private javax.swing.JButton ExplorarBtn;
+    private javax.swing.JButton ExplorarBtn1;
     private javax.swing.JLabel Fecha_Label;
     private javax.swing.JLabel Fecha_Label1;
-    private javax.swing.JLabel Fecha_Label2;
     private javax.swing.JButton FiltroSeguidores;
     private javax.swing.JButton FiltroTodo;
     private javax.swing.JButton FiltroYaps;
@@ -1383,23 +1344,21 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JButton IconoParaTi;
     private javax.swing.JLabel IdUsuario2;
     private javax.swing.JLabel ImagenPublicacion_lbl;
-    private javax.swing.JLabel ImagenPublicacion_lbl2;
-    private javax.swing.JLabel ImagenPublicacion_lbl3;
+    private javax.swing.JLabel ImagenPublicacion_lbl1;
     private javax.swing.JLabel ImgInt1;
     private javax.swing.JLabel ImgInt2;
     private javax.swing.JLabel ImgInt3;
     private javax.swing.JButton InicioBtn1;
-    private javax.swing.JButton InicioBtn2;
+    private javax.swing.JButton InicioBtn3;
     private javax.swing.JButton MostrarMasInteresBtn;
     private javax.swing.JButton MostrarMasTendenciaBtn;
     private javax.swing.JLabel NombreUsuario;
     private javax.swing.JButton Nombre_usuarioBtn;
     private javax.swing.JButton Nombre_usuarioBtn1;
-    private javax.swing.JButton Nombre_usuarioBtn2;
     private javax.swing.JButton NotificacionesBtn;
+    private javax.swing.JTextField NuevoTexto;
     private javax.swing.JPanel PanelNot1;
     private javax.swing.JPanel PanelNot4;
-    private javax.swing.JPanel PanelNot5;
     private javax.swing.JButton PerfilBtn;
     private javax.swing.JPanel PerfilPanel;
     private javax.swing.JLabel Perfil_Img;
@@ -1418,15 +1377,12 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JButton UserInt3;
     private javax.swing.JButton UsuarioPub5;
     private javax.swing.JButton UsuarioPub6;
-    private javax.swing.JButton UsuarioPub7;
     private javax.swing.JLabel Y_logo;
     private javax.swing.JButton comentarBtn;
     private javax.swing.JButton comentarBtn1;
-    private javax.swing.JButton comentarBtn2;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
@@ -1435,24 +1391,17 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel lblComentarLabel;
     private javax.swing.JLabel lblComentarLabel1;
-    private javax.swing.JLabel lblComentarLabel2;
     private javax.swing.JLabel lblLikesLabel;
     private javax.swing.JLabel lblLikesLabel1;
-    private javax.swing.JLabel lblLikesLabel2;
     private javax.swing.JLabel lblRepostearLabel;
     private javax.swing.JLabel lblRepostearLabel1;
-    private javax.swing.JLabel lblRepostearLabel2;
     private javax.swing.JLabel lblTexto_publicacion;
     private javax.swing.JLabel lblTexto_publicacion1;
-    private javax.swing.JLabel lblTexto_publicacion2;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuario1;
-    private javax.swing.JLabel lblUsuario2;
     private javax.swing.JButton meGustaBtn;
     private javax.swing.JButton meGustaBtn1;
-    private javax.swing.JButton meGustaBtn2;
     private javax.swing.JButton repostearBtn;
     private javax.swing.JButton repostearBtn1;
-    private javax.swing.JButton repostearBtn2;
     // End of variables declaration//GEN-END:variables
 }
