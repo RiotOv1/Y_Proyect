@@ -961,7 +961,7 @@ public class Notificaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_UsuarioBtnActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
-               this.dispose();
+       this.dispose();
        new Configuracion().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
@@ -971,18 +971,16 @@ public class Notificaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_InicioBtn1ActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
-               this.dispose();
+       this.dispose();
        new Explorar().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ExplorarBtnActionPerformed
 
     private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
-        
        this.dispose();
        new Comunidad().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ComunidadesBtnActionPerformed
 
     private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-        
        this.dispose();
        new Notificaciones().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_NotificacionesBtnActionPerformed

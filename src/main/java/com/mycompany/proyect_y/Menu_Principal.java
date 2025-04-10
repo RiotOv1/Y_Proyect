@@ -1132,13 +1132,12 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_FiltroTodoActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
-        
        this.dispose();
        new Configuracion().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
     private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
-              this.dispose();
+       this.dispose();
        new Menu_Principal().setVisible(true);  // TODO add your handling code here:
     }//GEN-LAST:event_InicioBtn1ActionPerformed
 
@@ -1148,12 +1147,12 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_ExplorarBtnActionPerformed
 
     private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
-               this.dispose();
+       this.dispose();
        new Comunidad().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_ComunidadesBtnActionPerformed
 
     private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-               this.dispose();
+       this.dispose();
        new Notificaciones().setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_NotificacionesBtnActionPerformed
 

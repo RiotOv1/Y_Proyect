@@ -1897,19 +1897,16 @@ public class Configuracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void InicioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtnActionPerformed
-        // TODO add your handling code here
-this.dispose();
+        this.dispose();
         new Menu_Principal().setVisible(true);
     }//GEN-LAST:event_InicioBtnActionPerformed
 
     private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         new Comunidad().setVisible(true);
     }//GEN-LAST:event_ComunidadesBtnActionPerformed
 
     private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         new Notificaciones().setVisible(true);
     }//GEN-LAST:event_NotificacionesBtnActionPerformed
@@ -1919,7 +1916,6 @@ this.dispose();
     }//GEN-LAST:event_GuardadoBtnActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         new Configuracion().setVisible(true);
     }//GEN-LAST:event_ConfiBtnActionPerformed

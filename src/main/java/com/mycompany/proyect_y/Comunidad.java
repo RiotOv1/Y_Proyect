@@ -1109,7 +1109,6 @@ public class Comunidad extends javax.swing.JFrame {
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
     private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         new Menu_Principal().setVisible(true);
     }//GEN-LAST:event_InicioBtn1ActionPerformed
@@ -1129,7 +1128,6 @@ public class Comunidad extends javax.swing.JFrame {
     }//GEN-LAST:event_PerfilBtnActionPerformed
 
     private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         new Explorar().setVisible(true);
     }//GEN-LAST:event_ExplorarBtnActionPerformed
