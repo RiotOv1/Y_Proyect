@@ -18,9 +18,9 @@ import java.util.logging.Logger;
  * @author irami
  */
 public class DBConnection{
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/y_proyect?zeroDateTimeBehavior=CONVERT_TO_NULL";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/y_bd?zeroDateTimeBehavior=CONVERT_TO_NULL";
+    private static final String DB_USER = "Abril";
+    private static final String DB_PASSWORD = "pass";
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(DBConnection.class.getName());
     
