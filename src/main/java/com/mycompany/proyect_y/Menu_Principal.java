@@ -9,6 +9,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import Conection.DB_Conection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Menu_Principal extends javax.swing.JFrame {
     private PublicacionDAO publicacionDAO;
@@ -61,7 +66,75 @@ public class Menu_Principal extends javax.swing.JFrame {
             }
         }
         
+        cargarFotoPerfil(); 
+        Connection con =  DB_Conection.conectar(); // tu clase de conexión
+        String IdUsuario = SesionUsuario.idUsuario;
+        if (IdUsuario != null) {
+            String nom = obtenerNombreUsuario();
+            NombreUsuario.setText(nom);
+            IdUsuario2.setText( "@" + IdUsuario);
+            
     }
+
+    }
+        public String obtenerNombreUsuario() {
+            String nombre = "";
+            String apellido = "";
+            Connection con =  DB_Conection.conectar(); // tu clase de conexión
+            if (con != null) {
+                try {
+                    String sql = "SELECT nombre, apellido FROM usuario WHERE id_usuario = ?";
+                    PreparedStatement ps = con.prepareStatement(sql);
+                    ps.setString(1, SesionUsuario.idUsuario); // usamos el ID guardado en la sesión
+                    ResultSet rs = ps.executeQuery();
+                        
+                    if (rs.next()) {
+                        nombre = rs.getString("nombre");
+                        apellido = rs.getString("apellido");
+                    }
+
+                    rs.close();
+                    ps.close();
+
+                } catch (SQLException e) {
+            }
+        }
+
+        return (nombre + " " + apellido);
+    }
+       
+    public void cargarFotoPerfil() {
+        Connection con = DB_Conection.conectar();
+        
+        if (con != null) {
+            try {
+                String sql = "SELECT foto_perfil FROM usuario WHERE id_usuario = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, SesionUsuario.idUsuario);
+                ResultSet rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    byte[] imagenBytes = rs.getBytes("foto_perfil");
+                    
+                    if (imagenBytes != null) {
+                        ImageIcon icon = new ImageIcon(imagenBytes);
+                        Image img = icon.getImage().getScaledInstance(Perfil_Img.getWidth(), Perfil_Img.getHeight(), Image.SCALE_SMOOTH);
+                        Perfil_Img.setIcon(new ImageIcon(img));
+                        
+                    } else {
+                        Perfil_Img.setText("Sin imagen");
+                    }
+                }
+                
+                rs.close();
+                ps.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+        
     
     public void Img() {
 

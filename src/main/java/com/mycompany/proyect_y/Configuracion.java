@@ -4,7 +4,13 @@
  */
 package com.mycompany.proyect_y;
 
+
+import Conection.DB_Conection;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 
 /**
@@ -21,6 +27,73 @@ public class Configuracion extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Img();
         OcultoInicializar();
+       cargarFotoPerfil(); 
+        Connection con =  DB_Conection.conectar(); // tu clase de conexión
+        String Id =SesionUsuario.idUsuario;
+        if (Id != null) {
+            String nom = obtenerNombreUsuario();
+            NombreUsuario.setText(nom);
+            IdUsuario.setText( "@" + Id);
+            
+    }
+
+    }
+        public String obtenerNombreUsuario() {
+            String nombre = "";
+            String apellido = "";
+            Connection con =  DB_Conection.conectar(); // tu clase de conexión
+            if (con != null) {
+                try {
+                    String sql = "SELECT nombre, apellido FROM usuario WHERE id_usuario = ?";
+                    PreparedStatement ps = con.prepareStatement(sql);
+                    ps.setString(1, SesionUsuario.idUsuario); // usamos el ID guardado en la sesión
+                    ResultSet rs = ps.executeQuery();
+                        
+                    if (rs.next()) {
+                        nombre = rs.getString("nombre");
+                        apellido = rs.getString("apellido");
+                    }
+
+                    rs.close();
+                    ps.close();
+
+                } catch (SQLException e) {
+            }
+        }
+
+        return (nombre + " " + apellido);
+    }
+       
+    public void cargarFotoPerfil() {
+        Connection con = DB_Conection.conectar();
+        
+        if (con != null) {
+            try {
+                String sql = "SELECT foto_perfil FROM usuario WHERE id_usuario = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, SesionUsuario.idUsuario);
+                ResultSet rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    byte[] imagenBytes = rs.getBytes("foto_perfil");
+                    
+                    if (imagenBytes != null) {
+                        ImageIcon icon = new ImageIcon(imagenBytes);
+                        Image img = icon.getImage().getScaledInstance(Perfil_Img.getWidth(), Perfil_Img.getHeight(), Image.SCALE_SMOOTH);
+                        Perfil_Img.setIcon(new ImageIcon(img));
+                        
+                    } else {
+                        Perfil_Img.setText("Sin imagen");
+                    }
+                }
+                
+                rs.close();
+                ps.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //Metodo para ocultar los objetos invisibles al inicio 

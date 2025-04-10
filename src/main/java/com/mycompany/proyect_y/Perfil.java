@@ -4,7 +4,12 @@
  */
 package com.mycompany.proyect_y;
 
+import Conection.DB_Conection;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 
 /**
@@ -20,8 +25,87 @@ public class Perfil extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         Img();
+        
+        cargarFotoPerfil(); 
+        Connection con =  DB_Conection.conectar(); // tu clase de conexión
+        String IdUsuario = SesionUsuario.idUsuario;
+        if (IdUsuario != null) {
+            String nom = obtenerNombreUsuario();
+            NombreUsuario.setText(nom);
+            IdUsuario2.setText( "@" + IdUsuario);
+            NombreComunidad.setText(nom);
+            UsuarioComunidad.setText( "@" + IdUsuario);
+            NombrePub1.setText(nom);
+            UsuarioPub1.setText( "@" + IdUsuario);
+            NombrePub2.setText(nom);
+            UsuarioPub2.setText( "@" + IdUsuario);
+            NombrePub3.setText(nom);
+            UsuarioPub3.setText( "@" + IdUsuario);
     }
-    
+
+    }
+        public String obtenerNombreUsuario() {
+            String nombre = "";
+            String apellido = "";
+            Connection con =  DB_Conection.conectar(); // tu clase de conexión
+            if (con != null) {
+                try {
+                    String sql = "SELECT nombre, apellido FROM usuario WHERE id_usuario = ?";
+                    PreparedStatement ps = con.prepareStatement(sql);
+                    ps.setString(1, SesionUsuario.idUsuario); // usamos el ID guardado en la sesión
+                    ResultSet rs = ps.executeQuery();
+                        
+                    if (rs.next()) {
+                        nombre = rs.getString("nombre");
+                        apellido = rs.getString("apellido");
+                    }
+
+                    rs.close();
+                    ps.close();
+
+                } catch (SQLException e) {
+            }
+        }
+
+        return (nombre + " " + apellido);
+    }
+       
+    public void cargarFotoPerfil() {
+        Connection con = DB_Conection.conectar();
+        
+        if (con != null) {
+            try {
+                String sql = "SELECT foto_perfil FROM usuario WHERE id_usuario = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, SesionUsuario.idUsuario);
+                ResultSet rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    byte[] imagenBytes = rs.getBytes("foto_perfil");
+                    
+                    if (imagenBytes != null) {
+                        ImageIcon icon = new ImageIcon(imagenBytes);
+                        Image img = icon.getImage().getScaledInstance(FotoPerfil.getWidth(), FotoPerfil.getHeight(), Image.SCALE_SMOOTH);
+                        FotoPerfil.setIcon(new ImageIcon(img));
+                        ImgPub1.setIcon(new ImageIcon(img));
+                        ImgPub2.setIcon(new ImageIcon(img));
+                        ImgPub3.setIcon(new ImageIcon(img));
+                        Perfil_Img1.setIcon(new ImageIcon(img));
+                    } else {
+                        FotoPerfil.setText("Sin imagen");
+                    }
+                }
+                
+                rs.close();
+                ps.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+   
+       
         public void Img() {
 
         //Creamos el objeto UIManager.setLookAndFeel();
@@ -84,7 +168,7 @@ public class Perfil extends javax.swing.JFrame {
         ImageIcon image66 = new ImageIcon(url66);
         Image img66 = image66.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono66 = new ImageIcon(img66);
-        FotodePerfilBtn.setIcon(Icono66);
+        FotoPerfil.setIcon(Icono66);
 
         //Icono Y Logo
         String url13 = "src\\main\\java\\Multimedia\\YSinfondo.png";
@@ -100,14 +184,12 @@ public class Perfil extends javax.swing.JFrame {
         ImageIcon Icono14 = new ImageIcon(img14);
         ConfiBtn.setIcon(Icono14);
 
-    }
-    
+    }  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        CuentaBtn1 = new javax.swing.JButton();
         CuentaBtn5 = new javax.swing.JButton();
         CuentaBtn8 = new javax.swing.JButton();
         CuentaBtn9 = new javax.swing.JButton();
@@ -150,8 +232,6 @@ public class Perfil extends javax.swing.JFrame {
         UserInt1 = new javax.swing.JButton();
         UserInt2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        BarraBusquedaBtn = new javax.swing.JButton();
-        SeguirComunidadBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         FiltrarReYaps = new javax.swing.JButton();
         FiltrarDestacados = new javax.swing.JButton();
@@ -172,7 +252,6 @@ public class Perfil extends javax.swing.JFrame {
         DescripcionPub1 = new javax.swing.JLabel();
         ImgPub1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        FotodePerfilBtn = new javax.swing.JButton();
         PanelNot2 = new javax.swing.JPanel();
         UsuarioPub2 = new javax.swing.JButton();
         NombrePub2 = new javax.swing.JLabel();
@@ -185,6 +264,7 @@ public class Perfil extends javax.swing.JFrame {
         ImgPub3 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        FotoPerfil = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -193,21 +273,6 @@ public class Perfil extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(1550, 820));
         jPanel1.setPreferredSize(new java.awt.Dimension(1550, 820));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        CuentaBtn1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        CuentaBtn1.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn1.setText("🗓Se unio en mes y año");
-        CuentaBtn1.setBorder(null);
-        CuentaBtn1.setBorderPainted(false);
-        CuentaBtn1.setContentAreaFilled(false);
-        CuentaBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, 180, 50));
 
         CuentaBtn5.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
         CuentaBtn5.setForeground(new java.awt.Color(204, 204, 204));
@@ -406,7 +471,7 @@ public class Perfil extends javax.swing.JFrame {
 
         PerfilPanel.setBackground(new java.awt.Color(0, 0, 0));
         PerfilPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        PerfilPanel.add(Perfil_Img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
+        PerfilPanel.add(Perfil_Img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 50));
 
         NombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         NombreUsuario.setForeground(new java.awt.Color(204, 204, 204));
@@ -625,16 +690,6 @@ public class Perfil extends javax.swing.JFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 0, -1, 1040));
 
-        BarraBusquedaBtn.setBackground(new java.awt.Color(0, 0, 0));
-        BarraBusquedaBtn.setForeground(new java.awt.Color(255, 255, 255));
-        BarraBusquedaBtn.setText("🔍Buscar");
-        BarraBusquedaBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(BarraBusquedaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 190, 30));
-
-        SeguirComunidadBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        SeguirComunidadBtn.setText("Seguir");
-        jPanel1.add(SeguirComunidadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 140, -1, -1));
-
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -825,7 +880,7 @@ public class Perfil extends javax.swing.JFrame {
                 UsuarioComunidadActionPerformed(evt);
             }
         });
-        jPanel1.add(UsuarioComunidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, -1, -1));
+        jPanel1.add(UsuarioComunidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 180, -1, -1));
 
         NombreComunidad.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
         NombreComunidad.setForeground(new java.awt.Color(204, 204, 204));
@@ -845,7 +900,7 @@ public class Perfil extends javax.swing.JFrame {
                 DescripcionComunidadBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(DescripcionComunidadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 570, 50));
+        jPanel1.add(DescripcionComunidadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 140, 500, 50));
 
         jSeparator4.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator4.setForeground(new java.awt.Color(153, 153, 153));
@@ -917,20 +972,6 @@ public class Perfil extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ImagenPublicacion1");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 270, 280, 150));
-
-        FotodePerfilBtn.setBackground(new java.awt.Color(166, 77, 121));
-        FotodePerfilBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        FotodePerfilBtn.setForeground(new java.awt.Color(204, 204, 204));
-        FotodePerfilBtn.setToolTipText("");
-        FotodePerfilBtn.setAlignmentY(0.0F);
-        FotodePerfilBtn.setBorderPainted(false);
-        FotodePerfilBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        FotodePerfilBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FotodePerfilBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(FotodePerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 60, 60));
 
         PanelNot2.setBackground(new java.awt.Color(106, 30, 85));
         PanelNot2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1064,29 +1105,26 @@ public class Perfil extends javax.swing.JFrame {
         jLabel4.setText("ImagenPublicacion3");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 610, 280, 150));
 
+        FotoPerfil.setText("jLabel1");
+        jPanel1.add(FotoPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 60, 60));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void CuentaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn1ActionPerformed
 
     private void CuentaBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn5ActionPerformed
         // TODO add your handling code here:
@@ -1226,10 +1264,6 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioPub1ActionPerformed
 
-    private void FotodePerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FotodePerfilBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FotodePerfilBtnActionPerformed
-
     private void UsuarioPub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioPub2ActionPerformed
@@ -1275,10 +1309,8 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BarraBusquedaBtn;
     private javax.swing.JButton ComunidadesBtn;
     private javax.swing.JButton ConfiBtn;
-    private javax.swing.JButton CuentaBtn1;
     private javax.swing.JButton CuentaBtn2;
     private javax.swing.JButton CuentaBtn20;
     private javax.swing.JButton CuentaBtn3;
@@ -1296,7 +1328,7 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JButton FiltrarReYaps;
     private javax.swing.JButton FiltrarSeguidores;
     private javax.swing.JButton FiltrarYaps;
-    private javax.swing.JButton FotodePerfilBtn;
+    private javax.swing.JLabel FotoPerfil;
     private javax.swing.JButton GuardadoBtn;
     private javax.swing.JLabel IdUsuario2;
     private javax.swing.JLabel ImgInt1;
@@ -1326,7 +1358,6 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JButton PublicacionesBtn1;
     private javax.swing.JButton PublicacionesBtn2;
     private javax.swing.JLabel QuePasa;
-    private javax.swing.JButton SeguirComunidadBtn;
     private javax.swing.JButton SeguirCuentaBtn1;
     private javax.swing.JButton SeguirCuentaBtn2;
     private javax.swing.JButton SeguirCuentaBtn3;

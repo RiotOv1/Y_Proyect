@@ -8,16 +8,17 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.Icon;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
-
-
 
 /**
  *
@@ -25,6 +26,7 @@ import javax.swing.JOptionPane;
  */
 public class Inicio extends javax.swing.JFrame {
 
+    private File archivoImagenSeleccionado;
     /**
      * Creates new form 
      */
@@ -38,7 +40,6 @@ public class Inicio extends javax.swing.JFrame {
         Image img = image.getImage().getScaledInstance(550,550, Image.SCALE_DEFAULT );
         ImageIcon icono = new ImageIcon(img);
         L_in.setIcon(icono);
-
         
     }
 
@@ -48,17 +49,21 @@ public class Inicio extends javax.swing.JFrame {
         String usuario = TP_Correo.getText(); // Obtiene usuario, correo o teléfono
         String password = new String(TP_Contra.getPassword()); // Obtiene la contraseña
 
-        if (verificarUsuario(usuario, password)) {
-            L_Aviso.setText(" ");
-            Menu_Principal v2 = new Menu_Principal ();
-            v2.setVisible(true);
-            this.setVisible(false);
+        String idUsuario = verificarUsuario(usuario, password); // o usar el que ya tienes
+        if (idUsuario != null) {
+            L_Aviso.setText("entrA if");
+            SesionUsuario.iniciarSesion(idUsuario); // Guardar el ID globalmente
+            L_Aviso.setText(SesionUsuario.idUsuario);
+            
+            new Perfil().setVisible(true);
+            L_Aviso.setText("perfil");
+            this.dispose();
         } else {
             L_Aviso.setText("Usuario o contraseña incorrectos");
         }
     }
   
-    public boolean verificarUsuario(String usuario, String password) {
+    public String verificarUsuario(String usuario, String password) {
         Connection con = DB_Conection.conectar();
         if (con != null) {
             try {
@@ -70,17 +75,23 @@ public class Inicio extends javax.swing.JFrame {
                 ps.setString(3, usuario);
                 ps.setString(4, password);
                 ResultSet rs = ps.executeQuery();
-
-                return rs.next();
-            } catch (SQLException e) {
+                
+                if (rs.next()) {
+                    L_Aviso.setText("antes del return");
+                    return rs.getString("id_usuario");
+                }
+                
+            } 
+            catch (SQLException e) {
+                 e.printStackTrace(); // Muestra errores en consola
             }
         }
-        return false;
+        return null;
     }
 
 
-        public void registrarUsuario() {
-        // Obtener los datos ingresados por el usuario
+
+    public void registrarUsuario() throws FileNotFoundException {
         
         String idUsuario = TP_Usuario.getText();
         String contrasena = new String(TP_Contasenia.getPassword());
@@ -89,42 +100,31 @@ public class Inicio extends javax.swing.JFrame {
         String apellido = TP_Apellido.getText();
         String pais = CB_Pais.getSelectedItem().toString(); 
         String telefono = CB_Lada.getSelectedItem().toString()+TP_Telefono.getText();
-        
         String seleccion = CB_Sexo.getSelectedItem().toString(); 
         char sexo = seleccion.charAt(0);
-       
         String Fecha = CB_Anio.getSelectedItem().toString() + "-" + 
                    CB_Mes.getSelectedItem().toString() + "-" + 
                    CB_Dia.getSelectedItem().toString();
+       
+        File archivoImagen = jFileChooser.getSelectedFile();
+
         
         // Convertir a java.sql.Date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-             
         LocalDate localDate = LocalDate.parse(Fecha, formatter);
-       
         java.sql.Date fechaSQL = java.sql.Date.valueOf(localDate);
-  
-        // Validar que no haya campos vacíos
-        
-        L_Aviso2.setText("Despues de pasar todo a variables");
-        if (idUsuario.isEmpty() || contrasena.isEmpty() || nombre.isEmpty() || apellido.isEmpty()) {
-            L_Aviso2.setText("FaltaNombre:" +nombre+ " o Id: "+idUsuario+" o Con:"+contrasena+" o Ape:"+apellido+"-");
-            return;
-        }
+
         Connection con = DB_Conection.conectar();   
         if (con == null) {
             L_Aviso2.setText("Error: La conexión a la base de datos no está funcionando.");
-        return;
+            return;
         } else {
             L_Aviso2.setText("Conexión exitosa a la base de datos.");
         }
         
-        L_Aviso2.setText("Despues de conectar");
-        
         try {
-            L_Aviso2.setText("Dentro del try");
             // Consulta SQL para insertar un nuevo usuario
-            String sql = "INSERT INTO usuario (id_usuario, contrasena, sexo, correo, telefono, fecha_nac , nombre, apellido, pais) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO usuario (id_usuario, contrasena, sexo, correo, telefono, fecha_nac , nombre, apellido, pais, foto_perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, idUsuario);
             ps.setString(2, contrasena);
@@ -135,16 +135,20 @@ public class Inicio extends javax.swing.JFrame {
             ps.setString(7, nombre);
             ps.setString(8, apellido);
             ps.setString(9, pais);
+
             
-     
+FileInputStream fis = new FileInputStream(archivoImagenSeleccionado);
+ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
+            
             int filasInsertadas = ps.executeUpdate();// Ejecutar la consulta
             SeleccionesCheckBox();
         
             if (filasInsertadas > 0) {
-                L_Aviso2.setText("aceptado ");
-                Menu_Principal v2 = new Menu_Principal ();
-                v2.setVisible(true);
-                this.setVisible(false);
+                SesionUsuario.iniciarSesion(idUsuario);
+                L_Aviso.setText("guarda");
+                new Perfil().setVisible(true);
+                L_Aviso.setText("perfil");
+                this.dispose();
             } else {
                 L_Aviso2.setText( "Error al registrar usuario");
             }
@@ -152,7 +156,9 @@ public class Inicio extends javax.swing.JFrame {
             L_Aviso2.setText( "Error al registrar usuario: " + e.getMessage());
         }
     }
-         public void SeleccionesCheckBox(){
+    
+    
+    public void SeleccionesCheckBox(){
         //identificar a los chekc box con un valor unico
         Check_Musica.putClientProperty("Musica", 1);
         Check_Deporte.putClientProperty("Deporte", 2);
@@ -266,10 +272,8 @@ public class Inicio extends javax.swing.JFrame {
         checkBoxArreglo[indice] = (int) Check_Programacion.getClientProperty("Programacion");
         indice++;
         }
-        
-        
-        Connection con = DB_Conection.conectar();
-        
+
+        Connection con = DB_Conection.conectar();     
         try{
             for(int i=0;i<=indice;i++){
                 String sql = "INSERT INTO usuario_intereses (usuario_id, interest_id) VALUES (?,?)";
@@ -285,6 +289,76 @@ public class Inicio extends javax.swing.JFrame {
         
     }
     
+    public boolean Comprobar1() {
+        
+        String idUsuario = TP_Usuario.getText();
+        String contrasena = new String(TP_Contasenia.getPassword());
+        String nombre = TP_Nombre.getText();
+        String apellido = TP_Apellido.getText();
+        String Aviso="";
+        int i=0;
+        L_Aviso3.setText("");
+        L_Aviso4.setText("");
+        L_Aviso5.setText("");       
+        
+        //Validaciones
+        if (idUsuario.isEmpty() || contrasena.isEmpty() || nombre.isEmpty() || apellido.isEmpty()) {
+            Aviso+= "Falta de: ";
+            if (nombre.isEmpty()){Aviso= "Nombre, ";}
+            if (apellido.isEmpty()){Aviso= Aviso + "Apellido, ";}
+            if (idUsuario.isEmpty()){Aviso += "Usuario, ";}
+            if (contrasena.isEmpty()){Aviso += "Contrasenia, ";}
+            
+            L_Aviso3.setText(Aviso);
+            i=1;
+        }
+        
+        if (contrasena.length()<8){L_Aviso5.setText(" La contrasenia debe de tener al menos 8 caracteres"); i=1;}
+        if (idUsuario.length()<6){L_Aviso4.setText(" El nombre de usuario debe de tener al menos 6 caracteres"); i=1;}  
+        
+        if (i==1){return false;}
+        
+        return true;
+        
+   }
+    
+    public boolean Comprobar2() {
+        
+        String correo = TP_CorreoC.getText();
+        String pais = CB_Pais.getSelectedItem().toString(); 
+        String telefono = TP_Telefono.getText();
+        String seleccion = CB_Sexo.getSelectedItem().toString(); 
+        String dia = CB_Anio.getSelectedItem().toString() ;
+        String mes= CB_Mes.getSelectedItem().toString();
+        String anio =CB_Dia.getSelectedItem().toString();
+        L_Aviso6.setText("");
+        L_Aviso7.setText("");
+        L_Aviso8.setText(""); 
+        L_Aviso9.setText("");
+        L_Aviso10.setText("");
+        L_Aviso11.setText(""); 
+
+        String Aviso="";
+        int i=0;
+        
+        
+        //Validaciones
+        if (telefono.length()!=10){L_Aviso8.setText(" Ingrese un numero de celular Valido"); i=1;}
+        if (!correo.contains("@") ||!correo.contains(".com")){L_Aviso6.setText(" Ingrese un Correo valido y que termine en '.com'"); i=1;}  
+        
+        
+        if (dia=="Dia" || mes =="Mes"|| anio=="Anio"){L_Aviso9.setText(" Ingrese una fecha valida"); i=1;}
+        if (seleccion == "Seleccionar"){L_Aviso10.setText("Seleccione un tipo de Sexo Valido"); i=1;}  
+        if (pais == "Seleccionar"){L_Aviso7.setText("Seleccione un Pais"); i=1;}  
+        if (i==1){return false;}
+        
+        return true;
+        
+   }
+    
+ 
+
+         
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -335,6 +409,9 @@ public class Inicio extends javax.swing.JFrame {
         TP_Apellido = new javax.swing.JTextPane();
         L_Nombre1 = new javax.swing.JLabel();
         TP_Contasenia = new javax.swing.JPasswordField();
+        L_Aviso3 = new javax.swing.JLabel();
+        L_Aviso4 = new javax.swing.JLabel();
+        L_Aviso5 = new javax.swing.JLabel();
         J_CreaCuenta1 = new javax.swing.JPanel();
         PanelFlotante2 = new javax.swing.JPanel();
         L_Crea2 = new javax.swing.JLabel();
@@ -347,6 +424,7 @@ public class Inicio extends javax.swing.JFrame {
         Siguiente2 = new javax.swing.JButton();
         B_Volver = new javax.swing.JButton();
         B_ElegirOtra = new javax.swing.JButton();
+        L_Aviso11 = new javax.swing.JLabel();
         Intereses = new javax.swing.JPanel();
         PanelFlotante3 = new javax.swing.JPanel();
         L_Crea3 = new javax.swing.JLabel();
@@ -395,6 +473,11 @@ public class Inicio extends javax.swing.JFrame {
         L_Pais = new javax.swing.JLabel();
         CB_Dia = new javax.swing.JComboBox<>();
         L_Pais1 = new javax.swing.JLabel();
+        L_Aviso6 = new javax.swing.JLabel();
+        L_Aviso7 = new javax.swing.JLabel();
+        L_Aviso8 = new javax.swing.JLabel();
+        L_Aviso9 = new javax.swing.JLabel();
+        L_Aviso10 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -759,19 +842,19 @@ public class Inicio extends javax.swing.JFrame {
         TP_Contasenia.setBackground(new java.awt.Color(26, 26, 29));
         TP_Contasenia.setForeground(new java.awt.Color(166, 77, 121));
 
+        L_Aviso3.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso3.setForeground(new java.awt.Color(255, 51, 51));
+
+        L_Aviso4.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso4.setForeground(new java.awt.Color(255, 51, 51));
+
+        L_Aviso5.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso5.setForeground(new java.awt.Color(255, 51, 51));
+
         javax.swing.GroupLayout PanelFlotanteLayout = new javax.swing.GroupLayout(PanelFlotante);
         PanelFlotante.setLayout(PanelFlotanteLayout);
         PanelFlotanteLayout.setHorizontalGroup(
             PanelFlotanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelFlotanteLayout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addGroup(PanelFlotanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Siguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelFlotanteLayout.createSequentialGroup()
-                        .addComponent(L_YaCuenta2)
-                        .addGap(18, 18, 18)
-                        .addComponent(B_IniciaSesionCreaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 145, Short.MAX_VALUE))
             .addGroup(PanelFlotanteLayout.createSequentialGroup()
                 .addGroup(PanelFlotanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelFlotanteLayout.createSequentialGroup()
@@ -787,8 +870,20 @@ public class Inicio extends javax.swing.JFrame {
                             .addComponent(L_Usuario)
                             .addComponent(L_Nombre1)
                             .addComponent(jScrollPane5)
-                            .addComponent(TP_Contasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(TP_Contasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                            .addComponent(L_Aviso3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(L_Aviso4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(L_Aviso5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(102, Short.MAX_VALUE))
+            .addGroup(PanelFlotanteLayout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addGroup(PanelFlotanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Siguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelFlotanteLayout.createSequentialGroup()
+                        .addComponent(L_YaCuenta2)
+                        .addGap(18, 18, 18)
+                        .addComponent(B_IniciaSesionCreaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 145, Short.MAX_VALUE))
         );
         PanelFlotanteLayout.setVerticalGroup(
             PanelFlotanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -807,17 +902,23 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(L_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(L_Aviso4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(L_Contra1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TP_Contasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                .addGap(55, 55, 55)
+                .addGap(8, 8, 8)
+                .addComponent(L_Aviso5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(L_Aviso3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Siguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(PanelFlotanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(L_YaCuenta2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(B_IniciaSesionCreaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout J_CreaCuentaLayout = new javax.swing.GroupLayout(J_CreaCuenta);
@@ -886,7 +987,7 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(J_C_FotoLayout.createSequentialGroup()
                 .addGap(183, 183, 183)
                 .addComponent(L_Foto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         J_C_FotoLayout.setVerticalGroup(
             J_C_FotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -938,36 +1039,41 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        L_Aviso11.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso11.setForeground(new java.awt.Color(255, 51, 51));
+
         javax.swing.GroupLayout PanelFlotante2Layout = new javax.swing.GroupLayout(PanelFlotante2);
         PanelFlotante2.setLayout(PanelFlotante2Layout);
         PanelFlotante2Layout.setHorizontalGroup(
             PanelFlotante2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFlotante2Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+            .addGroup(PanelFlotante2Layout.createSequentialGroup()
+                .addGap(130, 130, 130)
                 .addGroup(PanelFlotante2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFlotante2Layout.createSequentialGroup()
-                        .addComponent(L_Crea2)
-                        .addGap(181, 181, 181))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFlotante2Layout.createSequentialGroup()
-                        .addComponent(J_Conteiner, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))))
+                    .addComponent(Siguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelFlotante2Layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(B_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(PanelFlotante2Layout.createSequentialGroup()
                 .addGroup(PanelFlotante2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelFlotante2Layout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addComponent(L_Nombre2))
                     .addGroup(PanelFlotante2Layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addGroup(PanelFlotante2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Siguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelFlotante2Layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addComponent(B_ElegirOtra, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelFlotante2Layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(B_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(232, 232, 232)
+                        .addComponent(B_ElegirOtra, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFlotante2Layout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addGroup(PanelFlotante2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(L_Aviso11, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelFlotante2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFlotante2Layout.createSequentialGroup()
+                            .addComponent(L_Crea2)
+                            .addGap(181, 181, 181))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFlotante2Layout.createSequentialGroup()
+                            .addComponent(J_Conteiner, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(43, 43, 43)))))
         );
         PanelFlotante2Layout.setVerticalGroup(
             PanelFlotante2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -980,11 +1086,13 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(J_Conteiner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(B_ElegirOtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(L_Aviso11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Siguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(B_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout J_CreaCuenta1Layout = new javax.swing.GroupLayout(J_CreaCuenta1);
@@ -1376,13 +1484,13 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         CB_Mes.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        CB_Mes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        CB_Mes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
         CB_Lada.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         CB_Lada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "+52", "+1", "+57", "+54", "+51", "+58", "+56", "+593", "+502", "+53" }));
 
         CB_Anio.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        CB_Anio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913", "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905" }));
+        CB_Anio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Anio", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925" }));
         CB_Anio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_AnioActionPerformed(evt);
@@ -1419,30 +1527,41 @@ public class Inicio extends javax.swing.JFrame {
         L_Telefono.setText("Telefono Celular");
 
         CB_Sexo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        CB_Sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino", "No Binario", "Otro" }));
+        CB_Sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Masculino", "Femenino", "No Binario", "Otro" }));
 
         CB_Pais.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        CB_Pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "México", "Estados Unidos", "Colombia", "Argentina", "Perú", "Venezuela", "Chile", "Ecuador", "Guatemala", "Cuba" }));
+        CB_Pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "México", "Estados Unidos", "Colombia", "Argentina", "Perú", "Venezuela", "Chile", "Ecuador", "Guatemala", "Cuba" }));
 
         L_Pais.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         L_Pais.setForeground(new java.awt.Color(255, 255, 255));
         L_Pais.setText("Pais");
 
         CB_Dia.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        CB_Dia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        CB_Dia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 
         L_Pais1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         L_Pais1.setForeground(new java.awt.Color(255, 255, 255));
         L_Pais1.setText("Sexo");
 
+        L_Aviso6.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso6.setForeground(new java.awt.Color(255, 51, 51));
+
+        L_Aviso7.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso7.setForeground(new java.awt.Color(255, 51, 51));
+
+        L_Aviso8.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso8.setForeground(new java.awt.Color(255, 51, 51));
+
+        L_Aviso9.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso9.setForeground(new java.awt.Color(255, 51, 51));
+
+        L_Aviso10.setBackground(new java.awt.Color(26, 26, 29));
+        L_Aviso10.setForeground(new java.awt.Color(255, 51, 51));
+
         javax.swing.GroupLayout PanelFlotante1Layout = new javax.swing.GroupLayout(PanelFlotante1);
         PanelFlotante1.setLayout(PanelFlotante1Layout);
         PanelFlotante1Layout.setHorizontalGroup(
             PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFlotante1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(L_Crea1)
-                .addGap(174, 174, 174))
             .addGroup(PanelFlotante1Layout.createSequentialGroup()
                 .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelFlotante1Layout.createSequentialGroup()
@@ -1460,17 +1579,23 @@ public class Inicio extends javax.swing.JFrame {
                                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(CB_Pais, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(L_CorreoC, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(PanelFlotante1Layout.createSequentialGroup()
-                                    .addComponent(L_Pais1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(CB_Sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(PanelFlotante1Layout.createSequentialGroup()
-                                    .addComponent(CB_Dia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(CB_Mes, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(CB_Anio, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(L_Aviso6, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(L_Aviso7, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(L_Aviso8, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(L_Aviso9, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(L_Aviso10, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(PanelFlotante1Layout.createSequentialGroup()
+                                        .addComponent(L_Pais1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(CB_Sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(PanelFlotante1Layout.createSequentialGroup()
+                                        .addComponent(CB_Dia, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CB_Mes, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(CB_Anio, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(PanelFlotante1Layout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1479,6 +1604,10 @@ public class Inicio extends javax.swing.JFrame {
                                 .addGap(85, 85, 85)
                                 .addComponent(B_RegresarCC2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(105, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFlotante1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(L_Crea1)
+                .addGap(174, 174, 174))
         );
         PanelFlotante1Layout.setVerticalGroup(
             PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1491,30 +1620,40 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(CB_Lada, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(1, 1, 1)
+                .addComponent(L_Aviso8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CB_Pais, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(L_Pais))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(L_Aviso7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addComponent(L_CorreoC, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(2, 2, 2)
+                .addComponent(L_Aviso6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(L_FechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CB_Mes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CB_Anio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CB_Dia, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(3, 3, 3)
+                .addComponent(L_Aviso9, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelFlotante1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CB_Sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(L_Pais1))
-                .addGap(36, 36, 36)
+                .addGap(7, 7, 7)
+                .addComponent(L_Aviso10, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Siguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(B_RegresarCC2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout J_CreaCuenta2Layout = new javax.swing.GroupLayout(J_CreaCuenta2);
@@ -1547,7 +1686,14 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_B_SiguienteActionPerformed
 
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
-          jTabbedPane1.setSelectedIndex(5);
+        
+        if (Comprobar1())
+        {
+            jTabbedPane1.setSelectedIndex(5);
+        }
+        
+        
+        
     }//GEN-LAST:event_SiguienteActionPerformed
 
     private void B_RegistrateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_RegistrateActionPerformed
@@ -1555,7 +1701,11 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_B_RegistrateActionPerformed
 
     private void Siguiente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Siguiente2ActionPerformed
-        jTabbedPane1.setSelectedIndex(4);
+       if (archivoImagenSeleccionado != null) {
+            jTabbedPane1.setSelectedIndex(4);
+        }
+        L_Aviso.setText("Seleccione una imagen");
+       
     }//GEN-LAST:event_Siguiente2ActionPerformed
 
     private void B_IniciaSesionCreaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciaSesionCreaCuentaActionPerformed
@@ -1563,8 +1713,13 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_B_IniciaSesionCreaCuentaActionPerformed
 
     private void B_TerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_TerminarActionPerformed
+
+        try {
+            registrarUsuario();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        registrarUsuario();
         
     }//GEN-LAST:event_B_TerminarActionPerformed
 
@@ -1641,21 +1796,18 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_B_CreaCuentaActionPerformed
 
     private void jFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooserActionPerformed
-        if (evt.getActionCommand().equals(jFileChooser.APPROVE_SELECTION)) {
-        // Obtener archivo seleccionado
-        File archivo = jFileChooser.getSelectedFile();
-        
-        if (archivo != null) {
-            // Cargar imagen en el JLabel
-            ImageIcon imagen = new ImageIcon(archivo.getAbsolutePath());
+         if (evt.getActionCommand().equals(jFileChooser.APPROVE_SELECTION)) {
+        archivoImagenSeleccionado = jFileChooser.getSelectedFile(); // ← guardarlo aquí
+
+        if (archivoImagenSeleccionado != null) {
+            ImageIcon imagen = new ImageIcon(archivoImagenSeleccionado.getAbsolutePath());
             Image imgEscalada = imagen.getImage().getScaledInstance(L_Foto.getWidth(), L_Foto.getHeight(), Image.SCALE_SMOOTH);
             L_Foto.setIcon(new ImageIcon(imgEscalada));
 
-            // Ocultar JFileChooser y mostrar la imagen
             J_Archivos.setVisible(false);
             J_C_Foto.setVisible(true);
         }
-       }
+    }
 
     }//GEN-LAST:event_jFileChooserActionPerformed
 
@@ -1675,9 +1827,11 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_B_ElegirOtraActionPerformed
 
     private void Siguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Siguiente1ActionPerformed
+        if (Comprobar2())
+        {
+            jTabbedPane1.setSelectedIndex(3);
+        }
         
-        
-        jTabbedPane1.setSelectedIndex(3);
     }//GEN-LAST:event_Siguiente1ActionPerformed
 
     private void B_RegresarCC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_RegresarCC2ActionPerformed
@@ -1778,7 +1932,16 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel J_InicioS;
     private javax.swing.JPanel J_Inicioinicio;
     private javax.swing.JLabel L_Aviso;
+    private javax.swing.JLabel L_Aviso10;
+    private javax.swing.JLabel L_Aviso11;
     private javax.swing.JLabel L_Aviso2;
+    private javax.swing.JLabel L_Aviso3;
+    private javax.swing.JLabel L_Aviso4;
+    private javax.swing.JLabel L_Aviso5;
+    private javax.swing.JLabel L_Aviso6;
+    private javax.swing.JLabel L_Aviso7;
+    private javax.swing.JLabel L_Aviso8;
+    private javax.swing.JLabel L_Aviso9;
     private javax.swing.JLabel L_Contra;
     private javax.swing.JLabel L_Contra1;
     private javax.swing.JLabel L_Correo;
