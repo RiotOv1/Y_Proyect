@@ -2,6 +2,8 @@
 package com.mycompany.proyect_y;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,7 +35,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                         lblUsuario,Nombre_usuarioBtn,UsuarioPub5,
                         lblTexto_publicacion,Fecha_Label,
                         meGustaBtn, lblLikesLabel,
-                        repostearBtn, lblRepostearLabel
+                        repostearBtn, lblRepostearLabel,ImagenPublicacion_lbl,comentarBtn
                         );
             }
             //Panel 2
@@ -43,7 +45,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                         lblUsuario1, Nombre_usuarioBtn1, UsuarioPub6,
                         lblTexto_publicacion1,Fecha_Label1,
                         meGustaBtn1,lblLikesLabel1,
-                        repostearBtn1,lblRepostearLabel1
+                        repostearBtn1,lblRepostearLabel1,ImagenPublicacion_lbl2 ,comentarBtn1
                 );
             }
             
@@ -54,7 +56,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                         lblUsuario2, Nombre_usuarioBtn2, UsuarioPub7,
                         lblTexto_publicacion2, Fecha_Label2,
                         meGustaBtn2, lblLikesLabel2,
-                        repostearBtn2,lblRepostearLabel2
+                        repostearBtn2,lblRepostearLabel2,ImagenPublicacion_lbl3,comentarBtn2
                 );
             }
         }
@@ -139,9 +141,31 @@ public class Menu_Principal extends javax.swing.JFrame {
         ConfiBtn.setIcon(Icono14);
  
     }
-    
+    boolean bandera_likes = false; //Variable para verificar que no haya likes repetidos
+    boolean bandera_repost = false; //Variable para verificar que no haya repost repetidos
     private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JButton nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
-    ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts){
+    ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts, JLabel imagen_publi, JButton btnComentarios){
+        //Variables locales
+        
+        
+        // Configurar iconos iniciales
+        String likeIcon = "src\\main\\java\\Multimedia\\heart-icon-noFill.png";
+        ImageIcon imageLike = new ImageIcon(likeIcon);
+        Image imgLike = imageLike.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon IconoLike = new ImageIcon(imgLike);
+        btnLike.setIcon(IconoLike);
+
+        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-notHigh.png";
+        ImageIcon imageRepost = new ImageIcon(repostIcon);
+        Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon IconoRepost = new ImageIcon(imgRepost);
+        btnRepost.setIcon(IconoRepost);
+        
+        String comentarioIcon = "src\\main\\java\\Multimedia\\Comment-icon-notHigh.png";
+        ImageIcon imageComentario = new ImageIcon(comentarioIcon);
+        Image imgComentario = imageComentario.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon IconoComentario = new ImageIcon(imgComentario);
+        btnComentarios.setIcon(IconoComentario);
         
         //Configurar los componentes con los datos de la publicacion
         nomUsuario.setText(publica.getIdUsuario());
@@ -160,42 +184,75 @@ public class Menu_Principal extends javax.swing.JFrame {
             lblUsuario.setIcon(null);
         }
         
+        //Configurar imagen de la publicacion
+        if(publica.getMultimediaPubli()!=null){
+            ImageIcon icono_imagen = new ImageIcon(publica.getMultimediaPubli());
+            Image img_publi = icono_imagen.getImage().getScaledInstance(54,54, Image.SCALE_SMOOTH);
+            imagen_publi.setIcon(new ImageIcon(img_publi));
+        }
+        else{
+            imagen_publi.setIcon(null);
+        }
+        
         //Configurar acciones de los botones
-        btnLike.addActionListener(e->{
-            if (publicacionDAO.darLike(publica.getIdPublicacion())){
-                publica.setNumReacciones(publica.getNumReacciones()+1);
-                lblLikes.setText(String.valueOf(publica.getNumReacciones()));
-                
-                //Cambiar icono del like
-                String likeIcon = "src\\main\\java\\Multimedia\\heart-icon-Filled.png";
-                ImageIcon imageLike = new ImageIcon(likeIcon);
-                Image imgLike = imageLike.getImage().getScaledInstance(24, 24, 0);
-                btnLike.setIcon(new ImageIcon(imgLike));
+        
+        btnLike.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!bandera_likes){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                        publica.setNumReacciones(publica.getNumReacciones()+1);
+                        lblLikes.setText(String.valueOf(publica.getNumReacciones()));
+                        
+                        //Cambiar icono del like
+                        String likeIcon2 = "src\\main\\java\\Multimedia\\heart-icon-Filled.png";
+                        ImageIcon imageLike2 = new ImageIcon(likeIcon2);
+                        Image imgLike2 = imageLike2.getImage().getScaledInstance(24, 24, 0);
+                        btnLike.setIcon(new ImageIcon(imgLike2));
+                        bandera_likes = true;
+                    }
+                }
+                else{
+                    if(publicacionDAO.quitarLike(publica.getIdPublicacion())){
+                        publica.setNumReacciones(publica.getNumReacciones()-1);
+                        lblLikes.setText(String.valueOf(publica.getNumReacciones()));
+                        
+                        //Cambiar icono de like al original
+                        btnLike.setIcon(IconoLike);
+                        
+                        bandera_likes = false;
+                    }
+                }
             }
         });
         
         btnRepost.addActionListener(e -> {
-            if (publicacionDAO.repostear(publica.getIdPublicacion())) {
-                publica.setNumCompartidos(publica.getNumCompartidos() + 1);
-                lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
+            if(!bandera_repost){
+                if (publicacionDAO.repostear(publica.getIdPublicacion())) {
+                    publica.setNumCompartidos(publica.getNumCompartidos() + 1);
+                    lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
 
-                // Cambiar icono de repost
-                String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-High.png";
-                ImageIcon imageRepost = new ImageIcon(repostIcon);
-                Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
-                btnRepost.setIcon(new ImageIcon(imgRepost));
-             }
+                    // Cambiar icono de repost
+                    String repostIcon2 = "src\\main\\java\\Multimedia\\repost-icon-High.png";
+                    ImageIcon imageRepost2 = new ImageIcon(repostIcon2);
+                    Image imgRepost2 = imageRepost2.getImage().getScaledInstance(24, 24, 0);
+                    btnRepost.setIcon(new ImageIcon(imgRepost2));
+                    bandera_repost = true;
+                 }
+            }
+            else{
+                if(publicacionDAO.quitarRepost(publica.getIdPublicacion())){
+                    publica.setNumCompartidos(publica.getNumCompartidos()-1);
+                    lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
+                    
+                    //Cambiar icono de repost
+                    btnRepost.setIcon(IconoRepost);
+                    
+                    bandera_repost = false;
+                }
+            }
         });
-        // Configurar iconos iniciales
-        String likeIcon = "src\\main\\java\\Multimedia\\heart-icon-noFill.png";
-        ImageIcon imageLike = new ImageIcon(likeIcon);
-        Image imgLike = imageLike.getImage().getScaledInstance(24, 24, 0);
-        btnLike.setIcon(new ImageIcon(imgLike));
-
-        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-notHigh.png";
-        ImageIcon imageRepost = new ImageIcon(repostIcon);
-        Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
-        btnRepost.setIcon(new ImageIcon(imgRepost));
+        
     }
     
     
@@ -298,9 +355,9 @@ public class Menu_Principal extends javax.swing.JFrame {
         UserInt3 = new javax.swing.JButton();
         UserInt1 = new javax.swing.JButton();
         UserInt2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        ImagenPublicacion_lbl = new javax.swing.JLabel();
+        ImagenPublicacion_lbl2 = new javax.swing.JLabel();
+        ImagenPublicacion_lbl3 = new javax.swing.JLabel();
         PostearBtn = new javax.swing.JButton();
         InicioBtn2 = new javax.swing.JButton();
         IconoParaTi = new javax.swing.JButton();
@@ -460,7 +517,12 @@ public class Menu_Principal extends javax.swing.JFrame {
         });
         PanelNot1.add(meGustaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
 
-        comentarBtn.setText("Comentar");
+        comentarBtn.setBackground(new java.awt.Color(59, 28, 50));
+        comentarBtn.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn.setText("-");
+        comentarBtn.setBorder(null);
+        comentarBtn.setBorderPainted(false);
+        comentarBtn.setContentAreaFilled(false);
         comentarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comentarBtnActionPerformed(evt);
@@ -479,7 +541,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                 repostearBtnActionPerformed(evt);
             }
         });
-        PanelNot1.add(repostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
+        PanelNot1.add(repostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
 
         lblLikesLabel.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel.setText("0");
@@ -491,7 +553,7 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         lblRepostearLabel.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel.setText("0");
-        PanelNot1.add(lblRepostearLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 90, -1));
+        PanelNot1.add(lblRepostearLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 90, -1));
 
         Nombre_usuarioBtn.setBackground(new java.awt.Color(59, 28, 50));
         Nombre_usuarioBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -863,17 +925,17 @@ public class Menu_Principal extends javax.swing.JFrame {
         });
         jPanel1.add(UserInt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 180, -1, 30));
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ImagenPublicacion1");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 280, 150));
+        ImagenPublicacion_lbl.setForeground(new java.awt.Color(255, 255, 255));
+        ImagenPublicacion_lbl.setText("ImagenPublicacion1");
+        jPanel1.add(ImagenPublicacion_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 280, 150));
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("ImagenPublicacion2");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 350, 280, 150));
+        ImagenPublicacion_lbl2.setForeground(new java.awt.Color(255, 255, 255));
+        ImagenPublicacion_lbl2.setText("ImagenPublicacion2");
+        jPanel1.add(ImagenPublicacion_lbl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 350, 280, 150));
 
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("ImagenPublicacion3");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 560, 280, 150));
+        ImagenPublicacion_lbl3.setForeground(new java.awt.Color(255, 255, 255));
+        ImagenPublicacion_lbl3.setText("ImagenPublicacion3");
+        jPanel1.add(ImagenPublicacion_lbl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 560, 280, 150));
 
         PostearBtn.setBackground(new java.awt.Color(166, 77, 121));
         PostearBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -941,7 +1003,12 @@ public class Menu_Principal extends javax.swing.JFrame {
         });
         PanelNot4.add(meGustaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
 
-        comentarBtn1.setText("Comentar");
+        comentarBtn1.setBackground(new java.awt.Color(106, 30, 85));
+        comentarBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn1.setText("-");
+        comentarBtn1.setBorder(null);
+        comentarBtn1.setBorderPainted(false);
+        comentarBtn1.setContentAreaFilled(false);
         PanelNot4.add(comentarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
         repostearBtn1.setBackground(new java.awt.Color(59, 28, 50));
@@ -955,7 +1022,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                 repostearBtn1ActionPerformed(evt);
             }
         });
-        PanelNot4.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
+        PanelNot4.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
 
         lblLikesLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel1.setText("0");
@@ -967,7 +1034,7 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         lblRepostearLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel1.setText("0");
-        PanelNot4.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 90, -1));
+        PanelNot4.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 90, -1));
 
         Nombre_usuarioBtn1.setBackground(new java.awt.Color(106, 30, 85));
         Nombre_usuarioBtn1.setForeground(new java.awt.Color(255, 255, 255));
@@ -1034,7 +1101,12 @@ public class Menu_Principal extends javax.swing.JFrame {
         });
         PanelNot5.add(meGustaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
 
-        comentarBtn2.setText("Comentar");
+        comentarBtn2.setBackground(new java.awt.Color(166, 77, 121));
+        comentarBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn2.setText("-");
+        comentarBtn2.setBorder(null);
+        comentarBtn2.setBorderPainted(false);
+        comentarBtn2.setContentAreaFilled(false);
         PanelNot5.add(comentarBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
         repostearBtn2.setBackground(new java.awt.Color(59, 28, 50));
@@ -1048,7 +1120,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                 repostearBtn2ActionPerformed(evt);
             }
         });
-        PanelNot5.add(repostearBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
+        PanelNot5.add(repostearBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, -1));
 
         lblLikesLabel2.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel2.setText("0");
@@ -1060,7 +1132,7 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         lblRepostearLabel2.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel2.setText("0");
-        PanelNot5.add(lblRepostearLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 90, -1));
+        PanelNot5.add(lblRepostearLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 90, -1));
 
         Nombre_usuarioBtn2.setBackground(new java.awt.Color(106, 30, 85));
         Nombre_usuarioBtn2.setForeground(new java.awt.Color(255, 255, 255));
@@ -1218,19 +1290,6 @@ public class Menu_Principal extends javax.swing.JFrame {
 
     private void meGustaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtnActionPerformed
         // TODO add your handling code here:
-        String likeIcon = "src\\main\\java\\Multimedia\\heart-icon-Filled.png";
-        ImageIcon imageLike = new ImageIcon(likeIcon);
-        Image imgLike = imageLike.getImage().getScaledInstance(24, 24, 0);
-        ImageIcon Icono15 = new ImageIcon(imgLike);
-        meGustaBtn.setIcon(Icono15);
-         if (!publicaciones.isEmpty()) {
-            Publicacion publi = publicaciones.get(publicacionActual);
-            if (publicacionDAO.darLike(publi.getIdPublicacion())) {
-                // Actualizar el contador
-                publi.setNumReacciones(publi.getNumReacciones() + 1);
-                lblLikesLabel.setText(String.valueOf(publi.getNumReacciones()));
-            }
-        }
     }//GEN-LAST:event_meGustaBtnActionPerformed
 
     private void UsuarioPub5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub5ActionPerformed
@@ -1239,20 +1298,6 @@ public class Menu_Principal extends javax.swing.JFrame {
 
     private void repostearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtnActionPerformed
         // TODO add your handling code here:
-        //Cambia el icono cuando se click y sube el contador de la publicacion
-        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-High.png";
-        ImageIcon imageRepost = new ImageIcon(repostIcon);
-        Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
-        ImageIcon Icono15 = new ImageIcon(imgRepost);
-        repostearBtn.setIcon(Icono15);
-        if (!publicaciones.isEmpty()) {
-            Publicacion publi = publicaciones.get(publicacionActual);
-            if (publicacionDAO.repostear(publi.getIdPublicacion())) {
-                // Actualizar el contador
-                publi.setNumCompartidos(publi.getNumCompartidos() + 1);
-                lblRepostearLabel.setText(String.valueOf(publi.getNumCompartidos()));
-            }
-        }
     }//GEN-LAST:event_repostearBtnActionPerformed
 
     private void meGustaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn1ActionPerformed
@@ -1337,6 +1382,9 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JButton GuardadoBtn;
     private javax.swing.JButton IconoParaTi;
     private javax.swing.JLabel IdUsuario2;
+    private javax.swing.JLabel ImagenPublicacion_lbl;
+    private javax.swing.JLabel ImagenPublicacion_lbl2;
+    private javax.swing.JLabel ImagenPublicacion_lbl3;
     private javax.swing.JLabel ImgInt1;
     private javax.swing.JLabel ImgInt2;
     private javax.swing.JLabel ImgInt3;
@@ -1375,9 +1423,6 @@ public class Menu_Principal extends javax.swing.JFrame {
     private javax.swing.JButton comentarBtn;
     private javax.swing.JButton comentarBtn1;
     private javax.swing.JButton comentarBtn2;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
