@@ -110,7 +110,7 @@ public class Explorar extends javax.swing.JFrame {
         ImageIcon image2 = new ImageIcon(url2);
         Image img2 = image2.getImage().getScaledInstance(40, 40, 0);
         ImageIcon Icono2 = new ImageIcon(img2);
-        ExplorarBtn2.setIcon(Icono2);
+        IconoExplorar.setIcon(Icono2);
         
         //IconoExplorar
         String url21 = "src\\main\\java\\Multimedia\\Icon-Explorar.png";
@@ -152,7 +152,7 @@ public class Explorar extends javax.swing.JFrame {
         //Icono Y Logo
         String url13 = "src\\main\\java\\Multimedia\\YSinfondo.png";
         ImageIcon image13 = new ImageIcon(url13);
-        Image img13 = image13.getImage().getScaledInstance(50, 50, 0);
+        Image img13 = image13.getImage().getScaledInstance(90, 90, 0);
         ImageIcon Icono13 = new ImageIcon(img13);
         Y_logo.setIcon(Icono13);
         
@@ -238,14 +238,11 @@ public class Explorar extends javax.swing.JFrame {
         AmigosBtn = new javax.swing.JButton();
         ConfiBtn = new javax.swing.JButton();
         InicioBtn1 = new javax.swing.JButton();
-        ExplorarBtn2 = new javax.swing.JButton();
         ComunidadesBtn = new javax.swing.JButton();
         TusYapsBtn = new javax.swing.JButton();
         NotificacionesBtn = new javax.swing.JButton();
         GuardadoBtn = new javax.swing.JButton();
         PerfilBtn = new javax.swing.JButton();
-        jPanel21 = new javax.swing.JPanel();
-        Y_logo = new javax.swing.JLabel();
         EjemploBusquedas1 = new javax.swing.JPanel();
         UserResu1 = new javax.swing.JButton();
         NombreResu1 = new javax.swing.JLabel();
@@ -302,9 +299,17 @@ public class Explorar extends javax.swing.JFrame {
         RecientesImg = new javax.swing.JLabel();
         RecienteBtn = new javax.swing.JButton();
         BusquedaVerTodoBtn = new javax.swing.JButton();
+        IconoExplorar = new javax.swing.JButton();
+        ExplorarTitulo = new javax.swing.JLabel();
+        Y_logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 0, 0));
+        setBackground(new java.awt.Color(26, 26, 29));
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(1550, 820));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1550, 820));
+        setResizable(false);
 
         PanelTotalExplorar.setBackground(new java.awt.Color(0, 0, 0));
         PanelTotalExplorar.setPreferredSize(new java.awt.Dimension(1550, 820));
@@ -349,13 +354,13 @@ public class Explorar extends javax.swing.JFrame {
 
         EliminarBusquedasBtn.setBackground(new java.awt.Color(166, 77, 121));
         EliminarBusquedasBtn.setText("Eliminar busquedas");
-        PanelTotalExplorar.add(EliminarBusquedasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 20, 140, 30));
+        PanelTotalExplorar.add(EliminarBusquedasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 40, 140, 30));
 
         BarraBusquedaBtn.setBackground(new java.awt.Color(0, 0, 0));
         BarraBusquedaBtn.setForeground(new java.awt.Color(255, 255, 255));
         BarraBusquedaBtn.setText("🔍Buscar");
         BarraBusquedaBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        PanelTotalExplorar.add(BarraBusquedaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 450, 30));
+        PanelTotalExplorar.add(BarraBusquedaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 450, 30));
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -485,7 +490,7 @@ public class Explorar extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PanelTotalExplorar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 750, 40));
+        PanelTotalExplorar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 750, 40));
 
         EjemploBusqueda1.setBackground(new java.awt.Color(59, 28, 50));
         EjemploBusqueda1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -634,7 +639,7 @@ public class Explorar extends javax.swing.JFrame {
                 ConfiBtnActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 260, 40));
+        PanelTotalExplorar.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 500, 260, 40));
 
         InicioBtn1.setBackground(new java.awt.Color(26, 26, 29));
         InicioBtn1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -650,23 +655,7 @@ public class Explorar extends javax.swing.JFrame {
                 InicioBtn1ActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 250, 40));
-
-        ExplorarBtn2.setBackground(new java.awt.Color(26, 26, 29));
-        ExplorarBtn2.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        ExplorarBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        ExplorarBtn2.setText("  Explorar");
-        ExplorarBtn2.setToolTipText("");
-        ExplorarBtn2.setAlignmentY(0.0F);
-        ExplorarBtn2.setBorderPainted(false);
-        ExplorarBtn2.setContentAreaFilled(false);
-        ExplorarBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ExplorarBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExplorarBtn2ActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(ExplorarBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 250, 40));
+        PanelTotalExplorar.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 250, 40));
 
         ComunidadesBtn.setBackground(new java.awt.Color(26, 26, 29));
         ComunidadesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -682,7 +671,7 @@ public class Explorar extends javax.swing.JFrame {
                 ComunidadesBtnActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 250, 40));
+        PanelTotalExplorar.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 250, 40));
 
         TusYapsBtn.setBackground(new java.awt.Color(166, 77, 121));
         TusYapsBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -716,7 +705,7 @@ public class Explorar extends javax.swing.JFrame {
                 NotificacionesBtnActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 250, 40));
+        PanelTotalExplorar.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 250, 40));
 
         GuardadoBtn.setBackground(new java.awt.Color(26, 26, 29));
         GuardadoBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -733,7 +722,7 @@ public class Explorar extends javax.swing.JFrame {
                 GuardadoBtnActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(GuardadoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 250, 40));
+        PanelTotalExplorar.add(GuardadoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 250, 40));
 
         PerfilBtn.setBackground(new java.awt.Color(26, 26, 29));
         PerfilBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -750,13 +739,7 @@ public class Explorar extends javax.swing.JFrame {
                 PerfilBtnActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 250, 40));
-
-        jPanel21.setOpaque(false);
-        jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel21.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 60, 40));
-
-        PanelTotalExplorar.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 70, 50));
+        PanelTotalExplorar.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 250, 40));
 
         EjemploBusquedas1.setBackground(new java.awt.Color(59, 28, 50));
         EjemploBusquedas1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1301,7 +1284,7 @@ public class Explorar extends javax.swing.JFrame {
                 ExplorarBtn1ActionPerformed(evt);
             }
         });
-        PanelTotalExplorar.add(ExplorarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 250, 40));
+        PanelTotalExplorar.add(ExplorarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 250, 40));
 
         TendenciaImg.setForeground(new java.awt.Color(255, 255, 255));
         TendenciaImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1356,21 +1339,39 @@ public class Explorar extends javax.swing.JFrame {
         });
         PanelTotalExplorar.add(BusquedaVerTodoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 560, 70, 40));
 
+        IconoExplorar.setBackground(new java.awt.Color(166, 77, 121));
+        IconoExplorar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        IconoExplorar.setForeground(new java.awt.Color(204, 204, 204));
+        IconoExplorar.setToolTipText("");
+        IconoExplorar.setAlignmentY(0.0F);
+        IconoExplorar.setBorderPainted(false);
+        IconoExplorar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        IconoExplorar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IconoExplorarActionPerformed(evt);
+            }
+        });
+        PanelTotalExplorar.add(IconoExplorar, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 60, 60));
+
+        ExplorarTitulo.setFont(new java.awt.Font("Roboto Black", 1, 30)); // NOI18N
+        ExplorarTitulo.setForeground(new java.awt.Color(204, 204, 204));
+        ExplorarTitulo.setText("Explorar");
+        PanelTotalExplorar.add(ExplorarTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 250, 40));
+        PanelTotalExplorar.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 90, 80));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 2108, Short.MAX_VALUE))
         );
 
         pack();
@@ -1442,11 +1443,6 @@ public class Explorar extends javax.swing.JFrame {
         new Menu_Principal().setVisible(true);
     }//GEN-LAST:event_InicioBtn1ActionPerformed
 
-    private void ExplorarBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtn2ActionPerformed
-        this.dispose();
-        new Explorar().setVisible(true);
-    }//GEN-LAST:event_ExplorarBtn2ActionPerformed
-
     private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
         this.dispose();
         new Comunidad().setVisible(true);
@@ -1458,8 +1454,8 @@ public class Explorar extends javax.swing.JFrame {
     }//GEN-LAST:event_NotificacionesBtnActionPerformed
 
     private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GuardadoBtnActionPerformed
+        this.dispose();
+        new Guardados().setVisible(true);    }//GEN-LAST:event_GuardadoBtnActionPerformed
 
     private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
         this.dispose();
@@ -1558,6 +1554,10 @@ public class Explorar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RecienteBtnActionPerformed
 
+    private void IconoExplorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IconoExplorarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IconoExplorarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1622,8 +1622,9 @@ public class Explorar extends javax.swing.JFrame {
     private javax.swing.JPanel EjemploBusquedas2;
     private javax.swing.JButton EliminarBusquedasBtn;
     private javax.swing.JButton ExplorarBtn1;
-    private javax.swing.JButton ExplorarBtn2;
+    private javax.swing.JLabel ExplorarTitulo;
     private javax.swing.JButton GuardadoBtn;
+    private javax.swing.JButton IconoExplorar;
     private javax.swing.JLabel IdUsuario2;
     private javax.swing.JLabel ImgInt1;
     private javax.swing.JLabel ImgInt2;
@@ -1685,7 +1686,6 @@ public class Explorar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel21;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;

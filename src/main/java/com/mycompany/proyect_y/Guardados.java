@@ -1,88 +1,17 @@
 
 package com.mycompany.proyect_y;
 
-import Conection.DB_Conection;
 import java.awt.Image;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.ImageIcon;
 
-public class Notificaciones extends javax.swing.JFrame {
+public class Guardados extends javax.swing.JFrame {
 
-    public Notificaciones() {
+    public Guardados() {
         initComponents();
         this.setLocationRelativeTo(null);
         Img();
-           cargarFotoPerfil(); 
-        Connection con =  DB_Conection.conectar(); // tu clase de conexión
-        String Id =SesionUsuario.idUsuario;
-        if (Id != null) {
-            String nom = obtenerNombreUsuario();
-            NombreUsuario.setText(nom);
-            IdUsuario.setText( "@" + Id);
-            
     }
-
-    }
-        public String obtenerNombreUsuario() {
-            String nombre = "";
-            String apellido = "";
-            Connection con =  DB_Conection.conectar(); // tu clase de conexión
-            if (con != null) {
-                try {
-                    String sql = "SELECT nombre, apellido FROM usuario WHERE id_usuario = ?";
-                    PreparedStatement ps = con.prepareStatement(sql);
-                    ps.setString(1, SesionUsuario.idUsuario); // usamos el ID guardado en la sesión
-                    ResultSet rs = ps.executeQuery();
-                        
-                    if (rs.next()) {
-                        nombre = rs.getString("nombre");
-                        apellido = rs.getString("apellido");
-                    }
-
-                    rs.close();
-                    ps.close();
-
-                } catch (SQLException e) {
-            }
-        }
-
-        return (nombre + " " + apellido);
-    }
-       
-    public void cargarFotoPerfil() {
-        Connection con = DB_Conection.conectar();
-        
-        if (con != null) {
-            try {
-                String sql = "SELECT foto_perfil FROM usuario WHERE id_usuario = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, SesionUsuario.idUsuario);
-                ResultSet rs = ps.executeQuery();
-                
-                if (rs.next()) {
-                    byte[] imagenBytes = rs.getBytes("foto_perfil");
-                    
-                    if (imagenBytes != null) {
-                        ImageIcon icon = new ImageIcon(imagenBytes);
-                        Image img = icon.getImage().getScaledInstance(Perfil_Img1.getWidth(), Perfil_Img1.getHeight(), Image.SCALE_SMOOTH);
-                        Perfil_Img1.setIcon(new ImageIcon(img));
-                        
-                    } else {
-                        Perfil_Img1.setText("Sin imagen");
-                    }
-                }
-                
-                rs.close();
-                ps.close();
-                con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    
     public void Img() {
 
         //Creamos el objeto UIManager.setLookAndFeel();
@@ -119,11 +48,11 @@ public class Notificaciones extends javax.swing.JFrame {
         ImageIcon Icono3 = new ImageIcon(img3);
         NotificacionesBtn.setIcon(Icono3);
         
-        String url89 = "src\\main\\java\\Multimedia\\Icon-Notificaciones.png";
+        String url89 = "src\\main\\java\\Multimedia\\Icon-Guardado.png";
         ImageIcon image389 = new ImageIcon(url89);
         Image img389 = image389.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono389 = new ImageIcon(img389);
-        IconoNotificaciones.setIcon(Icono389);
+        IconoGuardado.setIcon(Icono389);
 
         //IconoComunidades
         String url4 = "src\\main\\java\\Multimedia\\Icon-Comunidades.png";
@@ -178,8 +107,8 @@ public class Notificaciones extends javax.swing.JFrame {
         NombreNot4 = new javax.swing.JLabel();
         DescripcionNot4 = new javax.swing.JLabel();
         ImgNot4 = new javax.swing.JLabel();
-        IconoNotificaciones = new javax.swing.JButton();
-        NotificacionesTitulo = new javax.swing.JLabel();
+        IconoGuardado = new javax.swing.JButton();
+        Seccion = new javax.swing.JLabel();
         IdUsuario = new javax.swing.JLabel();
         UsuarioBtn = new javax.swing.JButton();
         PostearBtn = new javax.swing.JButton();
@@ -239,7 +168,6 @@ public class Notificaciones extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 0));
         setLocationByPlatform(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1550, 810));
         setResizable(false);
 
         PanelTotalNotificaciones.setBackground(new java.awt.Color(0, 0, 0));
@@ -271,7 +199,7 @@ public class Notificaciones extends javax.swing.JFrame {
 
         FiltroSeguidores.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         FiltroSeguidores.setForeground(new java.awt.Color(204, 204, 204));
-        FiltroSeguidores.setText("Seguidores");
+        FiltroSeguidores.setText("Personas");
         FiltroSeguidores.setToolTipText("");
         FiltroSeguidores.setBorder(null);
         FiltroSeguidores.setBorderPainted(false);
@@ -301,7 +229,7 @@ public class Notificaciones extends javax.swing.JFrame {
 
         FiltroTodo.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         FiltroTodo.setForeground(new java.awt.Color(204, 204, 204));
-        FiltroTodo.setText("Todo");
+        FiltroTodo.setText("Comunidades");
         FiltroTodo.setToolTipText("");
         FiltroTodo.setBorder(null);
         FiltroTodo.setBorderPainted(false);
@@ -319,23 +247,22 @@ public class Notificaciones extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(FiltroTodo)
-                .addGap(206, 206, 206)
-                .addComponent(FiltroSeguidores)
-                .addGap(200, 200, 200)
+                .addGap(90, 90, 90)
                 .addComponent(FiltroYaps, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addGap(174, 174, 174)
+                .addComponent(FiltroSeguidores)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addComponent(FiltroTodo)
+                .addGap(90, 90, 90))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(10, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FiltroTodo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(FiltroYaps, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(FiltroSeguidores, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FiltroYaps, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FiltroSeguidores, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FiltroTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -403,24 +330,24 @@ public class Notificaciones extends javax.swing.JFrame {
 
         PanelTotalNotificaciones.add(PanelNot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 600, 730, 130));
 
-        IconoNotificaciones.setBackground(new java.awt.Color(166, 77, 121));
-        IconoNotificaciones.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        IconoNotificaciones.setForeground(new java.awt.Color(204, 204, 204));
-        IconoNotificaciones.setToolTipText("");
-        IconoNotificaciones.setAlignmentY(0.0F);
-        IconoNotificaciones.setBorderPainted(false);
-        IconoNotificaciones.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        IconoNotificaciones.addActionListener(new java.awt.event.ActionListener() {
+        IconoGuardado.setBackground(new java.awt.Color(166, 77, 121));
+        IconoGuardado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        IconoGuardado.setForeground(new java.awt.Color(204, 204, 204));
+        IconoGuardado.setToolTipText("");
+        IconoGuardado.setAlignmentY(0.0F);
+        IconoGuardado.setBorderPainted(false);
+        IconoGuardado.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        IconoGuardado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IconoNotificacionesActionPerformed(evt);
+                IconoGuardadoActionPerformed(evt);
             }
         });
-        PanelTotalNotificaciones.add(IconoNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 60, 60));
+        PanelTotalNotificaciones.add(IconoGuardado, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 60, 60));
 
-        NotificacionesTitulo.setFont(new java.awt.Font("Roboto Black", 1, 30)); // NOI18N
-        NotificacionesTitulo.setForeground(new java.awt.Color(204, 204, 204));
-        NotificacionesTitulo.setText("Notificaciones");
-        PanelTotalNotificaciones.add(NotificacionesTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 250, 40));
+        Seccion.setFont(new java.awt.Font("Roboto Black", 1, 30)); // NOI18N
+        Seccion.setForeground(new java.awt.Color(204, 204, 204));
+        Seccion.setText("Guardados");
+        PanelTotalNotificaciones.add(Seccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 250, 40));
 
         IdUsuario.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         IdUsuario.setForeground(new java.awt.Color(166, 77, 121));
@@ -914,7 +841,7 @@ public class Notificaciones extends javax.swing.JFrame {
         PanelTotalNotificaciones.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 250, 40));
 
         NotificacionesBtn.setBackground(new java.awt.Color(26, 26, 29));
-        NotificacionesBtn.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        NotificacionesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         NotificacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
         NotificacionesBtn.setText("  Notificaciones");
         NotificacionesBtn.setToolTipText("");
@@ -927,10 +854,10 @@ public class Notificaciones extends javax.swing.JFrame {
                 NotificacionesBtnActionPerformed(evt);
             }
         });
-        PanelTotalNotificaciones.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 250, 40));
+        PanelTotalNotificaciones.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 250, 40));
 
         GuardadoBtn.setBackground(new java.awt.Color(26, 26, 29));
-        GuardadoBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        GuardadoBtn.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         GuardadoBtn.setForeground(new java.awt.Color(204, 204, 204));
         GuardadoBtn.setText("  Guardados");
         GuardadoBtn.setToolTipText("");
@@ -944,7 +871,7 @@ public class Notificaciones extends javax.swing.JFrame {
                 GuardadoBtnActionPerformed(evt);
             }
         });
-        PanelTotalNotificaciones.add(GuardadoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 250, 40));
+        PanelTotalNotificaciones.add(GuardadoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 250, 40));
 
         PerfilBtn.setBackground(new java.awt.Color(26, 26, 29));
         PerfilBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -984,17 +911,17 @@ public class Notificaciones extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(PanelTotalNotificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(PanelTotalNotificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1020,9 +947,9 @@ public class Notificaciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_FiltroTodoActionPerformed
 
-    private void IconoNotificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IconoNotificacionesActionPerformed
+    private void IconoGuardadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IconoGuardadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_IconoNotificacionesActionPerformed
+    }//GEN-LAST:event_IconoGuardadoActionPerformed
 
     private void UsuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioBtnActionPerformed
         // TODO add your handling code here:
@@ -1136,14 +1063,18 @@ public class Notificaciones extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Notificaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Guardados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Notificaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Guardados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Notificaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Guardados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Notificaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Guardados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1152,7 +1083,7 @@ public class Notificaciones extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Notificaciones().setVisible(true);
+                new Guardados().setVisible(true);
             }
         });
     }
@@ -1171,7 +1102,7 @@ public class Notificaciones extends javax.swing.JFrame {
     private javax.swing.JButton FiltroTodo;
     private javax.swing.JButton FiltroYaps;
     private javax.swing.JButton GuardadoBtn;
-    private javax.swing.JButton IconoNotificaciones;
+    private javax.swing.JButton IconoGuardado;
     private javax.swing.JLabel IdUsuario;
     private javax.swing.JLabel IdUsuario2;
     private javax.swing.JLabel ImgInt1;
@@ -1190,7 +1121,6 @@ public class Notificaciones extends javax.swing.JFrame {
     private javax.swing.JLabel NombreNot4;
     private javax.swing.JLabel NombreUsuario;
     private javax.swing.JButton NotificacionesBtn;
-    private javax.swing.JLabel NotificacionesTitulo;
     private javax.swing.JPanel PanelNot1;
     private javax.swing.JPanel PanelNot2;
     private javax.swing.JPanel PanelNot3;
@@ -1204,6 +1134,7 @@ public class Notificaciones extends javax.swing.JFrame {
     private javax.swing.JButton PublicacionesBtn1;
     private javax.swing.JButton PublicacionesBtn2;
     private javax.swing.JLabel QuePasa;
+    private javax.swing.JLabel Seccion;
     private javax.swing.JButton SeguirCuentaBtn1;
     private javax.swing.JButton SeguirCuentaBtn2;
     private javax.swing.JButton SeguirCuentaBtn3;

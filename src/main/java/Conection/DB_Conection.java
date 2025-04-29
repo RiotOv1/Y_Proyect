@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class DB_Conection {
     public static Connection conectar(){
         try {
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/y_bd?useSSL=false&serverTimezone=UTC", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/y_bd?useSSL=false&serverTimezone=UTC", "Abril", "pass");
             System.out.println("Conexión exitosa");
             return cn;
         } catch (SQLException ex) {

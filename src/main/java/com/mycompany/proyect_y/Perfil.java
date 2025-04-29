@@ -1299,6 +1299,8 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
