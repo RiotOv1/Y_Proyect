@@ -6,7 +6,7 @@ package com.mycompany.proyect_y;
 
 /**
  *
- * @author gisel
+ * @author abril
  */
 public class SesionUsuario {
     public static String idUsuario = null;
