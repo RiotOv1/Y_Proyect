@@ -168,4 +168,39 @@ public class PublicacionDAO {
         }
     }
     
+    
+    public List<Publicacion> buscarPublicacionesResult(String searchT, int page, int pagesize){
+        List<Publicacion> publicaciones = new ArrayList<>();
+        String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p "+" JOIN Usuario u ON p.id_usuario = u.id_usuario " + "WHERE p.texto LIKE ? "
+                + "ORDER BY p.fecha_hora DESC " + "LIMIT ? OFFSET ?";
+        
+        try(PreparedStatement stmt = connection.prepareStatement(sql)){
+            stmt.setString(1, "%"+searchT+"%");
+            stmt.setInt(2, pagesize);
+            stmt.setInt(3, (page-1)*pagesize);
+            
+            
+            System.out.println("Ejecutanto consulta de SQL: " + stmt.toString());
+            //ResultSet rs = stmt.executeQuery();
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    Publicacion publi = new Publicacion(
+                        rs.getInt("id_publicacion"),
+                        rs.getString("texto"),
+                        rs.getBytes("multimedia_publi"),
+                        rs.getTimestamp("fecha_hora"),
+                        rs.getInt("num_reacciones"),
+                        rs.getInt("num_compartidos"),
+                        rs.getString("id_usuario")
+                    );
+                    publicaciones.add(publi);
+                }
+                rs.close();
+            }
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return publicaciones;
+    }
+    
 }
