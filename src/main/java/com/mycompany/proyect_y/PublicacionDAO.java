@@ -16,7 +16,8 @@ import java.util.List;
 public class PublicacionDAO {
     private Connection connection;
     //private DBConnection dbConnection;
-    
+    int indicePublicaciones = 0;
+    int indicePublicacionTexto = 0;
     public PublicacionDAO(){
         //dbConnection = new DBConnection();
         connection = new DBConnection().getConnection();
@@ -44,11 +45,81 @@ public class PublicacionDAO {
                 );
                 publi.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
                 publicaciones.add(publi);
+                indicePublicaciones += 1;
+                System.out.println(indicePublicaciones);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return publicaciones;
+    }
+   
+   public List<Publicacion> obtenerTodasPublicacionesUsuario() {
+        List<Publicacion> publicaciones = new ArrayList<>();
+        String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
+                "JOIN Usuario u ON p.id_usuario = u.id_usuario " + 
+                "WHERE p.id_usuario = ? AND multimedia_publi IS NOT NULL " +
+                "ORDER BY fecha_hora DESC;";
+        
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, SesionUsuario.idUsuario);
+            ResultSet rs = ps.executeQuery();
+        
+            
+            while (rs.next()) {
+                Publicacion publi = new Publicacion(
+                    rs.getInt("id_publicacion"),
+                    rs.getString("texto"),
+                    rs.getBytes("multimedia_publi"),
+                    rs.getTimestamp("fecha_hora"),
+                    rs.getInt("num_reacciones"),
+                    rs.getInt("num_compartidos"),
+                    rs.getString("id_usuario")
+                );
+                publicaciones.add(publi);
+                publi.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
+                indicePublicaciones += 1;
+                System.out.println(indicePublicaciones + " Publicaciones encontradas");
+            
+}} catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return publicaciones;
+    }
+   
+   public List<Publicacion> obtenerTodasPublicacionesUsuarioTxt() {
+        List<Publicacion> publicacionestxt = new ArrayList<>();
+        String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
+                "JOIN Usuario u ON p.id_usuario = u.id_usuario " + 
+                "WHERE p.id_usuario = ? AND multimedia_publi IS NULL " +
+                "ORDER BY fecha_hora DESC;";
+        
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, SesionUsuario.idUsuario);
+            ResultSet rs = ps.executeQuery();
+        
+            
+            while (rs.next()) {
+                Publicacion publi = new Publicacion(
+                    rs.getInt("id_publicacion"),
+                    rs.getString("texto"),
+                    rs.getBytes("multimedia_publi"),
+                    rs.getTimestamp("fecha_hora"),
+                    rs.getInt("num_reacciones"),
+                    rs.getInt("num_compartidos"),
+                    rs.getString("id_usuario")
+                );
+                publicacionestxt.add(publi);
+                 publi.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
+                indicePublicacionTexto += 1;
+                System.out.println(indicePublicacionTexto + " Publicaciones encontradas de solo texto");
+            
+}} catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return publicacionestxt;
     }
    
    //Metodos de reacciones
@@ -65,7 +136,7 @@ public class PublicacionDAO {
     }
     
     public boolean quitarLike(int idPublicacion){
-        String sql = "UPDATE Publicacion SET num_reacciones = num_reacciones - 1 WHERE id_publicacion = ?";
+        String sql = "UPDATE comentarios SET num_reacciones = num_reacciones - 1 WHERE id_publicacion = ?";
         try(PreparedStatement ps = connection.prepareCall(sql)){
             ps.setInt(1,idPublicacion);
             return ps.executeUpdate() > 0;
@@ -76,7 +147,7 @@ public class PublicacionDAO {
     }
 
     public boolean repostear(int idPublicacion) {
-        String sql = "UPDATE Publicacion SET num_compartidos = num_compartidos + 1 WHERE id_publicacion = ?";
+        String sql = "UPDATE comentarios SET num_compartidos = num_compartidos + 1 WHERE id_publicacion = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idPublicacion);
             return ps.executeUpdate() > 0;
@@ -87,7 +158,7 @@ public class PublicacionDAO {
     }
     
     public boolean quitarRepost(int idPublicacion){
-        String sql = "UPDATE Publicacion SET num_compartidos = num_compartidos - 1 WHERE id_publicacion = ?";
+        String sql = "UPDATE comentarios SET num_compartidos = num_compartidos - 1 WHERE id_publicacion = ?";
         try(PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setInt(1, idPublicacion);
             return ps.executeUpdate() > 0;
