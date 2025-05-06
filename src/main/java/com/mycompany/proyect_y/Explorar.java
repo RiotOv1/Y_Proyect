@@ -1,32 +1,57 @@
-
 package com.mycompany.proyect_y;
 
 import Conection.DB_Conection;
+import com.mycompany.proyect_y.Comunidad;
+import com.mycompany.proyect_y.Configuracion;
+import com.mycompany.proyect_y.Guardados;
+import com.mycompany.proyect_y.Menu_Principal;
+import com.mycompany.proyect_y.Notificaciones;
+import com.mycompany.proyect_y.Perfil;
+import com.mycompany.proyect_y.Publicacion;
+import com.mycompany.proyect_y.PublicacionDAO;
+import com.mycompany.proyect_y.SesionUsuario;
+import com.mycompany.proyect_y.Usuarios;
+import com.mycompany.proyect_y.UsuariosDAO;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Explorar extends javax.swing.JFrame {
-
+    private UsuariosDAO usuarioDao;
+    private PublicacionDAO publicacionDAO;
+    /*private List<Usuarios> usuarioss;
+    private List<Publicacion> publicaciones;*/
+    private int ResPublicadoAct = 0;
+    private int currentUserPanel = 0;
+    private int currentPubPanel = 0;
+    
     public Explorar() {
         initComponents();
         this.setLocationRelativeTo(null);
         Img();
         cargarFotoPerfil(); 
+        limpiarPaneles();
         Connection con =  DB_Conection.conectar(); // tu clase de conexión
         String Id =SesionUsuario.idUsuario;
         if (Id != null) {
             String nom = obtenerNombreUsuario();
             NombreUsuario.setText(nom);
-            IdUsuario2.setText( "@" + Id);
-            
-    }
+            IdUsuario2.setText( "@" + Id);        
+        }
+        publicacionDAO = new PublicacionDAO();
+        usuarioDao = new UsuariosDAO();
 
     }
-        public String obtenerNombreUsuario() {
+    public String obtenerNombreUsuario() {
             String nombre = "";
             String apellido = "";
             Connection con =  DB_Conection.conectar(); // tu clase de conexión
@@ -157,11 +182,12 @@ public class Explorar extends javax.swing.JFrame {
         Y_logo.setIcon(Icono13);
         
         //Icono Tus Yaps
-        String url132 = "src\\main\\java\\Multimedia\\Yap-Icon.png";
+        
+        /*String url132 = "src\\main\\java\\Multimedia\\Yap-Icon.png";
         ImageIcon image132 = new ImageIcon(url132);
         Image img132 = image132.getImage().getScaledInstance(34, 34, 0);
         ImageIcon Icono132 = new ImageIcon(img132);
-        TusYapsImg.setIcon(Icono132);
+        TusYapsImg.setIcon(Icono132); */
 
         //Icono Configuracion
         String url14 = "src\\main\\java\\Multimedia\\Icono-Configuracion.png";
@@ -171,14 +197,15 @@ public class Explorar extends javax.swing.JFrame {
         ConfiBtn.setIcon(Icono14);
         
         //Icono Menciones
-        String url147 = "src\\main\\java\\Multimedia\\Mencion-Icon.png";
+        
+        /*String url147 = "src\\main\\java\\Multimedia\\Mencion-Icon.png";
         ImageIcon image147 = new ImageIcon(url147);
         Image img147 = image147.getImage().getScaledInstance(34, 34, 0);
         ImageIcon Icono147 = new ImageIcon(img147);
-        MencionesImg.setIcon(Icono147);
+        MencionesImg.setIcon(Icono147);*/
         
         //Icono Cumple
-        String url143 = "src\\main\\java\\Multimedia\\Cump-Icon.png";
+        /*String url143 = "src\\main\\java\\Multimedia\\Cump-Icon.png";
         ImageIcon image143 = new ImageIcon(url143);
         Image img143= image143.getImage().getScaledInstance(34, 34, 0);
         ImageIcon Icono143= new ImageIcon(img143);
@@ -203,8 +230,346 @@ public class Explorar extends javax.swing.JFrame {
         ImageIcon image144 = new ImageIcon(url144);
         Image img144= image144.getImage().getScaledInstance(34, 34, 0);
         ImageIcon Icono144= new ImageIcon(img144);
-        RecientesImg.setIcon(Icono144);
+        RecientesImg.setIcon(Icono144);*/
     }
+        
+    private void mostrarResultadosUsuarios(String textoBusqueda){
+        //Limpiar resultados anteriores 
+        //limpiarResultados(); 
+        
+        if(textoBusqueda.isEmpty()){
+            return;
+        }
+        
+        //Limpiar paneles antes de una busqueda
+        limpiarPaneles();
+        
+        //Buscar en la base de datos
+        List<Usuarios> usuarios = usuarioDao.buscarUsuarios(textoBusqueda,1,3);
+        List<Publicacion> publicacioness = publicacionDAO.buscarPublicacionesResult(textoBusqueda,1,3);
+        
+        //Mostrar usuarios en sus paneles correspondientes
+        currentUserPanel = 0;
+        for(Usuarios usuario : usuarios){
+            if(currentUserPanel >= 3) break; //Solo tenemos 3 paneles para usuarios
+                configurarPanelUsuario(
+                    getPanelUsuario(currentUserPanel), usuario, getBotonNombreUsuario(currentUserPanel),
+                        getBotonCorreoUsuario(currentUserPanel), getFotoPerfil(currentUserPanel)
+                );
+                getPanelUsuario(currentUserPanel).setVisible(true);
+                currentUserPanel++;
+        }
+        
+        //Mostrar publicaciones en sus paneles correspondientes
+        currentPubPanel = 0;
+        for (Publicacion publicacion : publicacioness){
+            if(currentPubPanel >= 3) break; //Solo tenemos 3 paneles para publicaciones
+            configurarPanelPublicacion(
+                        getPanelPublicacion(currentPubPanel),publicacion,
+                        getFotoPerfilUsuarioPubli(currentPubPanel), getNomUsuarioPubli(currentPubPanel), getNombreCorreoUsu(currentPubPanel),
+                        getTextoPubli(currentPubPanel), getFechaPubli(currentPubPanel),
+                        getLikeButton(currentPubPanel), getConteoLikes(currentPubPanel),
+                        getRepostButton(currentPubPanel),getConteoRepost(currentPubPanel),getImagenPubli(currentPubPanel),getComentarioButton(currentPubPanel)
+                );
+            getPanelPublicacion(currentPubPanel).setVisible(true);
+            currentPubPanel++;
+        }
+    }
+    
+    private void limpiarPaneles(){
+        //Ocultar todos los paneles de usuarios
+        for(int i = 0;i < 3; i++){
+            getPanelUsuario(i).setVisible(false);
+        }
+        
+        //Ocultar todos los paneles de publicaciones
+        for(int i = 0; i < 3; i++){
+            getPanelPublicacion(i).setVisible(false);
+            ImagenPublicacion_lbl.setVisible(false);
+            ImagenPublicacion_lbl2.setVisible(false);
+            ImagenPublicacion_lbl3.setVisible(false);
+        }
+        
+        currentUserPanel = 0;
+        currentPubPanel = 0;
+    }
+    
+    //Metodos auxiliares para obtener los paneles y componentes
+    private JPanel getPanelUsuario(int index){
+        switch(index){
+            case 0: return EjemploBusquedas2;
+            case 1: return EjemploBusqueda6;
+            case 2: return EjemploBusquedas1;
+            default: return null;
+        }
+    }
+    
+    private JButton getBotonNombreUsuario(int index){
+        switch(index){
+            case 0: return UserResu1_Btn;
+            case 1: return UserResu1_Btn1;
+            case 2: return UserResu1_Btn2;
+            default: return null;
+        }
+    }
+    
+    private JButton getBotonCorreoUsuario(int index){
+        switch(index){
+            case 0: return UserResu2;
+            case 1: return UserResu3;
+            case 2: return UserResu1;
+            default: return null;
+        }
+    }
+    
+    private JLabel getFotoPerfil(int index){
+        switch(index){
+            case 0: return ImgResu2;
+            case 1: return ImgResu3;
+            case 2: return ImgRes1;
+            default: return null;
+        }
+    }
+    
+    //Metodos auxiliares para paneles de publicacion
+    
+    private JPanel getPanelPublicacion(int index){
+        switch(index){
+            case 0: return PanelNot1;
+            case 1: return PanelNot4;
+            case 2: return PanelNot5;
+            default: return null;
+        }
+    }
+    
+    private JLabel getFotoPerfilUsuarioPubli(int index){
+        switch(index){
+            case 0: return lblUsuario;
+            case 1: return lblUsuario1;
+            case 2: return lblUsuario2;
+            default: return null;
+        }
+    }
+    
+    private JButton getNomUsuarioPubli(int index){
+        switch(index){
+            case 0: return Nombre_usuarioBtn;
+            case 1: return Nombre_usuarioBtn1;
+            case 2: return Nombre_usuarioBtn2;
+            default: return null;
+        }
+    }
+    
+    private JButton getNombreCorreoUsu(int index){
+        switch(index){
+            case 0: return UsuarioPub5;
+            case 1: return UsuarioPub6;
+            case 2: return UsuarioPub7;
+            default: return null;
+        }
+    }
+    
+    private JLabel getTextoPubli(int index){
+        switch(index){
+            case 0: return lblTexto_publicacion;
+            case 1: return lblTexto_publicacion1;
+            case 2: return lblTexto_publicacion2;
+            default: return null;
+        }
+    }
+    
+    private JLabel getFechaPubli(int index){
+        switch(index){
+            case 0: return Fecha_Label;
+            case 1: return Fecha_Label1;
+            case 2: return Fecha_Label2;
+            default: return null;
+        }
+    }
+    
+    private JButton getLikeButton(int index){
+        switch(index){
+            case 0: return meGustaBtn;
+            case 1: return meGustaBtn1;
+            case 2: return meGustaBtn2;
+            default: return null;
+        }
+    }
+    
+    private JLabel getConteoLikes(int index){
+        switch(index){
+            case 0: return lblLikesLabel;
+            case 1: return lblLikesLabel1;
+            case 2: return lblLikesLabel2;
+            default: return null;
+        }
+    }
+    
+    private JButton getRepostButton(int index){
+        switch(index){
+            case 0: return repostearBtn;
+            case 1: return repostearBtn1;
+            case 2: return repostearBtn2;
+            default: return null;
+        }
+    }
+    
+    private JLabel getConteoRepost(int index){
+        switch(index){
+            case 0: return lblRepostearLabel;
+            case 1: return lblRepostearLabel1;
+            case 2: return lblRepostearLabel2;
+            default: return null;
+        }
+    }
+    
+    private JLabel getImagenPubli(int index){
+        switch(index){
+            case 0: return ImagenPublicacion_lbl2;
+            case 1: return ImagenPublicacion_lbl3; 
+            case 2: return ImagenPublicacion_lbl;
+            default: return null;
+        }
+    }
+    
+    private JButton getComentarioButton(int index){
+        switch(index){
+            case 0: return comentarBtn;
+            case 1: return comentarBtn1;
+            case 2: return comentarBtn2;
+            default: return null;
+        }
+    }
+        
+    private void configurarPanelUsuario(JPanel panUsu, Usuarios usu, JButton nombreUsu, JButton correoUsu, JLabel fotoPerfilUsu){
+        
+        //Configuracion de los paneles
+        nombreUsu.setText(usu.getUserName());
+        correoUsu.setText("@"+usu.getCorreoEle());
+        
+        if(usu.getImagenPerfil() != null){
+            ImageIcon icon = new ImageIcon(usu.getImagenPerfil());
+            Image img = icon.getImage().getScaledInstance(54,54,Image.SCALE_SMOOTH);
+            fotoPerfilUsu.setIcon(new ImageIcon(img));
+        }else{
+            fotoPerfilUsu.setIcon(null);
+        }
+    }
+    
+    boolean bandera_likes = false;
+    boolean bandera_repost = false;
+    
+    private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JButton nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
+    ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts, JLabel imagen_publi, JButton btnComentarios){
+        //Variables locales
+        
+        
+        // Configurar iconos iniciales
+        String likeIcon = "src\\main\\java\\Multimedia\\heart-icon-noFill.png";
+        ImageIcon imageLike = new ImageIcon(likeIcon);
+        Image imgLike = imageLike.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon IconoLike = new ImageIcon(imgLike);
+        btnLike.setIcon(IconoLike);
+
+        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-notHigh.png";
+        ImageIcon imageRepost = new ImageIcon(repostIcon);
+        Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon IconoRepost = new ImageIcon(imgRepost);
+        btnRepost.setIcon(IconoRepost);
+        
+        String comentarioIcon = "src\\main\\java\\Multimedia\\Comment-icon-notHigh.png";
+        ImageIcon imageComentario = new ImageIcon(comentarioIcon);
+        Image imgComentario = imageComentario.getImage().getScaledInstance(24, 24, 0);
+        ImageIcon IconoComentario = new ImageIcon(imgComentario);
+        btnComentarios.setIcon(IconoComentario);
+        
+        //Configurar los componentes con los datos de la publicacion
+        nomUsuario.setText(publica.getIdUsuario());
+        btnUsuario.setText("@"+publica.getIdUsuario());
+        lblTexto.setText(publica.getTexto());
+        lblFecha.setText(publica.getFechaHora().toString());
+        lblLikes.setText(String.valueOf(publica.getNumReacciones()));
+        lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
+        
+        //Configurar imagen de perfil del usurio
+        if(publica.getFotoPerfilUsuario()!=null){
+            ImageIcon icon = new ImageIcon(publica.getFotoPerfilUsuario());
+            Image img  = icon.getImage().getScaledInstance(54,54,Image.SCALE_SMOOTH);
+            lblUsuario.setIcon(new ImageIcon(img));
+        }else{
+            lblUsuario.setIcon(null);
+        }
+        
+        //Configurar imagen de la publicacion
+        if(publica.getMultimediaPubli()!=null){
+            ImageIcon icono_imagen = new ImageIcon(publica.getMultimediaPubli());
+            Image img_publi = icono_imagen.getImage().getScaledInstance(54,54, Image.SCALE_SMOOTH);
+            imagen_publi.setIcon(new ImageIcon(img_publi));
+        }
+        else{
+            imagen_publi.setIcon(null);
+        }
+        
+        //Configurar acciones de los botones
+        
+        btnLike.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!bandera_likes){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                        publica.setNumReacciones(publica.getNumReacciones()+1);
+                        lblLikes.setText(String.valueOf(publica.getNumReacciones()));
+                        
+                        //Cambiar icono del like
+                        String likeIcon2 = "src\\main\\java\\Multimedia\\heart-icon-Filled.png";
+                        ImageIcon imageLike2 = new ImageIcon(likeIcon2);
+                        Image imgLike2 = imageLike2.getImage().getScaledInstance(24, 24, 0);
+                        btnLike.setIcon(new ImageIcon(imgLike2));
+                        bandera_likes = true;
+                    }
+                }
+                else{
+                    if(publicacionDAO.quitarLike(publica.getIdPublicacion())){
+                        publica.setNumReacciones(publica.getNumReacciones()-1);
+                        lblLikes.setText(String.valueOf(publica.getNumReacciones()));
+                        
+                        //Cambiar icono de like al original
+                        btnLike.setIcon(IconoLike);
+                        
+                        bandera_likes = false;
+                    }
+                }
+            }
+        });
+        
+        btnRepost.addActionListener(e -> {
+            if(!bandera_repost){
+                if (publicacionDAO.repostear(publica.getIdPublicacion())) {
+                    publica.setNumCompartidos(publica.getNumCompartidos() + 1);
+                    lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
+
+                    // Cambiar icono de repost
+                    String repostIcon2 = "src\\main\\java\\Multimedia\\repost-icon-High.png";
+                    ImageIcon imageRepost2 = new ImageIcon(repostIcon2);
+                    Image imgRepost2 = imageRepost2.getImage().getScaledInstance(24, 24, 0);
+                    btnRepost.setIcon(new ImageIcon(imgRepost2));
+                    bandera_repost = true;
+                 }
+            }
+            else{
+                if(publicacionDAO.quitarRepost(publica.getIdPublicacion())){
+                    publica.setNumCompartidos(publica.getNumCompartidos()-1);
+                    lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
+                    
+                    //Cambiar icono de repost
+                    btnRepost.setIcon(IconoRepost);
+                    
+                    bandera_repost = false;
+                }
+            }
+        });
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -212,58 +577,17 @@ public class Explorar extends javax.swing.JFrame {
 
         PanelTotalExplorar = new javax.swing.JPanel();
         AmigosImg1 = new javax.swing.JLabel();
-        CumpImg = new javax.swing.JLabel();
-        TusYapsImg = new javax.swing.JLabel();
-        MencionesImg = new javax.swing.JLabel();
-        MencionesBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        EliminarBusquedasBtn = new javax.swing.JButton();
-        BarraBusquedaBtn = new javax.swing.JButton();
+        BuscarBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        BusquedaPersonasBtn = new javax.swing.JButton();
-        BusquedaComunidadesBtn = new javax.swing.JButton();
-        BusquedaYapsBtn = new javax.swing.JButton();
         BusquedaTodoBtn = new javax.swing.JButton();
-        BusquedaEventosBtn = new javax.swing.JButton();
-        BusquedaMultimediaBtn = new javax.swing.JButton();
-        EjemploBusqueda1 = new javax.swing.JPanel();
-        UserResu4 = new javax.swing.JButton();
-        NombreResu4 = new javax.swing.JLabel();
-        SeguidoresResu4 = new javax.swing.JButton();
-        NoSeguidoresResu4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        ImgResu4 = new javax.swing.JLabel();
-        CumpleBtn = new javax.swing.JButton();
-        AmigosBtn = new javax.swing.JButton();
+        BusquedaTodoBtn1 = new javax.swing.JButton();
         ConfiBtn = new javax.swing.JButton();
         InicioBtn1 = new javax.swing.JButton();
         ComunidadesBtn = new javax.swing.JButton();
-        TusYapsBtn = new javax.swing.JButton();
         NotificacionesBtn = new javax.swing.JButton();
         GuardadoBtn = new javax.swing.JButton();
         PerfilBtn = new javax.swing.JButton();
-        EjemploBusquedas1 = new javax.swing.JPanel();
-        UserResu1 = new javax.swing.JButton();
-        NombreResu1 = new javax.swing.JLabel();
-        SeguidoresResu1 = new javax.swing.JButton();
-        NoSeguidoresResu1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        ImgRes1 = new javax.swing.JLabel();
-        EjemploBusquedas2 = new javax.swing.JPanel();
-        UserResu2 = new javax.swing.JButton();
-        NombreResu2 = new javax.swing.JLabel();
-        SeguidoresResu2 = new javax.swing.JButton();
-        NoSeguidoresResu2 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        ImgResu2 = new javax.swing.JLabel();
-        EjemploBusqueda6 = new javax.swing.JPanel();
-        UserResu3 = new javax.swing.JButton();
-        NombreResu3 = new javax.swing.JLabel();
-        SeguidoresResu3 = new javax.swing.JButton();
-        NoSeguidoresResu3 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        ImgResu3 = new javax.swing.JLabel();
         PublicacionesBtn2 = new javax.swing.JButton();
         QuePasa = new javax.swing.JLabel();
         SeguirCuentaBtn3 = new javax.swing.JButton();
@@ -294,21 +618,83 @@ public class Explorar extends javax.swing.JFrame {
         PostearBtn = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JSeparator();
         ExplorarBtn1 = new javax.swing.JButton();
-        TendenciaImg = new javax.swing.JLabel();
-        TendenciaBtn = new javax.swing.JButton();
         RecientesImg = new javax.swing.JLabel();
-        RecienteBtn = new javax.swing.JButton();
-        BusquedaVerTodoBtn = new javax.swing.JButton();
         IconoExplorar = new javax.swing.JButton();
         ExplorarTitulo = new javax.swing.JLabel();
         Y_logo = new javax.swing.JLabel();
+        Busqueda_TxtFld = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        Busquedas_jTabbePane = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        PanelNot1 = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        meGustaBtn = new javax.swing.JButton();
+        comentarBtn = new javax.swing.JButton();
+        repostearBtn = new javax.swing.JButton();
+        lblLikesLabel = new javax.swing.JLabel();
+        lblComentarLabel = new javax.swing.JLabel();
+        lblRepostearLabel = new javax.swing.JLabel();
+        Nombre_usuarioBtn = new javax.swing.JButton();
+        UsuarioPub5 = new javax.swing.JButton();
+        Fecha_Label = new javax.swing.JLabel();
+        lblTexto_publicacion = new javax.swing.JLabel();
+        ImagenPublicacion_lbl = new javax.swing.JLabel();
+        PanelNot4 = new javax.swing.JPanel();
+        lblUsuario1 = new javax.swing.JLabel();
+        meGustaBtn1 = new javax.swing.JButton();
+        comentarBtn1 = new javax.swing.JButton();
+        repostearBtn1 = new javax.swing.JButton();
+        lblLikesLabel1 = new javax.swing.JLabel();
+        lblComentarLabel1 = new javax.swing.JLabel();
+        lblRepostearLabel1 = new javax.swing.JLabel();
+        Nombre_usuarioBtn1 = new javax.swing.JButton();
+        UsuarioPub6 = new javax.swing.JButton();
+        Fecha_Label1 = new javax.swing.JLabel();
+        lblTexto_publicacion1 = new javax.swing.JLabel();
+        PanelNot5 = new javax.swing.JPanel();
+        lblUsuario2 = new javax.swing.JLabel();
+        meGustaBtn2 = new javax.swing.JButton();
+        comentarBtn2 = new javax.swing.JButton();
+        repostearBtn2 = new javax.swing.JButton();
+        lblLikesLabel2 = new javax.swing.JLabel();
+        lblComentarLabel2 = new javax.swing.JLabel();
+        lblRepostearLabel2 = new javax.swing.JLabel();
+        Nombre_usuarioBtn2 = new javax.swing.JButton();
+        UsuarioPub7 = new javax.swing.JButton();
+        Fecha_Label2 = new javax.swing.JLabel();
+        lblTexto_publicacion2 = new javax.swing.JLabel();
+        ImagenPublicacion_lbl1 = new javax.swing.JLabel();
+        ImagenPublicacion_lbl2 = new javax.swing.JLabel();
+        ImagenPublicacion_lbl3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        EjemploBusquedas2 = new javax.swing.JPanel();
+        UserResu2 = new javax.swing.JButton();
+        SeguidoresResu2 = new javax.swing.JButton();
+        NoSeguidoresResu2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        ImgResu2 = new javax.swing.JLabel();
+        UserResu1_Btn = new javax.swing.JButton();
+        EjemploBusqueda6 = new javax.swing.JPanel();
+        UserResu3 = new javax.swing.JButton();
+        SeguidoresResu3 = new javax.swing.JButton();
+        NoSeguidoresResu3 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        ImgResu3 = new javax.swing.JLabel();
+        UserResu1_Btn1 = new javax.swing.JButton();
+        EjemploBusquedas1 = new javax.swing.JPanel();
+        UserResu1 = new javax.swing.JButton();
+        SeguidoresResu1 = new javax.swing.JButton();
+        NoSeguidoresResu1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        ImgRes1 = new javax.swing.JLabel();
+        UserResu1_Btn2 = new javax.swing.JButton();
+        Resultados_JLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(26, 26, 29));
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1550, 820));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1550, 820));
         setResizable(false);
 
         PanelTotalExplorar.setBackground(new java.awt.Color(0, 0, 0));
@@ -319,100 +705,27 @@ public class Explorar extends javax.swing.JFrame {
         AmigosImg1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         PanelTotalExplorar.add(AmigosImg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 620, 70, 70));
 
-        CumpImg.setForeground(new java.awt.Color(255, 255, 255));
-        CumpImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        PanelTotalExplorar.add(CumpImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 710, 70, 70));
-
-        TusYapsImg.setForeground(new java.awt.Color(255, 255, 255));
-        TusYapsImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        PanelTotalExplorar.add(TusYapsImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, 70, 70));
-
-        MencionesImg.setForeground(new java.awt.Color(255, 255, 255));
-        MencionesImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        PanelTotalExplorar.add(MencionesImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 710, 70, 70));
-
-        MencionesBtn.setBackground(new java.awt.Color(166, 77, 121));
-        MencionesBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        MencionesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        MencionesBtn.setText("Menciones");
-        MencionesBtn.setToolTipText("");
-        MencionesBtn.setAlignmentY(0.0F);
-        MencionesBtn.setBorderPainted(false);
-        MencionesBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        MencionesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MencionesBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(MencionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 710, 180, 70));
-
         jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         PanelTotalExplorar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 0, -1, 1040));
-        PanelTotalExplorar.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 600, 751, -1));
 
-        EliminarBusquedasBtn.setBackground(new java.awt.Color(166, 77, 121));
-        EliminarBusquedasBtn.setText("Eliminar busquedas");
-        PanelTotalExplorar.add(EliminarBusquedasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 40, 140, 30));
-
-        BarraBusquedaBtn.setBackground(new java.awt.Color(0, 0, 0));
-        BarraBusquedaBtn.setForeground(new java.awt.Color(255, 255, 255));
-        BarraBusquedaBtn.setText("🔍Buscar");
-        BarraBusquedaBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        PanelTotalExplorar.add(BarraBusquedaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 450, 30));
+        BuscarBtn.setBackground(new java.awt.Color(166, 77, 121));
+        BuscarBtn.setForeground(new java.awt.Color(255, 255, 255));
+        BuscarBtn.setText("Buscar");
+        BuscarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarBtnActionPerformed(evt);
+            }
+        });
+        PanelTotalExplorar.add(BuscarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 40, 140, 30));
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        BusquedaPersonasBtn.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        BusquedaPersonasBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusquedaPersonasBtn.setText("Personas");
-        BusquedaPersonasBtn.setToolTipText("");
-        BusquedaPersonasBtn.setBorder(null);
-        BusquedaPersonasBtn.setBorderPainted(false);
-        BusquedaPersonasBtn.setContentAreaFilled(false);
-        BusquedaPersonasBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BusquedaPersonasBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        BusquedaPersonasBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BusquedaPersonasBtnActionPerformed(evt);
-            }
-        });
-
-        BusquedaComunidadesBtn.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        BusquedaComunidadesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusquedaComunidadesBtn.setText("Comunidades");
-        BusquedaComunidadesBtn.setToolTipText("");
-        BusquedaComunidadesBtn.setBorder(null);
-        BusquedaComunidadesBtn.setBorderPainted(false);
-        BusquedaComunidadesBtn.setContentAreaFilled(false);
-        BusquedaComunidadesBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BusquedaComunidadesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        BusquedaComunidadesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BusquedaComunidadesBtnActionPerformed(evt);
-            }
-        });
-
-        BusquedaYapsBtn.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        BusquedaYapsBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusquedaYapsBtn.setText("Yap's");
-        BusquedaYapsBtn.setToolTipText("");
-        BusquedaYapsBtn.setBorder(null);
-        BusquedaYapsBtn.setBorderPainted(false);
-        BusquedaYapsBtn.setContentAreaFilled(false);
-        BusquedaYapsBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BusquedaYapsBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        BusquedaYapsBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BusquedaYapsBtnActionPerformed(evt);
-            }
-        });
-
         BusquedaTodoBtn.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         BusquedaTodoBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusquedaTodoBtn.setText("Todo");
+        BusquedaTodoBtn.setText("Publicaciones");
         BusquedaTodoBtn.setToolTipText("");
         BusquedaTodoBtn.setBorder(null);
         BusquedaTodoBtn.setBorderPainted(false);
@@ -425,33 +738,18 @@ public class Explorar extends javax.swing.JFrame {
             }
         });
 
-        BusquedaEventosBtn.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        BusquedaEventosBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusquedaEventosBtn.setText("Eventos");
-        BusquedaEventosBtn.setToolTipText("");
-        BusquedaEventosBtn.setBorder(null);
-        BusquedaEventosBtn.setBorderPainted(false);
-        BusquedaEventosBtn.setContentAreaFilled(false);
-        BusquedaEventosBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BusquedaEventosBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        BusquedaEventosBtn.addActionListener(new java.awt.event.ActionListener() {
+        BusquedaTodoBtn1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        BusquedaTodoBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        BusquedaTodoBtn1.setText("Usuarios");
+        BusquedaTodoBtn1.setToolTipText("");
+        BusquedaTodoBtn1.setBorder(null);
+        BusquedaTodoBtn1.setBorderPainted(false);
+        BusquedaTodoBtn1.setContentAreaFilled(false);
+        BusquedaTodoBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BusquedaTodoBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BusquedaTodoBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BusquedaEventosBtnActionPerformed(evt);
-            }
-        });
-
-        BusquedaMultimediaBtn.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        BusquedaMultimediaBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusquedaMultimediaBtn.setText("Multimedia");
-        BusquedaMultimediaBtn.setToolTipText("");
-        BusquedaMultimediaBtn.setBorder(null);
-        BusquedaMultimediaBtn.setBorderPainted(false);
-        BusquedaMultimediaBtn.setContentAreaFilled(false);
-        BusquedaMultimediaBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BusquedaMultimediaBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        BusquedaMultimediaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BusquedaMultimediaBtnActionPerformed(evt);
+                BusquedaTodoBtn1ActionPerformed(evt);
             }
         });
 
@@ -459,170 +757,24 @@ public class Explorar extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(BusquedaTodoBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
                 .addComponent(BusquedaTodoBtn)
-                .addGap(50, 50, 50)
-                .addComponent(BusquedaPersonasBtn)
-                .addGap(50, 50, 50)
-                .addComponent(BusquedaComunidadesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(BusquedaYapsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(BusquedaEventosBtn)
-                .addGap(50, 50, 50)
-                .addComponent(BusquedaMultimediaBtn)
-                .addGap(77, 77, 77))
+                .addGap(132, 132, 132))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BusquedaPersonasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BusquedaComunidadesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BusquedaYapsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BusquedaTodoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BusquedaMultimediaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BusquedaEventosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BusquedaTodoBtn1)
+                    .addComponent(BusquedaTodoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        PanelTotalExplorar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 750, 40));
-
-        EjemploBusqueda1.setBackground(new java.awt.Color(59, 28, 50));
-        EjemploBusqueda1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        EjemploBusqueda1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        UserResu4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UserResu4.setForeground(new java.awt.Color(204, 204, 204));
-        UserResu4.setText("@Usuario");
-        UserResu4.setToolTipText("");
-        UserResu4.setBorder(null);
-        UserResu4.setBorderPainted(false);
-        UserResu4.setContentAreaFilled(false);
-        UserResu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UserResu4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UserResu4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserResu4ActionPerformed(evt);
-            }
-        });
-
-        NombreResu4.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
-        NombreResu4.setForeground(new java.awt.Color(204, 204, 204));
-        NombreResu4.setText("Resultado 4");
-
-        SeguidoresResu4.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        SeguidoresResu4.setForeground(new java.awt.Color(204, 204, 204));
-        SeguidoresResu4.setText("Seguidores");
-        SeguidoresResu4.setBorder(null);
-        SeguidoresResu4.setBorderPainted(false);
-        SeguidoresResu4.setContentAreaFilled(false);
-        SeguidoresResu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SeguidoresResu4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        SeguidoresResu4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguidoresResu4ActionPerformed(evt);
-            }
-        });
-
-        NoSeguidoresResu4.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        NoSeguidoresResu4.setForeground(new java.awt.Color(204, 204, 204));
-        NoSeguidoresResu4.setText("0");
-        NoSeguidoresResu4.setBorder(null);
-        NoSeguidoresResu4.setBorderPainted(false);
-        NoSeguidoresResu4.setContentAreaFilled(false);
-        NoSeguidoresResu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NoSeguidoresResu4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        NoSeguidoresResu4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NoSeguidoresResu4ActionPerformed(evt);
-            }
-        });
-
-        ImgResu4.setText("img_resultado1");
-
-        javax.swing.GroupLayout EjemploBusqueda1Layout = new javax.swing.GroupLayout(EjemploBusqueda1);
-        EjemploBusqueda1.setLayout(EjemploBusqueda1Layout);
-        EjemploBusqueda1Layout.setHorizontalGroup(
-            EjemploBusqueda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EjemploBusqueda1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImgResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(EjemploBusqueda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusqueda1Layout.createSequentialGroup()
-                        .addGroup(EjemploBusqueda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(EjemploBusqueda1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(UserResu4))
-                            .addComponent(NombreResu4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 344, Short.MAX_VALUE)
-                        .addComponent(NoSeguidoresResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))
-                    .addGroup(EjemploBusqueda1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(SeguidoresResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        EjemploBusqueda1Layout.setVerticalGroup(
-            EjemploBusqueda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EjemploBusqueda1Layout.createSequentialGroup()
-                .addGroup(EjemploBusqueda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusqueda1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(NombreResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UserResu4)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(EjemploBusqueda1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ImgResu4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusqueda1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(EjemploBusqueda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SeguidoresResu4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NoSeguidoresResu4)))
-        );
-
-        PanelTotalExplorar.add(EjemploBusqueda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 470, 730, 90));
-
-        CumpleBtn.setBackground(new java.awt.Color(166, 77, 121));
-        CumpleBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        CumpleBtn.setForeground(new java.awt.Color(204, 204, 204));
-        CumpleBtn.setText(" Cumpleaños");
-        CumpleBtn.setToolTipText("");
-        CumpleBtn.setAlignmentY(0.0F);
-        CumpleBtn.setBorderPainted(false);
-        CumpleBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        CumpleBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CumpleBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(CumpleBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 710, 180, 70));
-
-        AmigosBtn.setBackground(new java.awt.Color(166, 77, 121));
-        AmigosBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        AmigosBtn.setForeground(new java.awt.Color(204, 204, 204));
-        AmigosBtn.setText("Amigos");
-        AmigosBtn.setToolTipText("");
-        AmigosBtn.setAlignmentY(0.0F);
-        AmigosBtn.setBorderPainted(false);
-        AmigosBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        AmigosBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AmigosBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(AmigosBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 620, 180, 70));
+        PanelTotalExplorar.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 750, 70));
 
         ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
         ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -673,24 +825,6 @@ public class Explorar extends javax.swing.JFrame {
         });
         PanelTotalExplorar.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 250, 40));
 
-        TusYapsBtn.setBackground(new java.awt.Color(166, 77, 121));
-        TusYapsBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TusYapsBtn.setForeground(new java.awt.Color(204, 204, 204));
-        TusYapsBtn.setText("Tus Yap's");
-        TusYapsBtn.setToolTipText("");
-        TusYapsBtn.setAlignmentY(0.0F);
-        TusYapsBtn.setBorderPainted(false);
-        TusYapsBtn.setDisplayedMnemonicIndex(2);
-        TusYapsBtn.setHideActionText(true);
-        TusYapsBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        TusYapsBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        TusYapsBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TusYapsBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(TusYapsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, 180, 70));
-
         NotificacionesBtn.setBackground(new java.awt.Color(26, 26, 29));
         NotificacionesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         NotificacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -740,300 +874,6 @@ public class Explorar extends javax.swing.JFrame {
             }
         });
         PanelTotalExplorar.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 250, 40));
-
-        EjemploBusquedas1.setBackground(new java.awt.Color(59, 28, 50));
-        EjemploBusquedas1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        EjemploBusquedas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        UserResu1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UserResu1.setForeground(new java.awt.Color(204, 204, 204));
-        UserResu1.setText("@Usuario");
-        UserResu1.setToolTipText("");
-        UserResu1.setBorder(null);
-        UserResu1.setBorderPainted(false);
-        UserResu1.setContentAreaFilled(false);
-        UserResu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UserResu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UserResu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserResu1ActionPerformed(evt);
-            }
-        });
-
-        NombreResu1.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
-        NombreResu1.setForeground(new java.awt.Color(204, 204, 204));
-        NombreResu1.setText("Resultado 1");
-
-        SeguidoresResu1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        SeguidoresResu1.setForeground(new java.awt.Color(204, 204, 204));
-        SeguidoresResu1.setText("Seguidores");
-        SeguidoresResu1.setBorder(null);
-        SeguidoresResu1.setBorderPainted(false);
-        SeguidoresResu1.setContentAreaFilled(false);
-        SeguidoresResu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SeguidoresResu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        SeguidoresResu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguidoresResu1ActionPerformed(evt);
-            }
-        });
-
-        NoSeguidoresResu1.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        NoSeguidoresResu1.setForeground(new java.awt.Color(204, 204, 204));
-        NoSeguidoresResu1.setText("0");
-        NoSeguidoresResu1.setBorder(null);
-        NoSeguidoresResu1.setBorderPainted(false);
-        NoSeguidoresResu1.setContentAreaFilled(false);
-        NoSeguidoresResu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NoSeguidoresResu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        NoSeguidoresResu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NoSeguidoresResu1ActionPerformed(evt);
-            }
-        });
-
-        ImgRes1.setText("img_resultado1");
-
-        javax.swing.GroupLayout EjemploBusquedas1Layout = new javax.swing.GroupLayout(EjemploBusquedas1);
-        EjemploBusquedas1.setLayout(EjemploBusquedas1Layout);
-        EjemploBusquedas1Layout.setHorizontalGroup(
-            EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImgRes1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(UserResu1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
-                        .addComponent(NoSeguidoresResu1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreResu1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SeguidoresResu1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        EjemploBusquedas1Layout.setVerticalGroup(
-            EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
-                .addGroup(EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusquedas1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(NombreResu1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UserResu1)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel4)
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ImgRes1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusquedas1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SeguidoresResu1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NoSeguidoresResu1)))
-        );
-
-        PanelTotalExplorar.add(EjemploBusquedas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 730, 90));
-
-        EjemploBusquedas2.setBackground(new java.awt.Color(106, 30, 85));
-        EjemploBusquedas2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        EjemploBusquedas2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        UserResu2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UserResu2.setForeground(new java.awt.Color(204, 204, 204));
-        UserResu2.setText("@Usuario");
-        UserResu2.setToolTipText("");
-        UserResu2.setBorder(null);
-        UserResu2.setBorderPainted(false);
-        UserResu2.setContentAreaFilled(false);
-        UserResu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UserResu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UserResu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserResu2ActionPerformed(evt);
-            }
-        });
-
-        NombreResu2.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
-        NombreResu2.setForeground(new java.awt.Color(204, 204, 204));
-        NombreResu2.setText("Resultado 2");
-
-        SeguidoresResu2.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        SeguidoresResu2.setForeground(new java.awt.Color(204, 204, 204));
-        SeguidoresResu2.setText("Seguidores");
-        SeguidoresResu2.setBorder(null);
-        SeguidoresResu2.setBorderPainted(false);
-        SeguidoresResu2.setContentAreaFilled(false);
-        SeguidoresResu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SeguidoresResu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        SeguidoresResu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguidoresResu2ActionPerformed(evt);
-            }
-        });
-
-        NoSeguidoresResu2.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        NoSeguidoresResu2.setForeground(new java.awt.Color(204, 204, 204));
-        NoSeguidoresResu2.setText("0");
-        NoSeguidoresResu2.setBorder(null);
-        NoSeguidoresResu2.setBorderPainted(false);
-        NoSeguidoresResu2.setContentAreaFilled(false);
-        NoSeguidoresResu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NoSeguidoresResu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        NoSeguidoresResu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NoSeguidoresResu2ActionPerformed(evt);
-            }
-        });
-
-        ImgResu2.setText("img_resultado1");
-
-        javax.swing.GroupLayout EjemploBusquedas2Layout = new javax.swing.GroupLayout(EjemploBusquedas2);
-        EjemploBusquedas2.setLayout(EjemploBusquedas2Layout);
-        EjemploBusquedas2Layout.setHorizontalGroup(
-            EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImgResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(UserResu2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
-                        .addComponent(NoSeguidoresResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreResu2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SeguidoresResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        EjemploBusquedas2Layout.setVerticalGroup(
-            EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
-                .addGroup(EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusquedas2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(NombreResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UserResu2)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel5)
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ImgResu2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusquedas2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SeguidoresResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NoSeguidoresResu2)))
-        );
-
-        PanelTotalExplorar.add(EjemploBusquedas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 730, 90));
-
-        EjemploBusqueda6.setBackground(new java.awt.Color(166, 77, 121));
-        EjemploBusqueda6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        EjemploBusqueda6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        UserResu3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UserResu3.setForeground(new java.awt.Color(204, 204, 204));
-        UserResu3.setText("@Usuario");
-        UserResu3.setToolTipText("");
-        UserResu3.setBorder(null);
-        UserResu3.setBorderPainted(false);
-        UserResu3.setContentAreaFilled(false);
-        UserResu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UserResu3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UserResu3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserResu3ActionPerformed(evt);
-            }
-        });
-
-        NombreResu3.setFont(new java.awt.Font("Roboto Black", 1, 22)); // NOI18N
-        NombreResu3.setForeground(new java.awt.Color(204, 204, 204));
-        NombreResu3.setText("Resultado 3");
-
-        SeguidoresResu3.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        SeguidoresResu3.setForeground(new java.awt.Color(204, 204, 204));
-        SeguidoresResu3.setText("Seguidores");
-        SeguidoresResu3.setBorder(null);
-        SeguidoresResu3.setBorderPainted(false);
-        SeguidoresResu3.setContentAreaFilled(false);
-        SeguidoresResu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        SeguidoresResu3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        SeguidoresResu3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguidoresResu3ActionPerformed(evt);
-            }
-        });
-
-        NoSeguidoresResu3.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        NoSeguidoresResu3.setForeground(new java.awt.Color(204, 204, 204));
-        NoSeguidoresResu3.setText("0");
-        NoSeguidoresResu3.setBorder(null);
-        NoSeguidoresResu3.setBorderPainted(false);
-        NoSeguidoresResu3.setContentAreaFilled(false);
-        NoSeguidoresResu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NoSeguidoresResu3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        NoSeguidoresResu3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NoSeguidoresResu3ActionPerformed(evt);
-            }
-        });
-
-        ImgResu3.setText("img_resultado1");
-
-        javax.swing.GroupLayout EjemploBusqueda6Layout = new javax.swing.GroupLayout(EjemploBusqueda6);
-        EjemploBusqueda6.setLayout(EjemploBusqueda6Layout);
-        EjemploBusqueda6Layout.setHorizontalGroup(
-            EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImgResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(UserResu3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 460, Short.MAX_VALUE)
-                        .addComponent(NoSeguidoresResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NombreResu3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SeguidoresResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        EjemploBusqueda6Layout.setVerticalGroup(
-            EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
-                .addGroup(EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusqueda6Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(NombreResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UserResu3)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel6)
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ImgResu3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusqueda6Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SeguidoresResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NoSeguidoresResu3)))
-        );
-
-        PanelTotalExplorar.add(EjemploBusqueda6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 360, 730, 90));
 
         PublicacionesBtn2.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
         PublicacionesBtn2.setForeground(new java.awt.Color(204, 204, 204));
@@ -1286,58 +1126,9 @@ public class Explorar extends javax.swing.JFrame {
         });
         PanelTotalExplorar.add(ExplorarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 250, 40));
 
-        TendenciaImg.setForeground(new java.awt.Color(255, 255, 255));
-        TendenciaImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        PanelTotalExplorar.add(TendenciaImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 620, 70, 70));
-
-        TendenciaBtn.setBackground(new java.awt.Color(166, 77, 121));
-        TendenciaBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TendenciaBtn.setForeground(new java.awt.Color(204, 204, 204));
-        TendenciaBtn.setText("Tendencia");
-        TendenciaBtn.setToolTipText("");
-        TendenciaBtn.setAlignmentY(0.0F);
-        TendenciaBtn.setBorderPainted(false);
-        TendenciaBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        TendenciaBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TendenciaBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(TendenciaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 620, 180, 70));
-
         RecientesImg.setForeground(new java.awt.Color(255, 255, 255));
         RecientesImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         PanelTotalExplorar.add(RecientesImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 710, 70, 70));
-
-        RecienteBtn.setBackground(new java.awt.Color(166, 77, 121));
-        RecienteBtn.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        RecienteBtn.setForeground(new java.awt.Color(204, 204, 204));
-        RecienteBtn.setText("Recientes");
-        RecienteBtn.setToolTipText("");
-        RecienteBtn.setAlignmentY(0.0F);
-        RecienteBtn.setBorderPainted(false);
-        RecienteBtn.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        RecienteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecienteBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(RecienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 710, 180, 70));
-
-        BusquedaVerTodoBtn.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        BusquedaVerTodoBtn.setForeground(new java.awt.Color(204, 204, 204));
-        BusquedaVerTodoBtn.setText("Ver todo");
-        BusquedaVerTodoBtn.setBorder(null);
-        BusquedaVerTodoBtn.setBorderPainted(false);
-        BusquedaVerTodoBtn.setContentAreaFilled(false);
-        BusquedaVerTodoBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        BusquedaVerTodoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        BusquedaVerTodoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BusquedaVerTodoBtnActionPerformed(evt);
-            }
-        });
-        PanelTotalExplorar.add(BusquedaVerTodoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 560, 70, 40));
 
         IconoExplorar.setBackground(new java.awt.Color(166, 77, 121));
         IconoExplorar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -1359,79 +1150,739 @@ public class Explorar extends javax.swing.JFrame {
         PanelTotalExplorar.add(ExplorarTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 250, 40));
         PanelTotalExplorar.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 90, 80));
 
+        Busqueda_TxtFld.setBackground(new java.awt.Color(0, 0, 0));
+        Busqueda_TxtFld.setForeground(new java.awt.Color(255, 255, 255));
+        PanelTotalExplorar.add(Busqueda_TxtFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 40, 250, 30));
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("🔍Buscar\n");
+        PanelTotalExplorar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 80, -1));
+
+        Busquedas_jTabbePane.setBackground(new java.awt.Color(102, 102, 102));
+        Busquedas_jTabbePane.setForeground(new java.awt.Color(204, 204, 204));
+
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        PanelNot1.setBackground(new java.awt.Color(59, 28, 50));
+        PanelNot1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        PanelNot1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuario.setText("ImgNot");
+
+        meGustaBtn.setBackground(new java.awt.Color(59, 28, 50));
+        meGustaBtn.setForeground(new java.awt.Color(255, 255, 255));
+        meGustaBtn.setText("-");
+        meGustaBtn.setBorder(null);
+        meGustaBtn.setBorderPainted(false);
+        meGustaBtn.setContentAreaFilled(false);
+        meGustaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meGustaBtnActionPerformed(evt);
+            }
+        });
+
+        comentarBtn.setBackground(new java.awt.Color(59, 28, 50));
+        comentarBtn.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn.setText("-");
+        comentarBtn.setBorder(null);
+        comentarBtn.setBorderPainted(false);
+        comentarBtn.setContentAreaFilled(false);
+        comentarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comentarBtnActionPerformed(evt);
+            }
+        });
+
+        repostearBtn.setBackground(new java.awt.Color(59, 28, 50));
+        repostearBtn.setForeground(new java.awt.Color(255, 255, 255));
+        repostearBtn.setText("-");
+        repostearBtn.setBorder(null);
+        repostearBtn.setBorderPainted(false);
+        repostearBtn.setContentAreaFilled(false);
+        repostearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repostearBtnActionPerformed(evt);
+            }
+        });
+
+        lblLikesLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lblLikesLabel.setText("0");
+
+        lblComentarLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lblComentarLabel.setText("0");
+
+        lblRepostearLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lblRepostearLabel.setText("0");
+
+        Nombre_usuarioBtn.setBackground(new java.awt.Color(59, 28, 50));
+        Nombre_usuarioBtn.setForeground(new java.awt.Color(255, 255, 255));
+        Nombre_usuarioBtn.setText("Nombre_usuario");
+        Nombre_usuarioBtn.setBorder(null);
+        Nombre_usuarioBtn.setBorderPainted(false);
+        Nombre_usuarioBtn.setContentAreaFilled(false);
+
+        UsuarioPub5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UsuarioPub5.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub5.setText("@Usuario");
+        UsuarioPub5.setToolTipText("");
+        UsuarioPub5.setBorder(null);
+        UsuarioPub5.setBorderPainted(false);
+        UsuarioPub5.setContentAreaFilled(false);
+        UsuarioPub5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub5ActionPerformed(evt);
+            }
+        });
+
+        Fecha_Label.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha_Label.setText("Fecha_posts");
+
+        lblTexto_publicacion.setForeground(new java.awt.Color(255, 255, 255));
+        lblTexto_publicacion.setText("Texto_publicacion");
+
+        javax.swing.GroupLayout PanelNot1Layout = new javax.swing.GroupLayout(PanelNot1);
+        PanelNot1.setLayout(PanelNot1Layout);
+        PanelNot1Layout.setHorizontalGroup(
+            PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNot1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(Nombre_usuarioBtn)
+                        .addGap(13, 13, 13)
+                        .addComponent(UsuarioPub5)
+                        .addGap(18, 18, 18)
+                        .addComponent(Fecha_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTexto_publicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addComponent(meGustaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(comentarBtn)
+                        .addGap(44, 44, 44)
+                        .addComponent(repostearBtn))
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addComponent(lblLikesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblComentarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelNot1Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(lblRepostearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+        );
+        PanelNot1Layout.setVerticalGroup(
+            PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNot1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(Nombre_usuarioBtn))
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(UsuarioPub5))
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(Fecha_Label))
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(lblTexto_publicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
+                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(meGustaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comentarBtn)
+                    .addComponent(repostearBtn))
+                .addGap(10, 10, 10)
+                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLikesLabel)
+                    .addComponent(lblComentarLabel)
+                    .addComponent(lblRepostearLabel)))
+        );
+
+        jPanel3.add(PanelNot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 450, 200));
+
+        ImagenPublicacion_lbl.setForeground(new java.awt.Color(255, 255, 255));
+        ImagenPublicacion_lbl.setText("ImagenPublicacion1");
+        jPanel3.add(ImagenPublicacion_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 450, 270, 150));
+
+        PanelNot4.setBackground(new java.awt.Color(106, 30, 85));
+        PanelNot4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        PanelNot4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNot4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblUsuario1.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuario1.setText("ImgNot");
+        PanelNot4.add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
+
+        meGustaBtn1.setBackground(new java.awt.Color(59, 28, 50));
+        meGustaBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        meGustaBtn1.setText("-");
+        meGustaBtn1.setBorder(null);
+        meGustaBtn1.setBorderPainted(false);
+        meGustaBtn1.setContentAreaFilled(false);
+        meGustaBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meGustaBtn1ActionPerformed(evt);
+            }
+        });
+        PanelNot4.add(meGustaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
+
+        comentarBtn1.setBackground(new java.awt.Color(106, 30, 85));
+        comentarBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn1.setText("-");
+        comentarBtn1.setBorder(null);
+        comentarBtn1.setBorderPainted(false);
+        comentarBtn1.setContentAreaFilled(false);
+        PanelNot4.add(comentarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+
+        repostearBtn1.setBackground(new java.awt.Color(59, 28, 50));
+        repostearBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        repostearBtn1.setText("-");
+        repostearBtn1.setBorder(null);
+        repostearBtn1.setBorderPainted(false);
+        repostearBtn1.setContentAreaFilled(false);
+        repostearBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repostearBtn1ActionPerformed(evt);
+            }
+        });
+        PanelNot4.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
+
+        lblLikesLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        lblLikesLabel1.setText("0");
+        PanelNot4.add(lblLikesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 80, -1));
+
+        lblComentarLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        lblComentarLabel1.setText("0");
+        PanelNot4.add(lblComentarLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 80, -1));
+
+        lblRepostearLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        lblRepostearLabel1.setText("0");
+        PanelNot4.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 90, -1));
+
+        Nombre_usuarioBtn1.setBackground(new java.awt.Color(106, 30, 85));
+        Nombre_usuarioBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        Nombre_usuarioBtn1.setText("Nombre_usuario");
+        Nombre_usuarioBtn1.setBorder(null);
+        Nombre_usuarioBtn1.setBorderPainted(false);
+        Nombre_usuarioBtn1.setContentAreaFilled(false);
+        PanelNot4.add(Nombre_usuarioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+
+        UsuarioPub6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UsuarioPub6.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub6.setText("@Usuario");
+        UsuarioPub6.setToolTipText("");
+        UsuarioPub6.setBorder(null);
+        UsuarioPub6.setBorderPainted(false);
+        UsuarioPub6.setContentAreaFilled(false);
+        UsuarioPub6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub6ActionPerformed(evt);
+            }
+        });
+        PanelNot4.add(UsuarioPub6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+
+        Fecha_Label1.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha_Label1.setText("Fecha_posts");
+        PanelNot4.add(Fecha_Label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 130, -1));
+
+        lblTexto_publicacion1.setForeground(new java.awt.Color(255, 255, 255));
+        lblTexto_publicacion1.setText("Texto_publicacion");
+        PanelNot4.add(lblTexto_publicacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 80));
+
+        jPanel3.add(PanelNot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 450, 200));
+
+        PanelNot5.setBackground(new java.awt.Color(166, 77, 121));
+        PanelNot5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        PanelNot5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNot5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblUsuario2.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuario2.setText("ImgNot");
+        lblUsuario2.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                lblUsuario2AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        PanelNot5.add(lblUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
+
+        meGustaBtn2.setBackground(new java.awt.Color(59, 28, 50));
+        meGustaBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        meGustaBtn2.setText("-");
+        meGustaBtn2.setBorder(null);
+        meGustaBtn2.setBorderPainted(false);
+        meGustaBtn2.setContentAreaFilled(false);
+        meGustaBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meGustaBtn2ActionPerformed(evt);
+            }
+        });
+        PanelNot5.add(meGustaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
+
+        comentarBtn2.setBackground(new java.awt.Color(166, 77, 121));
+        comentarBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn2.setText("-");
+        comentarBtn2.setBorder(null);
+        comentarBtn2.setBorderPainted(false);
+        comentarBtn2.setContentAreaFilled(false);
+        PanelNot5.add(comentarBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+
+        repostearBtn2.setBackground(new java.awt.Color(59, 28, 50));
+        repostearBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        repostearBtn2.setText("-");
+        repostearBtn2.setBorder(null);
+        repostearBtn2.setBorderPainted(false);
+        repostearBtn2.setContentAreaFilled(false);
+        repostearBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repostearBtn2ActionPerformed(evt);
+            }
+        });
+        PanelNot5.add(repostearBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, -1));
+
+        lblLikesLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        lblLikesLabel2.setText("0");
+        PanelNot5.add(lblLikesLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 80, -1));
+
+        lblComentarLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        lblComentarLabel2.setText("0");
+        PanelNot5.add(lblComentarLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 80, -1));
+
+        lblRepostearLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        lblRepostearLabel2.setText("0");
+        PanelNot5.add(lblRepostearLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 90, -1));
+
+        Nombre_usuarioBtn2.setBackground(new java.awt.Color(106, 30, 85));
+        Nombre_usuarioBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        Nombre_usuarioBtn2.setText("Nombre_usuario");
+        Nombre_usuarioBtn2.setBorder(null);
+        Nombre_usuarioBtn2.setBorderPainted(false);
+        Nombre_usuarioBtn2.setContentAreaFilled(false);
+        PanelNot5.add(Nombre_usuarioBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
+
+        UsuarioPub7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UsuarioPub7.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub7.setText("@Usuario");
+        UsuarioPub7.setToolTipText("");
+        UsuarioPub7.setBorder(null);
+        UsuarioPub7.setBorderPainted(false);
+        UsuarioPub7.setContentAreaFilled(false);
+        UsuarioPub7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub7ActionPerformed(evt);
+            }
+        });
+        PanelNot5.add(UsuarioPub7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+
+        Fecha_Label2.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha_Label2.setText("Fecha_posts");
+        PanelNot5.add(Fecha_Label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 130, -1));
+
+        lblTexto_publicacion2.setForeground(new java.awt.Color(255, 255, 255));
+        lblTexto_publicacion2.setText("Texto_publicacion");
+        PanelNot5.add(lblTexto_publicacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 80));
+
+        jPanel3.add(PanelNot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 450, 200));
+
+        ImagenPublicacion_lbl1.setForeground(new java.awt.Color(255, 255, 255));
+        ImagenPublicacion_lbl1.setText("ImagenPublicacion1");
+        jPanel3.add(ImagenPublicacion_lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 140, 280, 150));
+
+        ImagenPublicacion_lbl2.setForeground(new java.awt.Color(255, 255, 255));
+        ImagenPublicacion_lbl2.setText("ImagenPublicacion1");
+        jPanel3.add(ImagenPublicacion_lbl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 270, 150));
+
+        ImagenPublicacion_lbl3.setForeground(new java.awt.Color(255, 255, 255));
+        ImagenPublicacion_lbl3.setText("ImagenPublicacion1");
+        jPanel3.add(ImagenPublicacion_lbl3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, 270, 150));
+
+        Busquedas_jTabbePane.addTab("Publicaciones", jPanel3);
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        EjemploBusquedas2.setBackground(new java.awt.Color(106, 30, 85));
+        EjemploBusquedas2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        EjemploBusquedas2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        UserResu2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserResu2.setForeground(new java.awt.Color(204, 204, 204));
+        UserResu2.setText("@Usuario");
+        UserResu2.setToolTipText("");
+        UserResu2.setBorder(null);
+        UserResu2.setBorderPainted(false);
+        UserResu2.setContentAreaFilled(false);
+        UserResu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserResu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserResu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserResu2ActionPerformed(evt);
+            }
+        });
+
+        SeguidoresResu2.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        SeguidoresResu2.setForeground(new java.awt.Color(204, 204, 204));
+        SeguidoresResu2.setText("Seguidores");
+        SeguidoresResu2.setBorder(null);
+        SeguidoresResu2.setBorderPainted(false);
+        SeguidoresResu2.setContentAreaFilled(false);
+        SeguidoresResu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguidoresResu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguidoresResu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguidoresResu2ActionPerformed(evt);
+            }
+        });
+
+        NoSeguidoresResu2.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        NoSeguidoresResu2.setForeground(new java.awt.Color(204, 204, 204));
+        NoSeguidoresResu2.setText("0");
+        NoSeguidoresResu2.setBorder(null);
+        NoSeguidoresResu2.setBorderPainted(false);
+        NoSeguidoresResu2.setContentAreaFilled(false);
+        NoSeguidoresResu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NoSeguidoresResu2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        NoSeguidoresResu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoSeguidoresResu2ActionPerformed(evt);
+            }
+        });
+
+        ImgResu2.setText("img_resultado1");
+
+        UserResu1_Btn.setFont(new java.awt.Font("Roboto", 1, 22)); // NOI18N
+        UserResu1_Btn.setForeground(new java.awt.Color(204, 204, 204));
+        UserResu1_Btn.setText("Usuario");
+        UserResu1_Btn.setToolTipText("");
+        UserResu1_Btn.setBorder(null);
+        UserResu1_Btn.setBorderPainted(false);
+        UserResu1_Btn.setContentAreaFilled(false);
+        UserResu1_Btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserResu1_Btn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserResu1_Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserResu1_BtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout EjemploBusquedas2Layout = new javax.swing.GroupLayout(EjemploBusquedas2);
+        EjemploBusquedas2.setLayout(EjemploBusquedas2Layout);
+        EjemploBusquedas2Layout.setHorizontalGroup(
+            EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImgResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
+                                .addComponent(UserResu1_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
+                                .addComponent(UserResu2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
+                                .addComponent(NoSeguidoresResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SeguidoresResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        EjemploBusquedas2Layout.setVerticalGroup(
+            EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
+                .addGroup(EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusquedas2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(UserResu1_Btn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UserResu2)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel5)
+                        .addGap(0, 6, Short.MAX_VALUE))
+                    .addGroup(EjemploBusquedas2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ImgResu2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusquedas2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(EjemploBusquedas2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SeguidoresResu2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NoSeguidoresResu2)))
+        );
+
+        jPanel1.add(EjemploBusquedas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        EjemploBusqueda6.setBackground(new java.awt.Color(166, 77, 121));
+        EjemploBusqueda6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        EjemploBusqueda6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        UserResu3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserResu3.setForeground(new java.awt.Color(204, 204, 204));
+        UserResu3.setText("@Usuario");
+        UserResu3.setToolTipText("");
+        UserResu3.setBorder(null);
+        UserResu3.setBorderPainted(false);
+        UserResu3.setContentAreaFilled(false);
+        UserResu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserResu3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserResu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserResu3ActionPerformed(evt);
+            }
+        });
+
+        SeguidoresResu3.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        SeguidoresResu3.setForeground(new java.awt.Color(204, 204, 204));
+        SeguidoresResu3.setText("Seguidores");
+        SeguidoresResu3.setBorder(null);
+        SeguidoresResu3.setBorderPainted(false);
+        SeguidoresResu3.setContentAreaFilled(false);
+        SeguidoresResu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguidoresResu3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguidoresResu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguidoresResu3ActionPerformed(evt);
+            }
+        });
+
+        NoSeguidoresResu3.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        NoSeguidoresResu3.setForeground(new java.awt.Color(204, 204, 204));
+        NoSeguidoresResu3.setText("0");
+        NoSeguidoresResu3.setBorder(null);
+        NoSeguidoresResu3.setBorderPainted(false);
+        NoSeguidoresResu3.setContentAreaFilled(false);
+        NoSeguidoresResu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NoSeguidoresResu3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        NoSeguidoresResu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoSeguidoresResu3ActionPerformed(evt);
+            }
+        });
+
+        ImgResu3.setText("img_resultado1");
+
+        UserResu1_Btn1.setFont(new java.awt.Font("Roboto", 1, 22)); // NOI18N
+        UserResu1_Btn1.setForeground(new java.awt.Color(204, 204, 204));
+        UserResu1_Btn1.setText("Usuario");
+        UserResu1_Btn1.setToolTipText("");
+        UserResu1_Btn1.setBorder(null);
+        UserResu1_Btn1.setBorderPainted(false);
+        UserResu1_Btn1.setContentAreaFilled(false);
+        UserResu1_Btn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserResu1_Btn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserResu1_Btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserResu1_Btn1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout EjemploBusqueda6Layout = new javax.swing.GroupLayout(EjemploBusqueda6);
+        EjemploBusqueda6.setLayout(EjemploBusqueda6Layout);
+        EjemploBusqueda6Layout.setHorizontalGroup(
+            EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImgResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
+                        .addGroup(EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(UserResu3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
+                                .addComponent(NoSeguidoresResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SeguidoresResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
+                        .addComponent(UserResu1_Btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        EjemploBusqueda6Layout.setVerticalGroup(
+            EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EjemploBusqueda6Layout.createSequentialGroup()
+                        .addComponent(UserResu1_Btn1)
+                        .addGap(4, 4, 4)
+                        .addComponent(UserResu3)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel6)
+                        .addGap(0, 16, Short.MAX_VALUE))
+                    .addComponent(ImgResu3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusqueda6Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(EjemploBusqueda6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SeguidoresResu3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NoSeguidoresResu3)))
+        );
+
+        jPanel1.add(EjemploBusqueda6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+
+        EjemploBusquedas1.setBackground(new java.awt.Color(59, 28, 50));
+        EjemploBusquedas1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        EjemploBusquedas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        UserResu1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserResu1.setForeground(new java.awt.Color(204, 204, 204));
+        UserResu1.setText("@Usuario");
+        UserResu1.setToolTipText("");
+        UserResu1.setBorder(null);
+        UserResu1.setBorderPainted(false);
+        UserResu1.setContentAreaFilled(false);
+        UserResu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserResu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserResu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserResu1ActionPerformed(evt);
+            }
+        });
+
+        SeguidoresResu1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        SeguidoresResu1.setForeground(new java.awt.Color(204, 204, 204));
+        SeguidoresResu1.setText("Seguidores");
+        SeguidoresResu1.setBorder(null);
+        SeguidoresResu1.setBorderPainted(false);
+        SeguidoresResu1.setContentAreaFilled(false);
+        SeguidoresResu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SeguidoresResu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        SeguidoresResu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeguidoresResu1ActionPerformed(evt);
+            }
+        });
+
+        NoSeguidoresResu1.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        NoSeguidoresResu1.setForeground(new java.awt.Color(204, 204, 204));
+        NoSeguidoresResu1.setText("0");
+        NoSeguidoresResu1.setBorder(null);
+        NoSeguidoresResu1.setBorderPainted(false);
+        NoSeguidoresResu1.setContentAreaFilled(false);
+        NoSeguidoresResu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NoSeguidoresResu1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        NoSeguidoresResu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoSeguidoresResu1ActionPerformed(evt);
+            }
+        });
+
+        ImgRes1.setText("img_resultado1");
+
+        UserResu1_Btn2.setFont(new java.awt.Font("Roboto", 1, 22)); // NOI18N
+        UserResu1_Btn2.setForeground(new java.awt.Color(204, 204, 204));
+        UserResu1_Btn2.setText("Usuario");
+        UserResu1_Btn2.setToolTipText("");
+        UserResu1_Btn2.setBorder(null);
+        UserResu1_Btn2.setBorderPainted(false);
+        UserResu1_Btn2.setContentAreaFilled(false);
+        UserResu1_Btn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserResu1_Btn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserResu1_Btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserResu1_Btn2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout EjemploBusquedas1Layout = new javax.swing.GroupLayout(EjemploBusquedas1);
+        EjemploBusquedas1.setLayout(EjemploBusquedas1Layout);
+        EjemploBusquedas1Layout.setHorizontalGroup(
+            EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImgRes1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
+                        .addGroup(EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(UserResu1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
+                                .addComponent(NoSeguidoresResu1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SeguidoresResu1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
+                        .addComponent(UserResu1_Btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        EjemploBusquedas1Layout.setVerticalGroup(
+            EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EjemploBusquedas1Layout.createSequentialGroup()
+                        .addComponent(UserResu1_Btn2)
+                        .addGap(4, 4, 4)
+                        .addComponent(UserResu1)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel4)
+                        .addGap(0, 16, Short.MAX_VALUE))
+                    .addComponent(ImgRes1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EjemploBusquedas1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(EjemploBusquedas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SeguidoresResu1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NoSeguidoresResu1)))
+        );
+
+        jPanel1.add(EjemploBusquedas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+
+        Resultados_JLabel.setBackground(new java.awt.Color(0, 0, 0));
+        Resultados_JLabel.setForeground(new java.awt.Color(255, 255, 255));
+        Resultados_JLabel.setText("Resultados encontrados");
+        jPanel1.add(Resultados_JLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 310, -1));
+
+        Busquedas_jTabbePane.addTab("Usuarios", jPanel1);
+
+        Busquedas_jTabbePane.setSelectedIndex(1);
+
+        PanelTotalExplorar.add(Busquedas_jTabbePane, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 750, 690));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 1550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2108, Short.MAX_VALUE))
+            .addComponent(PanelTotalExplorar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MencionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MencionesBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MencionesBtnActionPerformed
-
-    private void BusquedaVerTodoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaVerTodoBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BusquedaVerTodoBtnActionPerformed
-
-    private void NoSeguidoresResu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoSeguidoresResu4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NoSeguidoresResu4ActionPerformed
-
-    private void BusquedaPersonasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaPersonasBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BusquedaPersonasBtnActionPerformed
-
-    private void BusquedaComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaComunidadesBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BusquedaComunidadesBtnActionPerformed
-
-    private void BusquedaYapsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaYapsBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BusquedaYapsBtnActionPerformed
-
     private void BusquedaTodoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaTodoBtnActionPerformed
         // TODO add your handling code here:
+        Busquedas_jTabbePane.setSelectedIndex(0);
     }//GEN-LAST:event_BusquedaTodoBtnActionPerformed
-
-    private void SeguidoresResu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguidoresResu4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SeguidoresResu4ActionPerformed
-
-    private void BusquedaEventosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaEventosBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BusquedaEventosBtnActionPerformed
-
-    private void BusquedaMultimediaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaMultimediaBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BusquedaMultimediaBtnActionPerformed
-
-    private void UserResu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserResu4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UserResu4ActionPerformed
-
-    private void CumpleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CumpleBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CumpleBtnActionPerformed
-
-    private void TusYapsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TusYapsBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TusYapsBtnActionPerformed
-
-    private void AmigosBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmigosBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AmigosBtnActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
        this.dispose();
@@ -1546,17 +1997,76 @@ public class Explorar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ExplorarBtn1ActionPerformed
 
-    private void TendenciaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TendenciaBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TendenciaBtnActionPerformed
-
-    private void RecienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecienteBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RecienteBtnActionPerformed
-
     private void IconoExplorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IconoExplorarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IconoExplorarActionPerformed
+
+    private void BusquedaTodoBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BusquedaTodoBtn1ActionPerformed
+        // TODO add your handling code here:
+        Busquedas_jTabbePane.setSelectedIndex(1);
+    }//GEN-LAST:event_BusquedaTodoBtn1ActionPerformed
+
+    private void UserResu1_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserResu1_BtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserResu1_BtnActionPerformed
+
+    private void UserResu1_Btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserResu1_Btn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserResu1_Btn1ActionPerformed
+
+    private void UserResu1_Btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserResu1_Btn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserResu1_Btn2ActionPerformed
+
+    private void BuscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBtnActionPerformed
+        // TODO add your handling code here:
+        String textoBusqueda = Busqueda_TxtFld.getText().trim();
+        mostrarResultadosUsuarios(textoBusqueda);
+    }//GEN-LAST:event_BuscarBtnActionPerformed
+
+    private void meGustaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtnActionPerformed
+
+    private void comentarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comentarBtnActionPerformed
+
+    private void repostearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtnActionPerformed
+
+    private void UsuarioPub5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub5ActionPerformed
+
+    private void meGustaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn1ActionPerformed
+
+    private void repostearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn1ActionPerformed
+
+    private void UsuarioPub6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub6ActionPerformed
+
+    private void lblUsuario2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_lblUsuario2AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblUsuario2AncestorAdded
+
+    private void meGustaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn2ActionPerformed
+
+    private void repostearBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn2ActionPerformed
+
+    private void UsuarioPub7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1601,53 +2111,50 @@ public class Explorar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AmigosBtn;
     private javax.swing.JLabel AmigosImg1;
-    private javax.swing.JButton BarraBusquedaBtn;
-    private javax.swing.JButton BusquedaComunidadesBtn;
-    private javax.swing.JButton BusquedaEventosBtn;
-    private javax.swing.JButton BusquedaMultimediaBtn;
-    private javax.swing.JButton BusquedaPersonasBtn;
+    private javax.swing.JButton BuscarBtn;
     private javax.swing.JButton BusquedaTodoBtn;
-    private javax.swing.JButton BusquedaVerTodoBtn;
-    private javax.swing.JButton BusquedaYapsBtn;
+    private javax.swing.JButton BusquedaTodoBtn1;
+    private javax.swing.JTextField Busqueda_TxtFld;
+    private javax.swing.JTabbedPane Busquedas_jTabbePane;
     private javax.swing.JButton ComunidadesBtn;
     private javax.swing.JButton ConfiBtn;
     private javax.swing.JButton CuentaBtn20;
-    private javax.swing.JLabel CumpImg;
-    private javax.swing.JButton CumpleBtn;
-    private javax.swing.JPanel EjemploBusqueda1;
     private javax.swing.JPanel EjemploBusqueda6;
     private javax.swing.JPanel EjemploBusquedas1;
     private javax.swing.JPanel EjemploBusquedas2;
-    private javax.swing.JButton EliminarBusquedasBtn;
     private javax.swing.JButton ExplorarBtn1;
     private javax.swing.JLabel ExplorarTitulo;
+    private javax.swing.JLabel Fecha_Label;
+    private javax.swing.JLabel Fecha_Label1;
+    private javax.swing.JLabel Fecha_Label2;
     private javax.swing.JButton GuardadoBtn;
     private javax.swing.JButton IconoExplorar;
     private javax.swing.JLabel IdUsuario2;
+    private javax.swing.JLabel ImagenPublicacion_lbl;
+    private javax.swing.JLabel ImagenPublicacion_lbl1;
+    private javax.swing.JLabel ImagenPublicacion_lbl2;
+    private javax.swing.JLabel ImagenPublicacion_lbl3;
     private javax.swing.JLabel ImgInt1;
     private javax.swing.JLabel ImgInt2;
     private javax.swing.JLabel ImgInt3;
     private javax.swing.JLabel ImgRes1;
     private javax.swing.JLabel ImgResu2;
     private javax.swing.JLabel ImgResu3;
-    private javax.swing.JLabel ImgResu4;
     private javax.swing.JButton InicioBtn1;
-    private javax.swing.JButton MencionesBtn;
-    private javax.swing.JLabel MencionesImg;
     private javax.swing.JButton MostrarMasInteresBtn;
     private javax.swing.JButton MostrarMasTendenciaBtn;
     private javax.swing.JButton NoSeguidoresResu1;
     private javax.swing.JButton NoSeguidoresResu2;
     private javax.swing.JButton NoSeguidoresResu3;
-    private javax.swing.JButton NoSeguidoresResu4;
-    private javax.swing.JLabel NombreResu1;
-    private javax.swing.JLabel NombreResu2;
-    private javax.swing.JLabel NombreResu3;
-    private javax.swing.JLabel NombreResu4;
     private javax.swing.JLabel NombreUsuario;
+    private javax.swing.JButton Nombre_usuarioBtn;
+    private javax.swing.JButton Nombre_usuarioBtn1;
+    private javax.swing.JButton Nombre_usuarioBtn2;
     private javax.swing.JButton NotificacionesBtn;
+    private javax.swing.JPanel PanelNot1;
+    private javax.swing.JPanel PanelNot4;
+    private javax.swing.JPanel PanelNot5;
     private javax.swing.JPanel PanelTotalExplorar;
     private javax.swing.JButton PerfilBtn;
     private javax.swing.JPanel PerfilPanel;
@@ -1657,41 +2164,66 @@ public class Explorar extends javax.swing.JFrame {
     private javax.swing.JButton PublicacionesBtn1;
     private javax.swing.JButton PublicacionesBtn2;
     private javax.swing.JLabel QuePasa;
-    private javax.swing.JButton RecienteBtn;
     private javax.swing.JLabel RecientesImg;
+    private javax.swing.JLabel Resultados_JLabel;
     private javax.swing.JButton SeguidoresResu1;
     private javax.swing.JButton SeguidoresResu2;
     private javax.swing.JButton SeguidoresResu3;
-    private javax.swing.JButton SeguidoresResu4;
     private javax.swing.JButton SeguirCuentaBtn1;
     private javax.swing.JButton SeguirCuentaBtn2;
     private javax.swing.JButton SeguirCuentaBtn3;
     private javax.swing.JLabel TePuedeInteresarLbl;
-    private javax.swing.JButton TendenciaBtn;
-    private javax.swing.JLabel TendenciaImg;
     private javax.swing.JButton TendenciaYapBtn1;
     private javax.swing.JButton TendenciaYapBtn2;
-    private javax.swing.JButton TusYapsBtn;
-    private javax.swing.JLabel TusYapsImg;
     private javax.swing.JButton UserInt1;
     private javax.swing.JButton UserInt2;
     private javax.swing.JButton UserInt3;
     private javax.swing.JButton UserResu1;
+    private javax.swing.JButton UserResu1_Btn;
+    private javax.swing.JButton UserResu1_Btn1;
+    private javax.swing.JButton UserResu1_Btn2;
     private javax.swing.JButton UserResu2;
     private javax.swing.JButton UserResu3;
-    private javax.swing.JButton UserResu4;
+    private javax.swing.JButton UsuarioPub5;
+    private javax.swing.JButton UsuarioPub6;
+    private javax.swing.JButton UsuarioPub7;
     private javax.swing.JLabel Y_logo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton comentarBtn;
+    private javax.swing.JButton comentarBtn1;
+    private javax.swing.JButton comentarBtn2;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JLabel lblComentarLabel;
+    private javax.swing.JLabel lblComentarLabel1;
+    private javax.swing.JLabel lblComentarLabel2;
+    private javax.swing.JLabel lblLikesLabel;
+    private javax.swing.JLabel lblLikesLabel1;
+    private javax.swing.JLabel lblLikesLabel2;
+    private javax.swing.JLabel lblRepostearLabel;
+    private javax.swing.JLabel lblRepostearLabel1;
+    private javax.swing.JLabel lblRepostearLabel2;
+    private javax.swing.JLabel lblTexto_publicacion;
+    private javax.swing.JLabel lblTexto_publicacion1;
+    private javax.swing.JLabel lblTexto_publicacion2;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblUsuario1;
+    private javax.swing.JLabel lblUsuario2;
+    private javax.swing.JButton meGustaBtn;
+    private javax.swing.JButton meGustaBtn1;
+    private javax.swing.JButton meGustaBtn2;
+    private javax.swing.JButton repostearBtn;
+    private javax.swing.JButton repostearBtn1;
+    private javax.swing.JButton repostearBtn2;
     // End of variables declaration//GEN-END:variables
 }
