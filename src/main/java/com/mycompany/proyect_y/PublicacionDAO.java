@@ -16,11 +16,18 @@ import java.util.List;
 public class PublicacionDAO {
     private Connection connection;
     //private DBConnection dbConnection;
-    int indicePublicaciones = 0;
-    int indicePublicacionTexto = 0;
     public PublicacionDAO(){
         //dbConnection = new DBConnection();
         connection = new DBConnection().getConnection();
+    }
+    
+    public static int idPubicacion = 0;
+    public static void PublicacionSeleccionada(int id) {
+        idPubicacion = id;
+    }
+
+    public static void cerrarSesion() {
+        idPubicacion = 0;
     }
    
     
@@ -45,8 +52,6 @@ public class PublicacionDAO {
                 );
                 publi.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
                 publicaciones.add(publi);
-                indicePublicaciones += 1;
-                System.out.println(indicePublicaciones);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -79,8 +84,6 @@ public class PublicacionDAO {
                 );
                 publicaciones.add(publi);
                 publi.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
-                indicePublicaciones += 1;
-                System.out.println(indicePublicaciones + " Publicaciones encontradas");
             
 }} catch (SQLException ex) {
             ex.printStackTrace();
@@ -113,8 +116,7 @@ public class PublicacionDAO {
                 );
                 publicacionestxt.add(publi);
                  publi.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
-                indicePublicacionTexto += 1;
-                System.out.println(indicePublicacionTexto + " Publicaciones encontradas de solo texto");
+               
             
 }} catch (SQLException ex) {
             ex.printStackTrace();

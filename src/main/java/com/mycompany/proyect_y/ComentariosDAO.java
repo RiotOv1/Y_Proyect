@@ -26,7 +26,7 @@ public class ComentariosDAO {
         //dbConnection = new DBConnection();
         connection = new DBConnection().getConnection();
     }
-    
+    //Comentarios totales
     public List<Comentarios> obtenerTodosComentarios() {
         List<Comentarios> ListaComentarios = new ArrayList<>();
         String sql = "SELECT * FROM Comentarios WHERE id_publicacion = ? AND id_usuario <> ? ORDER BY fecha_hora DESC;";

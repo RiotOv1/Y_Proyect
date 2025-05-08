@@ -78,6 +78,7 @@ public class Perfil extends javax.swing.JFrame {
                         repostearBtn2, lblRepostearLabel2,imagen1,comentarBtn2
                         );
             } else {
+                //Se oculta en caso de no tener 1 publicacion
                 PanelNot1.setVisible(false);
             }
             //Panel 2
@@ -89,8 +90,13 @@ public class Perfil extends javax.swing.JFrame {
                         repostearBtn1,lblRepostearLabel1,imagen2 ,comentarBtn1
                 );
             } else {
+                //se oculta si no encuentra mas de una publicacion
                 PanelNot2.setVisible(false);
             }
+        }else{
+            //Ocultar los paneles si no se encuentra ninguna publicacion
+            PanelNot1.setVisible(false);
+            PanelNot2.setVisible(false);
         }
         
         //Publicacion de solo texto
@@ -119,6 +125,9 @@ public class Perfil extends javax.swing.JFrame {
             } else {
                 PanelTxt2.setVisible(false);
             }
+        } else {
+            PanelTxt1.setVisible(false);
+            PanelTxt2.setVisible(false);
         }
         
         //Ayuda Selecciones

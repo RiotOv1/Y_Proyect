@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 /**
  *
  * @author dafmo
+ * comentario
  */
 public class Comentarios {
     private int id_comentario;

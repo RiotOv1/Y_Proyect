@@ -43,7 +43,7 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
             PanelComentario5.setVisible(false);
             PanelComentario6.setVisible(false);
             PanelComentario7.setVisible(false);
-        
+        //Validacion si el usuario tiene un comentario
         if(UsuarioComentario()){
             CasillaComentarios.setVisible(false);
             comentarBtn.setVisible(false);

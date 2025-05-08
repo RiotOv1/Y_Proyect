@@ -23,8 +23,6 @@ public class Comunidad extends javax.swing.JFrame {
             String nom = obtenerNombreUsuario();
             NombreUsuario.setText(nom);
             IdUsuario2.setText( "@" + Id);
-                    cargarUsuariosAleatorios();
-
             
     }
 
@@ -210,6 +208,9 @@ public class Comunidad extends javax.swing.JFrame {
         ImgInt3 = new javax.swing.JLabel();
         ImgInt1 = new javax.swing.JLabel();
         ImgInt2 = new javax.swing.JLabel();
+        UserInt3 = new javax.swing.JButton();
+        UserInt1 = new javax.swing.JButton();
+        UserInt2 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         PanelNot1 = new javax.swing.JPanel();
         UsuarioPub1 = new javax.swing.JButton();
@@ -243,14 +244,13 @@ public class Comunidad extends javax.swing.JFrame {
         PerfilBtn = new javax.swing.JButton();
         ExplorarBtn1 = new javax.swing.JButton();
         Y_logo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(1550, 820));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1550, 820));
         setResizable(false);
 
         PanelTotalComunidad.setBackground(new java.awt.Color(0, 0, 0));
@@ -566,11 +566,6 @@ public class Comunidad extends javax.swing.JFrame {
 
         SeguirCuentaBtn1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         SeguirCuentaBtn1.setText("Seguir");
-        SeguirCuentaBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeguirCuentaBtn1ActionPerformed(evt);
-            }
-        });
         PanelTotalComunidad.add(SeguirCuentaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 130, -1, 30));
 
         SeguirCuentaBtn2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -695,6 +690,54 @@ public class Comunidad extends javax.swing.JFrame {
         ImgInt2.setForeground(new java.awt.Color(255, 255, 255));
         ImgInt2.setText("ImgInteres2");
         PanelTotalComunidad.add(ImgInt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 170, 60, 50));
+
+        UserInt3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserInt3.setForeground(new java.awt.Color(204, 204, 204));
+        UserInt3.setText("@Usuario");
+        UserInt3.setToolTipText("");
+        UserInt3.setBorder(null);
+        UserInt3.setBorderPainted(false);
+        UserInt3.setContentAreaFilled(false);
+        UserInt3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserInt3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserInt3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserInt3ActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(UserInt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 230, -1, 30));
+
+        UserInt1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserInt1.setForeground(new java.awt.Color(204, 204, 204));
+        UserInt1.setText("@Usuario");
+        UserInt1.setToolTipText("");
+        UserInt1.setBorder(null);
+        UserInt1.setBorderPainted(false);
+        UserInt1.setContentAreaFilled(false);
+        UserInt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserInt1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserInt1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserInt1ActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(UserInt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 130, -1, 30));
+
+        UserInt2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        UserInt2.setForeground(new java.awt.Color(204, 204, 204));
+        UserInt2.setText("@Usuario");
+        UserInt2.setToolTipText("");
+        UserInt2.setBorder(null);
+        UserInt2.setBorderPainted(false);
+        UserInt2.setContentAreaFilled(false);
+        UserInt2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UserInt2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UserInt2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserInt2ActionPerformed(evt);
+            }
+        });
+        PanelTotalComunidad.add(UserInt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 180, -1, 30));
 
         jSeparator4.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator4.setForeground(new java.awt.Color(153, 153, 153));
@@ -1059,15 +1102,6 @@ public class Comunidad extends javax.swing.JFrame {
         PanelTotalComunidad.add(ExplorarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 250, 40));
         PanelTotalComunidad.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 90, 80));
 
-        jLabel1.setText("jLabel1");
-        PanelTotalComunidad.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 140, -1, -1));
-
-        jLabel5.setText("USUARIO");
-        PanelTotalComunidad.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 190, -1, -1));
-
-        jLabel6.setText("jLabel6");
-        PanelTotalComunidad.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 240, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1171,6 +1205,18 @@ public class Comunidad extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_MostrarMasInteresBtnActionPerformed
 
+    private void UserInt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserInt3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserInt3ActionPerformed
+
+    private void UserInt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserInt1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserInt1ActionPerformed
+
+    private void UserInt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserInt2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserInt2ActionPerformed
+
     private void UsuarioPub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioPub1ActionPerformed
@@ -1207,6 +1253,11 @@ public class Comunidad extends javax.swing.JFrame {
         new Notificaciones().setVisible(true);
     }//GEN-LAST:event_NotificacionesBtnActionPerformed
 
+    private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
+        this.dispose();
+        new Guardados().setVisible(true);
+    }//GEN-LAST:event_GuardadoBtnActionPerformed
+
     private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
         this.dispose();
         new Perfil().setVisible(true);
@@ -1216,15 +1267,6 @@ public class Comunidad extends javax.swing.JFrame {
         this.dispose();
         new Explorar().setVisible(true);
     }//GEN-LAST:event_ExplorarBtn1ActionPerformed
-
-    private void GuardadoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardadoBtnActionPerformed
-        this.dispose();
-        new Guardados().setVisible(true);
-    }//GEN-LAST:event_GuardadoBtnActionPerformed
-
-    private void SeguirCuentaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirCuentaBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SeguirCuentaBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1320,19 +1362,19 @@ public class Comunidad extends javax.swing.JFrame {
     private javax.swing.JButton SeguirCuentaBtn3;
     private javax.swing.JButton TendenciaYapBtn1;
     private javax.swing.JButton TendenciaYapBtn2;
+    private javax.swing.JButton UserInt1;
+    private javax.swing.JButton UserInt2;
+    private javax.swing.JButton UserInt3;
     private javax.swing.JButton UsuarioComunidad;
     private javax.swing.JButton UsuarioPub1;
     private javax.swing.JButton UsuarioPub2;
     private javax.swing.JButton UsuarioPub3;
     private javax.swing.JLabel Y_logo;
     private javax.swing.JButton YapsBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
@@ -1341,51 +1383,4 @@ public class Comunidad extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     // End of variables declaration//GEN-END:variables
- public void cargarUsuariosAleatorios() {
-        try {
-            Connection con = DB_Conection.conectar();
-            String sql = "SELECT id_usuario, nombre, apellido, foto_perfil FROM Usuario WHERE id_usuario != ? ORDER BY RAND() LIMIT 3";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, SesionUsuario.idUsuario);
-            ResultSet rs = ps.executeQuery();
-
-            int index = 0;
-            while (rs.next()) {
-                String id = rs.getString("id_usuario");
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
-                byte[] foto = rs.getBytes("foto_perfil");
-
-                ImageIcon icono;
-                if (foto != null) {
-                    Image imagen = new ImageIcon(foto).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-                    icono = new ImageIcon(imagen);
-                } else {
-                    icono = new ImageIcon("src/imagenes/default.png"); // Ajusta esta ruta según tu proyecto
-                }
-
-                String texto = nombre + " " + apellido + " (@" + id + ")";
-
-                switch (index) {
-                    case 0:
-                        ImgInt1.setIcon(icono);
-                        jLabel1.setText(texto);
-                        break;
-                    case 1:
-                        ImgInt2.setIcon(icono);
-                        jLabel5.setText(texto);
-                        break;
-                    case 2:
-                        ImgInt3.setIcon(icono);
-                        jLabel6.setText(texto);
-                        break;
-                }
-                index++;
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error al cargar usuarios sugeridos: " + e.getMessage());
-        }
-    }
 }
-
