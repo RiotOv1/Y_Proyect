@@ -59,7 +59,7 @@ public class PublicacionDAO {
         return publicaciones;
     }
    
-   public List<Publicacion> obtenerTodasPublicacionesUsuario() {
+   public List<Publicacion> obtenerTodasPublicacionesUsuario(String idUsuario) {
         List<Publicacion> publicaciones = new ArrayList<>();
         String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
                 "JOIN Usuario u ON p.id_usuario = u.id_usuario " + 
@@ -68,7 +68,7 @@ public class PublicacionDAO {
         
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, SesionUsuario.idUsuario);
+            ps.setString(1, idUsuario);
             ResultSet rs = ps.executeQuery();
         
             
@@ -91,7 +91,7 @@ public class PublicacionDAO {
         return publicaciones;
     }
    
-   public List<Publicacion> obtenerTodasPublicacionesUsuarioTxt() {
+   public List<Publicacion> obtenerTodasPublicacionesUsuarioTxt(String idUsuario) {
         List<Publicacion> publicacionestxt = new ArrayList<>();
         String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
                 "JOIN Usuario u ON p.id_usuario = u.id_usuario " + 
@@ -100,7 +100,7 @@ public class PublicacionDAO {
         
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, SesionUsuario.idUsuario);
+            ps.setString(1, idUsuario);
             ResultSet rs = ps.executeQuery();
         
             
