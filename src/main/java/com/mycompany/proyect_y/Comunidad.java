@@ -15,6 +15,7 @@ public class Comunidad extends javax.swing.JFrame {
     public Comunidad() {
         initComponents();
         this.setLocationRelativeTo(null);
+        mostrarUsuariosAleatorios();
         Img();
         cargarFotoPerfil(); 
         Connection con =  DB_Conection.conectar(); // tu clase de conexión
@@ -1383,4 +1384,56 @@ public class Comunidad extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     // End of variables declaration//GEN-END:variables
+    private void mostrarUsuariosAleatorios() {
+        Connection con = DB_Conection.conectar();
+        if (con != null) {
+            try {
+                String sql = "SELECT id_usuario, nombre, apellido, foto_perfil FROM usuario WHERE id_usuario != ? ORDER BY RAND() LIMIT 3";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, SesionUsuario.idUsuario);
+                ResultSet rs = ps.executeQuery();
+
+                int index = 0;
+                while (rs.next()) {
+                    String id = rs.getString("id_usuario");
+                    String nombre = rs.getString("nombre") + " " + rs.getString("apellido");
+                    byte[] imgBytes = rs.getBytes("foto_perfil");
+
+                    ImageIcon icono = null;
+                    if (imgBytes != null) {
+                        ImageIcon rawIcon = new ImageIcon(imgBytes);
+                        Image escalar = rawIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                        icono = new ImageIcon(escalar);
+                    }
+
+                    switch (index) {
+                        case 0:
+                            UserInt1.setText("@" + id);
+                            if (icono != null) ImgInt1.setIcon(icono);
+                            else ImgInt1.setText("Sin imagen");
+                            break;
+                        case 1:
+                            UserInt2.setText("@" + id);
+                            if (icono != null) ImgInt2.setIcon(icono);
+                            else ImgInt2.setText("Sin imagen");
+                            break;
+                        case 2:
+                            UserInt3.setText("@" + id);
+                            if (icono != null) ImgInt3.setIcon(icono);
+                            else ImgInt3.setText("Sin imagen");
+                            break;
+                    }
+                    index++;
+                }
+
+                rs.close();
+                ps.close();
+                con.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
