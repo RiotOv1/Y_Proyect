@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Conection.DB_Conection;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,6 +31,7 @@ public class Menu_Principal extends javax.swing.JFrame {
     private List<Publicacion> publicaciones;
     private int publicacionActual = 0;
     File archivoSeleccionado;
+    String UsuarioPubActual;
     
     public Menu_Principal() {
         initComponents();
@@ -76,6 +78,30 @@ public class Menu_Principal extends javax.swing.JFrame {
                     String sql = "SELECT nombre, apellido FROM usuario WHERE id_usuario = ?";
                     PreparedStatement ps = con.prepareStatement(sql);
                     ps.setString(1, SesionUsuario.idUsuario); // usamos el ID guardado en la sesión
+                    ResultSet rs = ps.executeQuery();
+                        
+                    if (rs.next()) {
+                        nombre = rs.getString("nombre");
+                        apellido = rs.getString("apellido");
+                    }
+
+                    rs.close();
+                    ps.close();
+
+                } catch (SQLException e) {
+            }
+        }
+        return (nombre + " " + apellido);
+    }
+                public String obtenerNombreUsuario(String id_usuario) {
+            String nombre = "";
+            String apellido = "";
+            Connection con =  DB_Conection.conectar(); // tu clase de conexión
+            if (con != null) {
+                try {
+                    String sql = "SELECT nombre, apellido FROM usuario WHERE id_usuario = ?";
+                    PreparedStatement ps = con.prepareStatement(sql);
+                    ps.setString(1, id_usuario); // usamos el ID guardado en la sesión
                     ResultSet rs = ps.executeQuery();
                         
                     if (rs.next()) {
@@ -210,8 +236,15 @@ public class Menu_Principal extends javax.swing.JFrame {
     
     private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JButton nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
     ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts, JLabel imagen_publi, JButton btnComentarios){
-        //Variables locales
+        UsuarioPubActual = publica.getIdUsuario();
         
+        if(publica.getMultimediaPubli()==null){
+            PanelNot1.setPreferredSize(new Dimension(300, 200));
+            PanelNot1.revalidate(); // Reorganiza el layout
+            PanelNot1.repaint();    // Redibuja el panel
+        }
+        
+        //Variables locales
         // Configurar iconos iniciales
         String likeIcon = "src\\main\\java\\Multimedia\\Yap-icon.png";
         ImageIcon imageLike = new ImageIcon(likeIcon);
@@ -232,7 +265,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         btnComentarios.setIcon(IconoComentario);
         
         //Configurar los componentes con los datos de la publicacion
-        nomUsuario.setText(publica.getIdUsuario());
+        nomUsuario.setText(obtenerNombreUsuario(publica.getIdUsuario()));
         btnUsuario.setText("@"+publica.getIdUsuario());
         lblTexto.setText(publica.getTexto());
         Timestamp timestamp = publica.getFechaHora();
@@ -387,6 +420,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         Y_logo = new javax.swing.JLabel();
         LabelAviso = new javax.swing.JLabel();
         ImgSeleccion = new javax.swing.JLabel();
+        AtrasBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -412,12 +446,11 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         PanelNot1.setBackground(new java.awt.Color(59, 28, 50));
         PanelNot1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        PanelNot1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNot1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PanelNot1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuario.setText("ImgNot");
-        PanelNot1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 70));
+        lblUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         meGustaBtn.setBackground(new java.awt.Color(59, 28, 50));
         meGustaBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -430,7 +463,6 @@ public class Menu_Principal extends javax.swing.JFrame {
                 meGustaBtnActionPerformed(evt);
             }
         });
-        PanelNot1.add(meGustaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 40, 40));
 
         comentarBtn.setBackground(new java.awt.Color(59, 28, 50));
         comentarBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -443,7 +475,6 @@ public class Menu_Principal extends javax.swing.JFrame {
                 comentarBtnActionPerformed(evt);
             }
         });
-        PanelNot1.add(comentarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, 40, 40));
 
         repostearBtn.setBackground(new java.awt.Color(59, 28, 50));
         repostearBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -456,22 +487,18 @@ public class Menu_Principal extends javax.swing.JFrame {
                 repostearBtnActionPerformed(evt);
             }
         });
-        PanelNot1.add(repostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 40, 40));
 
         lblLikesLabel.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLikesLabel.setText("0");
-        PanelNot1.add(lblLikesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 40, 40));
 
         lblComentarLabel.setForeground(new java.awt.Color(255, 255, 255));
         lblComentarLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblComentarLabel.setText("0");
-        PanelNot1.add(lblComentarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, 40, 40));
 
         lblRepostearLabel.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRepostearLabel.setText("0");
-        PanelNot1.add(lblRepostearLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 460, 40, 40));
 
         Nombre_usuarioBtn.setBackground(new java.awt.Color(59, 28, 50));
         Nombre_usuarioBtn.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -480,7 +507,17 @@ public class Menu_Principal extends javax.swing.JFrame {
         Nombre_usuarioBtn.setBorder(null);
         Nombre_usuarioBtn.setBorderPainted(false);
         Nombre_usuarioBtn.setContentAreaFilled(false);
-        PanelNot1.add(Nombre_usuarioBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 190, 40));
+        Nombre_usuarioBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Nombre_usuarioBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Nombre_usuarioBtnMousePressed(evt);
+            }
+        });
+        Nombre_usuarioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Nombre_usuarioBtnActionPerformed(evt);
+            }
+        });
 
         UsuarioPub5.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         UsuarioPub5.setForeground(new java.awt.Color(204, 204, 204));
@@ -496,22 +533,83 @@ public class Menu_Principal extends javax.swing.JFrame {
                 UsuarioPub5ActionPerformed(evt);
             }
         });
-        PanelNot1.add(UsuarioPub5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
 
+        Fecha_Label.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Fecha_Label.setForeground(new java.awt.Color(255, 255, 255));
         Fecha_Label.setText("Fecha_posts");
-        PanelNot1.add(Fecha_Label, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 140, 30));
 
         lblTexto_publicacion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTexto_publicacion.setForeground(new java.awt.Color(255, 255, 255));
         lblTexto_publicacion.setText("Texto_publicacion");
-        PanelNot1.add(lblTexto_publicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 690, 50));
 
         ImagenPublicacion_lbl.setForeground(new java.awt.Color(255, 255, 255));
-        ImagenPublicacion_lbl.setText("ImagenPublicacion1");
-        PanelNot1.add(ImagenPublicacion_lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 690, 310));
+        ImagenPublicacion_lbl.setText("No hay imagen");
 
-        jPanel1.add(PanelNot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, 730, 520));
+        javax.swing.GroupLayout PanelNot1Layout = new javax.swing.GroupLayout(PanelNot1);
+        PanelNot1.setLayout(PanelNot1Layout);
+        PanelNot1Layout.setHorizontalGroup(
+            PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNot1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(UsuarioPub5))
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addComponent(Nombre_usuarioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Fecha_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))))
+            .addGroup(PanelNot1Layout.createSequentialGroup()
+                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(lblTexto_publicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(ImagenPublicacion_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(lblLikesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(meGustaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblComentarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(comentarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblRepostearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(repostearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        PanelNot1Layout.setVerticalGroup(
+            PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNot1Layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelNot1Layout.createSequentialGroup()
+                        .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Nombre_usuarioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Fecha_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)
+                        .addComponent(UsuarioPub5)))
+                .addGap(10, 10, 10)
+                .addComponent(lblTexto_publicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(ImagenPublicacion_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLikesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(meGustaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblComentarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comentarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRepostearLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(repostearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel1.add(PanelNot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, 730, 550));
 
         PerfilPanel.setBackground(new java.awt.Color(0, 0, 0));
         PerfilPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -519,15 +617,29 @@ public class Menu_Principal extends javax.swing.JFrame {
         NombreUsuario.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         NombreUsuario.setForeground(new java.awt.Color(204, 204, 204));
         NombreUsuario.setText("Usuario");
-        PerfilPanel.add(NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        NombreUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                NombreUsuarioMousePressed(evt);
+            }
+        });
+        PerfilPanel.add(NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         IdUsuario2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         IdUsuario2.setForeground(new java.awt.Color(106, 30, 85));
         IdUsuario2.setText("@Usuario1");
-        PerfilPanel.add(IdUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
-        PerfilPanel.add(Perfil_Img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 60));
+        PerfilPanel.add(IdUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
 
-        jPanel1.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 270, 60));
+        Perfil_Img1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Perfil_Img1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Perfil_Img1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Perfil_Img1MousePressed(evt);
+            }
+        });
+        PerfilPanel.add(Perfil_Img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 60, 60));
+
+        jPanel1.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 700, 320, 80));
 
         PublicacionesBtn2.setFont(new java.awt.Font("Roboto Black", 0, 10)); // NOI18N
         PublicacionesBtn2.setForeground(new java.awt.Color(204, 204, 204));
@@ -736,6 +848,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         PublicarBtn.setAlignmentY(0.0F);
         PublicarBtn.setBorder(null);
         PublicarBtn.setBorderPainted(false);
+        PublicarBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PublicarBtn.setDefaultCapable(false);
         PublicarBtn.setFocusPainted(false);
         PublicarBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -764,6 +877,13 @@ public class Menu_Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Agregar_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 80, 60, 60));
+
+        Perfil_Img2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Perfil_Img2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Perfil_Img2MousePressed(evt);
+            }
+        });
         jPanel1.add(Perfil_Img2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 60, 60));
 
         jScrollPane1.setBorder(null);
@@ -797,6 +917,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         ParaTiBtn1.setAlignmentY(0.0F);
         ParaTiBtn1.setBorderPainted(false);
         ParaTiBtn1.setContentAreaFilled(false);
+        ParaTiBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ParaTiBtn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         ParaTiBtn1.setOpaque(true);
         ParaTiBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -823,6 +944,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         SiguiendoBtn1.setAlignmentY(0.0F);
         SiguiendoBtn1.setBorderPainted(false);
         SiguiendoBtn1.setContentAreaFilled(false);
+        SiguiendoBtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         SiguiendoBtn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         SiguiendoBtn1.setOpaque(true);
         SiguiendoBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -849,6 +971,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         SiguienteBtn.setAlignmentY(0.0F);
         SiguienteBtn.setBorderPainted(false);
         SiguienteBtn.setContentAreaFilled(false);
+        SiguienteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         SiguienteBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         SiguienteBtn.setOpaque(true);
         SiguienteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -867,7 +990,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                 SiguienteBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(SiguienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 740, 380, 60));
+        jPanel1.add(SiguienteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 760, 380, 60));
 
         ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
         ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -954,10 +1077,40 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         LabelAviso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         LabelAviso.setForeground(new java.awt.Color(166, 77, 121));
-        jPanel1.add(LabelAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 130, 30));
+        jPanel1.add(LabelAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 170, 30));
 
         ImgSeleccion.setText("jLabel1");
         jPanel1.add(ImgSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 80, 60, 60));
+
+        AtrasBtn.setBackground(new java.awt.Color(0, 0, 0));
+        AtrasBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        AtrasBtn.setForeground(new java.awt.Color(204, 204, 204));
+        AtrasBtn.setText("<  Atras");
+        AtrasBtn.setToolTipText("");
+        AtrasBtn.setActionCommand("");
+        AtrasBtn.setAlignmentY(0.0F);
+        AtrasBtn.setBorderPainted(false);
+        AtrasBtn.setContentAreaFilled(false);
+        AtrasBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AtrasBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        AtrasBtn.setOpaque(true);
+        AtrasBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AtrasBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AtrasBtnMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                AtrasBtnMousePressed(evt);
+            }
+        });
+        AtrasBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtrasBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(AtrasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 760, 380, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1211,8 +1364,10 @@ public class Menu_Principal extends javax.swing.JFrame {
             ps.setInt(6, num_compartidos);
             ps.setString(7, id_usuario);
             
-            FileInputStream fis = new FileInputStream(archivoSeleccionado);
-            ps.setBinaryStream(3, fis, (int) archivoSeleccionado.length());
+            if(archivoSeleccionado!=null){            
+                FileInputStream fis = new FileInputStream(archivoSeleccionado);
+                ps.setBinaryStream(3, fis, (int) archivoSeleccionado.length());
+            }
             
             int filasInsertadas = ps.executeUpdate();// Ejecutar la consulta
         
@@ -1273,6 +1428,77 @@ public class Menu_Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Agregar_ImgMousePressed
 
+    private void Nombre_usuarioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_usuarioBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Nombre_usuarioBtnActionPerformed
+
+    private void AtrasBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AtrasBtnMouseEntered
+        AtrasBtn.setBackground(new java.awt.Color(59, 28, 50));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AtrasBtnMouseEntered
+
+    private void AtrasBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AtrasBtnMouseExited
+        AtrasBtn.setBackground(Color.BLACK);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AtrasBtnMouseExited
+
+    private void AtrasBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AtrasBtnMousePressed
+        publicacionDAO = new PublicacionDAO();
+        publicaciones = publicacionDAO.obtenerTodasPublicaciones();
+        bandera_likes = false;
+        bandera_repost = false;
+
+        if(publicacionActual>0){
+            publicacionActual--;
+        } else {
+            publicacionActual=publicaciones.size()-1;
+        }
+        
+        if (!publicaciones.isEmpty()){
+            //Panel 
+                configurarPanelPublicacion(
+                        PanelNot1, publicaciones.get(publicacionActual),
+                        lblUsuario,Nombre_usuarioBtn,UsuarioPub5,
+                        lblTexto_publicacion,Fecha_Label,
+                        meGustaBtn, lblLikesLabel,
+                        repostearBtn, lblRepostearLabel,ImagenPublicacion_lbl,comentarBtn
+                        );
+            }
+        // TODO add your handling code here
+    }//GEN-LAST:event_AtrasBtnMousePressed
+
+    private void AtrasBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtrasBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AtrasBtnActionPerformed
+
+    private void NombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuarioMousePressed
+        this.dispose();
+        new Perfil().setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreUsuarioMousePressed
+
+    private void Perfil_Img2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Perfil_Img2MousePressed
+        this.dispose();
+        new Perfil().setVisible(true);            
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Perfil_Img2MousePressed
+
+    private void Perfil_Img1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Perfil_Img1MousePressed
+        this.dispose();
+        new Perfil().setVisible(true);        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Perfil_Img1MousePressed
+
+    private void Nombre_usuarioBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Nombre_usuarioBtnMousePressed
+        this.dispose();
+        try {
+            new PerfilPersona(UsuarioPubActual).setVisible(true);
+            // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Nombre_usuarioBtnMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1313,6 +1539,7 @@ public class Menu_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Agregar_Img;
+    private javax.swing.JButton AtrasBtn;
     private javax.swing.JButton ConfiBtn;
     private javax.swing.JTextArea CrearPublicacionTextArea;
     private javax.swing.JButton CuentaBtn20;
