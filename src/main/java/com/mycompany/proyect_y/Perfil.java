@@ -42,6 +42,7 @@ public class Perfil extends javax.swing.JFrame {
     public Perfil() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         Img();
         
         cargarFotoPerfil(); 
@@ -49,12 +50,14 @@ public class Perfil extends javax.swing.JFrame {
         ObtenerDatosUsuario();
         String IdUsuario = SesionUsuario.idUsuario;
         if (IdUsuario != null) {
-            String nom = obtenerNombreUsuario();
+            String nom = obtenerNombreUsuario(IdUsuario);
             NombreUsuario.setText(nom);
             IdUsuario2.setText( "@" + IdUsuario);
             NombreComunidad.setText(nom);
             UsuarioComunidad.setText( "@" + IdUsuario);
             NombrePub1.setText(nom);
+            NombrePub4.setText(nom);
+            
             UsuarioPub1.setText( "@" + IdUsuario);
     }
         FechaPanel.setVisible(false);
@@ -72,7 +75,7 @@ public class Perfil extends javax.swing.JFrame {
             if(publicaciones.size()>0){
                 configurarPanelPublicacion(
                         PanelNot1, publicaciones.get(0),
-                        ImgPub1,Nombre_usuarioBtn2,UsuarioPub1,
+                        ImgPub1,NombrePub1,UsuarioPub1,
                         DescripcionPub1,Fecha_Label2,
                         meGustaBtn2, lblLikesLabel2,
                         repostearBtn2, lblRepostearLabel2,imagen1,comentarBtn2
@@ -84,7 +87,7 @@ public class Perfil extends javax.swing.JFrame {
             //Panel 2
             if(publicaciones.size()>1){
                 configurarPanelPublicacion(PanelNot2,publicaciones.get(1),
-                        lblUsuario1, Nombre_usuarioBtn1, UsuarioPub6,
+                        lblUsuario1, NombrePub4, UsuarioPub3,
                         lblTexto_publicacion1,Fecha_Label1,
                         meGustaBtn1,lblLikesLabel1,
                         repostearBtn1,lblRepostearLabel1,imagen2 ,comentarBtn1
@@ -157,8 +160,8 @@ public class Perfil extends javax.swing.JFrame {
         btnComentarios.setIcon(IconoComentario);
         
         //Configurar los componentes con los datos de la publicacion
-        NombrePub2.setText(publica.getIdUsuario());
-        NombrePub3.setText(publica.getIdUsuario());
+        NombrePub2.setText(obtenerNombreUsuario(publica.getIdUsuario()));
+        NombrePub3.setText(obtenerNombreUsuario(publica.getIdUsuario()));
         btnUsuario.setText("@"+publica.getIdUsuario());
         lblTexto.setText("<html><p>" + publica.getTexto() + "</html></p>");
         lblFecha.setText(publica.getFechaHora().toString());
@@ -236,7 +239,7 @@ public class Perfil extends javax.swing.JFrame {
     
         boolean bandera_likes = false; //Variable para verificar que no haya likes repetidos
     boolean bandera_repost = false; //Variable para verificar que no haya repost repetidos
-    private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JButton nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
+    private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JLabel nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
     ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts, JLabel imagen, JButton btnComentarios){
         //Variables locales
         
@@ -261,6 +264,8 @@ public class Perfil extends javax.swing.JFrame {
         btnComentarios.setIcon(IconoComentario);
         
         //Configurar los componentes con los datos de la publicacion
+        NombrePub1.setText(obtenerNombreUsuario(publica.getIdUsuario()));
+        NombrePub4.setText(obtenerNombreUsuario(publica.getIdUsuario()));
         nomUsuario.setText(publica.getIdUsuario());
         btnUsuario.setText("@"+publica.getIdUsuario());
         lblTexto.setText("<html><p>" + publica.getTexto() + "</html></p>");
@@ -347,7 +352,7 @@ public class Perfil extends javax.swing.JFrame {
     }
     
     
-    public String obtenerNombreUsuario() {
+    public String obtenerNombreUsuario(String usuario) {
             String nombre = "";
             String apellido = "";
             Connection con =  DB_Conection.conectar(); // tu clase de conexión
@@ -355,7 +360,7 @@ public class Perfil extends javax.swing.JFrame {
                 try {
                     String sql = "SELECT nombre, apellido FROM usuario WHERE id_usuario = ?";
                     PreparedStatement ps = con.prepareStatement(sql);
-                    ps.setString(1, SesionUsuario.idUsuario); // usamos el ID guardado en la sesión
+                    ps.setString(1, usuario); // usamos el ID guardado en la sesión
                     ResultSet rs = ps.executeQuery();
                         
                     if (rs.next()) {
@@ -390,12 +395,28 @@ public class Perfil extends javax.swing.JFrame {
                         ImageIcon icon = new ImageIcon(imagenBytes);
                         Image img = icon.getImage().getScaledInstance(FotoPerfil.getWidth(), FotoPerfil.getHeight(), Image.SCALE_SMOOTH);
                         FotoPerfil.setIcon(new ImageIcon(img));
-                        lblUsuario1.setIcon(new ImageIcon(img));
-                        ImgPub1.setIcon(new ImageIcon(img));
-                        Perfil_Img1.setIcon(new ImageIcon(img));
-                        PerfilPic.setIcon(new ImageIcon(img));
+                        Image img1 = icon.getImage().getScaledInstance(lblUsuario1.getWidth(), lblUsuario1.getHeight(), Image.SCALE_SMOOTH);
+                        lblUsuario1.setIcon(new ImageIcon(img1));
+                        Image img2 = icon.getImage().getScaledInstance(ImgPub1.getWidth(), ImgPub1.getHeight(), Image.SCALE_SMOOTH);
+                        ImgPub1.setIcon(new ImageIcon(img2));
+                        Image img3 = icon.getImage().getScaledInstance(Perfil_Img1.getWidth(), Perfil_Img1.getHeight(), Image.SCALE_SMOOTH);
+                        Perfil_Img1.setIcon(new ImageIcon(img3));
+                        Image img4 = icon.getImage().getScaledInstance(PerfilPic.getWidth(), PerfilPic.getHeight(), Image.SCALE_SMOOTH);
+                        PerfilPic.setIcon(new ImageIcon(img4));
                     } else {
-                        FotoPerfil.setText("Sin imagen");
+                        String url = "src\\main\\java\\Multimedia\\Img-Perfil.png";
+                        ImageIcon icon = new ImageIcon(url);
+                        Image img0 = icon.getImage().getScaledInstance(FotoPerfil.getWidth(), FotoPerfil.getHeight(), Image.SCALE_SMOOTH);
+                        FotoPerfil.setIcon(new ImageIcon(img0));
+                        Image img10 = icon.getImage().getScaledInstance(lblUsuario1.getWidth(), lblUsuario1.getHeight(), Image.SCALE_SMOOTH);
+                        lblUsuario1.setIcon(new ImageIcon(img10));
+                        Image img20 = icon.getImage().getScaledInstance(ImgPub1.getWidth(), ImgPub1.getHeight(), Image.SCALE_SMOOTH);
+                        ImgPub1.setIcon(new ImageIcon(img20));
+                        Image img30 = icon.getImage().getScaledInstance(Perfil_Img1.getWidth(), Perfil_Img1.getHeight(), Image.SCALE_SMOOTH);
+                        Perfil_Img1.setIcon(new ImageIcon(img30));
+                        Image img40 = icon.getImage().getScaledInstance(PerfilPic.getWidth(), PerfilPic.getHeight(), Image.SCALE_SMOOTH);
+                        PerfilPic.setIcon(new ImageIcon(img40));
+                        
                     }
                 }
                 
@@ -516,7 +537,7 @@ public class Perfil extends javax.swing.JFrame {
         //Creamos el Objeto de el icono y añadimos la imagen con las instancias
         ImageIcon Icono = new ImageIcon(img);
         //Ponemos la imagen la etiqueta que querramos
-        Perfil_Img.setIcon(Icono);
+        Perfil_Img1.setIcon(Icono);
 
         //IconoInicio
         String url1 = "src\\main\\java\\Multimedia\\Icon-Inicio.png";
@@ -712,7 +733,6 @@ public class Perfil extends javax.swing.JFrame {
         Perfil_Img1 = new javax.swing.JLabel();
         NombreUsuario = new javax.swing.JLabel();
         IdUsuario2 = new javax.swing.JLabel();
-        Perfil_Img = new javax.swing.JLabel();
         PublicacionesBtn2 = new javax.swing.JButton();
         QuePasa = new javax.swing.JLabel();
         SeguirCuentaBtn3 = new javax.swing.JButton();
@@ -757,7 +777,6 @@ public class Perfil extends javax.swing.JFrame {
         comentarBtn2 = new javax.swing.JButton();
         repostearBtn2 = new javax.swing.JButton();
         lblRepostearLabel2 = new javax.swing.JLabel();
-        Nombre_usuarioBtn2 = new javax.swing.JButton();
         PanelNot2 = new javax.swing.JPanel();
         imagen2 = new javax.swing.JLabel();
         lblUsuario1 = new javax.swing.JLabel();
@@ -767,10 +786,10 @@ public class Perfil extends javax.swing.JFrame {
         lblLikesLabel1 = new javax.swing.JLabel();
         lblComentarLabel1 = new javax.swing.JLabel();
         lblRepostearLabel1 = new javax.swing.JLabel();
-        Nombre_usuarioBtn1 = new javax.swing.JButton();
-        UsuarioPub6 = new javax.swing.JButton();
         Fecha_Label1 = new javax.swing.JLabel();
         lblTexto_publicacion1 = new javax.swing.JLabel();
+        NombrePub4 = new javax.swing.JLabel();
+        UsuarioPub3 = new javax.swing.JButton();
         PublicacionesTexto = new javax.swing.JPanel();
         PanelTxt1 = new javax.swing.JPanel();
         UsuarioPub2 = new javax.swing.JButton();
@@ -850,6 +869,10 @@ public class Perfil extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(1550, 820));
+        setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(1550, 820));
@@ -1064,7 +1087,6 @@ public class Perfil extends javax.swing.JFrame {
         IdUsuario2.setForeground(new java.awt.Color(106, 30, 85));
         IdUsuario2.setText("@Usuario1");
         PerfilPanel.add(IdUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
-        PerfilPanel.add(Perfil_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
 
         jPanel1.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 270, 60));
 
@@ -1346,6 +1368,7 @@ public class Perfil extends javax.swing.JFrame {
         PanelNot1.setBackground(new java.awt.Color(106, 30, 85));
         PanelNot1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         PanelNot1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNot1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         UsuarioPub1.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
         UsuarioPub1.setForeground(new java.awt.Color(204, 204, 204));
@@ -1361,30 +1384,35 @@ public class Perfil extends javax.swing.JFrame {
                 UsuarioPub1ActionPerformed(evt);
             }
         });
+        PanelNot1.add(UsuarioPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 28, -1, -1));
 
         NombrePub1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         NombrePub1.setForeground(new java.awt.Color(204, 204, 204));
         NombrePub1.setText("Usuario");
+        PanelNot1.add(NombrePub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
 
         DescripcionPub1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         DescripcionPub1.setForeground(new java.awt.Color(204, 204, 204));
         DescripcionPub1.setText("Descripcion...");
+        PanelNot1.add(DescripcionPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 435, 90));
 
         ImgPub1.setForeground(new java.awt.Color(255, 255, 255));
-        ImgPub1.setText("ImgNot");
+        PanelNot1.add(ImgPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 7, 54, 54));
 
         imagen1.setForeground(new java.awt.Color(255, 255, 255));
         imagen1.setToolTipText("");
+        PanelNot1.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 7, 295, 235));
 
         Fecha_Label2.setForeground(new java.awt.Color(255, 255, 255));
         Fecha_Label2.setText("Fecha_posts");
+        PanelNot1.add(Fecha_Label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 28, 130, -1));
 
         lblLikesLabel2.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel2.setText("0");
+        PanelNot1.add(lblLikesLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 80, -1));
 
         meGustaBtn2.setBackground(new java.awt.Color(59, 28, 50));
         meGustaBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        meGustaBtn2.setText("-");
         meGustaBtn2.setBorder(null);
         meGustaBtn2.setBorderPainted(false);
         meGustaBtn2.setContentAreaFilled(false);
@@ -1393,20 +1421,21 @@ public class Perfil extends javax.swing.JFrame {
                 meGustaBtn2ActionPerformed(evt);
             }
         });
+        PanelNot1.add(meGustaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 200, 40, 30));
 
         lblComentarLabel2.setForeground(new java.awt.Color(255, 255, 255));
         lblComentarLabel2.setText("0");
+        PanelNot1.add(lblComentarLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 210, 80, -1));
 
         comentarBtn2.setBackground(new java.awt.Color(106, 30, 85));
         comentarBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        comentarBtn2.setText("-");
         comentarBtn2.setBorder(null);
         comentarBtn2.setBorderPainted(false);
         comentarBtn2.setContentAreaFilled(false);
+        PanelNot1.add(comentarBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 200, 40, 30));
 
         repostearBtn2.setBackground(new java.awt.Color(59, 28, 50));
         repostearBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        repostearBtn2.setText("-");
         repostearBtn2.setBorder(null);
         repostearBtn2.setBorderPainted(false);
         repostearBtn2.setContentAreaFilled(false);
@@ -1415,89 +1444,11 @@ public class Perfil extends javax.swing.JFrame {
                 repostearBtn2ActionPerformed(evt);
             }
         });
+        PanelNot1.add(repostearBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 200, 40, 30));
 
         lblRepostearLabel2.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel2.setText("0");
-
-        Nombre_usuarioBtn2.setBackground(new java.awt.Color(106, 30, 85));
-        Nombre_usuarioBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        Nombre_usuarioBtn2.setText("Nombre_usuario");
-        Nombre_usuarioBtn2.setBorder(null);
-        Nombre_usuarioBtn2.setBorderPainted(false);
-        Nombre_usuarioBtn2.setContentAreaFilled(false);
-
-        javax.swing.GroupLayout PanelNot1Layout = new javax.swing.GroupLayout(PanelNot1);
-        PanelNot1.setLayout(PanelNot1Layout);
-        PanelNot1Layout.setHorizontalGroup(
-            PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNot1Layout.createSequentialGroup()
-                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelNot1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(ImgPub1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NombrePub1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UsuarioPub1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Nombre_usuarioBtn2)
-                        .addGap(176, 176, 176))
-                    .addGroup(PanelNot1Layout.createSequentialGroup()
-                        .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelNot1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(Fecha_Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelNot1Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(meGustaBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblLikesLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comentarBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(11, 11, 11)
-                                .addComponent(lblComentarLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(repostearBtn2)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblRepostearLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(PanelNot1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(DescripcionPub1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imagen1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        PanelNot1Layout.setVerticalGroup(
-            PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNot1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelNot1Layout.createSequentialGroup()
-                        .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ImgPub1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NombrePub1)
-                            .addComponent(UsuarioPub1)
-                            .addComponent(Nombre_usuarioBtn2))
-                        .addGap(28, 28, 28)
-                        .addComponent(Fecha_Label2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DescripcionPub1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblLikesLabel2)
-                                .addComponent(meGustaBtn2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comentarBtn2))
-                            .addGroup(PanelNot1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblRepostearLabel2)
-                                .addComponent(lblComentarLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(repostearBtn2)))
-                        .addContainerGap(15, Short.MAX_VALUE))
-                    .addGroup(PanelNot1Layout.createSequentialGroup()
-                        .addComponent(imagen1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-        );
+        PanelNot1.add(lblRepostearLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 210, 90, -1));
 
         PanelNot2.setBackground(new java.awt.Color(106, 30, 85));
         PanelNot2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1508,12 +1459,10 @@ public class Perfil extends javax.swing.JFrame {
         PanelNot2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 290, 220));
 
         lblUsuario1.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuario1.setText("ImgNot");
         PanelNot2.add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
 
         meGustaBtn1.setBackground(new java.awt.Color(59, 28, 50));
         meGustaBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        meGustaBtn1.setText("-");
         meGustaBtn1.setBorder(null);
         meGustaBtn1.setBorderPainted(false);
         meGustaBtn1.setContentAreaFilled(false);
@@ -1522,19 +1471,17 @@ public class Perfil extends javax.swing.JFrame {
                 meGustaBtn1ActionPerformed(evt);
             }
         });
-        PanelNot2.add(meGustaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 20));
+        PanelNot2.add(meGustaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 200, 40, 30));
 
         comentarBtn1.setBackground(new java.awt.Color(106, 30, 85));
         comentarBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        comentarBtn1.setText("-");
         comentarBtn1.setBorder(null);
         comentarBtn1.setBorderPainted(false);
         comentarBtn1.setContentAreaFilled(false);
-        PanelNot2.add(comentarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+        PanelNot2.add(comentarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 200, 40, 30));
 
         repostearBtn1.setBackground(new java.awt.Color(59, 28, 50));
         repostearBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        repostearBtn1.setText("-");
         repostearBtn1.setBorder(null);
         repostearBtn1.setBorderPainted(false);
         repostearBtn1.setContentAreaFilled(false);
@@ -1543,51 +1490,48 @@ public class Perfil extends javax.swing.JFrame {
                 repostearBtn1ActionPerformed(evt);
             }
         });
-        PanelNot2.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, -1, -1));
+        PanelNot2.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 200, 40, 30));
 
         lblLikesLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel1.setText("0");
-        PanelNot2.add(lblLikesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 80, -1));
+        PanelNot2.add(lblLikesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 80, -1));
 
         lblComentarLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblComentarLabel1.setText("0");
-        PanelNot2.add(lblComentarLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 80, -1));
+        PanelNot2.add(lblComentarLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 210, 80, -1));
 
         lblRepostearLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel1.setText("0");
-        PanelNot2.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 90, -1));
-
-        Nombre_usuarioBtn1.setBackground(new java.awt.Color(106, 30, 85));
-        Nombre_usuarioBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        Nombre_usuarioBtn1.setText("Nombre_usuario");
-        Nombre_usuarioBtn1.setBorder(null);
-        Nombre_usuarioBtn1.setBorderPainted(false);
-        Nombre_usuarioBtn1.setContentAreaFilled(false);
-        PanelNot2.add(Nombre_usuarioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
-
-        UsuarioPub6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        UsuarioPub6.setForeground(new java.awt.Color(204, 204, 204));
-        UsuarioPub6.setText("@Usuario");
-        UsuarioPub6.setToolTipText("");
-        UsuarioPub6.setBorder(null);
-        UsuarioPub6.setBorderPainted(false);
-        UsuarioPub6.setContentAreaFilled(false);
-        UsuarioPub6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UsuarioPub6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UsuarioPub6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuarioPub6ActionPerformed(evt);
-            }
-        });
-        PanelNot2.add(UsuarioPub6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
+        PanelNot2.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 210, 90, -1));
 
         Fecha_Label1.setForeground(new java.awt.Color(255, 255, 255));
         Fecha_Label1.setText("Fecha_posts");
-        PanelNot2.add(Fecha_Label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 130, -1));
+        PanelNot2.add(Fecha_Label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 28, 130, -1));
 
         lblTexto_publicacion1.setForeground(new java.awt.Color(255, 255, 255));
         lblTexto_publicacion1.setText("Texto_publicacion");
-        PanelNot2.add(lblTexto_publicacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 410, 80));
+        PanelNot2.add(lblTexto_publicacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 410, 80));
+
+        NombrePub4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub4.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub4.setText("Usuario");
+        PanelNot2.add(NombrePub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
+
+        UsuarioPub3.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub3.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub3.setText("@Usuario");
+        UsuarioPub3.setToolTipText("");
+        UsuarioPub3.setBorder(null);
+        UsuarioPub3.setBorderPainted(false);
+        UsuarioPub3.setContentAreaFilled(false);
+        UsuarioPub3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub3ActionPerformed(evt);
+            }
+        });
+        PanelNot2.add(UsuarioPub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 28, -1, -1));
 
         javax.swing.GroupLayout PublicacionesImagenesLayout = new javax.swing.GroupLayout(PublicacionesImagenes);
         PublicacionesImagenes.setLayout(PublicacionesImagenesLayout);
@@ -1596,8 +1540,8 @@ public class Perfil extends javax.swing.JFrame {
             .addGroup(PublicacionesImagenesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelNot2, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
-                    .addComponent(PanelNot1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(PanelNot2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelNot1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PublicacionesImagenesLayout.setVerticalGroup(
@@ -1633,7 +1577,7 @@ public class Perfil extends javax.swing.JFrame {
                 UsuarioPub2ActionPerformed(evt);
             }
         });
-        PanelTxt1.add(UsuarioPub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 28, -1, -1));
+        PanelTxt1.add(UsuarioPub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 28, -1, -1));
 
         NombrePub2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         NombrePub2.setForeground(new java.awt.Color(204, 204, 204));
@@ -1774,7 +1718,7 @@ public class Perfil extends javax.swing.JFrame {
                 UsuarioPub7ActionPerformed(evt);
             }
         });
-        PanelTxt2.add(UsuarioPub7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 24, -1, 20));
+        PanelTxt2.add(UsuarioPub7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 24, -1, 20));
 
         Fecha_Label4.setForeground(new java.awt.Color(255, 255, 255));
         Fecha_Label4.setText("Fecha_posts");
@@ -2543,10 +2487,6 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
         GuardarCambios();
     }//GEN-LAST:event_SaveActionPerformed
 
-    private void UsuarioPub6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub6ActionPerformed
-
     private void repostearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_repostearBtn1ActionPerformed
@@ -2627,6 +2567,10 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
             SubMenu.setSelectedIndex(0);
         }
     }//GEN-LAST:event_SalirMenuActionPerformed
+
+    private void UsuarioPub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2729,10 +2673,9 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JLabel NombrePub1;
     private javax.swing.JLabel NombrePub2;
     private javax.swing.JLabel NombrePub3;
+    private javax.swing.JLabel NombrePub4;
     private javax.swing.JTextField NombreText;
     private javax.swing.JLabel NombreUsuario;
-    private javax.swing.JButton Nombre_usuarioBtn1;
-    private javax.swing.JButton Nombre_usuarioBtn2;
     private javax.swing.JButton NotificacionesBtn;
     private javax.swing.JPanel PanelFlotante2;
     private javax.swing.JPanel PanelNot1;
@@ -2742,7 +2685,6 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JButton PerfilBtn;
     private javax.swing.JPanel PerfilPanel;
     private javax.swing.JLabel PerfilPic;
-    private javax.swing.JLabel Perfil_Img;
     private javax.swing.JLabel Perfil_Img1;
     private javax.swing.JPanel PortadaPanel;
     private javax.swing.JButton PostearBtn;
@@ -2770,7 +2712,7 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JButton UsuarioComunidad;
     private javax.swing.JButton UsuarioPub1;
     private javax.swing.JButton UsuarioPub2;
-    private javax.swing.JButton UsuarioPub6;
+    private javax.swing.JButton UsuarioPub3;
     private javax.swing.JButton UsuarioPub7;
     private javax.swing.JRadioButton VerdeBanner;
     private javax.swing.JLabel Y_logo;
