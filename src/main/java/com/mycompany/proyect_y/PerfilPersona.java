@@ -42,8 +42,15 @@ public class PerfilPersona extends javax.swing.JFrame {
     int indextex = 0;
     int indexmulti = 0;
     String IdUsuario = "";
+    
+    
+    int paginaActual = 1; // Inicialízala como global
+    int tamanioPagina = 4;
+    String tipo = " "; // o "seguidos"
+
     public PerfilPersona(String U2) throws SQLException {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.setLocationRelativeTo(null);
         Img();
         //usuario principal aka duenio de la cuenta
@@ -67,7 +74,7 @@ public class PerfilPersona extends javax.swing.JFrame {
             ResultSet rs1 = ps1.executeQuery();
             if (rs1.next()) {
                 int seguidores = rs1.getInt(1);
-                Num_Siguiendo.setText(String.valueOf(seguidores));
+                Num_Seguidores.setText(String.valueOf(seguidores));
             }
             
             // Contar seguidos
@@ -77,7 +84,7 @@ public class PerfilPersona extends javax.swing.JFrame {
             ResultSet rs2 = ps2.executeQuery();
             if (rs2.next()) {
                 int seguidos = rs2.getInt(1);
-                Num_Seguidores.setText(String.valueOf(seguidos));
+                Num_Siguiendo.setText(String.valueOf(seguidos));
             }
             
             ps1.close();
@@ -126,6 +133,7 @@ public class PerfilPersona extends javax.swing.JFrame {
                 }   
             }   
         });
+        
         
         con.close();
     } 
@@ -327,6 +335,8 @@ public class PerfilPersona extends javax.swing.JFrame {
         });
     }
     
+   
+    
         boolean bandera_likes = false; //Variable para verificar que no haya likes repetidos
     boolean bandera_repost = false; //Variable para verificar que no haya repost repetidos
     private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario, JLabel nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
@@ -439,6 +449,53 @@ public class PerfilPersona extends javax.swing.JFrame {
         });
     }
     
+    private void cargarDatos() {
+    UsuariosDAO dao = new UsuariosDAO();
+    String idUsuario = SesionUsuario.idUsuario; // tu ID logueado
+
+    List<Object[]> lista = dao.obtenerRelacionUsuarios(tipo, idUsuario, paginaActual, tamanioPagina);
+
+    JPanel[] paneles = {Si5, Si6, Si7, Si8}; // tus paneles
+    JLabel[] nombres = {NombrePub10, NombrePub11, NombrePub12, NombrePub13};
+    JButton[] usuarios = {UsuarioPub10, UsuarioPub11, UsuarioPub12, UsuarioPub13};
+    JLabel[] img = {ImgPub10, ImgPub11, ImgPub12, ImgPub13};
+    JLabel[] siguiendo = {NumSi5, NumSi6, NumSi7, NumSi8};
+    JLabel[] seguidores = {NumSe5, NumSe6, NumSe7, NumSe8};
+
+    for (int i = 0; i < paneles.length; i++) {
+        if (i < lista.size()) {
+            Object[] datos = lista.get(i);
+            nombres[i].setText((String) datos[1]);
+            usuarios[i].setText((String) datos[0]);
+            siguiendo[i].setText(String.valueOf(datos[3]));
+            seguidores[i].setText(String.valueOf(datos[4]));
+
+            // Mostrar imagen
+            if (datos[2] != null) {
+                ImageIcon icon = new ImageIcon((byte[]) datos[2]);
+                Image imgEscalada = icon.getImage().getScaledInstance(img[i].getHeight(), img[i].getHeight(), Image.SCALE_SMOOTH);
+                img[i].setIcon(new ImageIcon(imgEscalada));
+            } else {
+                String url = "src\\main\\java\\Multimedia\\Img-Perfil.png";
+                        ImageIcon icon = new ImageIcon(url);
+                        Image img0 = icon.getImage().getScaledInstance(img[i].getWidth(), img[i].getHeight(), Image.SCALE_SMOOTH);
+                        img[i].setIcon(new ImageIcon(img0));
+            }
+
+            paneles[i].setVisible(true);
+        } else {
+            paneles[i].setVisible(false);
+        }
+        
+        Btn_Anterior4.setVisible(paginaActual > 1);
+
+        // Verificar si hay más datos en la siguiente página
+        List<Object[]> siguientePagina = dao.obtenerRelacionUsuarios(tipo, SesionUsuario.idUsuario, paginaActual + 1, tamanioPagina);
+        Btn_Siguiente4.setVisible(!siguientePagina.isEmpty());
+    }
+}
+
+    
     
     public String obtenerNombreUsuario(String usuario) {
             String nombre = "";
@@ -487,8 +544,13 @@ public class PerfilPersona extends javax.swing.JFrame {
                         ImgPub1.setIcon((new ImageIcon(img2)));
 
                     } else {
-                        FotoPerfil.setText("Sin imagen");
-                        ImgPub1.setText("Sin imagen");
+                        String url = "src\\main\\java\\Multimedia\\Img-Perfil.png";
+                        ImageIcon icon = new ImageIcon(url);
+                        Image img0 = icon.getImage().getScaledInstance(FotoPerfil.getWidth(), FotoPerfil.getHeight(), Image.SCALE_SMOOTH);
+                        FotoPerfil.setIcon(new ImageIcon(img0));
+                        Image img10 = icon.getImage().getScaledInstance(ImgPub1.getWidth(), ImgPub1.getHeight(), Image.SCALE_SMOOTH);
+                        ImgPub1.setIcon(new ImageIcon(img10));
+                        
                     }
                 }
                 
@@ -500,8 +562,8 @@ public class PerfilPersona extends javax.swing.JFrame {
                 pss.setString(1, SesionUsuario.idUsuario);
                 ResultSet rss = ps.executeQuery();
                 
-                if (rs.next()) {
-                    byte[] imagenBytes = rs.getBytes("foto_perfil");
+                if (rss.next()) {
+                    byte[] imagenBytes = rss.getBytes("foto_perfil");
                     
                     if (imagenBytes != null) {
                         ImageIcon icon = new ImageIcon(imagenBytes);
@@ -608,7 +670,7 @@ public class PerfilPersona extends javax.swing.JFrame {
         //Creamos el Objeto de el icono y añadimos la imagen con las instancias
         ImageIcon Icono = new ImageIcon(img);
         //Ponemos la imagen la etiqueta que querramos
-        Perfil_Img.setIcon(Icono);
+        Perfil_Img1.setIcon(Icono);
 
         //IconoInicio
         String url1 = "src\\main\\java\\Multimedia\\Icon-Inicio.png";
@@ -675,7 +737,11 @@ public class PerfilPersona extends javax.swing.JFrame {
         ConfiBtn.setIcon(Icono14);
         
 
-    }  
+    } 
+    
+    
+    
+    
         
     
     @SuppressWarnings("unchecked")
@@ -684,8 +750,8 @@ public class PerfilPersona extends javax.swing.JFrame {
 
         Colores = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        CuentaBtn9 = new javax.swing.JButton();
-        CuentaBtn2 = new javax.swing.JButton();
+        BtnSiguiendo = new javax.swing.JButton();
+        BtnSeguidores = new javax.swing.JButton();
         ConfiBtn = new javax.swing.JButton();
         InicioBtn1 = new javax.swing.JButton();
         ExplorarBtn = new javax.swing.JButton();
@@ -700,7 +766,6 @@ public class PerfilPersona extends javax.swing.JFrame {
         Perfil_Img1 = new javax.swing.JLabel();
         NombreUsuario = new javax.swing.JLabel();
         IdUsuario2 = new javax.swing.JLabel();
-        Perfil_Img = new javax.swing.JLabel();
         PublicacionesBtn2 = new javax.swing.JButton();
         QuePasa = new javax.swing.JLabel();
         SeguirCuentaBtn3 = new javax.swing.JButton();
@@ -799,6 +864,41 @@ public class PerfilPersona extends javax.swing.JFrame {
         DescripcionPub5 = new javax.swing.JLabel();
         Btn_Anterior2 = new javax.swing.JButton();
         Btn_Siguiente2 = new javax.swing.JButton();
+        Seguidores = new javax.swing.JPanel();
+        Si5 = new javax.swing.JPanel();
+        ImgPub10 = new javax.swing.JLabel();
+        NombrePub10 = new javax.swing.JLabel();
+        UsuarioPub10 = new javax.swing.JButton();
+        NumSe5 = new javax.swing.JLabel();
+        NumSi5 = new javax.swing.JLabel();
+        SeS5 = new javax.swing.JLabel();
+        SiS5 = new javax.swing.JLabel();
+        Si6 = new javax.swing.JPanel();
+        ImgPub11 = new javax.swing.JLabel();
+        UsuarioPub11 = new javax.swing.JButton();
+        NombrePub11 = new javax.swing.JLabel();
+        NumSe6 = new javax.swing.JLabel();
+        NumSi6 = new javax.swing.JLabel();
+        SeS6 = new javax.swing.JLabel();
+        SiS6 = new javax.swing.JLabel();
+        Si7 = new javax.swing.JPanel();
+        ImgPub12 = new javax.swing.JLabel();
+        NombrePub12 = new javax.swing.JLabel();
+        UsuarioPub12 = new javax.swing.JButton();
+        SiS7 = new javax.swing.JLabel();
+        SeS7 = new javax.swing.JLabel();
+        NumSe7 = new javax.swing.JLabel();
+        NumSi7 = new javax.swing.JLabel();
+        Si8 = new javax.swing.JPanel();
+        ImgPub13 = new javax.swing.JLabel();
+        NombrePub13 = new javax.swing.JLabel();
+        UsuarioPub13 = new javax.swing.JButton();
+        SeS8 = new javax.swing.JLabel();
+        SiS8 = new javax.swing.JLabel();
+        NumSi8 = new javax.swing.JLabel();
+        NumSe8 = new javax.swing.JLabel();
+        Btn_Anterior4 = new javax.swing.JButton();
+        Btn_Siguiente4 = new javax.swing.JButton();
         Seguir = new javax.swing.JButton();
         DescLabel = new javax.swing.JLabel();
         MenuDeNavegacion = new javax.swing.JPanel();
@@ -811,41 +911,45 @@ public class PerfilPersona extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(1550, 820));
+        setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(1550, 820));
         jPanel1.setPreferredSize(new java.awt.Dimension(1550, 820));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        CuentaBtn9.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        CuentaBtn9.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn9.setText("Siguiendo");
-        CuentaBtn9.setBorder(null);
-        CuentaBtn9.setBorderPainted(false);
-        CuentaBtn9.setContentAreaFilled(false);
-        CuentaBtn9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn9.addActionListener(new java.awt.event.ActionListener() {
+        BtnSiguiendo.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        BtnSiguiendo.setForeground(new java.awt.Color(204, 204, 204));
+        BtnSiguiendo.setText("Siguiendo");
+        BtnSiguiendo.setBorder(null);
+        BtnSiguiendo.setBorderPainted(false);
+        BtnSiguiendo.setContentAreaFilled(false);
+        BtnSiguiendo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnSiguiendo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSiguiendo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn9ActionPerformed(evt);
+                BtnSiguiendoActionPerformed(evt);
             }
         });
-        jPanel1.add(CuentaBtn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 80, 50));
+        jPanel1.add(BtnSiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 80, 50));
 
-        CuentaBtn2.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        CuentaBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn2.setText("Seguidores");
-        CuentaBtn2.setBorder(null);
-        CuentaBtn2.setBorderPainted(false);
-        CuentaBtn2.setContentAreaFilled(false);
-        CuentaBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn2.addActionListener(new java.awt.event.ActionListener() {
+        BtnSeguidores.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        BtnSeguidores.setForeground(new java.awt.Color(204, 204, 204));
+        BtnSeguidores.setText("Seguidores");
+        BtnSeguidores.setBorder(null);
+        BtnSeguidores.setBorderPainted(false);
+        BtnSeguidores.setContentAreaFilled(false);
+        BtnSeguidores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnSeguidores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSeguidores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn2ActionPerformed(evt);
+                BtnSeguidoresActionPerformed(evt);
             }
         });
-        jPanel1.add(CuentaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 80, 50));
+        jPanel1.add(BtnSeguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 80, 50));
 
         ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
         ConfiBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -995,7 +1099,6 @@ public class PerfilPersona extends javax.swing.JFrame {
         IdUsuario2.setForeground(new java.awt.Color(106, 30, 85));
         IdUsuario2.setText("@Usuario1");
         PerfilPanel.add(IdUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
-        PerfilPanel.add(Perfil_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
 
         jPanel1.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 270, 60));
 
@@ -1530,7 +1633,7 @@ public class PerfilPersona extends javax.swing.JFrame {
                 UsuarioPub3ActionPerformed(evt);
             }
         });
-        PanelTxt1.add(UsuarioPub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 28, -1, -1));
+        PanelTxt1.add(UsuarioPub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 28, -1, -1));
 
         NombrePub3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         NombrePub3.setForeground(new java.awt.Color(204, 204, 204));
@@ -1538,7 +1641,6 @@ public class PerfilPersona extends javax.swing.JFrame {
         PanelTxt1.add(NombrePub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
 
         ImgPub3.setForeground(new java.awt.Color(255, 255, 255));
-        ImgPub3.setText("ImgNot");
         PanelTxt1.add(ImgPub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 7, 54, 54));
 
         Fecha_Label3.setForeground(new java.awt.Color(255, 255, 255));
@@ -1604,7 +1706,6 @@ public class PerfilPersona extends javax.swing.JFrame {
         PanelTxt2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ImgPub4.setForeground(new java.awt.Color(255, 255, 255));
-        ImgPub4.setText("ImgNot");
         PanelTxt2.add(ImgPub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
 
         meGustaBtn4.setBackground(new java.awt.Color(59, 28, 50));
@@ -1672,7 +1773,7 @@ public class PerfilPersona extends javax.swing.JFrame {
                 UsuarioPub4ActionPerformed(evt);
             }
         });
-        PanelTxt2.add(UsuarioPub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 24, -1, 20));
+        PanelTxt2.add(UsuarioPub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 24, -1, 20));
 
         Fecha_Label4.setForeground(new java.awt.Color(255, 255, 255));
         Fecha_Label4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1696,7 +1797,6 @@ public class PerfilPersona extends javax.swing.JFrame {
         PanelTxt3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ImgPub5.setForeground(new java.awt.Color(255, 255, 255));
-        ImgPub5.setText("ImgNot");
         PanelTxt3.add(ImgPub5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
 
         meGustaBtn5.setBackground(new java.awt.Color(59, 28, 50));
@@ -1764,7 +1864,7 @@ public class PerfilPersona extends javax.swing.JFrame {
                 UsuarioPub5ActionPerformed(evt);
             }
         });
-        PanelTxt3.add(UsuarioPub5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 24, -1, 20));
+        PanelTxt3.add(UsuarioPub5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 24, -1, 20));
 
         Fecha_Label5.setForeground(new java.awt.Color(255, 255, 255));
         Fecha_Label5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1817,9 +1917,9 @@ public class PerfilPersona extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(PublicacionesTextoLayout.createSequentialGroup()
-                .addGap(314, 314, 314)
+                .addGap(330, 330, 330)
                 .addComponent(Btn_Anterior2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(Btn_Siguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1839,6 +1939,235 @@ public class PerfilPersona extends javax.swing.JFrame {
         );
 
         SubMenu.addTab("Texto", PublicacionesTexto);
+
+        Seguidores.setBackground(new java.awt.Color(0, 0, 0));
+
+        Si5.setBackground(new java.awt.Color(51, 51, 51));
+        Si5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub10.setBackground(new java.awt.Color(204, 98, 202));
+        Si5.add(ImgPub10, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 100, 100));
+
+        NombrePub10.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub10.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub10.setText("Usuario");
+        Si5.add(NombrePub10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 30));
+
+        UsuarioPub10.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub10.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub10.setText("@Usuario");
+        UsuarioPub10.setToolTipText("");
+        UsuarioPub10.setBorder(null);
+        UsuarioPub10.setBorderPainted(false);
+        UsuarioPub10.setContentAreaFilled(false);
+        UsuarioPub10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub10ActionPerformed(evt);
+            }
+        });
+        Si5.add(UsuarioPub10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        NumSe5.setText("0");
+        Si5.add(NumSe5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 80, -1));
+
+        NumSi5.setText("0");
+        Si5.add(NumSi5, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+
+        SeS5.setForeground(new java.awt.Color(255, 255, 255));
+        SeS5.setText("Seguidores : ");
+        Si5.add(SeS5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 70, -1));
+
+        SiS5.setForeground(new java.awt.Color(255, 255, 255));
+        SiS5.setText("Siguiendo :");
+        Si5.add(SiS5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 70, -1));
+
+        Si6.setBackground(new java.awt.Color(51, 51, 51));
+        Si6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub11.setBackground(new java.awt.Color(204, 98, 202));
+        Si6.add(ImgPub11, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 100, 100));
+
+        UsuarioPub11.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub11.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub11.setText("@Usuario");
+        UsuarioPub11.setToolTipText("");
+        UsuarioPub11.setBorder(null);
+        UsuarioPub11.setBorderPainted(false);
+        UsuarioPub11.setContentAreaFilled(false);
+        UsuarioPub11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub11ActionPerformed(evt);
+            }
+        });
+        Si6.add(UsuarioPub11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        NombrePub11.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub11.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub11.setText("Usuario");
+        Si6.add(NombrePub11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 30));
+
+        NumSe6.setText("0");
+        Si6.add(NumSe6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 80, -1));
+
+        NumSi6.setText("0");
+        Si6.add(NumSi6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+
+        SeS6.setForeground(new java.awt.Color(255, 255, 255));
+        SeS6.setText("Seguidores : ");
+        Si6.add(SeS6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 70, -1));
+
+        SiS6.setForeground(new java.awt.Color(255, 255, 255));
+        SiS6.setText("Siguiendo :");
+        Si6.add(SiS6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 70, -1));
+
+        Si7.setBackground(new java.awt.Color(51, 51, 51));
+        Si7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub12.setBackground(new java.awt.Color(204, 98, 202));
+        Si7.add(ImgPub12, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 100, 101));
+
+        NombrePub12.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub12.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub12.setText("Usuario");
+        Si7.add(NombrePub12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 30));
+
+        UsuarioPub12.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub12.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub12.setText("@Usuario");
+        UsuarioPub12.setToolTipText("");
+        UsuarioPub12.setBorder(null);
+        UsuarioPub12.setBorderPainted(false);
+        UsuarioPub12.setContentAreaFilled(false);
+        UsuarioPub12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub12ActionPerformed(evt);
+            }
+        });
+        Si7.add(UsuarioPub12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        SiS7.setForeground(new java.awt.Color(255, 255, 255));
+        SiS7.setText("Siguiendo :");
+        Si7.add(SiS7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 70, -1));
+
+        SeS7.setForeground(new java.awt.Color(255, 255, 255));
+        SeS7.setText("Seguidores : ");
+        Si7.add(SeS7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 70, -1));
+
+        NumSe7.setText("0");
+        Si7.add(NumSe7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 80, -1));
+
+        NumSi7.setText("0");
+        Si7.add(NumSi7, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+
+        Si8.setBackground(new java.awt.Color(51, 51, 51));
+        Si8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub13.setBackground(new java.awt.Color(204, 98, 202));
+        Si8.add(ImgPub13, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 100, 100));
+
+        NombrePub13.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub13.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub13.setText("Usuario");
+        Si8.add(NombrePub13, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 30));
+
+        UsuarioPub13.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub13.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub13.setText("@Usuario");
+        UsuarioPub13.setToolTipText("");
+        UsuarioPub13.setBorder(null);
+        UsuarioPub13.setBorderPainted(false);
+        UsuarioPub13.setContentAreaFilled(false);
+        UsuarioPub13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub13ActionPerformed(evt);
+            }
+        });
+        Si8.add(UsuarioPub13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        SeS8.setForeground(new java.awt.Color(255, 255, 255));
+        SeS8.setText("Seguidores : ");
+        Si8.add(SeS8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 70, -1));
+
+        SiS8.setForeground(new java.awt.Color(255, 255, 255));
+        SiS8.setText("Siguiendo :");
+        Si8.add(SiS8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 70, -1));
+
+        NumSi8.setText("0");
+        Si8.add(NumSi8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+
+        NumSe8.setText("0");
+        Si8.add(NumSe8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 80, -1));
+
+        Btn_Anterior4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        Btn_Anterior4.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Anterior4.setText("<");
+        Btn_Anterior4.setBorderPainted(false);
+        Btn_Anterior4.setContentAreaFilled(false);
+        Btn_Anterior4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Anterior4ActionPerformed(evt);
+            }
+        });
+
+        Btn_Siguiente4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        Btn_Siguiente4.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Siguiente4.setText(">");
+        Btn_Siguiente4.setBorderPainted(false);
+        Btn_Siguiente4.setContentAreaFilled(false);
+        Btn_Siguiente4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Siguiente4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SeguidoresLayout = new javax.swing.GroupLayout(Seguidores);
+        Seguidores.setLayout(SeguidoresLayout);
+        SeguidoresLayout.setHorizontalGroup(
+            SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SeguidoresLayout.createSequentialGroup()
+                .addGroup(SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SeguidoresLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Si6, javax.swing.GroupLayout.PREFERRED_SIZE, 704, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(Si5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Si7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Si8, javax.swing.GroupLayout.PREFERRED_SIZE, 704, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(SeguidoresLayout.createSequentialGroup()
+                        .addGap(326, 326, 326)
+                        .addComponent(Btn_Anterior4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Btn_Siguiente4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        SeguidoresLayout.setVerticalGroup(
+            SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SeguidoresLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_Anterior4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_Siguiente4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Si7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Si5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Si6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Si8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        SubMenu.addTab("tab3", Seguidores);
 
         jPanel1.add(SubMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 300, 750, 560));
 
@@ -1946,13 +2275,20 @@ public class PerfilPersona extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CuentaBtn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn9ActionPerformed
+    private void BtnSiguiendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSiguiendoActionPerformed
+        SubMenu.setSelectedIndex(2);
+        tipo = "seguidos";
+        paginaActual = 1; // Reiniciar a la primera página
+        cargarDatos();
+    }//GEN-LAST:event_BtnSiguiendoActionPerformed
 
-    private void CuentaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn2ActionPerformed
+    private void BtnSeguidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSeguidoresActionPerformed
+        SubMenu.setSelectedIndex(2);
+        tipo = "seguidores";
+        paginaActual = 1; // Reiniciar a la primera página
+        cargarDatos();
+
+    }//GEN-LAST:event_BtnSeguidoresActionPerformed
 
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
                this.dispose();
@@ -2114,51 +2450,47 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
 
     private void SeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirActionPerformed
     String idSeguidor = SesionUsuario.idUsuario; // ID del usuario logueado
-    String idSeguido = IdUsuario; // ID del perfil que se está viendo
+String idSeguido = IdUsuario; // ID del perfil que se está viendo
 
-    try {
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/tu_basedatos", "root", "tu_password");
+try {
+    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/tu_basedatos", "Abril", "pass");
 
-        String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, idSeguidor);
-        ps.setString(2, idSeguido);
+    String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
+    PreparedStatement ps = conn.prepareStatement(sql);
+    ps.setString(1, idSeguidor);
+    ps.setString(2, idSeguido);
 
-        int filas = ps.executeUpdate();
+    int filas = ps.executeUpdate();
 
-        if (filas > 0) {
-            // Éxito: se insertó un nuevo seguidor
-            JOptionPane.showMessageDialog(null, "Ahora estás siguiendo a " + idSeguido);
+    if (filas > 0) {
+        // Éxito: se insertó un nuevo seguidor
+        JOptionPane.showMessageDialog(null, "Ahora estás siguiendo a " + idSeguido);
 
-            // Cambiar texto y colores del botón
-            Seguir.setText("Siguiendo");
-            Seguir.setBackground(Color.BLACK);
-            Seguir.setForeground(Color.WHITE);
-            Seguir.setEnabled(false); // Deshabilitar si no quieres que vuelva a apretarse
+        // Cambiar texto y colores del botón
+        Seguir.setText("Siguiendo");
+        Seguir.setBackground(Color.BLACK);
+        Seguir.setForeground(Color.WHITE);
+        Seguir.setEnabled(false); // Desactiva el botón para evitar múltiples clics
 
-            // Actualizar contador de seguidores
-            String texto = Num_Seguidores.getText(); // Por ejemplo: "Seguidores: 123"
-            String[] partes = texto.split(": ");
-            if (partes.length == 2) {
-                try {
-                    int seguidores = Integer.parseInt(partes[1]);
-                    seguidores++;
-                    Num_Seguidores.setText("Seguidores: " + seguidores);
-                } catch (NumberFormatException e) {
-                    System.err.println("Error al convertir el número de seguidores.");
-                }
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Ya lo estás siguiendo");
+        // Actualizar contador de seguidores
+        try {
+            int seguidores = Integer.parseInt(Num_Seguidores.getText().trim());
+            seguidores++;
+            Num_Seguidores.setText(String.valueOf(seguidores));
+            Num_Seguidores.repaint(); // Forzar redibujado del label
+        } catch (NumberFormatException e) {
+            System.err.println("Error al convertir el número de seguidores.");
         }
 
-        ps.close();
-        conn.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
+    } else {
+        JOptionPane.showMessageDialog(null, "Ya lo estás siguiendo");
     }
 
+    ps.close();
+    conn.close();
+} catch (SQLException e) {
+    e.printStackTrace();
+}
 
     }//GEN-LAST:event_SeguirActionPerformed
 
@@ -2197,6 +2529,34 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private void Btn_Siguiente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Btn_Siguiente2ActionPerformed
+
+    private void UsuarioPub10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub10ActionPerformed
+
+    private void UsuarioPub11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub11ActionPerformed
+
+    private void UsuarioPub12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub12ActionPerformed
+
+    private void UsuarioPub13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub13ActionPerformed
+
+    private void Btn_Anterior4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior4ActionPerformed
+        if (paginaActual > 1) {
+        paginaActual--;
+        cargarDatos();
+    }
+    }//GEN-LAST:event_Btn_Anterior4ActionPerformed
+
+    private void Btn_Siguiente4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente4ActionPerformed
+           paginaActual++;
+    cargarDatos();
+    }//GEN-LAST:event_Btn_Siguiente4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2248,17 +2608,19 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator AyudaSeleccion1;
     private javax.swing.JSeparator AyudaSeleccion2;
+    private javax.swing.JButton BtnSeguidores;
+    private javax.swing.JButton BtnSiguiendo;
     private javax.swing.JButton Btn_Anterior1;
     private javax.swing.JButton Btn_Anterior2;
+    private javax.swing.JButton Btn_Anterior4;
     private javax.swing.JButton Btn_Siguiente1;
     private javax.swing.JButton Btn_Siguiente2;
+    private javax.swing.JButton Btn_Siguiente4;
     private javax.swing.ButtonGroup Colores;
     private javax.swing.JButton ComunidadesBtn;
     private javax.swing.JButton ConfiBtn;
-    private javax.swing.JButton CuentaBtn2;
     private javax.swing.JButton CuentaBtn20;
     private javax.swing.JButton CuentaBtn3;
-    private javax.swing.JButton CuentaBtn9;
     private javax.swing.JLabel DescLabel;
     private javax.swing.JLabel DescripcionPub1;
     private javax.swing.JLabel DescripcionPub2;
@@ -2278,6 +2640,10 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JLabel ImgInt2;
     private javax.swing.JLabel ImgInt3;
     private javax.swing.JLabel ImgPub1;
+    private javax.swing.JLabel ImgPub10;
+    private javax.swing.JLabel ImgPub11;
+    private javax.swing.JLabel ImgPub12;
+    private javax.swing.JLabel ImgPub13;
     private javax.swing.JLabel ImgPub2;
     private javax.swing.JLabel ImgPub3;
     private javax.swing.JLabel ImgPub4;
@@ -2288,12 +2654,24 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JButton MostrarMasTendenciaBtn;
     private javax.swing.JLabel NombreComunidad;
     private javax.swing.JLabel NombrePub1;
+    private javax.swing.JLabel NombrePub10;
+    private javax.swing.JLabel NombrePub11;
+    private javax.swing.JLabel NombrePub12;
+    private javax.swing.JLabel NombrePub13;
     private javax.swing.JLabel NombrePub2;
     private javax.swing.JLabel NombrePub3;
     private javax.swing.JLabel NombrePub4;
     private javax.swing.JLabel NombrePub5;
     private javax.swing.JLabel NombreUsuario;
     private javax.swing.JButton NotificacionesBtn;
+    private javax.swing.JLabel NumSe5;
+    private javax.swing.JLabel NumSe6;
+    private javax.swing.JLabel NumSe7;
+    private javax.swing.JLabel NumSe8;
+    private javax.swing.JLabel NumSi5;
+    private javax.swing.JLabel NumSi6;
+    private javax.swing.JLabel NumSi7;
+    private javax.swing.JLabel NumSi8;
     private javax.swing.JLabel Num_Seguidores;
     private javax.swing.JLabel Num_Siguiendo;
     private javax.swing.JPanel PanelNot1;
@@ -2303,7 +2681,6 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JPanel PanelTxt3;
     private javax.swing.JButton PerfilBtn;
     private javax.swing.JPanel PerfilPanel;
-    private javax.swing.JLabel Perfil_Img;
     private javax.swing.JLabel Perfil_Img1;
     private javax.swing.JPanel PortadaPanel;
     private javax.swing.JButton PostearBtn;
@@ -2312,10 +2689,23 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JPanel PublicacionesImagenes;
     private javax.swing.JPanel PublicacionesTexto;
     private javax.swing.JLabel QuePasa;
+    private javax.swing.JLabel SeS5;
+    private javax.swing.JLabel SeS6;
+    private javax.swing.JLabel SeS7;
+    private javax.swing.JLabel SeS8;
+    private javax.swing.JPanel Seguidores;
     private javax.swing.JButton Seguir;
     private javax.swing.JButton SeguirCuentaBtn1;
     private javax.swing.JButton SeguirCuentaBtn2;
     private javax.swing.JButton SeguirCuentaBtn3;
+    private javax.swing.JPanel Si5;
+    private javax.swing.JPanel Si6;
+    private javax.swing.JPanel Si7;
+    private javax.swing.JPanel Si8;
+    private javax.swing.JLabel SiS5;
+    private javax.swing.JLabel SiS6;
+    private javax.swing.JLabel SiS7;
+    private javax.swing.JLabel SiS8;
     private javax.swing.JTabbedPane SubMenu;
     private javax.swing.JButton TendenciaYapBtn1;
     private javax.swing.JButton TendenciaYapBtn2;
@@ -2324,6 +2714,10 @@ new Menu_Principal().setVisible(true);// TODO add your handling code here:
     private javax.swing.JButton UserInt3;
     private javax.swing.JButton UsuarioComunidad;
     private javax.swing.JButton UsuarioPub1;
+    private javax.swing.JButton UsuarioPub10;
+    private javax.swing.JButton UsuarioPub11;
+    private javax.swing.JButton UsuarioPub12;
+    private javax.swing.JButton UsuarioPub13;
     private javax.swing.JButton UsuarioPub2;
     private javax.swing.JButton UsuarioPub3;
     private javax.swing.JButton UsuarioPub4;
