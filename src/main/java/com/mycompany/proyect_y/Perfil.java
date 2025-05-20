@@ -60,7 +60,7 @@ public class Perfil extends javax.swing.JFrame {
         FechaPanel.setVisible(false);
 
         publicacionDAO = new PublicacionDAO();
-        publicaciones = publicacionDAO.obtenerTodasPublicacionesUsuario();
+        publicaciones = publicacionDAO.obtenerTodasPublicacionesUsuario(SesionUsuario.idUsuario);
         
         /*if(!publicaciones.isEmpty()){
             mostrarPublicacion(publicaciones.get(publicacionActual));
@@ -100,7 +100,7 @@ public class Perfil extends javax.swing.JFrame {
         }
         
         //Publicacion de solo texto
-        publicacionestxt = publicacionDAO.obtenerTodasPublicacionesUsuarioTxt();
+        publicacionestxt = publicacionDAO.obtenerTodasPublicacionesUsuarioTxt(SesionUsuario.idUsuario);
         if (!publicacionestxt.isEmpty()){
             //Panel 1
             if(publicacionestxt.size()>0){

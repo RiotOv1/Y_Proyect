@@ -1158,7 +1158,7 @@ public class Comunidad extends javax.swing.JFrame {
     }//GEN-LAST:event_FiltrarSeguidoresActionPerformed
 
     private void UsuarioComunidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioComunidadActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:XD
     }//GEN-LAST:event_UsuarioComunidadActionPerformed
 
     private void YapsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YapsBtnActionPerformed
