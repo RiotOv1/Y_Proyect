@@ -98,6 +98,53 @@ public List<Object[]> obtenerRelacionUsuarios(String tipo, String idUsuario, int
     return lista;
 }
 
+public List<String> obtenerIdsRelacionUsuarios(String tipo, String idUsuario) {
+    List<String> lista = new ArrayList<>();
+    connection = new DBConnection().getConnection();
+    String columna = tipo.equals("seguidores") ? "id_seguidor" : "id_seguido";
+    String condicion = tipo.equals("seguidores") ? "id_seguido" : "id_seguidor";
+
+    String sql = "SELECT u.id_usuario " +
+                 "FROM usuario u " +
+                 "JOIN seguidores s ON s." + columna + " = u.id_usuario " +
+                 "WHERE s." + condicion + " = ?";
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setString(1, idUsuario);
+
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            lista.add(rs.getString("id_usuario"));
+        }
+        rs.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return lista;
+}
+
+public List<Object[]> obtenerTodosIdsYFotos() {
+    List<Object[]> lista = new ArrayList<>();
+    String sql = "SELECT id_usuario, foto_perfil FROM usuario";
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Object[] datos = new Object[2];
+            datos[0] = rs.getString("id_usuario");
+            datos[1] = rs.getBytes("foto_perfil");
+            lista.add(datos);
+        }
+        rs.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return lista;
+}
+ 
+
 
     }
 
