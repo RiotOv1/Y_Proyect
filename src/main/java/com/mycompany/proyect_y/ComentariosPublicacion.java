@@ -64,7 +64,7 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
         /*if(!publicaciones.isEmpty()){
             mostrarPublicacion(publicaciones.get(publicacionActual));
         }*/
-        
+        publicacionActual = PublicacionDAO.idPubicacion;
         if (!publicaciones.isEmpty()){
             //Panel 1
             if(publicaciones.size()>0){
@@ -75,7 +75,7 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
                         meGustaBtn, lblLikesLabel,
                         repostearBtn, lblRepostearLabel,ImagenPublicacion_lbl,comentarBtn
                         );
-                       publicacionActual = PublicacionDAO.idPubicacion;
+                       
                        
                 
             } 
@@ -479,21 +479,13 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
             String sql = "INSERT INTO `comentarios`(`id_usuario`, `id_publicacion`, `texto`) VALUES (?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, SesionUsuario.idUsuario);
-            ps.setInt(2, publicacionDAO.idPubicacion);
+            ps.setInt(2, publicacionActual);
             ps.setString(3, ContenidoComentario);
             ps.executeUpdate();
+           JOptionPane.showConfirmDialog(null, "Tu comentario ha sido publicado");
+           CasillaComentarios.setText("Publica Tu Respuesta");
            
-        ResultSet rs = ps.getGeneratedKeys();
-        if (rs.next()) {
-            int idComentario = rs.getInt(1);
-            String U2 = UsuarioPub5.getText();
-            U2 = U2.substring(1); 
-            
-            if (!SesionUsuario.idUsuario.equals(U2)) {
-                NotificacionesDAO notiDAO = new NotificacionesDAO();
-                notificarComentario(U2,SesionUsuario.idUsuario,publicacionDAO.idPubicacion, idComentario);
-            }
-        }
+      
                     } catch (Exception e) {
             System.out.println(e);
         }
