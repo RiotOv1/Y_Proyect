@@ -27,14 +27,21 @@ public class ComentariosDAO {
         connection = new DBConnection().getConnection();
     }
     //Comentarios totales
-    public List<Comentarios> obtenerTodosComentarios() {
+    public List<Comentarios> obtenerTodosComentarios(int idPublicacion) {
         List<Comentarios> ListaComentarios = new ArrayList<>();
-        String sql = "SELECT * FROM Comentarios WHERE id_publicacion = ? AND id_usuario <> ? ORDER BY fecha_hora DESC;";
+        String sql =  """
+                     SELECT c.*, u.foto_perfil,p.multimedia_publi FROM comentarios c JOIN
+                         Usuario u ON c.id_usuario = u.id_usuario
+                     JOIN
+                         publicacion p ON c.id_publicacion = p.id_publicacion
+                     WHERE
+                         c.id_publicacion = ?
+                         AND p.multimedia_publi IS NOT NULL
+                     ORDER BY    c.fecha_hora DESC;""";
 
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, PublicacionDAO.idPubicacion);
-            stmt.setString(2, SesionUsuario.idUsuario);
             ResultSet rs = stmt.executeQuery();
             
             
@@ -50,7 +57,7 @@ public class ComentariosDAO {
                     rs.getTimestamp("fecha_hora")
                 );
                 
-                //coment.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
+                coment.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
                 ListaComentarios.add(coment);
             }
         } catch (SQLException ex) {

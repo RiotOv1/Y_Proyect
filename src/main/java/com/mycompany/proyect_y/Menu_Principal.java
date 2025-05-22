@@ -66,6 +66,9 @@ public class Menu_Principal extends javax.swing.JFrame {
             //Panel 
                 int numero = (int) (Math.random() * publicaciones.size()); 
                 publicacionActual = numero;
+                publicacionDAO.PublicacionSeleccionada(numero);
+                System.out.println(numero);
+                
                 configurarPanelPublicacion(
                         PanelNot1, publicaciones.get(numero),
                         lblUsuario,Nombre_usuarioBtn,UsuarioPub5,
@@ -1693,6 +1696,7 @@ public void notificarSeguido(String idUsuarioReceptor) {
             Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_UserInt3ActionPerformed
 
     private void UserInt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserInt1ActionPerformed
@@ -1704,6 +1708,7 @@ public void notificarSeguido(String idUsuarioReceptor) {
             Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_UserInt1ActionPerformed
 
     private void UserInt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserInt2ActionPerformed
@@ -1714,6 +1719,7 @@ public void notificarSeguido(String idUsuarioReceptor) {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_UserInt2ActionPerformed
 
@@ -1840,14 +1846,22 @@ public void notificarSeguido(String idUsuarioReceptor) {
         
         if(publicacionActual<(publicaciones.size()-1)){
             publicacionActual++;
+            publicacionDAO.PublicacionSeleccionada(publicacionActual);
+            System.out.println(publicacionActual);
         } else {
             publicacionActual=0;
+            publicacionDAO.cerrarSesion();
+            System.out.println(publicacionActual);
         }
         
         if(publicacionSeguidoActual<(publicacionesSeguidos.size()-1)){
             publicacionSeguidoActual++;
+            publicacionDAO.PublicacionSeleccionadaSeguidor(publicacionSeguidoActual);
+            System.out.println(publicacionSeguidoActual);
         } else {
             publicacionSeguidoActual=0;
+            publicacionDAO.cerrarSesionSeguidor();
+            System.out.println(publicacionSeguidoActual);
         }
         
         if (!publicacionesSeguidos.isEmpty()){
@@ -1964,6 +1978,8 @@ public void notificarSeguido(String idUsuarioReceptor) {
         }
         
         // TODO add your handling code here:
+        
+        // TODO add your handling code here:
     }//GEN-LAST:event_PublicarBtnMousePressed
 
     private void Agregar_ImgMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Agregar_ImgMousePressed
@@ -2009,17 +2025,23 @@ public void notificarSeguido(String idUsuarioReceptor) {
         bandera_likes = false;
         bandera_repost = false;
 
-        if(publicacionActual>0){
+       if(publicacionActual>0){
             publicacionActual--;
+            publicacionDAO.PublicacionSeleccionada(publicacionActual);
+            System.out.println(publicacionActual);
         } else {
             publicacionActual=publicaciones.size()-1;
+            publicacionDAO.cerrarSesion();
         }
         
         if(publicacionSeguidoActual>0){
             publicacionSeguidoActual--;
+            publicacionDAO.PublicacionSeleccionadaSeguidor(publicacionSeguidoActual);
         } else {
             publicacionSeguidoActual=publicacionesSeguidos.size()-1;
+            publicacionDAO.cerrarSesionSeguidor();
         }
+       
        
         if (!publicacionesSeguidos.isEmpty()){
                 configurarPanelPublicacion(
@@ -2099,6 +2121,7 @@ public void notificarSeguido(String idUsuarioReceptor) {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_Nombre_usuarioBtn1MousePressed
 
@@ -2267,6 +2290,7 @@ public void notificarSeguido(String idUsuarioReceptor) {
         } catch (SQLException ex) {
             Logger.getLogger(Menu_Principal.class.getName()).log(Level.SEVERE, null, ex);
         }    
+        // TODO add your handling code here:    
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioPub5MousePressed
 
@@ -2454,6 +2478,10 @@ public void notificarSeguido(String idUsuarioReceptor) {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Menu_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

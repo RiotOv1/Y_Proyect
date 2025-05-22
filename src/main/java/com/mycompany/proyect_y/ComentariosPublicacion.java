@@ -65,29 +65,32 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
             mostrarPublicacion(publicaciones.get(publicacionActual));
         }*/
         
-        //Configuracion de cada panel con su publicacion correspondiente
         if (!publicaciones.isEmpty()){
             //Panel 1
             if(publicaciones.size()>0){
                 configurarPanelPublicacion(
-                        PanelNot1, publicaciones.get(0),
+                        PanelNot1, publicaciones.get(PublicacionDAO.idPubicacion),
                         lblUsuario,Nombre_usuarioBtn,UsuarioPub5,
                         lblTexto_publicacion,Fecha_Label,
                         meGustaBtn, lblLikesLabel,
                         repostearBtn, lblRepostearLabel,ImagenPublicacion_lbl,comentarBtn
                         );
+                       publicacionActual = PublicacionDAO.idPubicacion;
+                       
+                
             } 
         }
         
-        comentariosDAO = new ComentariosDAO();
-        ListaComentarios = comentariosDAO.obtenerTodosComentarios();
-
+       comentariosDAO = new ComentariosDAO();
+        ListaComentarios = comentariosDAO.obtenerTodosComentarios(publicacionActual);
+        System.out.println(publicacionActual + " Antes de buscar");
         if (!ListaComentarios.isEmpty()){
             //Panel 1
             if(ListaComentarios.size()>0){
                 PanelComentario1.setVisible(true);
                 ConfiguracionPanelComentarios(PanelComentario1,
                         ListaComentarios.get(0),
+                        lblUsuario2,
                         UserComentario2,
                         ComentarioBD1, 
                         DifHors1
@@ -97,33 +100,55 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
                 PanelComentario2.setVisible(true);
                 ConfiguracionPanelComentarios(PanelComentario2,
                         ListaComentarios.get(1),
+                        lblUsuario3,
+                        UserComentario3,
+                        ComentarioBD2, 
+                        DifHors2
+                        );
+            }
+            if(ListaComentarios.size()>2){
+                PanelComentario3.setVisible(true);
+                ConfiguracionPanelComentarios(PanelComentario3,
+                        ListaComentarios.get(2),
+                        lblUsuario3,
                         UserComentario3,
                         ComentarioBD2, 
                         DifHors2
                         );
             }
             if(ListaComentarios.size()>3){
-                PanelComentario2.setVisible(true);
-                ConfiguracionPanelComentarios(PanelComentario3,
-                        ListaComentarios.get(2),
+                PanelComentario4.setVisible(true);
+                ConfiguracionPanelComentarios(PanelComentario4,
+                        ListaComentarios.get(3),
+                        lblUsuario4,
                         UserComentario4,
                         ComentarioBD3, 
                         DifHors3
                         );
             }
             if(ListaComentarios.size()>4){
-                PanelComentario2.setVisible(true);
-                ConfiguracionPanelComentarios(PanelComentario4,
-                        ListaComentarios.get(3),
+                PanelComentario5.setVisible(true);
+                ConfiguracionPanelComentarios(PanelComentario5,
+                        ListaComentarios.get(4),
+                        lblUsuario5,
                         UserComentario5,
                         ComentarioBD4, 
                         DifHors4
                         );
             }
+            if(ListaComentarios.size()>5){
+                PanelComentario6.setVisible(true);
+                ConfiguracionPanelComentarios(PanelComentario6,
+                        ListaComentarios.get(5),
+                        lblUsuario6,
+                        UserComentario6,
+                        ComentarioBD5, 
+                        DifHors5
+                        );
+            }
             
         } else
         {
-            JOptionPane.showConfirmDialog(null, "No hay Comentarios");
             System.out.println("Sin comentarios");
             PanelComentario1.setVisible(false);
             PanelComentario2.setVisible(false);
@@ -133,6 +158,7 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
             PanelComentario6.setVisible(false);
             PanelComentario7.setVisible(false);
         }
+        
         
         Connection con =  DB_Conection.conectar(); // tu clase de conexión
         String IdUsuario = SesionUsuario.idUsuario;
@@ -433,7 +459,7 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
     }
     
     //constructor de los comentarios
-    private void ConfiguracionPanelComentarios(JPanel PanelComentarios, Comentarios coments, JButton UserComentario2, JLabel ComentarioBD1, JLabel DifHors1){
+    private void ConfiguracionPanelComentarios(JPanel PanelComentarios, Comentarios coments,JLabel lblUsuario2, JButton UserComentario2, JLabel ComentarioBD1, JLabel DifHors1){
          //Configurar los componentes con los datos de la publicacion
         UserComentario2.setText("@"+coments.getIdUsuario());
         ComentarioBD1.setText("<html><p>" + coments.getTexto() + "</html></p>");
@@ -1605,6 +1631,38 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ComentariosPublicacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

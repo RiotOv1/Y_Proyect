@@ -31,6 +31,25 @@ public class PublicacionDAO {
         idPubicacion = 0;
     }
    
+    public static int idPubicacionSeguidor = 0;
+    public static void PublicacionSeleccionadaSeguidor(int idS) {
+        idPubicacionSeguidor = idS;
+    }
+
+    public static void cerrarSesionSeguidor() {
+        idPubicacionSeguidor = 1;
+    }
+    
+   
+    public static int id_publicacionU =  1;
+    public static void PublicacionSeleccionadaUsuario(int idU) {
+        id_publicacionU = idU;
+    }
+
+    public static void cerrarSesionU() {
+        id_publicacionU = 1;
+    }
+    
     public Publicacion obtenerPublicacionPorId(int idPublicacion) {
     Publicacion publi = null;
     String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
@@ -64,8 +83,7 @@ public class PublicacionDAO {
    public List<Publicacion> obtenerTodasPublicaciones() {
         List<Publicacion> publicaciones = new ArrayList<>();
         String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
-                     "JOIN Usuario u ON p.id_usuario = u.id_usuario " +
-                     "ORDER BY p.fecha_hora DESC";
+                     "JOIN Usuario u ON p.id_usuario = u.id_usuario ";
         
         try (Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -155,8 +173,7 @@ public List<Object[]> obtenerTop3Publicaciones() {
         List<Publicacion> publicaciones = new ArrayList<>();
         String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
                 "JOIN Usuario u ON p.id_usuario = u.id_usuario " + 
-                "WHERE p.id_usuario = ? AND multimedia_publi IS NOT NULL " +
-                "ORDER BY fecha_hora DESC;";
+                "WHERE p.id_usuario = ? AND multimedia_publi IS NOT NULL";
         
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
