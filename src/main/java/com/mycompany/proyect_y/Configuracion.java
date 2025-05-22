@@ -6,21 +6,24 @@ package com.mycompany.proyect_y;
 
 
 import Conection.DB_Conection;
-import java.awt.Color;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author dafmo
  */
 public class Configuracion extends javax.swing.JFrame {
-    int xMouse;
-    int yMouse;
+
+    /**
+     * Creates new form Configuracion
+     */
     public Configuracion() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -32,12 +35,12 @@ public class Configuracion extends javax.swing.JFrame {
         if (Id != null) {
             String nom = obtenerNombreUsuario();
             NombreUsuario.setText(nom);
-            IdUsuario1.setText( "@" + Id);
+            IdUsuario.setText( "@" + Id);
             
     }
 
     }
-        public String obtenerNombreUsuario() {
+     public String obtenerNombreUsuario() {
             String nombre = "";
             String apellido = "";
             Connection con =  DB_Conection.conectar(); // tu clase de conexión
@@ -94,6 +97,55 @@ public class Configuracion extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void ConsultaUsuario() {
+        try {
+            Connection con = DB_Conection.conectar();
+      
+             String sql = "SELECT * FROM usuario WHERE id_usuario = ?";
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setString(1,  SesionUsuario.idUsuario);
+             ResultSet rs = ps.executeQuery();
+             
+             if (rs.next()) {
+            // Extrae valores de cada columna
+            String Id_U = rs.getString("id_usuario");
+            String nombre = rs.getString("nombre");
+            String telefono = rs.getString("telefono");
+            String correo = rs.getString("correo");
+            String pais = rs.getString("pais");
+            String sexo = rs.getString("sexo");
+            String contraseña = rs.getString("contrasena");
+            String EstadoCuenta = rs.getString("EstadoCuenta");
+            // Obtiene la fecha de la base de datos (java.sql.Date)
+            java.sql.Date fechaSQL = rs.getDate("fecha_nac");
+            //Crear el formato de fecha, dia, mes, año
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            //Darle el formato
+            String fechaFormateada = sdf.format(fechaSQL);
+            
+            
+            // Muestra los valores en los labels
+            UsuarioLabel.setText(nombre);
+            TelefonoLabel.setText(telefono);
+            CorreoLabel.setText(correo);
+            PaisLabel.setText(pais);
+            GeneroLabel.setText(sexo);
+            FechaNacimiento.setText(fechaFormateada);
+            contrase.setText(contraseña);
+            IdUsuario1.setText(Id_U);
+            NombreUsuario1.setText(nombre);
+            EstadoCuentaUsuario.setText(EstadoCuenta);
+            
+            
+             }  else
+             {
+                 JOptionPane.showMessageDialog(null, "No se encontro el usuario");
+             }}catch(SQLException e) {
+    e.printStackTrace(); // Mostrará errores ocultos
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+}
+    }
 
     //Metodo para ocultar los objetos invisibles al inicio 
     public void OcultoInicializar() {
@@ -129,22 +181,24 @@ public class Configuracion extends javax.swing.JFrame {
         ImageIcon image1 = new ImageIcon(url1);
         Image img1 = image1.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono1 = new ImageIcon(img1);
-        InicioBtn4.setIcon(Icono1);
+        InicioBtn1.setIcon(Icono1);
 
         //IconoExplorar
         String url2 = "src\\main\\java\\Multimedia\\Icon-Explorar.png";
         ImageIcon image2 = new ImageIcon(url2);
         Image img2 = image2.getImage().getScaledInstance(32, 32, 0);
         ImageIcon Icono2 = new ImageIcon(img2);
-        ExplorarBtn.setIcon(Icono2);
+        ExplorarBtn1.setIcon(Icono2);
         BuscadorImagen.setIcon(Icono2);
 
-        //IconoNotificaciones
-        String url3 = "src\\main\\java\\Multimedia\\Icon-Notificaciones.png";
-        ImageIcon image3 = new ImageIcon(url3);
-        Image img3 = image3.getImage().getScaledInstance(32, 32, 0);
-        ImageIcon Icono3 = new ImageIcon(img3);
-        NotificacionesBtn.setIcon(Icono3);
+
+        //IconoComunidades
+        String url4 = "src\\main\\java\\Multimedia\\Icon-Comunidades.png";
+        ImageIcon image4 = new ImageIcon(url4);
+        Image img4 = image4.getImage().getScaledInstance(32, 32, 0);
+        ImageIcon Icono4 = new ImageIcon(img4);
+        ComunidadesBtn.setIcon(Icono4);
+;
 
         //IconoPerfil
         String url6 = "src\\main\\java\\Multimedia\\Icon-Usuario.png";
@@ -299,13 +353,22 @@ public class Configuracion extends javax.swing.JFrame {
        
     }
 
+   
     //Metodo para controlar que la contraseña sea igual a la de la base de datos.
     public void ControlContraseñaNueva() {
+        
+        //Base de datos
+        String Coontraseña = contrase.getText();
+        //Almacenamos el dato que el ususario ingresa
         String contra = ContraseñaActual.getText();
-        if (contra.equals("User1")) {
+        
+        //comparamos que sea igual a la de la consulta
+        if (Coontraseña.equals(contra)) {
+            //Si es correcta despliega el menu para el cambio de contraseña
             CambioContraseña.setVisible(true);
 
         } else {
+            //Mostrara un placeholder indicando error
             ContraseñaActual.setText("Contraseña incorrecta");
 
             //Icono EnviarContraseña
@@ -314,7 +377,8 @@ public class Configuracion extends javax.swing.JFrame {
             Image img15 = image15.getImage().getScaledInstance(24, 24, 0);
             ImageIcon Icono15 = new ImageIcon(img15);
             EnviarContraseña.setIcon(Icono15);
-        }
+        } 
+         
     }
 
     //Metodo para verificar el cambio de contraseña
@@ -323,8 +387,11 @@ public class Configuracion extends javax.swing.JFrame {
     //Hacer visible el boton
     public void VerificarCambioContraseña() {
         //Obtenemos los valores de los campos de texto
-        String Coontraseña = ContraseñaActual.getText();
+        //Base de datos
+        String Coontraseña = contrase.getText();
+        //Cambio1
         String ContraseñaNueva = ContraseñaNueva1.getText();
+        //confirmacion
         String ContraseñaCambio = ConfirmarContraseña.getText();
         //Comprobamos que si contraseña antigua es diferente a contraseña nueva
         if (!Coontraseña.equals(ContraseñaCambio)) {
@@ -333,6 +400,7 @@ public class Configuracion extends javax.swing.JFrame {
                 //Mostramos boton
                 ContraseñaActualizada.setVisible(true);
                 System.out.println("Cambio en Proceso");
+                UpdateContrasena();
             } else {
                 System.err.println("Error Contraseña Distinta, Comprueba que sea igual");
             }
@@ -341,6 +409,115 @@ public class Configuracion extends javax.swing.JFrame {
         }
     }
 
+    
+    public void UpdateUsuario (){
+        
+        try (Connection con = DB_Conection.conectar()) {
+            
+            String sql = "UPDATE usuario SET nombre = ? WHERE id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, NombreUsuarioEditar.getText().trim());
+            ps.setString(2,  SesionUsuario.idUsuario);
+            ps.execute();
+        } catch (Exception e) {
+        e.printStackTrace(); // Mostrará errores ocultos
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    
+    public void UpdateTelefono(){
+        try (Connection con = DB_Conection.conectar()) {
+            
+            String sql = "UPDATE usuario SET telefono = ? WHERE id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, TelefonoEditar.getText().trim());
+            ps.setString(2,  SesionUsuario.idUsuario);
+            ps.execute();
+        } catch (Exception e) {
+        e.printStackTrace(); // Mostrará errores ocultos
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    
+    public void UpdateCorreo(){
+        try (Connection con = DB_Conection.conectar()) {
+            
+            String sql = "UPDATE usuario SET correo = ? WHERE id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, CorreoEditar.getText().trim());
+            ps.setString(2,  SesionUsuario.idUsuario);
+            ps.execute();
+        } catch (Exception e) {
+        e.printStackTrace(); // Mostrará errores ocultos
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    
+    public void UpdatePais (){
+        try (Connection con = DB_Conection.conectar()) {
+            
+            String sql = "UPDATE usuario SET pais = ? WHERE id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, PaisLabel.getText());
+            ps.setString(2,  SesionUsuario.idUsuario);
+            ps.execute();
+        } catch (Exception e) {
+        e.printStackTrace(); // Mostrará errores ocultos
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    
+    public void UpdateGenero (){
+        try (Connection con = DB_Conection.conectar()) {
+            
+            String sql = "UPDATE usuario SET sexo = ? WHERE id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, GeneroLabel.getText());
+            ps.setString(2,  SesionUsuario.idUsuario);
+            ps.execute();
+        } catch (Exception e) {
+        e.printStackTrace(); // Mostrará errores ocultos
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    
+    public void UpdateContrasena (){
+        try (Connection con = DB_Conection.conectar()) {
+            
+            String sql = "UPDATE usuario SET contrasena = ? WHERE id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, ConfirmarContraseña.getText().trim());
+            ps.setString(2,  SesionUsuario.idUsuario);
+            ps.execute();
+        } catch (Exception e) {
+        e.printStackTrace(); // Mostrará errores ocultos
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    public void UpdateEstadoCuenta (){
+        try (Connection con = DB_Conection.conectar()) {
+            
+            String sql = "UPDATE usuario SET EstadoCuenta = ? WHERE id_usuario = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, EstadoCuentaUsuario.getText().trim());
+            ps.setString(2, SesionUsuario.idUsuario);
+            ps.execute();
+            this.setVisible(false);
+            Inicio v1 = new Inicio();
+            v1.setVisible(true);
+        } catch (Exception e) {
+        e.printStackTrace(); // Mostrará errores ocultos
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    
+    
+    public void DesactivarCuenta () {      
+        if (EstadoCuentaUsuario.getText().equals("Activo")){
+            EstadoCuentaUsuario.setText("Desactivada");
+            UpdateEstadoCuenta();
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -348,9 +525,15 @@ public class Configuracion extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jLabel44 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        PostearBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
+        PerfilPanel = new javax.swing.JPanel();
+        Perfil_Img = new javax.swing.JLabel();
+        NombreUsuario = new javax.swing.JLabel();
+        IdUsuario = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         JPanelGeneraPanel = new javax.swing.JTabbedPane();
@@ -407,7 +590,7 @@ public class Configuracion extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        FechaNacimiento = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -447,6 +630,7 @@ public class Configuracion extends javax.swing.JFrame {
         ConfirmarContraseña = new javax.swing.JTextField();
         ContraseñaActualizada = new javax.swing.JButton();
         jSeparator11 = new javax.swing.JSeparator();
+        contrase = new javax.swing.JLabel();
         DesactivarPanel = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -456,6 +640,7 @@ public class Configuracion extends javax.swing.JFrame {
         FotoPerfil = new javax.swing.JLabel();
         NombreUsuario1 = new javax.swing.JLabel();
         IdUsuario1 = new javax.swing.JLabel();
+        EstadoCuentaUsuario = new javax.swing.JLabel();
         jSeparator13 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -530,19 +715,12 @@ public class Configuracion extends javax.swing.JFrame {
         Sig2 = new javax.swing.JLabel();
         Sig4 = new javax.swing.JLabel();
         Sig5 = new javax.swing.JLabel();
-        PerfilPanel = new javax.swing.JPanel();
-        NombreUsuario = new javax.swing.JLabel();
-        IdUsuario2 = new javax.swing.JLabel();
-        Perfil_Img = new javax.swing.JLabel();
         ConfiBtn = new javax.swing.JButton();
-        InicioBtn4 = new javax.swing.JButton();
-        NotificacionesBtn = new javax.swing.JButton();
+        InicioBtn1 = new javax.swing.JButton();
+        ComunidadesBtn = new javax.swing.JButton();
         PerfilBtn = new javax.swing.JButton();
-        ExplorarBtn = new javax.swing.JButton();
+        ExplorarBtn1 = new javax.swing.JButton();
         Y_logo = new javax.swing.JLabel();
-        Header = new javax.swing.JPanel();
-        ExitPane = new javax.swing.JPanel();
-        ExitBtn = new javax.swing.JLabel();
 
         jLabel44.setText("jLabel44");
         jTabbedPane2.addTab("tab1", jLabel44);
@@ -555,26 +733,63 @@ public class Configuracion extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.setMinimumSize(new java.awt.Dimension(1550, 890));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1550, 890));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        PostearBtn.setBackground(new java.awt.Color(166, 77, 121));
+        PostearBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        PostearBtn.setForeground(new java.awt.Color(204, 204, 204));
+        PostearBtn.setText("Publicacion");
+        PostearBtn.setToolTipText("");
+        PostearBtn.setAlignmentY(0.0F);
+        PostearBtn.setBorderPainted(false);
+        PostearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PostearBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(PostearBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 650, 200, 40));
 
         jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, -1, 820));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 450, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(427, 0, -1, 820));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 450, -1));
 
         jLabel2.setFont(new java.awt.Font("Roboto Black", 0, 22)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("Configuración");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, 170, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 170, 30));
+
+        PerfilPanel.setBackground(new java.awt.Color(0, 0, 0));
+        PerfilPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PerfilPanel.add(Perfil_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
+
+        NombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        NombreUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        NombreUsuario.setText("Usuario Ejemplo");
+        PerfilPanel.add(NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        IdUsuario.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        IdUsuario.setForeground(new java.awt.Color(106, 30, 85));
+        IdUsuario.setText("@Usuario1");
+        PerfilPanel.add(IdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(106, 30, 85));
+        jButton1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(106, 30, 85));
+        jButton1.setText("...");
+        jButton1.setAlignmentY(0.0F);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        PerfilPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 50, 40));
+
+        jPanel1.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 720, 270, 60));
 
         jSeparator4.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator4.setForeground(new java.awt.Color(153, 153, 153));
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 50, 10, 820));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 450, 10));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 10, 820));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 450, 10));
 
         JPanelGeneraPanel.setBackground(new java.awt.Color(153, 153, 255));
 
@@ -910,10 +1125,10 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel21.setText("Fecha de nacimiento");
         jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jLabel25.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel25.setText("00 / 00 / 0000");
-        jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        FechaNacimiento.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        FechaNacimiento.setForeground(new java.awt.Color(204, 204, 204));
+        FechaNacimiento.setText("00 / 00 / 0000");
+        jPanel7.add(FechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(204, 204, 204));
@@ -1203,6 +1418,9 @@ public class Configuracion extends javax.swing.JFrame {
 
         jPanel23.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 660, 330));
 
+        contrase.setText("jLabel25");
+        jPanel23.add(contrase, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+
         PassPanel.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 760));
 
         JPanelGeneraPanel.addTab("Pass", PassPanel);
@@ -1243,6 +1461,12 @@ public class Configuracion extends javax.swing.JFrame {
         IdUsuario1.setForeground(new java.awt.Color(106, 30, 85));
         IdUsuario1.setText("@Usuario1");
         jPanel10.add(IdUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
+
+        EstadoCuentaUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        EstadoCuentaUsuario.setForeground(new java.awt.Color(153, 255, 153));
+        EstadoCuentaUsuario.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        EstadoCuentaUsuario.setText("Activo");
+        jPanel10.add(EstadoCuentaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 100, 20));
 
         jPanel11.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 630, 60));
         jPanel11.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 640, 10));
@@ -1292,6 +1516,11 @@ public class Configuracion extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 DesactivarBtnMouseExited(evt);
+            }
+        });
+        DesactivarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DesactivarBtnActionPerformed(evt);
             }
         });
         jPanel11.add(DesactivarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 650, 40));
@@ -1677,7 +1906,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         JPanelGeneraPanel.addTab("Contenido que ves", ContVesTabPane);
 
-        jPanel1.add(JPanelGeneraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 50, 670, 820));
+        jPanel1.add(JPanelGeneraPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 670, 820));
 
         CuentaBtn.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
         CuentaBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1692,7 +1921,7 @@ public class Configuracion extends javax.swing.JFrame {
                 CuentaBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(CuentaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 450, 50));
+        jPanel1.add(CuentaBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 450, 50));
 
         NotiFicacionesBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         NotiFicacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1708,8 +1937,8 @@ public class Configuracion extends javax.swing.JFrame {
                 NotiFicacionesBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(NotiFicacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 450, 50));
-        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 450, 10));
+        jPanel1.add(NotiFicacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 450, 50));
+        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 450, 10));
 
         SeguridadYAccesoBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         SeguridadYAccesoBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1725,8 +1954,8 @@ public class Configuracion extends javax.swing.JFrame {
                 SeguridadYAccesoBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(SeguridadYAccesoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 450, 50));
-        jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 450, 10));
+        jPanel1.add(SeguridadYAccesoBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 450, 50));
+        jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 450, 10));
 
         PrivacidadYSeguridadBtn.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         PrivacidadYSeguridadBtn.setForeground(new java.awt.Color(204, 204, 204));
@@ -1742,12 +1971,12 @@ public class Configuracion extends javax.swing.JFrame {
                 PrivacidadYSeguridadBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(PrivacidadYSeguridadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 450, 50));
+        jPanel1.add(PrivacidadYSeguridadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 450, 50));
 
         ConBus.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         ConBus.setForeground(new java.awt.Color(153, 153, 153));
         ConBus.setText("Configuracion de Busqueda");
-        jPanel1.add(ConBus, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, -1, -1));
+        jPanel1.add(ConBus, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, -1, -1));
 
         Buscador.setBackground(new java.awt.Color(0, 0, 0));
         Buscador.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
@@ -1770,67 +1999,37 @@ public class Configuracion extends javax.swing.JFrame {
                 BuscadorKeyPressed(evt);
             }
         });
-        jPanel1.add(Buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 320, 40));
+        jPanel1.add(Buscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 320, 40));
 
         BuscarBtn.setBackground(new java.awt.Color(0, 0, 0));
         BuscarBtn.setForeground(new java.awt.Color(204, 204, 204));
         BuscarBtn.setText("Buscar");
         BuscarBtn.setBorderPainted(false);
         BuscarBtn.setContentAreaFilled(false);
-        jPanel1.add(BuscarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, -1, 40));
-        jPanel1.add(BuscadorImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 40, 40));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 420, 10));
+        jPanel1.add(BuscarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 50, -1, 40));
+        jPanel1.add(BuscadorImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 50, 40, 40));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 420, 10));
 
         Sig3.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         Sig3.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(Sig3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 160, 20, 50));
+        jPanel1.add(Sig3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 112, 20, 50));
 
         Sig2.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         Sig2.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(Sig2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 310, 20, 50));
+        jPanel1.add(Sig2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 260, 20, 50));
 
         Sig4.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         Sig4.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(Sig4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 210, 20, 50));
+        jPanel1.add(Sig4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 160, 20, 50));
 
         Sig5.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         Sig5.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(Sig5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 260, 20, 50));
-
-        PerfilPanel.setBackground(new java.awt.Color(0, 0, 0));
-        PerfilPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        NombreUsuario.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        NombreUsuario.setForeground(new java.awt.Color(204, 204, 204));
-        NombreUsuario.setText("Usuario");
-        NombreUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        NombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                NombreUsuarioMousePressed(evt);
-            }
-        });
-        PerfilPanel.add(NombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
-
-        IdUsuario2.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        IdUsuario2.setForeground(new java.awt.Color(166, 77, 121));
-        IdUsuario2.setText("@Usuario1");
-        PerfilPanel.add(IdUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, -1));
-
-        Perfil_Img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Perfil_Img.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Perfil_Img.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                Perfil_ImgMousePressed(evt);
-            }
-        });
-        PerfilPanel.add(Perfil_Img, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 60, 60));
-
-        jPanel1.add(PerfilPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 760, 320, 80));
+        jPanel1.add(Sig5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 210, 20, 50));
 
         ConfiBtn.setBackground(new java.awt.Color(26, 26, 29));
         ConfiBtn.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         ConfiBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ConfiBtn.setText("  Configuracion");
+        ConfiBtn.setText("Configuracion");
         ConfiBtn.setToolTipText("");
         ConfiBtn.setAlignmentY(0.0F);
         ConfiBtn.setBorderPainted(false);
@@ -1842,39 +2041,39 @@ public class Configuracion extends javax.swing.JFrame {
                 ConfiBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 260, 40));
+        jPanel1.add(ConfiBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 260, 40));
 
-        InicioBtn4.setBackground(new java.awt.Color(26, 26, 29));
-        InicioBtn4.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        InicioBtn4.setForeground(new java.awt.Color(204, 204, 204));
-        InicioBtn4.setText("  Inicio");
-        InicioBtn4.setToolTipText("");
-        InicioBtn4.setAlignmentY(0.0F);
-        InicioBtn4.setBorderPainted(false);
-        InicioBtn4.setContentAreaFilled(false);
-        InicioBtn4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        InicioBtn4.addActionListener(new java.awt.event.ActionListener() {
+        InicioBtn1.setBackground(new java.awt.Color(26, 26, 29));
+        InicioBtn1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        InicioBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        InicioBtn1.setText("   Inicio");
+        InicioBtn1.setToolTipText("");
+        InicioBtn1.setAlignmentY(0.0F);
+        InicioBtn1.setBorderPainted(false);
+        InicioBtn1.setContentAreaFilled(false);
+        InicioBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        InicioBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InicioBtn4ActionPerformed(evt);
+                InicioBtn1ActionPerformed(evt);
             }
         });
-        jPanel1.add(InicioBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 250, 40));
+        jPanel1.add(InicioBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 250, 40));
 
-        NotificacionesBtn.setBackground(new java.awt.Color(26, 26, 29));
-        NotificacionesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        NotificacionesBtn.setForeground(new java.awt.Color(204, 204, 204));
-        NotificacionesBtn.setText("  Notificaciones");
-        NotificacionesBtn.setToolTipText("");
-        NotificacionesBtn.setAlignmentY(0.0F);
-        NotificacionesBtn.setBorderPainted(false);
-        NotificacionesBtn.setContentAreaFilled(false);
-        NotificacionesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        NotificacionesBtn.addActionListener(new java.awt.event.ActionListener() {
+        ComunidadesBtn.setBackground(new java.awt.Color(26, 26, 29));
+        ComunidadesBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        ComunidadesBtn.setForeground(new java.awt.Color(204, 204, 204));
+        ComunidadesBtn.setText("  Comunidades");
+        ComunidadesBtn.setToolTipText("");
+        ComunidadesBtn.setAlignmentY(0.0F);
+        ComunidadesBtn.setBorderPainted(false);
+        ComunidadesBtn.setContentAreaFilled(false);
+        ComunidadesBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ComunidadesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NotificacionesBtnActionPerformed(evt);
+                ComunidadesBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(NotificacionesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 250, 40));
+        jPanel1.add(ComunidadesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 250, 40));
 
         PerfilBtn.setBackground(new java.awt.Color(26, 26, 29));
         PerfilBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -1891,109 +2090,33 @@ public class Configuracion extends javax.swing.JFrame {
                 PerfilBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 250, 40));
+        jPanel1.add(PerfilBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, 250, 40));
 
-        ExplorarBtn.setBackground(new java.awt.Color(26, 26, 29));
-        ExplorarBtn.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        ExplorarBtn.setForeground(new java.awt.Color(204, 204, 204));
-        ExplorarBtn.setText("  Explorar");
-        ExplorarBtn.setToolTipText("");
-        ExplorarBtn.setAlignmentY(0.0F);
-        ExplorarBtn.setBorderPainted(false);
-        ExplorarBtn.setContentAreaFilled(false);
-        ExplorarBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ExplorarBtn.addActionListener(new java.awt.event.ActionListener() {
+        ExplorarBtn1.setBackground(new java.awt.Color(26, 26, 29));
+        ExplorarBtn1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        ExplorarBtn1.setForeground(new java.awt.Color(204, 204, 204));
+        ExplorarBtn1.setText("  Explorar");
+        ExplorarBtn1.setToolTipText("");
+        ExplorarBtn1.setAlignmentY(0.0F);
+        ExplorarBtn1.setBorderPainted(false);
+        ExplorarBtn1.setContentAreaFilled(false);
+        ExplorarBtn1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ExplorarBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExplorarBtnActionPerformed(evt);
+                ExplorarBtn1ActionPerformed(evt);
             }
         });
-        jPanel1.add(ExplorarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 250, 40));
-        jPanel1.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 90, 80));
+        jPanel1.add(ExplorarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 250, 40));
+        jPanel1.add(Y_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 90, 80));
 
-        Header.setBackground(new java.awt.Color(0, 0, 0));
-        Header.setPreferredSize(new java.awt.Dimension(1550, 60));
-        Header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                HeaderMouseDragged(evt);
-            }
-        });
-        Header.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                HeaderMousePressed(evt);
-            }
-        });
-
-        ExitPane.setBackground(new java.awt.Color(166, 77, 121));
-        ExitPane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ExitPaneMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ExitPaneMouseExited(evt);
-            }
-        });
-
-        ExitBtn.setFont(new java.awt.Font("Source Code Pro Black", 1, 36)); // NOI18N
-        ExitBtn.setForeground(new java.awt.Color(106, 30, 85));
-        ExitBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ExitBtn.setText("X");
-        ExitBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ExitBtn.setPreferredSize(new java.awt.Dimension(50, 50));
-        ExitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ExitBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ExitBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ExitBtnMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout ExitPaneLayout = new javax.swing.GroupLayout(ExitPane);
-        ExitPane.setLayout(ExitPaneLayout);
-        ExitPaneLayout.setHorizontalGroup(
-            ExitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-            .addGroup(ExitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(ExitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
-        );
-        ExitPaneLayout.setVerticalGroup(
-            ExitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 52, Short.MAX_VALUE)
-            .addGroup(ExitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(ExitPaneLayout.createSequentialGroup()
-                    .addComponent(ExitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-
-        javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
-        Header.setLayout(HeaderLayout);
-        HeaderLayout.setHorizontalGroup(
-            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1550, Short.MAX_VALUE)
-            .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
-                    .addGap(0, 1490, Short.MAX_VALUE)
-                    .addComponent(ExitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        HeaderLayout.setVerticalGroup(
-            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-            .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(HeaderLayout.createSequentialGroup()
-                    .addGap(2, 2, 2)
-                    .addComponent(ExitPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-
-        jPanel1.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1550, 50));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1550, 890));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1550, 820));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void PostearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostearBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostearBtnActionPerformed
 
     private void CuentaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtnActionPerformed
         JPanelGeneraPanel.setSelectedIndex(0);
@@ -2095,6 +2218,12 @@ public class Configuracion extends javax.swing.JFrame {
         Image img16 = image16.getImage().getScaledInstance(24, 24, 0);
         ImageIcon Icono16 = new ImageIcon(img16);
         ContraseñaActualizada.setIcon(Icono16);
+        
+        VerificarCambioContraseña();
+        CambioContraseña.setVisible(false);
+        ContraseñaActual.setText("Contaseña Actual");
+        ContraseñaNueva1.setText("");
+        ConfirmarContraseña.setText("");
     }//GEN-LAST:event_ContraseñaActualizadaActionPerformed
 
     private void ConfirmarContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ConfirmarContraseñaKeyReleased
@@ -2162,8 +2291,8 @@ public class Configuracion extends javax.swing.JFrame {
             EditarPanel2.setVisible(false);
             //Mostramos el boton de edicion
             Editar2.setVisible(true);
-            //Guardamos Nuevo Valor
-            TelefonoLabel.setText(TelefonoCambio);
+            UpdateTelefono();
+            ConsultaUsuario();
             //Esta comprobacion depende de que valor entre 0 y 1 tome dependiendo es este (Valor obtenido de comboBox)
             //Cambiara el icono de la bandera
             if(Pais.getSelectedIndex()==1){
@@ -2327,6 +2456,8 @@ public class Configuracion extends javax.swing.JFrame {
         EditarPanel4.setVisible(false);
         //Mostramos el boton de edicion
         Editar4.setVisible(true);
+         UpdatePais();
+                ConsultaUsuario();
                 break;
             case 2:
                 BanderaLabel1.setIcon(IconoBan2);
@@ -2335,6 +2466,8 @@ public class Configuracion extends javax.swing.JFrame {
         EditarPanel4.setVisible(false);
         //Mostramos el boton de edicion
         Editar4.setVisible(true);
+         UpdatePais();
+                ConsultaUsuario();
                 break;
             default:
                 BanderaLabel1.setIcon(null);
@@ -2342,6 +2475,8 @@ public class Configuracion extends javax.swing.JFrame {
                 EditarPanel4.setVisible(false);
                 //Mostramos el boton de edicion
                 Editar4.setVisible(true);
+                 UpdatePais();
+                ConsultaUsuario();
                 break;
         }
        
@@ -2399,6 +2534,8 @@ public class Configuracion extends javax.swing.JFrame {
                 Editar5.setVisible(true);
                 //Obtenemos el texto del genero seleccionado
                 GeneroLabel.setText(Genero);
+                UpdateGenero();
+                ConsultaUsuario();
                 break;
             
             case 1: 
@@ -2408,6 +2545,8 @@ public class Configuracion extends javax.swing.JFrame {
                 Editar5.setVisible(true);
                 //Obtenemos el texto del genero seleccionado
                 GeneroLabel.setText(Genero);
+                UpdateGenero();
+                ConsultaUsuario();
                 break;
             
             case 2:
@@ -2417,6 +2556,8 @@ public class Configuracion extends javax.swing.JFrame {
                 Editar5.setVisible(true);
                 //Obtenemos el texto del genero seleccionado
                 GeneroLabel.setText(Genero);
+                UpdateGenero();
+                ConsultaUsuario();
                 break;
                 
             case 3:
@@ -2428,6 +2569,8 @@ public class Configuracion extends javax.swing.JFrame {
                 String GeneroUsuario = DefinirGenero.getText();
                 //Mostramos el recuadro de texto
                 GeneroLabel.setText(GeneroUsuario);
+                UpdateGenero();
+                ConsultaUsuario();
                 break;
                 
             default:
@@ -2490,81 +2633,33 @@ public class Configuracion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ContraseñaNueva1ActionPerformed
 
-    private void NombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuarioMousePressed
-        this.dispose();
-        new Perfil().setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreUsuarioMousePressed
-
-    private void Perfil_ImgMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Perfil_ImgMousePressed
-        this.dispose();
-        new Perfil().setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Perfil_ImgMousePressed
-
     private void ConfiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfiBtnActionPerformed
         this.dispose();
         new Configuracion().setVisible(true);
     }//GEN-LAST:event_ConfiBtnActionPerformed
 
-    private void InicioBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn4ActionPerformed
+    private void InicioBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InicioBtn1ActionPerformed
         this.dispose();
         new Menu_Principal().setVisible(true);
-    }//GEN-LAST:event_InicioBtn4ActionPerformed
+    }//GEN-LAST:event_InicioBtn1ActionPerformed
 
-    private void NotificacionesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NotificacionesBtnActionPerformed
-        this.dispose();
-        new Notificaciones().setVisible(true);
-    }//GEN-LAST:event_NotificacionesBtnActionPerformed
+    private void ComunidadesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComunidadesBtnActionPerformed
+        
+    }//GEN-LAST:event_ComunidadesBtnActionPerformed
 
     private void PerfilBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerfilBtnActionPerformed
         this.dispose();
         new Perfil().setVisible(true);
     }//GEN-LAST:event_PerfilBtnActionPerformed
 
-    private void ExplorarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtnActionPerformed
+    private void ExplorarBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExplorarBtn1ActionPerformed
         this.dispose();
         new Explorar().setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ExplorarBtnActionPerformed
+    }//GEN-LAST:event_ExplorarBtn1ActionPerformed
 
-    private void ExitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnMouseClicked
-        System.exit(0);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ExitBtnMouseClicked
-
-    private void ExitBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnMouseEntered
-        ExitPane.setBackground(Color.LIGHT_GRAY);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ExitBtnMouseEntered
-
-    private void ExitBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnMouseExited
-        ExitPane.setBackground(new java.awt.Color(166,77,121));
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ExitBtnMouseExited
-
-    private void ExitPaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitPaneMouseEntered
-        ExitPane.setBackground(Color.LIGHT_GRAY);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ExitPaneMouseEntered
-
-    private void ExitPaneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitPaneMouseExited
-        ExitPane.setBackground(new java.awt.Color(166,77,121));
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ExitPaneMouseExited
-
-    private void HeaderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMouseDragged
-        int x = evt.getXOnScreen();
-        int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse, y - yMouse);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_HeaderMouseDragged
-
-    private void HeaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMousePressed
-        xMouse = evt.getX();
-        yMouse = evt.getY();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_HeaderMousePressed
+    private void DesactivarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DesactivarBtnActionPerformed
+        DesactivarCuenta();
+    }//GEN-LAST:event_DesactivarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2592,6 +2687,7 @@ public class Configuracion extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -2616,6 +2712,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton BusqConfigBtn;
     private javax.swing.JButton CambiarPassBtn;
     private javax.swing.JPanel CambioContraseña;
+    private javax.swing.JButton ComunidadesBtn;
     private javax.swing.JLabel ConBus;
     private javax.swing.JButton ConfiBtn;
     private javax.swing.JTextField ConfirmarContraseña;
@@ -2643,21 +2740,20 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JPanel EditarPanel4;
     private javax.swing.JPanel EditarPanel5;
     private javax.swing.JButton EnviarContraseña;
-    private javax.swing.JLabel ExitBtn;
-    private javax.swing.JPanel ExitPane;
-    private javax.swing.JButton ExplorarBtn;
+    private javax.swing.JLabel EstadoCuentaUsuario;
+    private javax.swing.JButton ExplorarBtn1;
     private javax.swing.JButton ExpoConfigBtn;
+    private javax.swing.JLabel FechaNacimiento;
     private javax.swing.JButton FiltrosNotConfBtn;
     private javax.swing.JLabel FotoPerfil;
     private javax.swing.JComboBox<String> GeneroComboBox;
     private javax.swing.JLabel GeneroLabel;
-    private javax.swing.JPanel Header;
+    private javax.swing.JLabel IdUsuario;
     private javax.swing.JLabel IdUsuario1;
-    private javax.swing.JLabel IdUsuario2;
     private javax.swing.JPanel InfCuenta;
     private javax.swing.JButton InfCuentaBtn;
     private javax.swing.JPanel InformacionCuentaPanel;
-    private javax.swing.JButton InicioBtn4;
+    private javax.swing.JButton InicioBtn1;
     private javax.swing.JButton InteresesBtn;
     private javax.swing.JTabbedPane JPanelGeneraPanel;
     private javax.swing.JLabel L_PS_Title;
@@ -2678,7 +2774,6 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel NombreUsuario1;
     private javax.swing.JTextField NombreUsuarioEditar;
     private javax.swing.JButton NotiFicacionesBtn;
-    private javax.swing.JButton NotificacionesBtn;
     private javax.swing.JPanel NotificacionesTabPane;
     private javax.swing.JComboBox<String> Pais;
     private javax.swing.JComboBox<String> PaisComboBox;
@@ -2688,6 +2783,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JButton PerfilBtn;
     private javax.swing.JPanel PerfilPanel;
     private javax.swing.JLabel Perfil_Img;
+    private javax.swing.JButton PostearBtn;
     private javax.swing.JButton PreferenciasBtn;
     private javax.swing.JPanel PrivacidadTabPane;
     private javax.swing.JButton PrivacidadYSeguridadBtn;
@@ -2725,6 +2821,8 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel UsuarioLabel5;
     private javax.swing.JLabel UsuarioLabel6;
     private javax.swing.JLabel Y_logo;
+    private javax.swing.JLabel contrase;
+    private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
@@ -2744,7 +2842,6 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
