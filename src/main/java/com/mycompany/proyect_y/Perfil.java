@@ -645,6 +645,54 @@ public class Perfil extends javax.swing.JFrame {
 }
     }
     
+    public void notificarSeguidores(String idUsuarioEmisor, int idPublicacion) {
+    Connection con = DB_Conection.conectar();
+    try {
+        String sqlSeguidores = "SELECT id_seguidor FROM seguidores WHERE id_seguido = ?";
+        PreparedStatement psSeguidores = con.prepareStatement(sqlSeguidores);
+        psSeguidores.setString(1, SesionUsuario.idUsuario);
+        ResultSet rs = psSeguidores.executeQuery();
+        while (rs.next()) {
+            String idReceptor = rs.getString("id_seguidor");
+            String sqlNoti = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, id_publicacion, tipo) VALUES (?, ?, ?, 'publico')";
+           
+            PreparedStatement psNoti = con.prepareStatement(sqlNoti);
+            
+            psNoti.setString(1, idReceptor);
+            psNoti.setString(2, SesionUsuario.idUsuario);
+            psNoti.setInt(3, idPublicacion);
+            psNoti.executeUpdate();
+
+        }
+
+        rs.close();
+        psSeguidores.close();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    
+    public void notificarSeguido(String idUsuarioReceptor) {
+    Connection con = DB_Conection.conectar();
+    String sql = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, tipo, visto, fecha) " +
+                 "VALUES (?, ?, ?, ?, NOW())";
+    try (
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, idUsuarioReceptor);
+        ps.setString(2, SesionUsuario.idUsuario);
+        ps.setString(3, "seguimiento");
+        ps.setBoolean(4, false); // false = no visto
+        ps.executeUpdate();
+        
+        ps.close();
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+    
     private void SeccionTendencias(){
         publicacionDAO = new PublicacionDAO();
         List<Object[]> lista = publicacionDAO.obtenerTop3Publicaciones();
@@ -841,25 +889,7 @@ public class Perfil extends javax.swing.JFrame {
     }
     
         
-public void notificarSeguido(String idUsuarioReceptor) {
-    Connection con = DB_Conection.conectar();
-    String sql = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, tipo, visto, fecha) " +
-                 "VALUES (?, ?, ?, ?, NOW())";
-    try (
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, idUsuarioReceptor);
-        ps.setString(2, SesionUsuario.idUsuario);
-        ps.setString(3, "seguimiento");
-        ps.setBoolean(4, false); // false = no visto
 
-        ps.executeUpdate();
-        
-        ps.close();
-        con.close();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
     
     private void cargarDatos() {
     UsuariosDAO dao = new UsuariosDAO();
@@ -3304,7 +3334,7 @@ public void notificarSeguido(String idUsuarioReceptor) {
 
     private void SeguirCuentaBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirCuentaBtn3ActionPerformed
         String idSeguidor = SesionUsuario.idUsuario; // ID del usuario logueado
-        String idSeguido = UserInt3.getText(); // ID del perfil que se está viendo
+        String idSeguido = UserInt1.getText(); // ID del perfil que se está viendo
 
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/y_bd", "root", "");
@@ -3370,7 +3400,7 @@ public void notificarSeguido(String idUsuarioReceptor) {
 
     private void SeguirCuentaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirCuentaBtn2ActionPerformed
         String idSeguidor = SesionUsuario.idUsuario; // ID del usuario logueado
-        String idSeguido = UserInt2.getText(); // ID del perfil que se está viendo
+        String idSeguido = UserInt1.getText(); // ID del perfil que se está viendo
 
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/y_bd", "root", "");
@@ -3401,6 +3431,7 @@ public void notificarSeguido(String idUsuarioReceptor) {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
 
         // TODO add your handling code here:
     }//GEN-LAST:event_SeguirCuentaBtn2ActionPerformed

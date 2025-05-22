@@ -132,7 +132,7 @@ public class Notificaciones extends javax.swing.JFrame {
                 botonesMensaje[i].setText(generarMensaje(tipo));
                 fechas[i].setText(fecha.toString());
 
-                // Imagen
+                /* Imagen
                 if (fotoPerfil != null) {
                     ImageIcon icon = new ImageIcon(fotoPerfil);
                     Image imgEscalada = icon.getImage().getScaledInstance(imagenes[i].getWidth(), imagenes[i].getHeight(), Image.SCALE_SMOOTH);
@@ -142,7 +142,7 @@ public class Notificaciones extends javax.swing.JFrame {
                     Image img = icon.getImage().getScaledInstance(imagenes[i].getWidth(), imagenes[i].getHeight(), Image.SCALE_SMOOTH);
                     imagenes[i].setIcon(new ImageIcon(img));
                 }
-
+*/
                 // Listeners
                 int index = i;
                 botonesUsu[i].addActionListener(e -> {
@@ -157,9 +157,10 @@ public class Notificaciones extends javax.swing.JFrame {
 
                 botonesMensaje[i].addActionListener(e -> {
                     if (idPublicacion != null) {
-                        // Abrir la publicación
-                        // new PaginaPublicacion(idPublicacion).setVisible(true);
+                        //Abrir la publicación
+                        new ComentariosPublicacion().setVisible(true);
                         dao.marcarComoVista(SesionUsuario.idUsuario, idEmisor, fecha); // marcar vista
+                        this.dispose();
                     }
                 });
 
@@ -1010,6 +1011,11 @@ private String generarMensaje(String tipo) {
         BtnNoti.setContentAreaFilled(false);
         BtnNoti.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         BtnNoti.setMargin(new java.awt.Insets(2, 5, 3, 14));
+        BtnNoti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNotiActionPerformed(evt);
+            }
+        });
         PanelNoti.add(BtnNoti, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 360, 20));
 
         BtnUsuNoti.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1657,6 +1663,10 @@ private String generarMensaje(String tipo) {
         paginaActual = 0;
         cargarNotificaciones();
     }//GEN-LAST:event_FiltroNuevoActionPerformed
+
+    private void BtnNotiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNotiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnNotiActionPerformed
 
     /**
      * @param args the command line arguments

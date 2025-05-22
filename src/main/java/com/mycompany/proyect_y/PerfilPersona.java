@@ -801,25 +801,21 @@ public class PerfilPersona extends javax.swing.JFrame {
     
 public void notificarSeguido(String idUsuarioReceptor) {
     Connection con = DB_Conection.conectar();
-DescLabel.setText("catch");
     String sql = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, tipo, visto, fecha) " +
                  "VALUES (?, ?, ?, ?, NOW())";
-DescLabel.setText("Despues inset");
     try (
          PreparedStatement ps = con.prepareStatement(sql)) {
-        DescLabel.setText("Entro al ps");
         ps.setString(1, idUsuarioReceptor);
         ps.setString(2, SesionUsuario.idUsuario);
         ps.setString(3, "seguimiento");
         ps.setBoolean(4, false); // false = no visto
-DescLabel.setText("antes del ex");
+
         ps.executeUpdate();
         
         ps.close();
         con.close();
     } catch (Exception e) {
         e.printStackTrace();
-        DescLabel.setText("catch");
     }
 }
 

@@ -363,6 +363,25 @@ public void notificarSeguidores(String idUsuarioEmisor, int idPublicacion) {
         Interes3=UserInt3.getText();
 }   
     
+public void notificarSeguido(String idUsuarioReceptor) {
+    Connection con = DB_Conection.conectar();
+    String sql = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, tipo, visto, fecha) " +
+                 "VALUES (?, ?, ?, ?, NOW())";
+    try (
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, idUsuarioReceptor);
+        ps.setString(2, SesionUsuario.idUsuario);
+        ps.setString(3, "seguimiento");
+        ps.setBoolean(4, false); // false = no visto
+        ps.executeUpdate();
+        
+        ps.close();
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    
     private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JButton nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
     ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts, JLabel imagen_publi, JButton btnComentarios){
         UsuarioPubActual = publica.getIdUsuario();
@@ -2144,99 +2163,99 @@ public void notificarSeguidores(String idUsuarioEmisor, int idPublicacion) {
         String idSeguidor = SesionUsuario.idUsuario; // ID del usuario logueado
         String idSeguido = UserInt1.getText(); // ID del perfil que se está viendo
 
-try {
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/y_bd", "root", "");
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/y_bd", "root", "");
 
-    String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setString(1, idSeguidor);
-    ps.setString(2, idSeguido);
+            String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, idSeguidor);
+            ps.setString(2, idSeguido);
 
-    int filas = ps.executeUpdate();
+            int filas = ps.executeUpdate();
 
-    if (filas > 0) {
-        // Éxito: se insertó un nuevo seguidor
-        LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
+            if (filas > 0) {
+                // Éxito: se insertó un nuevo seguidor
+                LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
+                notificarSeguido(idSeguido);
+                // Cambiar texto y colores del botón
+                SeguirCuentaBtn1.setText("Siguiendo");
+                SeguirCuentaBtn1.setEnabled(false); // Desactiva el botón para evitar múltiples clics
+            } else {
+                LabelAviso2.setText("Ya lo estás siguiendo");
+            }
 
-        // Cambiar texto y colores del botón
-        SeguirCuentaBtn1.setText("Siguiendo");
-        SeguirCuentaBtn1.setEnabled(false); // Desactiva el botón para evitar múltiples clics
-    } else {
-        LabelAviso2.setText("Ya lo estás siguiendo");
-    }
-
-    ps.close();
-    conn.close();
-} catch (SQLException e) {
-    e.printStackTrace();
-}
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_SeguirCuentaBtn1ActionPerformed
 
     private void SeguirCuentaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirCuentaBtn2ActionPerformed
         String idSeguidor = SesionUsuario.idUsuario; // ID del usuario logueado
-        String idSeguido = UserInt2.getText(); // ID del perfil que se está viendo
+        String idSeguido = UserInt1.getText(); // ID del perfil que se está viendo
 
-try {
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/y_bd", "root", "");
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/y_bd", "root", "");
 
-    String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setString(1, idSeguidor);
-    ps.setString(2, idSeguido);
+            String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, idSeguidor);
+            ps.setString(2, idSeguido);
 
-    int filas = ps.executeUpdate();
+            int filas = ps.executeUpdate();
 
-    if (filas > 0) {
-        // Éxito: se insertó un nuevo seguidor
-        LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
+            if (filas > 0) {
+                // Éxito: se insertó un nuevo seguidor
+                LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
+                notificarSeguido(idSeguido);
+                // Cambiar texto y colores del botón
+                SeguirCuentaBtn2.setText("Siguiendo");
+                SeguirCuentaBtn2.setEnabled(false); // Desactiva el botón para evitar múltiples clics
+            } else {
+                LabelAviso2.setText("Ya lo estás siguiendo");
+            }
 
-        // Cambiar texto y colores del botón
-        SeguirCuentaBtn2.setText("Siguiendo");
-        SeguirCuentaBtn2.setEnabled(false); // Desactiva el botón para evitar múltiples clics
-    } else {
-        LabelAviso2.setText("Ya lo estás siguiendo");
-    }
-
-    ps.close();
-    conn.close();
-} catch (SQLException e) {
-    e.printStackTrace();
-}
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_SeguirCuentaBtn2ActionPerformed
 
     private void SeguirCuentaBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirCuentaBtn3ActionPerformed
         String idSeguidor = SesionUsuario.idUsuario; // ID del usuario logueado
-        String idSeguido = UserInt3.getText(); // ID del perfil que se está viendo
+        String idSeguido = UserInt1.getText(); // ID del perfil que se está viendo
 
-try {
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/y_bd", "root", "");
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/y_bd", "root", "");
 
-    String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setString(1, idSeguidor);
-    ps.setString(2, idSeguido);
+            String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, idSeguidor);
+            ps.setString(2, idSeguido);
 
-    int filas = ps.executeUpdate();
+            int filas = ps.executeUpdate();
 
-    if (filas > 0) {
-        // Éxito: se insertó un nuevo seguidor
-        LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
+            if (filas > 0) {
+                // Éxito: se insertó un nuevo seguidor
+                LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
+                notificarSeguido(idSeguido);
+                // Cambiar texto y colores del botón
+                SeguirCuentaBtn3.setText("Siguiendo");
+                SeguirCuentaBtn3.setEnabled(false); // Desactiva el botón para evitar múltiples clics
+            } else {
+                LabelAviso2.setText("Ya lo estás siguiendo");
+            }
 
-        // Cambiar texto y colores del botón
-        SeguirCuentaBtn3.setText("Siguiendo");
-        SeguirCuentaBtn3.setEnabled(false); // Desactiva el botón para evitar múltiples clics
-    } else {
-        LabelAviso2.setText("Ya lo estás siguiendo");
-    }
-
-    ps.close();
-    conn.close();
-} catch (SQLException e) {
-    e.printStackTrace();
-}
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_SeguirCuentaBtn3ActionPerformed
 
