@@ -46,7 +46,7 @@ public class Explorar extends javax.swing.JFrame {
     List<Publicacion> publicacioness;
     private boolean hayPublicaciones = false;
     private boolean hayUsuarios = false;
-    private String textoBusqueda, UsuarioPubActual;
+    private String textoBusqueda;
     private static final int USER_PER_PAGE = 5; //Mostrar 5 usuarios por pagina
     private int currentUserGroup = 0 ; //Para manejar grupos de usuarios
     private Publicacion publicacionId;
@@ -461,7 +461,8 @@ public class Explorar extends javax.swing.JFrame {
     private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JButton nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
     ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts, JLabel imagen_publi, JButton btnComentarios){
         //Variables locales
-        UsuarioPubActual = publica.getIdUsuario();
+        
+        
         // Configurar iconos iniciales
         String likeIcon = "src\\main\\java\\Multimedia\\heart-icon-noFill.png";
         ImageIcon imageLike = new ImageIcon(likeIcon);
@@ -965,7 +966,7 @@ public class Explorar extends javax.swing.JFrame {
                             .addComponent(Fecha_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, 0)
                         .addComponent(UsuarioPub6)))
-                .addGap(0, 0, 0)
+                .addGap(10, 10, 10)
                 .addComponent(lblTexto_publicacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(ImagenPublicacion_lbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2385,8 +2386,22 @@ public class Explorar extends javax.swing.JFrame {
     }//GEN-LAST:event_CuentaBtn20ActionPerformed
 
     private void TendenciaYapBtnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TendenciaYapBtnMousePressed
-        this.dispose();
-        new Menu_Principal().setVisible(true);
+        PublicacionDAO dao = new PublicacionDAO(); // Asegúrate de tener el DAO instanciado
+
+        publicacionId = dao.obtenerPublicacionPorId(publicacionTrend1);
+
+        bandera_likes = false;
+        bandera_repost = false;
+
+        if (!publicaciones.isEmpty()){
+            configurarPanelPublicacion(
+                PanelNot1, publicacionId,
+                lblUsuario,Nombre_usuarioBtn,UsuarioPub5,
+                lblTexto_publicacion,Fecha_Label,
+                meGustaBtn, lblLikesLabel,
+                repostearBtn, lblRepostearLabel,ImagenPublicacion_lbl,comentarBtn
+            );
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_TendenciaYapBtnMousePressed
 
@@ -2445,8 +2460,22 @@ public class Explorar extends javax.swing.JFrame {
     }//GEN-LAST:event_UserInt2ActionPerformed
 
     private void TendenciaYapBtn1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TendenciaYapBtn1MousePressed
-        this.dispose();
-        new Menu_Principal().setVisible(true);
+        PublicacionDAO dao = new PublicacionDAO(); // Asegúrate de tener el DAO instanciado
+
+        publicacionId = dao.obtenerPublicacionPorId(publicacionTrend2);
+
+        bandera_likes = false;
+        bandera_repost = false;
+
+        if (!publicaciones.isEmpty()){
+            configurarPanelPublicacion(
+                PanelNot1, publicacionId,
+                lblUsuario,Nombre_usuarioBtn,UsuarioPub5,
+                lblTexto_publicacion,Fecha_Label,
+                meGustaBtn, lblLikesLabel,
+                repostearBtn, lblRepostearLabel,ImagenPublicacion_lbl,comentarBtn
+            );
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_TendenciaYapBtn1MousePressed
 
@@ -2459,8 +2488,22 @@ public class Explorar extends javax.swing.JFrame {
     }//GEN-LAST:event_numreacciones1ActionPerformed
 
     private void TendenciaYapBtn2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TendenciaYapBtn2MousePressed
-        this.dispose();
-        new Menu_Principal().setVisible(true);
+        PublicacionDAO dao = new PublicacionDAO(); // Asegúrate de tener el DAO instanciado
+
+        publicacionId = dao.obtenerPublicacionPorId(publicacionTrend3);
+
+        bandera_likes = false;
+        bandera_repost = false;
+
+        if (!publicaciones.isEmpty()){
+            configurarPanelPublicacion(
+                PanelNot1, publicacionId,
+                lblUsuario,Nombre_usuarioBtn,UsuarioPub5,
+                lblTexto_publicacion,Fecha_Label,
+                meGustaBtn, lblLikesLabel,
+                repostearBtn, lblRepostearLabel,ImagenPublicacion_lbl,comentarBtn
+            );
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_TendenciaYapBtn2MousePressed
 
