@@ -8,6 +8,7 @@ import Conection.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -30,6 +31,35 @@ public class PublicacionDAO {
         idPubicacion = 0;
     }
    
+    public Publicacion obtenerPublicacionPorId(int idPublicacion) {
+    Publicacion publi = null;
+    String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
+                 "JOIN Usuario u ON p.id_usuario = u.id_usuario " +
+                 "WHERE p.id_publicacion = ?";
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        stmt.setInt(1, idPublicacion);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            publi = new Publicacion(
+                rs.getInt("id_publicacion"),
+                rs.getString("texto"),
+                rs.getBytes("multimedia_publi"),
+                rs.getTimestamp("fecha_hora"),
+                rs.getInt("num_reacciones"),
+                rs.getInt("num_compartidos"),
+                rs.getString("id_usuario")
+            );
+            publi.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
+        }
+        rs.close();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+
+    return publi;
+}
     
    public List<Publicacion> obtenerTodasPublicaciones() {
         List<Publicacion> publicaciones = new ArrayList<>();
@@ -58,6 +88,68 @@ public class PublicacionDAO {
         }
         return publicaciones;
     }
+   
+public List<Object[]> obtenerTop3Publicaciones() {
+    List<Object[]> publicaciones = new ArrayList<>();
+    String sql = "SELECT id_publicacion, texto, num_reacciones " +
+                 "FROM Publicacion " +
+                 "ORDER BY num_reacciones DESC " +
+                 "LIMIT 3";
+    
+    try (Statement stmt = connection.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+        
+        while (rs.next()) {
+            Object[] datos = new Object[3];
+            datos[0] = rs.getInt("id_publicacion");
+            datos[1] = rs.getString("texto");
+            datos[2] = rs.getInt("num_reacciones");
+            publicaciones.add(datos);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return publicaciones;
+}
+   
+   public List<Publicacion> obtenerPublicacionesDeSeguidos(List<String> idsSeguidos) {
+    List<Publicacion> publicaciones = new ArrayList<>();
+    if (idsSeguidos == null || idsSeguidos.isEmpty()) {
+        return publicaciones; // no hay seguidos, no hay publicaciones
+    }
+
+    String placeholders = idsSeguidos.stream().map(id -> "?").collect(Collectors.joining(","));
+    String sql = "SELECT p.*, u.foto_perfil FROM Publicacion p " +
+                 "JOIN Usuario u ON p.id_usuario = u.id_usuario " +
+                 "WHERE p.id_usuario IN (" + placeholders + ") " +
+                 "ORDER BY p.fecha_hora DESC";
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        for (int i = 0; i < idsSeguidos.size(); i++) {
+            stmt.setString(i + 1, idsSeguidos.get(i));
+        }
+
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Publicacion publi = new Publicacion(
+                rs.getInt("id_publicacion"),
+                rs.getString("texto"),
+                rs.getBytes("multimedia_publi"),
+                rs.getTimestamp("fecha_hora"),
+                rs.getInt("num_reacciones"),
+                rs.getInt("num_compartidos"),
+                rs.getString("id_usuario")
+            );
+            publi.setFotoPerfilUsuario(rs.getBytes("foto_perfil"));
+            publicaciones.add(publi);
+        }
+        rs.close();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+
+    return publicaciones;
+}
    
    public List<Publicacion> obtenerTodasPublicacionesUsuario(String idUsuario) {
         List<Publicacion> publicaciones = new ArrayList<>();

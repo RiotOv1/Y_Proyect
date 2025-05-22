@@ -1,6 +1,7 @@
 
 package com.mycompany.proyect_y;
 import Conection.DB_Conection;
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.Icon;
@@ -22,7 +23,8 @@ import javax.swing.JOptionPane;
  * @author gisel
  */
 public class Inicio extends javax.swing.JFrame {
-
+    int xMouse;
+    int yMouse;
     private File archivoImagenSeleccionado;
     /**
      * Creates new form 
@@ -358,6 +360,9 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
+        Header = new javax.swing.JPanel();
+        ExitPane = new javax.swing.JPanel();
+        ExitBtn = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         J_Inicioinicio = new javax.swing.JPanel();
         L_LoQuePAsa = new javax.swing.JLabel();
@@ -477,8 +482,89 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
-        setSize(new java.awt.Dimension(1920, 1080));
+        setLocationByPlatform(true);
+        setUndecorated(true);
+        setResizable(false);
+        setSize(new java.awt.Dimension(1520, 880));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Header.setBackground(new java.awt.Color(0, 0, 0));
+        Header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                HeaderMouseDragged(evt);
+            }
+        });
+        Header.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                HeaderMousePressed(evt);
+            }
+        });
+
+        ExitPane.setBackground(new java.awt.Color(166, 77, 121));
+        ExitPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ExitPaneMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ExitPaneMouseExited(evt);
+            }
+        });
+
+        ExitBtn.setFont(new java.awt.Font("Source Code Pro Black", 1, 48)); // NOI18N
+        ExitBtn.setForeground(new java.awt.Color(106, 30, 85));
+        ExitBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ExitBtn.setText("X");
+        ExitBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ExitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExitBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ExitBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ExitBtnMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ExitPaneLayout = new javax.swing.GroupLayout(ExitPane);
+        ExitPane.setLayout(ExitPaneLayout);
+        ExitPaneLayout.setHorizontalGroup(
+            ExitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(ExitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(ExitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+        );
+        ExitPaneLayout.setVerticalGroup(
+            ExitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 62, Short.MAX_VALUE)
+            .addGroup(ExitPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ExitPaneLayout.createSequentialGroup()
+                    .addComponent(ExitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 56, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
+        Header.setLayout(HeaderLayout);
+        HeaderLayout.setHorizontalGroup(
+            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1640, Short.MAX_VALUE)
+            .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
+                    .addGap(0, 1580, Short.MAX_VALUE)
+                    .addComponent(ExitPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        HeaderLayout.setVerticalGroup(
+            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(HeaderLayout.createSequentialGroup()
+                    .addGap(2, 2, 2)
+                    .addComponent(ExitPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        getContentPane().add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1640, 60));
 
         J_Inicioinicio.setBackground(new java.awt.Color(0, 0, 0));
         J_Inicioinicio.setAlignmentX(188.0F);
@@ -569,13 +655,13 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
         );
         J_InicioinicioLayout.setVerticalGroup(
             J_InicioinicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_InicioinicioLayout.createSequentialGroup()
-                .addGap(0, 122, Short.MAX_VALUE)
+            .addGroup(J_InicioinicioLayout.createSequentialGroup()
+                .addContainerGap(187, Short.MAX_VALUE)
                 .addComponent(L_in, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(130, 130, 130)
                 .addComponent(jLabel7)
                 .addGap(33, 33, 33))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, J_InicioinicioLayout.createSequentialGroup()
+            .addGroup(J_InicioinicioLayout.createSequentialGroup()
                 .addGap(84, 84, 84)
                 .addComponent(L_LoQuePAsa, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -743,7 +829,7 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
             .addGroup(J_InicioSLayout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(PanelFLotante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", J_InicioS);
@@ -981,7 +1067,7 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
             .addGroup(J_C_FotoLayout.createSequentialGroup()
                 .addGap(183, 183, 183)
                 .addComponent(L_Foto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         J_C_FotoLayout.setVerticalGroup(
             J_C_FotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1103,7 +1189,7 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
             .addGroup(J_CreaCuenta1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(PanelFlotante2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", J_CreaCuenta1);
@@ -1664,7 +1750,7 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
             .addGroup(J_CreaCuenta2Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(PanelFlotante1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", J_CreaCuenta2);
@@ -1836,6 +1922,44 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
         // TODO add your handling code here:
     }//GEN-LAST:event_CB_AnioActionPerformed
 
+    private void HeaderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HeaderMousePressed
+
+    private void HeaderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeaderMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_HeaderMouseDragged
+
+    private void ExitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnMouseClicked
+        System.exit(0);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExitBtnMouseClicked
+
+    private void ExitBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnMouseEntered
+        ExitPane.setBackground(Color.LIGHT_GRAY);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExitBtnMouseEntered
+
+    private void ExitBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnMouseExited
+        ExitPane.setBackground(new java.awt.Color(166,77,121));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExitBtnMouseExited
+
+    private void ExitPaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitPaneMouseEntered
+        ExitPane.setBackground(Color.LIGHT_GRAY);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExitPaneMouseEntered
+
+    private void ExitPaneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitPaneMouseExited
+        ExitPane.setBackground(new java.awt.Color(166,77,121));
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExitPaneMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -1916,6 +2040,9 @@ ps.setBinaryStream(10, fis, (int) archivoImagenSeleccionado.length());
     private javax.swing.JCheckBox Check_Tecnologia;
     private javax.swing.JCheckBox Check_Viaje;
     private javax.swing.JCheckBox Check_VideoJuegos;
+    private javax.swing.JLabel ExitBtn;
+    private javax.swing.JPanel ExitPane;
+    private javax.swing.JPanel Header;
     private javax.swing.JPanel Intereses;
     private javax.swing.JPanel J_Archivos;
     private javax.swing.JPanel J_C_Foto;
