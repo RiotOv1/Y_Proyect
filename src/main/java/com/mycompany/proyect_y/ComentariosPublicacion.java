@@ -377,7 +377,7 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!bandera_likes){
-                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion(),  publica.getIdUsuario())){
                         publica.setNumReacciones(publica.getNumReacciones()+1);
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         
@@ -456,10 +456,44 @@ public class ComentariosPublicacion extends javax.swing.JFrame {
             ps.setInt(2, publicacionDAO.idPubicacion);
             ps.setString(3, ContenidoComentario);
             ps.executeUpdate();
-        } catch (Exception e) {
+           
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            int idComentario = rs.getInt(1);
+            String U2 = UsuarioPub5.getText();
+            U2 = U2.substring(1); 
+            
+            if (!SesionUsuario.idUsuario.equals(U2)) {
+                NotificacionesDAO notiDAO = new NotificacionesDAO();
+                notificarComentario(U2,SesionUsuario.idUsuario,publicacionDAO.idPubicacion, idComentario);
+            }
+        }
+                    } catch (Exception e) {
             System.out.println(e);
         }
     }
+    
+    public void notificarComentario(String idUsuarioReceptor, String idUsuarioEmisor, int idPublicacion, int idComentario) {
+    String sql = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, id_publicacion, id_comentario, tipo, visto, fecha) " +
+                 "VALUES (?, ?, ?, ?, ?, ?, NOW())";
+
+    try (Connection con = DB_Conection.conectar();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, idUsuarioReceptor); // Dueño de la publicación
+        ps.setString(2, idUsuarioEmisor);   // Usuario que comentó
+        ps.setInt(3, idPublicacion);
+        ps.setInt(4, idComentario);
+        ps.setString(5, "comentario");      // Tipo de notificación
+        ps.setInt(6, 0);            // No leída
+
+        ps.executeUpdate();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
     
     public boolean UsuarioComentario(){
         try {

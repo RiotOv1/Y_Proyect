@@ -1,9 +1,7 @@
 package com.mycompany.proyect_y;
 
 import Conection.DB_Conection;
-import com.mycompany.proyect_y.Comunidad;
 import com.mycompany.proyect_y.Configuracion;
-import com.mycompany.proyect_y.Guardados;
 import com.mycompany.proyect_y.Menu_Principal;
 import com.mycompany.proyect_y.Notificaciones;
 import com.mycompany.proyect_y.Perfil;
@@ -516,7 +514,7 @@ public class Explorar extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!bandera_likes){
-                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion(), publica.getIdUsuario())){
                         publica.setNumReacciones(publica.getNumReacciones()+1);
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         

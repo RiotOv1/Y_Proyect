@@ -254,13 +254,13 @@ public class PerfilPersona extends javax.swing.JFrame {
         ImageIcon IconoLike = new ImageIcon(imgLike);
         btnLike.setIcon(IconoLike);
 
-        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-notHigh.png";
+        String repostIcon = "src\\main\\java\\Multimedia\\ReYap-Icon.png";
         ImageIcon imageRepost = new ImageIcon(repostIcon);
         Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoRepost = new ImageIcon(imgRepost);
         btnRepost.setIcon(IconoRepost);
         
-        String comentarioIcon = "src\\main\\java\\Multimedia\\Comment-icon-notHigh.png";
+        String comentarioIcon = "src\\main\\java\\Multimedia\\Comentario-icon.png";
         ImageIcon imageComentario = new ImageIcon(comentarioIcon);
         Image imgComentario = imageComentario.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoComentario = new ImageIcon(imgComentario);
@@ -290,7 +290,7 @@ public class PerfilPersona extends javax.swing.JFrame {
         btnLike.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(!bandera_likes){
-                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion(), publica.getIdUsuario())){
                         publica.setNumReacciones(publica.getNumReacciones()+1);
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         
@@ -323,7 +323,7 @@ public class PerfilPersona extends javax.swing.JFrame {
                     lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
 
                     // Cambiar icono de repost
-                    String repostIcon2 = "src\\main\\java\\Multimedia\\repost-icon-High.png";
+                    String repostIcon2 = "src\\main\\java\\Multimedia\\ReYap-filled.png";
                     ImageIcon imageRepost2 = new ImageIcon(repostIcon2);
                     Image imgRepost2 = imageRepost2.getImage().getScaledInstance(24, 24, 0);
                     btnRepost.setIcon(new ImageIcon(imgRepost2));
@@ -360,19 +360,18 @@ public class PerfilPersona extends javax.swing.JFrame {
         ImageIcon IconoLike = new ImageIcon(imgLike);
         btnLike.setIcon(IconoLike);
 
-        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-notHigh.png";
+        String repostIcon = "src\\main\\java\\Multimedia\\ReYap-Icon.png";
         ImageIcon imageRepost = new ImageIcon(repostIcon);
         Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoRepost = new ImageIcon(imgRepost);
         btnRepost.setIcon(IconoRepost);
         
-        String comentarioIcon = "src\\main\\java\\Multimedia\\Comment-icon-notHigh.png";
+        String comentarioIcon = "src\\main\\java\\Multimedia\\Comentario-icon.png";
         ImageIcon imageComentario = new ImageIcon(comentarioIcon);
         Image imgComentario = imageComentario.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoComentario = new ImageIcon(imgComentario);
         btnComentarios.setIcon(IconoComentario);
         
-        //Configurar los componentes con los datos de la publicacion
         nomUsuario.setText(obtenerNombreUsuario(publica.getIdUsuario()));
         btnUsuario.setText("@"+publica.getIdUsuario());
         lblTexto.setText("<html><p>" + publica.getTexto() + "</html></p>");
@@ -404,7 +403,7 @@ public class PerfilPersona extends javax.swing.JFrame {
         btnLike.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(!bandera_likes){
-                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion(),  publica.getIdUsuario())){
                         publica.setNumReacciones(publica.getNumReacciones()+1);
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         
@@ -437,7 +436,7 @@ public class PerfilPersona extends javax.swing.JFrame {
                     lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
 
                     // Cambiar icono de repost
-                    String repostIcon2 = "src\\main\\java\\Multimedia\\repost-icon-High.png";
+                    String repostIcon2 = "src\\main\\java\\Multimedia\\ReYap-filled.png";
                     ImageIcon imageRepost2 = new ImageIcon(repostIcon2);
                     Image imgRepost2 = imageRepost2.getImage().getScaledInstance(24, 24, 0);
                     btnRepost.setIcon(new ImageIcon(imgRepost2));
@@ -460,9 +459,9 @@ public class PerfilPersona extends javax.swing.JFrame {
     
     private void cargarDatos() {
     UsuariosDAO dao = new UsuariosDAO();
-    String idUsuario = SesionUsuario.idUsuario; // tu ID logueado
+     // tu ID logueado
 
-    List<Object[]> lista = dao.obtenerRelacionUsuarios(tipo, idUsuario, paginaActual, tamanioPagina);
+    List<Object[]> lista = dao.obtenerRelacionUsuarios(tipo, IdUsuario, paginaActual, tamanioPagina);
 
     JPanel[] paneles = {Si5, Si6, Si7, Si8}; // tus paneles
     JLabel[] nombres = {NombrePub10, NombrePub11, NombrePub12, NombrePub13};
@@ -800,10 +799,31 @@ public class PerfilPersona extends javax.swing.JFrame {
     } 
     
     
-    
-    
+public void notificarSeguido(String idUsuarioReceptor) {
+    Connection con = DB_Conection.conectar();
+DescLabel.setText("catch");
+    String sql = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, tipo, visto, fecha) " +
+                 "VALUES (?, ?, ?, ?, NOW())";
+DescLabel.setText("Despues inset");
+    try (
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        DescLabel.setText("Entro al ps");
+        ps.setString(1, idUsuarioReceptor);
+        ps.setString(2, SesionUsuario.idUsuario);
+        ps.setString(3, "seguimiento");
+        ps.setBoolean(4, false); // false = no visto
+DescLabel.setText("antes del ex");
+        ps.executeUpdate();
         
-    
+        ps.close();
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+        DescLabel.setText("catch");
+    }
+}
+
+  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -982,7 +1002,6 @@ public class PerfilPersona extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1550, 890));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1550, 890));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -1306,9 +1325,9 @@ public class PerfilPersona extends javax.swing.JFrame {
             .addGroup(PublicacionesImagenesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Btn_Anterior1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(30, 30, 30)
                 .addComponent(Btn_Siguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(294, 294, 294))
+                .addGap(319, 319, 319))
             .addGroup(PublicacionesImagenesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2489,54 +2508,6 @@ public class PerfilPersona extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioComunidadActionPerformed
 
-    private void UsuarioPub4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub4ActionPerformed
-
-    private void repostearBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn4ActionPerformed
-
-    private void comentarBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtn4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comentarBtn4ActionPerformed
-
-    private void meGustaBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn4ActionPerformed
-
-    private void repostearBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn3ActionPerformed
-
-    private void meGustaBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn3ActionPerformed
-
-    private void UsuarioPub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub3ActionPerformed
-
-    private void repostearBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn2ActionPerformed
-
-    private void meGustaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn2ActionPerformed
-
-    private void repostearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn1ActionPerformed
-
-    private void meGustaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn1ActionPerformed
-
-    private void UsuarioPub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String Selec = SubMenu.getSelectedComponent().toString();
         if(Selec != "PublicacionesTexto"){
@@ -2559,10 +2530,10 @@ public class PerfilPersona extends javax.swing.JFrame {
 
     private void SeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirActionPerformed
     String idSeguidor = SesionUsuario.idUsuario; // ID del usuario logueado
-String idSeguido = IdUsuario; // ID del perfil que se está viendo
+    String idSeguido = IdUsuario; // ID del perfil que se está viendo
 
 try {
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/tu_basedatos", "root", "");
+    Connection conn = DB_Conection.conectar();
 
     String sql = "INSERT IGNORE INTO seguidores (id_seguidor, id_seguido) VALUES (?, ?)";
     PreparedStatement ps = conn.prepareStatement(sql);
@@ -2574,14 +2545,12 @@ try {
     if (filas > 0) {
         // Éxito: se insertó un nuevo seguidor
         JOptionPane.showMessageDialog(null, "Ahora estás siguiendo a " + idSeguido);
-
-        // Cambiar texto y colores del botón
+            notificarSeguido(idSeguido);
+                Seguir.setForeground(Color.BLACK); // Cambia el color de la letra (blanco)
+                Seguir.setBackground(new java.awt.Color(255,255,255)); 
         Seguir.setText("Siguiendo");
-        Seguir.setBackground(Color.BLACK);
-        Seguir.setForeground(Color.WHITE);
-        Seguir.setEnabled(false); // Desactiva el botón para evitar múltiples clics
-
-        // Actualizar contador de seguidores
+                Seguir.setEnabled(false);
+         
         try {
             int seguidores = Integer.parseInt(Num_Seguidores.getText().trim());
             seguidores++;
@@ -2590,6 +2559,7 @@ try {
         } catch (NumberFormatException e) {
             System.err.println("Error al convertir el número de seguidores.");
         }
+        
 
     } else {
         JOptionPane.showMessageDialog(null, "Ya lo estás siguiendo");
@@ -2602,70 +2572,6 @@ try {
 }
 
     }//GEN-LAST:event_SeguirActionPerformed
-
-    private void UsuarioPub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub2ActionPerformed
-
-    private void Btn_Anterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior1ActionPerformed
-        
-    }//GEN-LAST:event_Btn_Anterior1ActionPerformed
-
-    private void Btn_Siguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente1ActionPerformed
-        
-    }//GEN-LAST:event_Btn_Siguiente1ActionPerformed
-
-    private void meGustaBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn5ActionPerformed
-
-    private void comentarBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtn5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comentarBtn5ActionPerformed
-
-    private void repostearBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn5ActionPerformed
-
-    private void UsuarioPub5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub5ActionPerformed
-
-    private void Btn_Anterior2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Btn_Anterior2ActionPerformed
-
-    private void Btn_Siguiente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Btn_Siguiente2ActionPerformed
-
-    private void UsuarioPub10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub10ActionPerformed
-
-    private void UsuarioPub11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub11ActionPerformed
-
-    private void UsuarioPub12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub12ActionPerformed
-
-    private void UsuarioPub13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub13ActionPerformed
-
-    private void Btn_Anterior4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior4ActionPerformed
-        if (paginaActual > 1) {
-        paginaActual--;
-        cargarDatos();
-    }
-    }//GEN-LAST:event_Btn_Anterior4ActionPerformed
-
-    private void Btn_Siguiente4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente4ActionPerformed
-           paginaActual++;
-    cargarDatos();
-    }//GEN-LAST:event_Btn_Siguiente4ActionPerformed
 
     private void NombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuarioMousePressed
         this.dispose();
@@ -2760,10 +2666,11 @@ try {
             if (filas > 0) {
                 // Éxito: se insertó un nuevo seguidor
                 LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
-
-                // Cambiar texto y colores del botón
-                SeguirCuentaBtn3.setText("Siguiendo");
-                SeguirCuentaBtn3.setEnabled(false); // Desactiva el botón para evitar múltiples clics
+            notificarSeguido(idSeguido);
+                SeguirCuentaBtn3.setForeground(Color.BLACK); // Cambia el color de la letra (blanco)
+                SeguirCuentaBtn3.setBackground(new java.awt.Color(255,255,255)); 
+        SeguirCuentaBtn3.setText("Siguiendo");
+                SeguirCuentaBtn3.setEnabled(false);
             } else {
                 LabelAviso2.setText("Ya lo estás siguiendo");
             }
@@ -2793,7 +2700,7 @@ try {
             if (filas > 0) {
                 // Éxito: se insertó un nuevo seguidor
                 LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
-
+                notificarSeguido(idSeguido);
                 // Cambiar texto y colores del botón
                 SeguirCuentaBtn1.setText("Siguiendo");
                 SeguirCuentaBtn1.setEnabled(false); // Desactiva el botón para evitar múltiples clics
@@ -2826,10 +2733,13 @@ try {
             if (filas > 0) {
                 // Éxito: se insertó un nuevo seguidor
                 LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
-
+                notificarSeguido(idSeguido);
                 // Cambiar texto y colores del botón
                 SeguirCuentaBtn2.setText("Siguiendo");
-                SeguirCuentaBtn2.setEnabled(false); // Desactiva el botón para evitar múltiples clics
+                SeguirCuentaBtn2.setForeground(new java.awt.Color(0,0,0)); // Cambia el color de la letra (blanco)
+                SeguirCuentaBtn2.setBackground(new java.awt.Color(255,255,255)); 
+                
+                SeguirCuentaBtn2.setEnabled(false); 
             } else {
                 LabelAviso2.setText("Ya lo estás siguiendo");
             }
@@ -2934,6 +2844,118 @@ try {
     private void numreacciones2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numreacciones2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_numreacciones2ActionPerformed
+
+    private void Btn_Siguiente4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente4ActionPerformed
+        paginaActual++;
+        cargarDatos();
+    }//GEN-LAST:event_Btn_Siguiente4ActionPerformed
+
+    private void Btn_Anterior4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior4ActionPerformed
+        if (paginaActual > 1) {
+            paginaActual--;
+            cargarDatos();
+        }
+    }//GEN-LAST:event_Btn_Anterior4ActionPerformed
+
+    private void UsuarioPub13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub13ActionPerformed
+
+    private void UsuarioPub12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub12ActionPerformed
+
+    private void UsuarioPub11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub11ActionPerformed
+
+    private void UsuarioPub10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub10ActionPerformed
+
+    private void Btn_Siguiente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Siguiente2ActionPerformed
+
+    private void Btn_Anterior2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Anterior2ActionPerformed
+
+    private void UsuarioPub5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub5ActionPerformed
+
+    private void repostearBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn5ActionPerformed
+
+    private void comentarBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtn5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comentarBtn5ActionPerformed
+
+    private void meGustaBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn5ActionPerformed
+
+    private void UsuarioPub4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub4ActionPerformed
+
+    private void repostearBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn4ActionPerformed
+
+    private void comentarBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comentarBtn4ActionPerformed
+
+    private void meGustaBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn4ActionPerformed
+
+    private void repostearBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn3ActionPerformed
+
+    private void meGustaBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn3ActionPerformed
+
+    private void UsuarioPub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub3ActionPerformed
+
+    private void Btn_Anterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior1ActionPerformed
+
+    }//GEN-LAST:event_Btn_Anterior1ActionPerformed
+
+    private void Btn_Siguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente1ActionPerformed
+
+    }//GEN-LAST:event_Btn_Siguiente1ActionPerformed
+
+    private void repostearBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn2ActionPerformed
+
+    private void meGustaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn2ActionPerformed
+
+    private void UsuarioPub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub2ActionPerformed
+
+    private void repostearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn1ActionPerformed
+
+    private void meGustaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn1ActionPerformed
+
+    private void UsuarioPub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub1ActionPerformed
 
     /**
      * @param args the command line arguments

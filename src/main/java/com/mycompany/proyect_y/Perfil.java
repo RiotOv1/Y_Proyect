@@ -192,7 +192,7 @@ public class Perfil extends javax.swing.JFrame {
         btnLike.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(!bandera_likes){
-                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion(), publica.getIdUsuario())){
                         publica.setNumReacciones(publica.getNumReacciones()+1);
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         
@@ -306,7 +306,7 @@ public class Perfil extends javax.swing.JFrame {
         btnLike.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(!bandera_likes){
-                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion(), publica.getIdUsuario())){
                         publica.setNumReacciones(publica.getNumReacciones()+1);
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         

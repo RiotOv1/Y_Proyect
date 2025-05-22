@@ -100,6 +100,35 @@ public class Menu_Principal extends javax.swing.JFrame {
 
     }
     
+public void notificarSeguidores(String idUsuarioEmisor, int idPublicacion) {
+    Connection con = DB_Conection.conectar();
+    try {
+        String sqlSeguidores = "SELECT id_seguidor FROM seguidores WHERE id_seguido = ?";
+        PreparedStatement psSeguidores = con.prepareStatement(sqlSeguidores);
+        psSeguidores.setString(1, SesionUsuario.idUsuario);
+        ResultSet rs = psSeguidores.executeQuery();
+        while (rs.next()) {
+            String idReceptor = rs.getString("id_seguidor");
+            String sqlNoti = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, id_publicacion, tipo) VALUES (?, ?, ?, 'publico')";
+           
+            PreparedStatement psNoti = con.prepareStatement(sqlNoti);
+            
+            psNoti.setString(1, idReceptor);
+            psNoti.setString(2, SesionUsuario.idUsuario);
+            psNoti.setInt(3, idPublicacion);
+            psNoti.executeUpdate();
+
+        }
+
+        rs.close();
+        psSeguidores.close();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+    
         public String obtenerNombreUsuario() {
             String nombre = "";
             String apellido = "";
@@ -394,7 +423,7 @@ public class Menu_Principal extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!bandera_likes){
-                    if (publicacionDAO.darLike(publica.getIdPublicacion())){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion(), publica.getIdUsuario())){
                         publica.setNumReacciones(publica.getNumReacciones()+1);
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         
@@ -543,6 +572,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         ExitPane = new javax.swing.JPanel();
         ExitBtn = new javax.swing.JLabel();
         LabelAviso1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -692,27 +722,25 @@ public class Menu_Principal extends javax.swing.JFrame {
                         .addComponent(Fecha_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))))
             .addGroup(PanelNot2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(PanelNot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelNot2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lblTexto_publicacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelNot2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(ImagenPublicacion_lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelNot2Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(lblLikesLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(meGustaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(lblComentarLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(comentarBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(lblRepostearLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(repostearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblTexto_publicacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ImagenPublicacion_lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(PanelNot2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblLikesLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(meGustaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(lblComentarLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(comentarBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(lblRepostearLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(repostearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelNot2Layout.setVerticalGroup(
             PanelNot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -728,15 +756,17 @@ public class Menu_Principal extends javax.swing.JFrame {
                         .addComponent(UsuarioPub6)))
                 .addGap(10, 10, 10)
                 .addComponent(lblTexto_publicacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(ImagenPublicacion_lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ImagenPublicacion_lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelNot2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblLikesLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(meGustaBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblComentarLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comentarBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRepostearLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(repostearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(repostearBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         TipoDePublicaciones.addTab("tab1", PanelNot2);
@@ -916,7 +946,7 @@ public class Menu_Principal extends javax.swing.JFrame {
 
         TipoDePublicaciones.addTab("tab1", PanelNot1);
 
-        jPanel1.add(TipoDePublicaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 760, 590));
+        jPanel1.add(TipoDePublicaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 760, 570));
 
         PerfilPanel.setBackground(new java.awt.Color(0, 0, 0));
         PerfilPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1585,8 +1615,8 @@ public class Menu_Principal extends javax.swing.JFrame {
         );
         HeaderLayout.setVerticalGroup(
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+            .addGroup(HeaderLayout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(LabelAviso1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1597,6 +1627,9 @@ public class Menu_Principal extends javax.swing.JFrame {
         );
 
         jPanel1.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1550, 50));
+
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, 50, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1869,11 +1902,14 @@ public class Menu_Principal extends javax.swing.JFrame {
             if(archivoSeleccionado!=null){            
                 FileInputStream fis = new FileInputStream(archivoSeleccionado);
                 ps.setBinaryStream(3, fis, (int) archivoSeleccionado.length());
+            }else {
+                ImagenPublicacion_lbl.setText("[La publicacion no contiene imagen]");
             }
             
             int filasInsertadas = ps.executeUpdate();// Ejecutar la consulta
         
             if (filasInsertadas > 0) {
+                notificarSeguidores(SesionUsuario.idUsuario, id_publicacion);
                 LabelAviso2.setText("Haz publicado");
                 publicacionDAO = new PublicacionDAO();
                 publicaciones = publicacionDAO.obtenerTodasPublicaciones();
@@ -1889,6 +1925,9 @@ public class Menu_Principal extends javax.swing.JFrame {
                         meGustaBtn, lblLikesLabel,
                         repostearBtn, lblRepostearLabel,ImagenPublicacion_lbl,comentarBtn
                         );
+                    ImgSeleccion.setBackground(Color.black);
+                    archivoSeleccionado = null;
+                    
             }
             } else {
                 LabelAviso2.setText( "Error al registrar publicacion");
@@ -2466,6 +2505,7 @@ try {
     private javax.swing.JLabel Y_logo;
     private javax.swing.JButton comentarBtn;
     private javax.swing.JButton comentarBtn1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

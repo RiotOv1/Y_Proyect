@@ -61,10 +61,12 @@ public class ComentariosDAO {
     
     //Metodos de reacciones
 
-    public boolean darLike(int idcomentario) {
+    public boolean darLike(int idcomentario, String U2) {
+        NotificacionesDAO NDAO = new NotificacionesDAO();
         String sql = "UPDATE comentarios SET num_reacciones = num_reacciones + 1 WHERE id_publicacion = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idcomentario);
+            NDAO.insertarNotificacion(U2,SesionUsuario.idUsuario,null, String.valueOf(idcomentario),"reaccion_comentario");
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();

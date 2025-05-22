@@ -32,6 +32,7 @@ public class Inicio extends javax.swing.JFrame {
     
     public Inicio() {
         initComponents();
+        this.setLocationRelativeTo(null);
         DB_Conection db = new DB_Conection();
         //db.DB_Conection_o(); //Donde me da el error 
         String url="src/main/java/Multimedia/YSinFondo.png";

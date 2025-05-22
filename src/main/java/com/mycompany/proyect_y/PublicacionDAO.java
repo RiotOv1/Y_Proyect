@@ -218,10 +218,13 @@ public List<Object[]> obtenerTop3Publicaciones() {
    
    //Metodos de reacciones
 
-    public boolean darLike(int idPublicacion) {
+    public boolean darLike(int idPublicacion, String U2) {
+        NotificacionesDAO NDAO = new NotificacionesDAO();
         String sql = "UPDATE Publicacion SET num_reacciones = num_reacciones + 1 WHERE id_publicacion = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idPublicacion);
+            NDAO.insertarNotificacion(U2,SesionUsuario.idUsuario,String.valueOf(idPublicacion), null,"reaccion_post");
+            
             return ps.executeUpdate() > 0;
         } catch (SQLException ex) {
             ex.printStackTrace();
