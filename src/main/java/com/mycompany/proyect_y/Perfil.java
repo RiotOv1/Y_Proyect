@@ -36,7 +36,7 @@ import javax.swing.JPanel;
  * @author Kevin G
  */
 public class Perfil extends javax.swing.JFrame {
-    private File archivoImagenSeleccionado;
+     private File archivoImagenSeleccionado;
     private PublicacionDAO publicacionDAO;
     private List<Publicacion> publicaciones;
     private List<Publicacion> publicacionestxt; 
@@ -44,14 +44,21 @@ public class Perfil extends javax.swing.JFrame {
     //private List<Publicacion> publicaciones, publicacionesSeguidos;
     private int publicacionActual = 0,publicacionSeguidoActual = 0, publicacionTrend1 = 0, publicacionTrend2 = 0, publicacionTrend3 = 0;
     private String Interes1,Interes2,Interes3;
+    int indextex = 0;
+    int indexmulti = 0;
+    String IdUsuario = "";
     int xMouse;
     int yMouse;
+    String tipo = " ";
+   int paginaActual = 1; // Inicialízala como global
+    int tamanioPagina = 4;
     
-    public Perfil() {
+    public Perfil()  {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setLocationRelativeTo(null);
         Img();
+        
         SeccionTePuedeInteresar();
         SeccionTendencias();
         cargarFotoPerfil(); 
@@ -67,88 +74,196 @@ public class Perfil extends javax.swing.JFrame {
             NombrePub1.setText(nom);
             NombrePub4.setText(nom);
             
-            UsuarioPub1.setText( "@" + IdUsuario);
-    }
-        FechaPanel.setVisible(false);
-
+          String sqlSeguidores = "SELECT COUNT(*) FROM seguidores WHERE id_seguido = ?";
+            PreparedStatement ps1;
+            try {
+                ps1 = con.prepareStatement(sqlSeguidores);
+                ps1.setString(1, SesionUsuario.idUsuario);
+            ResultSet rs1 = ps1.executeQuery();
+            
+            
+            ps1.close();
+            if (rs1.next()) {
+                int seguidores = rs1.getInt(1);
+                Num_Seguidores.setText(String.valueOf(seguidores));
+            }
+            
+            } catch (SQLException ex) {
+                Logger.getLogger(Perfil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            // Contar seguidos
+            String sqlSeguidos = "SELECT COUNT(*) FROM seguidores WHERE id_seguidor = ?";
+            
+            try {
+                PreparedStatement ps2 = con.prepareStatement(sqlSeguidos);
+                ps2.setString(1, SesionUsuario.idUsuario);
+                ResultSet rs2 = ps2.executeQuery();
+            if (rs2.next()) {
+                int seguidos = rs2.getInt(1);
+                Num_Siguiendo.setText(String.valueOf(seguidos));
+                
+                ps2.close();
+            }
+            } catch (SQLException ex) {
+                Logger.getLogger(Perfil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            
+            
+        }
         publicacionDAO = new PublicacionDAO();
-        publicaciones = publicacionDAO.obtenerTodasPublicacionesUsuario(SesionUsuario.idUsuario);
+        publicaciones = publicacionDAO.obtenerTodasPublicacionesUsuario(IdUsuario);
+        publicacionestxt = publicacionDAO.obtenerTodasPublicacionesUsuarioTxt(IdUsuario);
+        actualizarPublicacionesMultimedia();
+        actualizarPublicacionesTexto();
+        //Ayuda Selecciones
+        SubMenu.setSelectedIndex(1);
+         try {
+             con.close();
+         } catch (SQLException ex) {
+             Logger.getLogger(Perfil.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        Btn_Siguiente1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (indexmulti + 2 < publicaciones.size()) {
+                    indexmulti += 2;
+                    actualizarPublicacionesMultimedia();
+                }
+            }
+        });
+
+        Btn_Siguiente2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (indextex + 3 < publicacionestxt.size()) {
+                    indextex += 3;
+                    actualizarPublicacionesTexto();
+                }
+            }
+        });
         
-        /*if(!publicaciones.isEmpty()){
-            mostrarPublicacion(publicaciones.get(publicacionActual));
-        }*/
+        Btn_Anterior1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (indexmulti - 2 >= 0) {
+                    indexmulti -= 2;
+                    actualizarPublicacionesMultimedia();
+                }
+            }
+        });
         
-        //Configuracion de cada panel con su publicacion correspondiente con multimedia
-        if (!publicaciones.isEmpty()){
-            //Panel 1
-            if(publicaciones.size()>0){
-                configurarPanelPublicacion(
-                        PanelNot1, publicaciones.get(0),
-                        ImgPub1,NombrePub1,UsuarioPub1,
-                        DescripcionPub1,Fecha_Label2,
-                        meGustaBtn2, lblLikesLabel2,
-                        repostearBtn2, lblRepostearLabel2,imagen1,comentarBtn2
-                        );
+        Btn_Anterior2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (indextex - 3 >= 0) {
+                    indextex -= 3;
+                    actualizarPublicacionesTexto();
+                }   
+            }   
+        });
+        
+        
+        
+    } 
+    
+    private void actualizarPublicacionesMultimedia() {
+        if (publicaciones.size() > indexmulti) {
+            // Panel 1
+            if (indexmulti < publicaciones.size()) {
+                configurarPanelPublicacion(PanelNot1, publicaciones.get(indexmulti),
+                        ImgPub1, NombrePub1, UsuarioPub1,
+                        DescripcionPub1, Fecha_Label1,
+                        meGustaBtn1, lblLikesLabel1,
+                        repostearBtn1, lblRepostearLabel1, imagen1, comentarBtn1);
+                PanelNot1.setVisible(true);
             } else {
-                //Se oculta en caso de no tener 1 publicacion
                 PanelNot1.setVisible(false);
             }
-            //Panel 2
-            if(publicaciones.size()>1){
-                configurarPanelPublicacion(PanelNot2,publicaciones.get(1),
-                        lblUsuario1, NombrePub4, UsuarioPub3,
-                        lblTexto_publicacion1,Fecha_Label1,
-                        meGustaBtn1,lblLikesLabel1,
-                        repostearBtn1,lblRepostearLabel1,imagen2 ,comentarBtn1
-                );
+            
+            // Panel 2
+            if (indexmulti + 1 < publicaciones.size()) {
+                configurarPanelPublicacion(PanelNot2, publicaciones.get(indexmulti + 1),
+                        ImgPub2, NombrePub2, UsuarioPub2,
+                        DescripcionPub2, Fecha_Label2,
+                        meGustaBtn2, lblLikesLabel2,
+                        repostearBtn2, lblRepostearLabel2, imagen2, comentarBtn2);
+                PanelNot2.setVisible(true);
             } else {
-                //se oculta si no encuentra mas de una publicacion
                 PanelNot2.setVisible(false);
             }
-        }else{
-            //Ocultar los paneles si no se encuentra ninguna publicacion
-            PanelNot1.setVisible(false);
+            
+        }
+        Btn_Anterior1.setVisible(indexmulti > 0);
+        Btn_Siguiente1.setVisible(indexmulti + 2 < publicaciones.size());
+        
+        if (!publicaciones.isEmpty()) { 
+            
+            PanelNot2.setVisible(publicaciones.size() > 1);
+        }
+        else {
             PanelNot2.setVisible(false);
+            PanelNot1.setVisible(false);
         }
         
-        //Publicacion de solo texto
-        publicacionestxt = publicacionDAO.obtenerTodasPublicacionesUsuarioTxt(SesionUsuario.idUsuario);
-        if (!publicacionestxt.isEmpty()){
-            //Panel 1
-            if(publicacionestxt.size()>0){
-                configurarPanelPublicacionTexto(
-                        PanelTxt1, publicacionestxt.get(0),
-                        ImgPub2,NombrePub2,UsuarioPub2,
-                        DescripcionPub2,Fecha_Label3,
+    }
+
+    private void actualizarPublicacionesTexto() {
+        if (publicacionestxt.size() > indextex) {
+            // Panel 1
+            if (indextex < publicacionestxt.size()) {
+                configurarPanelPublicacionTexto(PanelTxt1, publicacionestxt.get(indextex),
+                        ImgPub3, NombrePub3, UsuarioPub3,
+                        DescripcionPub3, Fecha_Label3,
                         meGustaBtn3, lblLikesLabel3,
-                        repostearBtn3, lblRepostearLabel3,comentarBtn3
-                        );
+                        repostearBtn3, lblRepostearLabel3, comentarBtn3);
+                PanelTxt1.setVisible(true);
             } else {
                 PanelTxt1.setVisible(false);
             }
-            //Panel 2
-            if(publicacionestxt.size()>1){
-                configurarPanelPublicacionTexto(PanelTxt2,publicacionestxt.get(1),lblUsuario2,
-                        NombrePub3, UsuarioPub7,
-                        lblTexto_publicacion2,Fecha_Label4,
-                        meGustaBtn4,lblLikesLabel4,
-                        repostearBtn4,lblRepostearLabel4,comentarBtn4
-                );
+            
+            // Panel 2
+            if (indextex + 1 < publicacionestxt.size()) {
+                configurarPanelPublicacionTexto(PanelTxt2, publicacionestxt.get(indextex + 1),
+                        ImgPub4, NombrePub4, UsuarioPub4,
+                        DescripcionPub4, Fecha_Label4,
+                        meGustaBtn4, lblLikesLabel4,
+                        repostearBtn4, lblRepostearLabel4, comentarBtn4);
+                PanelTxt2.setVisible(true);
             } else {
                 PanelTxt2.setVisible(false);
             }
-        } else {
+
+            // Panel 3
+            if (indextex + 2 < publicacionestxt.size()) {
+                configurarPanelPublicacionTexto(PanelTxt3, publicacionestxt.get(indextex + 2),
+                    ImgPub5, NombrePub5, UsuarioPub5,
+                    DescripcionPub5, Fecha_Label5,
+                    meGustaBtn5, lblLikesLabel5,
+                    repostearBtn5, lblRepostearLabel5, comentarBtn5);
+                    PanelTxt3.setVisible(true);
+            } else {
+                PanelTxt3.setVisible(false);
+            }
+        }
+
+        Btn_Anterior2.setVisible(indextex > 0);
+        Btn_Siguiente2.setVisible(indextex + 3 < publicacionestxt.size());
+        if (!publicacionestxt.isEmpty()) { 
+            
+            PanelTxt2.setVisible(publicacionestxt.size() > 1);
+            PanelTxt3.setVisible(publicacionestxt.size() > 2);
+        }
+        else {
             PanelTxt1.setVisible(false);
             PanelTxt2.setVisible(false);
+            PanelTxt3.setVisible(false);
         }
-        
-        //Ayuda Selecciones
-        SubMenu.setSelectedIndex(1);
-    }   
+    }
     
     //Configuracion del panel solo de texto
-    private void configurarPanelPublicacionTexto(JPanel publi, Publicacion publica, JLabel ImageUser,JLabel nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
-    ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts, JButton btnComentarios){
+      private void configurarPanelPublicacionTexto(JPanel publi, Publicacion publica, JLabel ImageUser,JLabel nomUsuario ,
+            JButton btnUsuario, JLabel lblTexto,JLabel lblFecha,JButton btnLike, JLabel lblLikes, JButton btnRepost, 
+            JLabel lblReposts, JButton btnComentarios){
         // Configurar iconos iniciales
         String likeIcon = "src\\main\\java\\Multimedia\\heart-icon-noFill.png";
         ImageIcon imageLike = new ImageIcon(likeIcon);
@@ -156,21 +271,21 @@ public class Perfil extends javax.swing.JFrame {
         ImageIcon IconoLike = new ImageIcon(imgLike);
         btnLike.setIcon(IconoLike);
 
-        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-notHigh.png";
+        String repostIcon = "src\\main\\java\\Multimedia\\ReYap-Icon.png";
         ImageIcon imageRepost = new ImageIcon(repostIcon);
         Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoRepost = new ImageIcon(imgRepost);
         btnRepost.setIcon(IconoRepost);
         
-        String comentarioIcon = "src\\main\\java\\Multimedia\\Comment-icon-notHigh.png";
+        String comentarioIcon = "src\\main\\java\\Multimedia\\Comentario-icon.png";
         ImageIcon imageComentario = new ImageIcon(comentarioIcon);
         Image imgComentario = imageComentario.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoComentario = new ImageIcon(imgComentario);
         btnComentarios.setIcon(IconoComentario);
         
         //Configurar los componentes con los datos de la publicacion
-        NombrePub2.setText(obtenerNombreUsuario(publica.getIdUsuario()));
         NombrePub3.setText(obtenerNombreUsuario(publica.getIdUsuario()));
+        NombrePub4.setText(obtenerNombreUsuario(publica.getIdUsuario()));
         btnUsuario.setText("@"+publica.getIdUsuario());
         lblTexto.setText("<html><p>" + publica.getTexto() + "</html></p>");
         lblFecha.setText(publica.getFechaHora().toString());
@@ -180,11 +295,11 @@ public class Perfil extends javax.swing.JFrame {
         //Configurar imagen de perfil del usurio
         if(publica.getFotoPerfilUsuario()!=null){
             ImageIcon icon = new ImageIcon(publica.getFotoPerfilUsuario());
-            Image img  = icon.getImage().getScaledInstance(54,54,Image.SCALE_SMOOTH);
+            Image img  = icon.getImage().getScaledInstance(ImageUser.getWidth(), ImageUser.getHeight(),Image.SCALE_SMOOTH);
             ImageUser.setIcon(new ImageIcon(img));
         }else{
-            lblUsuario2.setIcon(null);
-            ImgPub2.setIcon(null);
+            ImgPub4.setIcon(null);
+            ImgPub3.setIcon(null);
         }       
         
         //Configurar acciones de los botones
@@ -225,7 +340,7 @@ public class Perfil extends javax.swing.JFrame {
                     lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
 
                     // Cambiar icono de repost
-                    String repostIcon2 = "src\\main\\java\\Multimedia\\repost-icon-High.png";
+                    String repostIcon2 = "src\\main\\java\\Multimedia\\ReYap-filled.png";
                     ImageIcon imageRepost2 = new ImageIcon(repostIcon2);
                     Image imgRepost2 = imageRepost2.getImage().getScaledInstance(24, 24, 0);
                     btnRepost.setIcon(new ImageIcon(imgRepost2));
@@ -246,9 +361,11 @@ public class Perfil extends javax.swing.JFrame {
         });
     }
     
+   
+    
         boolean bandera_likes = false; //Variable para verificar que no haya likes repetidos
     boolean bandera_repost = false; //Variable para verificar que no haya repost repetidos
-    private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario,JLabel nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
+    private void configurarPanelPublicacion(JPanel publi, Publicacion publica,JLabel lblUsuario, JLabel nomUsuario ,JButton btnUsuario, JLabel lblTexto,JLabel lblFecha
     ,JButton btnLike, JLabel lblLikes, JButton btnRepost, JLabel lblReposts, JLabel imagen, JButton btnComentarios){
         //Variables locales
         
@@ -260,22 +377,19 @@ public class Perfil extends javax.swing.JFrame {
         ImageIcon IconoLike = new ImageIcon(imgLike);
         btnLike.setIcon(IconoLike);
 
-        String repostIcon = "src\\main\\java\\Multimedia\\repost-icon-notHigh.png";
+        String repostIcon = "src\\main\\java\\Multimedia\\ReYap-Icon.png";
         ImageIcon imageRepost = new ImageIcon(repostIcon);
         Image imgRepost = imageRepost.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoRepost = new ImageIcon(imgRepost);
         btnRepost.setIcon(IconoRepost);
         
-        String comentarioIcon = "src\\main\\java\\Multimedia\\Comment-icon-notHigh.png";
+        String comentarioIcon = "src\\main\\java\\Multimedia\\Comentario-icon.png";
         ImageIcon imageComentario = new ImageIcon(comentarioIcon);
         Image imgComentario = imageComentario.getImage().getScaledInstance(24, 24, 0);
         ImageIcon IconoComentario = new ImageIcon(imgComentario);
         btnComentarios.setIcon(IconoComentario);
         
-        //Configurar los componentes con los datos de la publicacion
-        NombrePub1.setText(obtenerNombreUsuario(publica.getIdUsuario()));
-        NombrePub4.setText(obtenerNombreUsuario(publica.getIdUsuario()));
-        nomUsuario.setText(publica.getIdUsuario());
+        nomUsuario.setText(obtenerNombreUsuario(publica.getIdUsuario()));
         btnUsuario.setText("@"+publica.getIdUsuario());
         lblTexto.setText("<html><p>" + publica.getTexto() + "</html></p>");
         lblFecha.setText(publica.getFechaHora().toString());
@@ -306,7 +420,7 @@ public class Perfil extends javax.swing.JFrame {
         btnLike.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(!bandera_likes){
-                    if (publicacionDAO.darLike(publica.getIdPublicacion(), publica.getIdUsuario())){
+                    if (publicacionDAO.darLike(publica.getIdPublicacion(),  publica.getIdUsuario())){
                         publica.setNumReacciones(publica.getNumReacciones()+1);
                         lblLikes.setText(String.valueOf(publica.getNumReacciones()));
                         
@@ -339,7 +453,7 @@ public class Perfil extends javax.swing.JFrame {
                     lblReposts.setText(String.valueOf(publica.getNumCompartidos()));
 
                     // Cambiar icono de repost
-                    String repostIcon2 = "src\\main\\java\\Multimedia\\repost-icon-High.png";
+                    String repostIcon2 = "src\\main\\java\\Multimedia\\ReYap-filled.png";
                     ImageIcon imageRepost2 = new ImageIcon(repostIcon2);
                     Image imgRepost2 = imageRepost2.getImage().getScaledInstance(24, 24, 0);
                     btnRepost.setIcon(new ImageIcon(imgRepost2));
@@ -404,8 +518,7 @@ public class Perfil extends javax.swing.JFrame {
                         ImageIcon icon = new ImageIcon(imagenBytes);
                         Image img = icon.getImage().getScaledInstance(FotoPerfil.getWidth(), FotoPerfil.getHeight(), Image.SCALE_SMOOTH);
                         FotoPerfil.setIcon(new ImageIcon(img));
-                        Image img1 = icon.getImage().getScaledInstance(lblUsuario1.getWidth(), lblUsuario1.getHeight(), Image.SCALE_SMOOTH);
-                        lblUsuario1.setIcon(new ImageIcon(img1));
+                        
                         Image img2 = icon.getImage().getScaledInstance(ImgPub1.getWidth(), ImgPub1.getHeight(), Image.SCALE_SMOOTH);
                         ImgPub1.setIcon(new ImageIcon(img2));
                         Image img3 = icon.getImage().getScaledInstance(Perfil_Img1.getWidth(), Perfil_Img1.getHeight(), Image.SCALE_SMOOTH);
@@ -417,8 +530,7 @@ public class Perfil extends javax.swing.JFrame {
                         ImageIcon icon = new ImageIcon(url);
                         Image img0 = icon.getImage().getScaledInstance(FotoPerfil.getWidth(), FotoPerfil.getHeight(), Image.SCALE_SMOOTH);
                         FotoPerfil.setIcon(new ImageIcon(img0));
-                        Image img10 = icon.getImage().getScaledInstance(lblUsuario1.getWidth(), lblUsuario1.getHeight(), Image.SCALE_SMOOTH);
-                        lblUsuario1.setIcon(new ImageIcon(img10));
+                        
                         Image img20 = icon.getImage().getScaledInstance(ImgPub1.getWidth(), ImgPub1.getHeight(), Image.SCALE_SMOOTH);
                         ImgPub1.setIcon(new ImageIcon(img20));
                         Image img30 = icon.getImage().getScaledInstance(Perfil_Img1.getWidth(), Perfil_Img1.getHeight(), Image.SCALE_SMOOTH);
@@ -728,6 +840,73 @@ public class Perfil extends javax.swing.JFrame {
         }
     }
     
+        
+public void notificarSeguido(String idUsuarioReceptor) {
+    Connection con = DB_Conection.conectar();
+    String sql = "INSERT INTO notificacion (id_usuario_receptor, id_usuario_emisor, tipo, visto, fecha) " +
+                 "VALUES (?, ?, ?, ?, NOW())";
+    try (
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, idUsuarioReceptor);
+        ps.setString(2, SesionUsuario.idUsuario);
+        ps.setString(3, "seguimiento");
+        ps.setBoolean(4, false); // false = no visto
+
+        ps.executeUpdate();
+        
+        ps.close();
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    
+    private void cargarDatos() {
+    UsuariosDAO dao = new UsuariosDAO();
+     // tu ID logueado
+
+    List<Object[]> lista = dao.obtenerRelacionUsuarios(tipo, IdUsuario, paginaActual, tamanioPagina);
+
+    JPanel[] paneles = {Si5, Si6, Si7, Si8}; // tus paneles
+    JLabel[] nombres = {NombrePub10, NombrePub11, NombrePub12, NombrePub13};
+    JButton[] usuarios = {UsuarioPub10, UsuarioPub11, UsuarioPub12, UsuarioPub13};
+    JLabel[] img = {ImgPub10, ImgPub11, ImgPub12, ImgPub13};
+    JLabel[] siguiendo = {NumSi5, NumSi6, NumSi7, NumSi8};
+    JLabel[] seguidores = {NumSe5, NumSe6, NumSe7, NumSe8};
+
+    for (int i = 0; i < paneles.length; i++) {
+        if (i < lista.size()) {
+            Object[] datos = lista.get(i);
+            nombres[i].setText((String) datos[1]);
+            usuarios[i].setText((String) datos[0]);
+            siguiendo[i].setText(String.valueOf(datos[3]));
+            seguidores[i].setText(String.valueOf(datos[4]));
+
+            // Mostrar imagen
+            if (datos[2] != null) {
+                ImageIcon icon = new ImageIcon((byte[]) datos[2]);
+                Image imgEscalada = icon.getImage().getScaledInstance(img[i].getHeight(), img[i].getHeight(), Image.SCALE_SMOOTH);
+                img[i].setIcon(new ImageIcon(imgEscalada));
+            } else {
+                String url = "src\\main\\java\\Multimedia\\Img-Perfil.png";
+                        ImageIcon icon = new ImageIcon(url);
+                        Image img0 = icon.getImage().getScaledInstance(img[i].getWidth(), img[i].getHeight(), Image.SCALE_SMOOTH);
+                        img[i].setIcon(new ImageIcon(img0));
+            }
+
+            paneles[i].setVisible(true);
+        } else {
+            paneles[i].setVisible(false);
+        }
+        
+        Btn_Anterior4.setVisible(paginaActual > 1);
+
+        // Verificar si hay más datos en la siguiente página
+        List<Object[]> siguientePagina = dao.obtenerRelacionUsuarios(tipo, SesionUsuario.idUsuario, paginaActual + 1, tamanioPagina);
+        Btn_Siguiente4.setVisible(!siguientePagina.isEmpty());
+    }
+}
+    
     public void UpdateFotoPerfil() throws SQLException{
         try {
         Connection con = DB_Conection.conectar(); 
@@ -775,10 +954,6 @@ public class Perfil extends javax.swing.JFrame {
 
         Colores = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        CuentaBtn5 = new javax.swing.JButton();
-        CuentaBtn8 = new javax.swing.JButton();
-        CuentaBtn9 = new javax.swing.JButton();
-        CuentaBtn2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         FotoPerfil = new javax.swing.JLabel();
         PortadaPanel = new javax.swing.JPanel();
@@ -794,32 +969,33 @@ public class Perfil extends javax.swing.JFrame {
         DescripcionPub1 = new javax.swing.JLabel();
         ImgPub1 = new javax.swing.JLabel();
         imagen1 = new javax.swing.JLabel();
-        Fecha_Label2 = new javax.swing.JLabel();
-        lblLikesLabel2 = new javax.swing.JLabel();
-        meGustaBtn2 = new javax.swing.JButton();
-        lblComentarLabel2 = new javax.swing.JLabel();
-        comentarBtn2 = new javax.swing.JButton();
-        repostearBtn2 = new javax.swing.JButton();
-        lblRepostearLabel2 = new javax.swing.JLabel();
-        PanelNot2 = new javax.swing.JPanel();
-        imagen2 = new javax.swing.JLabel();
-        lblUsuario1 = new javax.swing.JLabel();
+        Fecha_Label1 = new javax.swing.JLabel();
+        lblLikesLabel1 = new javax.swing.JLabel();
         meGustaBtn1 = new javax.swing.JButton();
+        lblComentarLabel1 = new javax.swing.JLabel();
         comentarBtn1 = new javax.swing.JButton();
         repostearBtn1 = new javax.swing.JButton();
-        lblLikesLabel1 = new javax.swing.JLabel();
-        lblComentarLabel1 = new javax.swing.JLabel();
         lblRepostearLabel1 = new javax.swing.JLabel();
-        Fecha_Label1 = new javax.swing.JLabel();
-        lblTexto_publicacion1 = new javax.swing.JLabel();
-        NombrePub4 = new javax.swing.JLabel();
-        UsuarioPub3 = new javax.swing.JButton();
-        PublicacionesTexto = new javax.swing.JPanel();
-        PanelTxt1 = new javax.swing.JPanel();
-        UsuarioPub2 = new javax.swing.JButton();
+        PanelNot2 = new javax.swing.JPanel();
+        ImgPub2 = new javax.swing.JLabel();
         NombrePub2 = new javax.swing.JLabel();
         DescripcionPub2 = new javax.swing.JLabel();
-        ImgPub2 = new javax.swing.JLabel();
+        UsuarioPub2 = new javax.swing.JButton();
+        imagen2 = new javax.swing.JLabel();
+        meGustaBtn2 = new javax.swing.JButton();
+        comentarBtn2 = new javax.swing.JButton();
+        repostearBtn2 = new javax.swing.JButton();
+        lblLikesLabel2 = new javax.swing.JLabel();
+        lblComentarLabel2 = new javax.swing.JLabel();
+        lblRepostearLabel2 = new javax.swing.JLabel();
+        Fecha_Label2 = new javax.swing.JLabel();
+        Btn_Siguiente1 = new javax.swing.JButton();
+        Btn_Anterior1 = new javax.swing.JButton();
+        PublicacionesTexto = new javax.swing.JPanel();
+        PanelTxt1 = new javax.swing.JPanel();
+        UsuarioPub3 = new javax.swing.JButton();
+        NombrePub3 = new javax.swing.JLabel();
+        ImgPub3 = new javax.swing.JLabel();
         Fecha_Label3 = new javax.swing.JLabel();
         lblLikesLabel3 = new javax.swing.JLabel();
         meGustaBtn3 = new javax.swing.JButton();
@@ -827,18 +1003,33 @@ public class Perfil extends javax.swing.JFrame {
         comentarBtn3 = new javax.swing.JButton();
         repostearBtn3 = new javax.swing.JButton();
         lblRepostearLabel3 = new javax.swing.JLabel();
+        DescripcionPub3 = new javax.swing.JLabel();
         PanelTxt2 = new javax.swing.JPanel();
-        lblUsuario2 = new javax.swing.JLabel();
+        ImgPub4 = new javax.swing.JLabel();
         meGustaBtn4 = new javax.swing.JButton();
         comentarBtn4 = new javax.swing.JButton();
         repostearBtn4 = new javax.swing.JButton();
         lblLikesLabel4 = new javax.swing.JLabel();
         lblComentarLabel4 = new javax.swing.JLabel();
         lblRepostearLabel4 = new javax.swing.JLabel();
-        UsuarioPub7 = new javax.swing.JButton();
+        UsuarioPub4 = new javax.swing.JButton();
         Fecha_Label4 = new javax.swing.JLabel();
-        lblTexto_publicacion2 = new javax.swing.JLabel();
-        NombrePub3 = new javax.swing.JLabel();
+        NombrePub4 = new javax.swing.JLabel();
+        DescripcionPub4 = new javax.swing.JLabel();
+        PanelTxt3 = new javax.swing.JPanel();
+        ImgPub5 = new javax.swing.JLabel();
+        meGustaBtn5 = new javax.swing.JButton();
+        comentarBtn5 = new javax.swing.JButton();
+        repostearBtn5 = new javax.swing.JButton();
+        lblLikesLabel5 = new javax.swing.JLabel();
+        lblComentarLabel5 = new javax.swing.JLabel();
+        lblRepostearLabel5 = new javax.swing.JLabel();
+        UsuarioPub5 = new javax.swing.JButton();
+        Fecha_Label5 = new javax.swing.JLabel();
+        NombrePub5 = new javax.swing.JLabel();
+        DescripcionPub5 = new javax.swing.JLabel();
+        Btn_Anterior2 = new javax.swing.JButton();
+        Btn_Siguiente2 = new javax.swing.JButton();
         SaveCambios = new javax.swing.JPanel();
         Save = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
@@ -883,6 +1074,41 @@ public class Perfil extends javax.swing.JFrame {
         L_Aviso11 = new javax.swing.JLabel();
         J_C_Foto = new javax.swing.JPanel();
         L_Foto = new javax.swing.JLabel();
+        Seguidores = new javax.swing.JPanel();
+        Si5 = new javax.swing.JPanel();
+        ImgPub10 = new javax.swing.JLabel();
+        NombrePub10 = new javax.swing.JLabel();
+        UsuarioPub10 = new javax.swing.JButton();
+        NumSe5 = new javax.swing.JLabel();
+        NumSi5 = new javax.swing.JLabel();
+        SeS5 = new javax.swing.JLabel();
+        SiS5 = new javax.swing.JLabel();
+        Si6 = new javax.swing.JPanel();
+        ImgPub11 = new javax.swing.JLabel();
+        UsuarioPub11 = new javax.swing.JButton();
+        NombrePub11 = new javax.swing.JLabel();
+        NumSe6 = new javax.swing.JLabel();
+        NumSi6 = new javax.swing.JLabel();
+        SeS6 = new javax.swing.JLabel();
+        SiS6 = new javax.swing.JLabel();
+        Si7 = new javax.swing.JPanel();
+        ImgPub12 = new javax.swing.JLabel();
+        NombrePub12 = new javax.swing.JLabel();
+        UsuarioPub12 = new javax.swing.JButton();
+        SiS7 = new javax.swing.JLabel();
+        SeS7 = new javax.swing.JLabel();
+        NumSe7 = new javax.swing.JLabel();
+        NumSi7 = new javax.swing.JLabel();
+        Si8 = new javax.swing.JPanel();
+        ImgPub13 = new javax.swing.JLabel();
+        NombrePub13 = new javax.swing.JLabel();
+        UsuarioPub13 = new javax.swing.JButton();
+        SeS8 = new javax.swing.JLabel();
+        SiS8 = new javax.swing.JLabel();
+        NumSi8 = new javax.swing.JLabel();
+        NumSe8 = new javax.swing.JLabel();
+        Btn_Anterior4 = new javax.swing.JButton();
+        Btn_Siguiente4 = new javax.swing.JButton();
         EditarBtn = new javax.swing.JButton();
         DescLabel = new javax.swing.JLabel();
         MenuDeNavegacion = new javax.swing.JPanel();
@@ -934,79 +1160,22 @@ public class Perfil extends javax.swing.JFrame {
         jSeparator13 = new javax.swing.JSeparator();
         jSeparator14 = new javax.swing.JSeparator();
         jSeparator15 = new javax.swing.JSeparator();
+        Num_Siguiendo = new javax.swing.JLabel();
+        BtnSiguiendo = new javax.swing.JButton();
+        Num_Seguidores = new javax.swing.JLabel();
+        BtnSeguidores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1550, 890));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1550, 890));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(1550, 820));
         jPanel1.setPreferredSize(new java.awt.Dimension(1550, 890));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        CuentaBtn5.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        CuentaBtn5.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn5.setText("0");
-        CuentaBtn5.setBorder(null);
-        CuentaBtn5.setBorderPainted(false);
-        CuentaBtn5.setContentAreaFilled(false);
-        CuentaBtn5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn5ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, 20, 50));
-
-        CuentaBtn8.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
-        CuentaBtn8.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn8.setText("0");
-        CuentaBtn8.setBorder(null);
-        CuentaBtn8.setBorderPainted(false);
-        CuentaBtn8.setContentAreaFilled(false);
-        CuentaBtn8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn8ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 20, 50));
-
-        CuentaBtn9.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        CuentaBtn9.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn9.setText("Siguientes");
-        CuentaBtn9.setBorder(null);
-        CuentaBtn9.setBorderPainted(false);
-        CuentaBtn9.setContentAreaFilled(false);
-        CuentaBtn9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn9ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, 80, 50));
-
-        CuentaBtn2.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        CuentaBtn2.setForeground(new java.awt.Color(204, 204, 204));
-        CuentaBtn2.setText("Seguidores");
-        CuentaBtn2.setBorder(null);
-        CuentaBtn2.setBorderPainted(false);
-        CuentaBtn2.setContentAreaFilled(false);
-        CuentaBtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CuentaBtn2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        CuentaBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaBtn2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CuentaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 80, 50));
 
         jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
@@ -1103,85 +1272,39 @@ public class Perfil extends javax.swing.JFrame {
                 UsuarioPub1ActionPerformed(evt);
             }
         });
-        PanelNot1.add(UsuarioPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 28, -1, -1));
+        PanelNot1.add(UsuarioPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
         NombrePub1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         NombrePub1.setForeground(new java.awt.Color(204, 204, 204));
         NombrePub1.setText("Usuario");
-        PanelNot1.add(NombrePub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
+        PanelNot1.add(NombrePub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
 
         DescripcionPub1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         DescripcionPub1.setForeground(new java.awt.Color(204, 204, 204));
         DescripcionPub1.setText("Descripcion...");
-        PanelNot1.add(DescripcionPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 435, 90));
+        PanelNot1.add(DescripcionPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 430, 110));
 
         ImgPub1.setForeground(new java.awt.Color(255, 255, 255));
-        PanelNot1.add(ImgPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 7, 54, 54));
+        ImgPub1.setText("ImgNot");
+        PanelNot1.add(ImgPub1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 70));
 
         imagen1.setForeground(new java.awt.Color(255, 255, 255));
         imagen1.setToolTipText("");
-        PanelNot1.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 7, 295, 235));
+        PanelNot1.add(imagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 7, 295, 230));
 
-        Fecha_Label2.setForeground(new java.awt.Color(255, 255, 255));
-        Fecha_Label2.setText("Fecha_posts");
-        PanelNot1.add(Fecha_Label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 28, 130, -1));
+        Fecha_Label1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        Fecha_Label1.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha_Label1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Fecha_Label1.setText("Fecha_posts");
+        PanelNot1.add(Fecha_Label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 28, 130, -1));
 
-        lblLikesLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        lblLikesLabel2.setText("0");
-        PanelNot1.add(lblLikesLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 80, -1));
-
-        meGustaBtn2.setBackground(new java.awt.Color(59, 28, 50));
-        meGustaBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        meGustaBtn2.setBorder(null);
-        meGustaBtn2.setBorderPainted(false);
-        meGustaBtn2.setContentAreaFilled(false);
-        meGustaBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                meGustaBtn2ActionPerformed(evt);
-            }
-        });
-        PanelNot1.add(meGustaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 200, 40, 30));
-
-        lblComentarLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        lblComentarLabel2.setText("0");
-        PanelNot1.add(lblComentarLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 210, 80, -1));
-
-        comentarBtn2.setBackground(new java.awt.Color(106, 30, 85));
-        comentarBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        comentarBtn2.setBorder(null);
-        comentarBtn2.setBorderPainted(false);
-        comentarBtn2.setContentAreaFilled(false);
-        PanelNot1.add(comentarBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 200, 40, 30));
-
-        repostearBtn2.setBackground(new java.awt.Color(59, 28, 50));
-        repostearBtn2.setForeground(new java.awt.Color(255, 255, 255));
-        repostearBtn2.setBorder(null);
-        repostearBtn2.setBorderPainted(false);
-        repostearBtn2.setContentAreaFilled(false);
-        repostearBtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                repostearBtn2ActionPerformed(evt);
-            }
-        });
-        PanelNot1.add(repostearBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 200, 40, 30));
-
-        lblRepostearLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        lblRepostearLabel2.setText("0");
-        PanelNot1.add(lblRepostearLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 210, 90, -1));
-
-        PanelNot2.setBackground(new java.awt.Color(106, 30, 85));
-        PanelNot2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        PanelNot2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNot2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        imagen2.setForeground(new java.awt.Color(255, 255, 255));
-        PanelNot2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 290, 220));
-
-        lblUsuario1.setForeground(new java.awt.Color(255, 255, 255));
-        PanelNot2.add(lblUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
+        lblLikesLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        lblLikesLabel1.setText("0");
+        PanelNot1.add(lblLikesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 90, -1));
 
         meGustaBtn1.setBackground(new java.awt.Color(59, 28, 50));
         meGustaBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        meGustaBtn1.setText("-");
         meGustaBtn1.setBorder(null);
         meGustaBtn1.setBorderPainted(false);
         meGustaBtn1.setContentAreaFilled(false);
@@ -1190,17 +1313,23 @@ public class Perfil extends javax.swing.JFrame {
                 meGustaBtn1ActionPerformed(evt);
             }
         });
-        PanelNot2.add(meGustaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 200, 40, 30));
+        PanelNot1.add(meGustaBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 40, 30));
+
+        lblComentarLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        lblComentarLabel1.setText("0");
+        PanelNot1.add(lblComentarLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 100, -1));
 
         comentarBtn1.setBackground(new java.awt.Color(106, 30, 85));
         comentarBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn1.setText("-");
         comentarBtn1.setBorder(null);
         comentarBtn1.setBorderPainted(false);
         comentarBtn1.setContentAreaFilled(false);
-        PanelNot2.add(comentarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 200, 40, 30));
+        PanelNot1.add(comentarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 200, 40, 30));
 
         repostearBtn1.setBackground(new java.awt.Color(59, 28, 50));
         repostearBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        repostearBtn1.setText("-");
         repostearBtn1.setBorder(null);
         repostearBtn1.setBorderPainted(false);
         repostearBtn1.setContentAreaFilled(false);
@@ -1209,78 +1338,30 @@ public class Perfil extends javax.swing.JFrame {
                 repostearBtn1ActionPerformed(evt);
             }
         });
-        PanelNot2.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 200, 40, 30));
-
-        lblLikesLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        lblLikesLabel1.setText("0");
-        PanelNot2.add(lblLikesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 80, -1));
-
-        lblComentarLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        lblComentarLabel1.setText("0");
-        PanelNot2.add(lblComentarLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 210, 80, -1));
+        PanelNot1.add(repostearBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 200, 40, 30));
 
         lblRepostearLabel1.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel1.setText("0");
-        PanelNot2.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 210, 90, -1));
+        PanelNot1.add(lblRepostearLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 90, -1));
 
-        Fecha_Label1.setForeground(new java.awt.Color(255, 255, 255));
-        Fecha_Label1.setText("Fecha_posts");
-        PanelNot2.add(Fecha_Label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 28, 130, -1));
+        PanelNot2.setBackground(new java.awt.Color(106, 30, 85));
+        PanelNot2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        PanelNot2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNot2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTexto_publicacion1.setForeground(new java.awt.Color(255, 255, 255));
-        lblTexto_publicacion1.setText("Texto_publicacion");
-        PanelNot2.add(lblTexto_publicacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 410, 80));
+        ImgPub2.setForeground(new java.awt.Color(255, 255, 255));
+        ImgPub2.setText("ImgNot");
+        PanelNot2.add(ImgPub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 70));
 
-        NombrePub4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        NombrePub4.setForeground(new java.awt.Color(204, 204, 204));
-        NombrePub4.setText("Usuario");
-        PanelNot2.add(NombrePub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
+        NombrePub2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub2.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub2.setText("Usuario");
+        PanelNot2.add(NombrePub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
 
-        UsuarioPub3.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
-        UsuarioPub3.setForeground(new java.awt.Color(204, 204, 204));
-        UsuarioPub3.setText("@Usuario");
-        UsuarioPub3.setToolTipText("");
-        UsuarioPub3.setBorder(null);
-        UsuarioPub3.setBorderPainted(false);
-        UsuarioPub3.setContentAreaFilled(false);
-        UsuarioPub3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UsuarioPub3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UsuarioPub3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuarioPub3ActionPerformed(evt);
-            }
-        });
-        PanelNot2.add(UsuarioPub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 28, -1, -1));
-
-        javax.swing.GroupLayout PublicacionesImagenesLayout = new javax.swing.GroupLayout(PublicacionesImagenes);
-        PublicacionesImagenes.setLayout(PublicacionesImagenesLayout);
-        PublicacionesImagenesLayout.setHorizontalGroup(
-            PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PublicacionesImagenesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelNot2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelNot1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        PublicacionesImagenesLayout.setVerticalGroup(
-            PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PublicacionesImagenesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PanelNot1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelNot2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        SubMenu.addTab("Multimedia", PublicacionesImagenes);
-
-        PublicacionesTexto.setBackground(new java.awt.Color(0, 0, 0));
-
-        PanelTxt1.setBackground(new java.awt.Color(64, 11, 59));
-        PanelTxt1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        PanelTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelTxt1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        DescripcionPub2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        DescripcionPub2.setForeground(new java.awt.Color(204, 204, 204));
+        DescripcionPub2.setText("Descripcion...");
+        PanelNot2.add(DescripcionPub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 430, 110));
 
         UsuarioPub2.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
         UsuarioPub2.setForeground(new java.awt.Color(204, 204, 204));
@@ -1296,29 +1377,156 @@ public class Perfil extends javax.swing.JFrame {
                 UsuarioPub2ActionPerformed(evt);
             }
         });
-        PanelTxt1.add(UsuarioPub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 28, -1, -1));
+        PanelNot2.add(UsuarioPub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
-        NombrePub2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        NombrePub2.setForeground(new java.awt.Color(204, 204, 204));
-        NombrePub2.setText("Usuario");
-        PanelTxt1.add(NombrePub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
+        imagen2.setForeground(new java.awt.Color(255, 255, 255));
+        PanelNot2.add(imagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(437, 7, 295, 230));
 
-        DescripcionPub2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        DescripcionPub2.setForeground(new java.awt.Color(204, 204, 204));
-        DescripcionPub2.setText("Descripcion...");
-        PanelTxt1.add(DescripcionPub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 720, 80));
+        meGustaBtn2.setBackground(new java.awt.Color(59, 28, 50));
+        meGustaBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        meGustaBtn2.setText("-");
+        meGustaBtn2.setBorder(null);
+        meGustaBtn2.setBorderPainted(false);
+        meGustaBtn2.setContentAreaFilled(false);
+        meGustaBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meGustaBtn2ActionPerformed(evt);
+            }
+        });
+        PanelNot2.add(meGustaBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 40, 30));
 
-        ImgPub2.setForeground(new java.awt.Color(255, 255, 255));
-        ImgPub2.setText("ImgNot");
-        PanelTxt1.add(ImgPub2, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 7, 54, 54));
+        comentarBtn2.setBackground(new java.awt.Color(106, 30, 85));
+        comentarBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn2.setText("-");
+        comentarBtn2.setBorder(null);
+        comentarBtn2.setBorderPainted(false);
+        comentarBtn2.setContentAreaFilled(false);
+        PanelNot2.add(comentarBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 40, 30));
+
+        repostearBtn2.setBackground(new java.awt.Color(59, 28, 50));
+        repostearBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        repostearBtn2.setText("-");
+        repostearBtn2.setBorder(null);
+        repostearBtn2.setBorderPainted(false);
+        repostearBtn2.setContentAreaFilled(false);
+        repostearBtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repostearBtn2ActionPerformed(evt);
+            }
+        });
+        PanelNot2.add(repostearBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 200, 40, 30));
+
+        lblLikesLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        lblLikesLabel2.setText("0");
+        PanelNot2.add(lblLikesLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 90, 20));
+
+        lblComentarLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        lblComentarLabel2.setText("0");
+        PanelNot2.add(lblComentarLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 70, 20));
+
+        lblRepostearLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        lblRepostearLabel2.setText("0");
+        PanelNot2.add(lblRepostearLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 80, 20));
+
+        Fecha_Label2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        Fecha_Label2.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha_Label2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Fecha_Label2.setText("Fecha_posts");
+        PanelNot2.add(Fecha_Label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 28, 130, -1));
+
+        Btn_Siguiente1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        Btn_Siguiente1.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Siguiente1.setText(">");
+        Btn_Siguiente1.setBorderPainted(false);
+        Btn_Siguiente1.setContentAreaFilled(false);
+        Btn_Siguiente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Siguiente1ActionPerformed(evt);
+            }
+        });
+
+        Btn_Anterior1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        Btn_Anterior1.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Anterior1.setText("<");
+        Btn_Anterior1.setBorderPainted(false);
+        Btn_Anterior1.setContentAreaFilled(false);
+        Btn_Anterior1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Anterior1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PublicacionesImagenesLayout = new javax.swing.GroupLayout(PublicacionesImagenes);
+        PublicacionesImagenes.setLayout(PublicacionesImagenesLayout);
+        PublicacionesImagenesLayout.setHorizontalGroup(
+            PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PublicacionesImagenesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Btn_Anterior1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(Btn_Siguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(319, 319, 319))
+            .addGroup(PublicacionesImagenesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PanelNot1, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+                    .addComponent(PanelNot2, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        PublicacionesImagenesLayout.setVerticalGroup(
+            PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PublicacionesImagenesLayout.createSequentialGroup()
+                .addGroup(PublicacionesImagenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_Siguiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_Anterior1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelNot1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelNot2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        SubMenu.addTab("Multimedia", PublicacionesImagenes);
+
+        PublicacionesTexto.setBackground(new java.awt.Color(0, 0, 0));
+
+        PanelTxt1.setBackground(new java.awt.Color(64, 11, 59));
+        PanelTxt1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        PanelTxt1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelTxt1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        UsuarioPub3.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub3.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub3.setText("@Usuario");
+        UsuarioPub3.setToolTipText("");
+        UsuarioPub3.setBorder(null);
+        UsuarioPub3.setBorderPainted(false);
+        UsuarioPub3.setContentAreaFilled(false);
+        UsuarioPub3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub3ActionPerformed(evt);
+            }
+        });
+        PanelTxt1.add(UsuarioPub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 28, -1, -1));
+
+        NombrePub3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub3.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub3.setText("Usuario");
+        PanelTxt1.add(NombrePub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
+
+        ImgPub3.setForeground(new java.awt.Color(255, 255, 255));
+        PanelTxt1.add(ImgPub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 7, 54, 54));
 
         Fecha_Label3.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha_Label3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Fecha_Label3.setText("Fecha_posts");
         PanelTxt1.add(Fecha_Label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 130, -1));
 
         lblLikesLabel3.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel3.setText("0");
-        PanelTxt1.add(lblLikesLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 50, -1));
+        PanelTxt1.add(lblLikesLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, -1));
 
         meGustaBtn3.setBackground(new java.awt.Color(59, 28, 50));
         meGustaBtn3.setForeground(new java.awt.Color(255, 255, 255));
@@ -1331,11 +1539,11 @@ public class Perfil extends javax.swing.JFrame {
                 meGustaBtn3ActionPerformed(evt);
             }
         });
-        PanelTxt1.add(meGustaBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 30, 20));
+        PanelTxt1.add(meGustaBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 40, 30));
 
         lblComentarLabel3.setForeground(new java.awt.Color(255, 255, 255));
         lblComentarLabel3.setText("0");
-        PanelTxt1.add(lblComentarLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 50, -1));
+        PanelTxt1.add(lblComentarLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 90, -1));
 
         comentarBtn3.setBackground(new java.awt.Color(106, 30, 85));
         comentarBtn3.setForeground(new java.awt.Color(255, 255, 255));
@@ -1343,7 +1551,7 @@ public class Perfil extends javax.swing.JFrame {
         comentarBtn3.setBorder(null);
         comentarBtn3.setBorderPainted(false);
         comentarBtn3.setContentAreaFilled(false);
-        PanelTxt1.add(comentarBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+        PanelTxt1.add(comentarBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 40, 30));
 
         repostearBtn3.setBackground(new java.awt.Color(59, 28, 50));
         repostearBtn3.setForeground(new java.awt.Color(255, 255, 255));
@@ -1356,11 +1564,16 @@ public class Perfil extends javax.swing.JFrame {
                 repostearBtn3ActionPerformed(evt);
             }
         });
-        PanelTxt1.add(repostearBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, -1, -1));
+        PanelTxt1.add(repostearBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 40, 30));
 
         lblRepostearLabel3.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel3.setText("0");
-        PanelTxt1.add(lblRepostearLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 90, -1));
+        PanelTxt1.add(lblRepostearLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 90, -1));
+
+        DescripcionPub3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        DescripcionPub3.setForeground(new java.awt.Color(204, 204, 204));
+        DescripcionPub3.setText("Descripcion...");
+        PanelTxt1.add(DescripcionPub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 720, 60));
 
         PanelTxt2.setBackground(new java.awt.Color(64, 11, 59));
         PanelTxt2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -1368,9 +1581,8 @@ public class Perfil extends javax.swing.JFrame {
         PanelTxt2.setPreferredSize(new java.awt.Dimension(736, 190));
         PanelTxt2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblUsuario2.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuario2.setText("ImgNot");
-        PanelTxt2.add(lblUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
+        ImgPub4.setForeground(new java.awt.Color(255, 255, 255));
+        PanelTxt2.add(ImgPub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
 
         meGustaBtn4.setBackground(new java.awt.Color(59, 28, 50));
         meGustaBtn4.setForeground(new java.awt.Color(255, 255, 255));
@@ -1383,7 +1595,7 @@ public class Perfil extends javax.swing.JFrame {
                 meGustaBtn4ActionPerformed(evt);
             }
         });
-        PanelTxt2.add(meGustaBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 30, 20));
+        PanelTxt2.add(meGustaBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 40, 30));
 
         comentarBtn4.setBackground(new java.awt.Color(106, 30, 85));
         comentarBtn4.setForeground(new java.awt.Color(255, 255, 255));
@@ -1396,7 +1608,7 @@ public class Perfil extends javax.swing.JFrame {
                 comentarBtn4ActionPerformed(evt);
             }
         });
-        PanelTxt2.add(comentarBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+        PanelTxt2.add(comentarBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 40, 30));
 
         repostearBtn4.setBackground(new java.awt.Color(59, 28, 50));
         repostearBtn4.setForeground(new java.awt.Color(255, 255, 255));
@@ -1409,49 +1621,163 @@ public class Perfil extends javax.swing.JFrame {
                 repostearBtn4ActionPerformed(evt);
             }
         });
-        PanelTxt2.add(repostearBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, -1, -1));
+        PanelTxt2.add(repostearBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 40, 30));
 
         lblLikesLabel4.setForeground(new java.awt.Color(255, 255, 255));
         lblLikesLabel4.setText("0");
-        PanelTxt2.add(lblLikesLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 40, -1));
+        PanelTxt2.add(lblLikesLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 90, -1));
 
         lblComentarLabel4.setForeground(new java.awt.Color(255, 255, 255));
         lblComentarLabel4.setText("0");
-        PanelTxt2.add(lblComentarLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 50, -1));
+        PanelTxt2.add(lblComentarLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 50, -1));
 
         lblRepostearLabel4.setForeground(new java.awt.Color(255, 255, 255));
         lblRepostearLabel4.setText("0");
-        PanelTxt2.add(lblRepostearLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 90, -1));
+        PanelTxt2.add(lblRepostearLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 90, -1));
 
-        UsuarioPub7.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
-        UsuarioPub7.setForeground(new java.awt.Color(204, 204, 204));
-        UsuarioPub7.setText("@Usuario");
-        UsuarioPub7.setToolTipText("");
-        UsuarioPub7.setBorder(null);
-        UsuarioPub7.setBorderPainted(false);
-        UsuarioPub7.setContentAreaFilled(false);
-        UsuarioPub7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        UsuarioPub7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        UsuarioPub7.addActionListener(new java.awt.event.ActionListener() {
+        UsuarioPub4.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub4.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub4.setText("@Usuario");
+        UsuarioPub4.setToolTipText("");
+        UsuarioPub4.setBorder(null);
+        UsuarioPub4.setBorderPainted(false);
+        UsuarioPub4.setContentAreaFilled(false);
+        UsuarioPub4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UsuarioPub7ActionPerformed(evt);
+                UsuarioPub4ActionPerformed(evt);
             }
         });
-        PanelTxt2.add(UsuarioPub7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 24, -1, 20));
+        PanelTxt2.add(UsuarioPub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 24, -1, 20));
 
         Fecha_Label4.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha_Label4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Fecha_Label4.setText("Fecha_posts");
         PanelTxt2.add(Fecha_Label4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 130, -1));
 
-        lblTexto_publicacion2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        lblTexto_publicacion2.setForeground(new java.awt.Color(255, 255, 255));
-        lblTexto_publicacion2.setText("Texto_publicacion");
-        PanelTxt2.add(lblTexto_publicacion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 720, 80));
+        NombrePub4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub4.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub4.setText("Usuario");
+        PanelTxt2.add(NombrePub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
 
-        NombrePub3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        NombrePub3.setForeground(new java.awt.Color(204, 204, 204));
-        NombrePub3.setText("Usuario");
-        PanelTxt2.add(NombrePub3, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
+        DescripcionPub4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        DescripcionPub4.setForeground(new java.awt.Color(204, 204, 204));
+        DescripcionPub4.setText("Descripcion...");
+        PanelTxt2.add(DescripcionPub4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 720, 60));
+
+        PanelTxt3.setBackground(new java.awt.Color(64, 11, 59));
+        PanelTxt3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        PanelTxt3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelTxt3.setPreferredSize(new java.awt.Dimension(736, 190));
+        PanelTxt3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub5.setForeground(new java.awt.Color(255, 255, 255));
+        PanelTxt3.add(ImgPub5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 54, 54));
+
+        meGustaBtn5.setBackground(new java.awt.Color(59, 28, 50));
+        meGustaBtn5.setForeground(new java.awt.Color(255, 255, 255));
+        meGustaBtn5.setText("-");
+        meGustaBtn5.setBorder(null);
+        meGustaBtn5.setBorderPainted(false);
+        meGustaBtn5.setContentAreaFilled(false);
+        meGustaBtn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meGustaBtn5ActionPerformed(evt);
+            }
+        });
+        PanelTxt3.add(meGustaBtn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 40, 30));
+
+        comentarBtn5.setBackground(new java.awt.Color(106, 30, 85));
+        comentarBtn5.setForeground(new java.awt.Color(255, 255, 255));
+        comentarBtn5.setText("-");
+        comentarBtn5.setBorder(null);
+        comentarBtn5.setBorderPainted(false);
+        comentarBtn5.setContentAreaFilled(false);
+        comentarBtn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comentarBtn5ActionPerformed(evt);
+            }
+        });
+        PanelTxt3.add(comentarBtn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 40, 30));
+
+        repostearBtn5.setBackground(new java.awt.Color(59, 28, 50));
+        repostearBtn5.setForeground(new java.awt.Color(255, 255, 255));
+        repostearBtn5.setText("-");
+        repostearBtn5.setBorder(null);
+        repostearBtn5.setBorderPainted(false);
+        repostearBtn5.setContentAreaFilled(false);
+        repostearBtn5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repostearBtn5ActionPerformed(evt);
+            }
+        });
+        PanelTxt3.add(repostearBtn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 40, 30));
+
+        lblLikesLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        lblLikesLabel5.setText("0");
+        PanelTxt3.add(lblLikesLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 90, -1));
+
+        lblComentarLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        lblComentarLabel5.setText("0");
+        PanelTxt3.add(lblComentarLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 100, -1));
+
+        lblRepostearLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        lblRepostearLabel5.setText("0");
+        PanelTxt3.add(lblRepostearLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 90, -1));
+
+        UsuarioPub5.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub5.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub5.setText("@Usuario");
+        UsuarioPub5.setToolTipText("");
+        UsuarioPub5.setBorder(null);
+        UsuarioPub5.setBorderPainted(false);
+        UsuarioPub5.setContentAreaFilled(false);
+        UsuarioPub5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub5ActionPerformed(evt);
+            }
+        });
+        PanelTxt3.add(UsuarioPub5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 24, -1, 20));
+
+        Fecha_Label5.setForeground(new java.awt.Color(255, 255, 255));
+        Fecha_Label5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Fecha_Label5.setText("Fecha_posts");
+        PanelTxt3.add(Fecha_Label5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 130, -1));
+
+        NombrePub5.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub5.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub5.setText("Usuario");
+        PanelTxt3.add(NombrePub5, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 24, -1, -1));
+
+        DescripcionPub5.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        DescripcionPub5.setForeground(new java.awt.Color(204, 204, 204));
+        DescripcionPub5.setText("Descripcion...");
+        PanelTxt3.add(DescripcionPub5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 720, 60));
+
+        Btn_Anterior2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        Btn_Anterior2.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Anterior2.setText("<");
+        Btn_Anterior2.setBorderPainted(false);
+        Btn_Anterior2.setContentAreaFilled(false);
+        Btn_Anterior2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Anterior2ActionPerformed(evt);
+            }
+        });
+
+        Btn_Siguiente2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        Btn_Siguiente2.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Siguiente2.setText(">");
+        Btn_Siguiente2.setBorderPainted(false);
+        Btn_Siguiente2.setContentAreaFilled(false);
+        Btn_Siguiente2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Siguiente2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PublicacionesTextoLayout = new javax.swing.GroupLayout(PublicacionesTexto);
         PublicacionesTexto.setLayout(PublicacionesTextoLayout);
@@ -1461,17 +1787,31 @@ public class Perfil extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PublicacionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelTxt1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelTxt2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE))
+                    .addComponent(PanelTxt2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PublicacionesTextoLayout.createSequentialGroup()
+                        .addComponent(PanelTxt3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(PublicacionesTextoLayout.createSequentialGroup()
+                .addGap(330, 330, 330)
+                .addComponent(Btn_Anterior2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Btn_Siguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PublicacionesTextoLayout.setVerticalGroup(
             PublicacionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PublicacionesTextoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PanelTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PanelTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addGroup(PublicacionesTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_Siguiente2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_Anterior2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelTxt2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PanelTxt3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         SubMenu.addTab("Texto", PublicacionesTexto);
@@ -1898,6 +2238,235 @@ public class Perfil extends javax.swing.JFrame {
         EditarFoto.add(J_C_Foto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -8, 750, 460));
 
         SubMenu.addTab("FotoPerfil", EditarFoto);
+
+        Seguidores.setBackground(new java.awt.Color(0, 0, 0));
+
+        Si5.setBackground(new java.awt.Color(51, 51, 51));
+        Si5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub10.setBackground(new java.awt.Color(204, 98, 202));
+        Si5.add(ImgPub10, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 100, 100));
+
+        NombrePub10.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub10.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub10.setText("Usuario");
+        Si5.add(NombrePub10, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 30));
+
+        UsuarioPub10.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub10.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub10.setText("@Usuario");
+        UsuarioPub10.setToolTipText("");
+        UsuarioPub10.setBorder(null);
+        UsuarioPub10.setBorderPainted(false);
+        UsuarioPub10.setContentAreaFilled(false);
+        UsuarioPub10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub10ActionPerformed(evt);
+            }
+        });
+        Si5.add(UsuarioPub10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        NumSe5.setText("0");
+        Si5.add(NumSe5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 80, -1));
+
+        NumSi5.setText("0");
+        Si5.add(NumSi5, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+
+        SeS5.setForeground(new java.awt.Color(255, 255, 255));
+        SeS5.setText("Seguidores : ");
+        Si5.add(SeS5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 70, -1));
+
+        SiS5.setForeground(new java.awt.Color(255, 255, 255));
+        SiS5.setText("Siguiendo :");
+        Si5.add(SiS5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 70, -1));
+
+        Si6.setBackground(new java.awt.Color(51, 51, 51));
+        Si6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub11.setBackground(new java.awt.Color(204, 98, 202));
+        Si6.add(ImgPub11, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 100, 100));
+
+        UsuarioPub11.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub11.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub11.setText("@Usuario");
+        UsuarioPub11.setToolTipText("");
+        UsuarioPub11.setBorder(null);
+        UsuarioPub11.setBorderPainted(false);
+        UsuarioPub11.setContentAreaFilled(false);
+        UsuarioPub11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub11ActionPerformed(evt);
+            }
+        });
+        Si6.add(UsuarioPub11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        NombrePub11.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub11.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub11.setText("Usuario");
+        Si6.add(NombrePub11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 30));
+
+        NumSe6.setText("0");
+        Si6.add(NumSe6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 80, -1));
+
+        NumSi6.setText("0");
+        Si6.add(NumSi6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+
+        SeS6.setForeground(new java.awt.Color(255, 255, 255));
+        SeS6.setText("Seguidores : ");
+        Si6.add(SeS6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 70, -1));
+
+        SiS6.setForeground(new java.awt.Color(255, 255, 255));
+        SiS6.setText("Siguiendo :");
+        Si6.add(SiS6, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 70, -1));
+
+        Si7.setBackground(new java.awt.Color(51, 51, 51));
+        Si7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub12.setBackground(new java.awt.Color(204, 98, 202));
+        Si7.add(ImgPub12, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 100, 101));
+
+        NombrePub12.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub12.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub12.setText("Usuario");
+        Si7.add(NombrePub12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 30));
+
+        UsuarioPub12.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub12.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub12.setText("@Usuario");
+        UsuarioPub12.setToolTipText("");
+        UsuarioPub12.setBorder(null);
+        UsuarioPub12.setBorderPainted(false);
+        UsuarioPub12.setContentAreaFilled(false);
+        UsuarioPub12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub12ActionPerformed(evt);
+            }
+        });
+        Si7.add(UsuarioPub12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        SiS7.setForeground(new java.awt.Color(255, 255, 255));
+        SiS7.setText("Siguiendo :");
+        Si7.add(SiS7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 70, -1));
+
+        SeS7.setForeground(new java.awt.Color(255, 255, 255));
+        SeS7.setText("Seguidores : ");
+        Si7.add(SeS7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 70, -1));
+
+        NumSe7.setText("0");
+        Si7.add(NumSe7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 80, -1));
+
+        NumSi7.setText("0");
+        Si7.add(NumSi7, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+
+        Si8.setBackground(new java.awt.Color(51, 51, 51));
+        Si8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ImgPub13.setBackground(new java.awt.Color(204, 98, 202));
+        Si8.add(ImgPub13, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 100, 100));
+
+        NombrePub13.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        NombrePub13.setForeground(new java.awt.Color(204, 204, 204));
+        NombrePub13.setText("Usuario");
+        Si8.add(NombrePub13, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, -1, 30));
+
+        UsuarioPub13.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        UsuarioPub13.setForeground(new java.awt.Color(204, 204, 204));
+        UsuarioPub13.setText("@Usuario");
+        UsuarioPub13.setToolTipText("");
+        UsuarioPub13.setBorder(null);
+        UsuarioPub13.setBorderPainted(false);
+        UsuarioPub13.setContentAreaFilled(false);
+        UsuarioPub13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        UsuarioPub13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        UsuarioPub13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsuarioPub13ActionPerformed(evt);
+            }
+        });
+        Si8.add(UsuarioPub13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        SeS8.setForeground(new java.awt.Color(255, 255, 255));
+        SeS8.setText("Seguidores : ");
+        Si8.add(SeS8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 70, -1));
+
+        SiS8.setForeground(new java.awt.Color(255, 255, 255));
+        SiS8.setText("Siguiendo :");
+        Si8.add(SiS8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 70, -1));
+
+        NumSi8.setText("0");
+        Si8.add(NumSi8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 90, -1));
+
+        NumSe8.setText("0");
+        Si8.add(NumSe8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 80, -1));
+
+        Btn_Anterior4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        Btn_Anterior4.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Anterior4.setText("<");
+        Btn_Anterior4.setBorderPainted(false);
+        Btn_Anterior4.setContentAreaFilled(false);
+        Btn_Anterior4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Anterior4ActionPerformed(evt);
+            }
+        });
+
+        Btn_Siguiente4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        Btn_Siguiente4.setForeground(new java.awt.Color(255, 255, 255));
+        Btn_Siguiente4.setText(">");
+        Btn_Siguiente4.setBorderPainted(false);
+        Btn_Siguiente4.setContentAreaFilled(false);
+        Btn_Siguiente4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Siguiente4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SeguidoresLayout = new javax.swing.GroupLayout(Seguidores);
+        Seguidores.setLayout(SeguidoresLayout);
+        SeguidoresLayout.setHorizontalGroup(
+            SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SeguidoresLayout.createSequentialGroup()
+                .addGroup(SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SeguidoresLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Si6, javax.swing.GroupLayout.PREFERRED_SIZE, 704, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(Si5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Si7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Si8, javax.swing.GroupLayout.PREFERRED_SIZE, 704, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(SeguidoresLayout.createSequentialGroup()
+                        .addGap(326, 326, 326)
+                        .addComponent(Btn_Anterior4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Btn_Siguiente4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        SeguidoresLayout.setVerticalGroup(
+            SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SeguidoresLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SeguidoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_Anterior4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_Siguiente4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Si7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Si5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Si6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Si8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+
+        SubMenu.addTab("tab3", Seguidores);
 
         jPanel1.add(SubMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 750, 560));
 
@@ -2447,6 +3016,50 @@ public class Perfil extends javax.swing.JFrame {
         jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1530, 420, 10, 340));
 
+        Num_Siguiendo.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        Num_Siguiendo.setForeground(new java.awt.Color(204, 204, 204));
+        Num_Siguiendo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Num_Siguiendo.setText("0");
+        Num_Siguiendo.setToolTipText("");
+        jPanel1.add(Num_Siguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 40, 30));
+
+        BtnSiguiendo.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        BtnSiguiendo.setForeground(new java.awt.Color(204, 204, 204));
+        BtnSiguiendo.setText("Siguiendo");
+        BtnSiguiendo.setBorder(null);
+        BtnSiguiendo.setBorderPainted(false);
+        BtnSiguiendo.setContentAreaFilled(false);
+        BtnSiguiendo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnSiguiendo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSiguiendo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSiguiendoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnSiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 250, 80, 50));
+
+        Num_Seguidores.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        Num_Seguidores.setForeground(new java.awt.Color(204, 204, 204));
+        Num_Seguidores.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Num_Seguidores.setText("0");
+        Num_Seguidores.setToolTipText("");
+        jPanel1.add(Num_Seguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 40, 30));
+
+        BtnSeguidores.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        BtnSeguidores.setForeground(new java.awt.Color(204, 204, 204));
+        BtnSeguidores.setText("Seguidores");
+        BtnSeguidores.setBorder(null);
+        BtnSeguidores.setBorderPainted(false);
+        BtnSeguidores.setContentAreaFilled(false);
+        BtnSeguidores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BtnSeguidores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSeguidores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSeguidoresActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnSeguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 80, 50));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -2465,22 +3078,6 @@ public class Perfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CuentaBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn5ActionPerformed
-
-    private void CuentaBtn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn8ActionPerformed
-
-    private void CuentaBtn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn9ActionPerformed
-
-    private void CuentaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaBtn2ActionPerformed
-
     private void CuentaBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaBtn3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CuentaBtn3ActionPerformed
@@ -2488,34 +3085,6 @@ public class Perfil extends javax.swing.JFrame {
     private void UsuarioComunidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioComunidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UsuarioComunidadActionPerformed
-
-    private void UsuarioPub7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub7ActionPerformed
-
-    private void repostearBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn4ActionPerformed
-
-    private void comentarBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtn4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comentarBtn4ActionPerformed
-
-    private void meGustaBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn4ActionPerformed
-
-    private void repostearBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn3ActionPerformed
-
-    private void meGustaBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn3ActionPerformed
-
-    private void UsuarioPub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub2ActionPerformed
 
     private void B_ElegirOtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_ElegirOtraActionPerformed
         J_Archivos.setVisible(true);
@@ -2596,26 +3165,6 @@ public class Perfil extends javax.swing.JFrame {
         GuardarCambios();
     }//GEN-LAST:event_SaveActionPerformed
 
-    private void repostearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn1ActionPerformed
-
-    private void meGustaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn1ActionPerformed
-
-    private void repostearBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repostearBtn2ActionPerformed
-
-    private void meGustaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meGustaBtn2ActionPerformed
-
-    private void UsuarioPub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub1ActionPerformed
-
     private void Editar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar1ActionPerformed
         SubMenu.setSelectedIndex(4);
     }//GEN-LAST:event_Editar1ActionPerformed
@@ -2676,10 +3225,6 @@ public class Perfil extends javax.swing.JFrame {
             SubMenu.setSelectedIndex(0);
         }
     }//GEN-LAST:event_SalirMenuActionPerformed
-
-    private void UsuarioPub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UsuarioPub3ActionPerformed
 
     private void NombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NombreUsuarioMousePressed
         this.dispose();
@@ -2774,10 +3319,11 @@ public class Perfil extends javax.swing.JFrame {
             if (filas > 0) {
                 // Éxito: se insertó un nuevo seguidor
                 LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
-
-                // Cambiar texto y colores del botón
-                SeguirCuentaBtn3.setText("Siguiendo");
-                SeguirCuentaBtn3.setEnabled(false); // Desactiva el botón para evitar múltiples clics
+            notificarSeguido(idSeguido);
+                SeguirCuentaBtn3.setForeground(Color.BLACK); // Cambia el color de la letra (blanco)
+                SeguirCuentaBtn3.setBackground(new java.awt.Color(255,255,255)); 
+        SeguirCuentaBtn3.setText("Siguiendo");
+                SeguirCuentaBtn3.setEnabled(false);
             } else {
                 LabelAviso2.setText("Ya lo estás siguiendo");
             }
@@ -2787,7 +3333,6 @@ public class Perfil extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_SeguirCuentaBtn3ActionPerformed
 
     private void SeguirCuentaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeguirCuentaBtn1ActionPerformed
@@ -2807,7 +3352,7 @@ public class Perfil extends javax.swing.JFrame {
             if (filas > 0) {
                 // Éxito: se insertó un nuevo seguidor
                 LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
-
+                notificarSeguido(idSeguido);
                 // Cambiar texto y colores del botón
                 SeguirCuentaBtn1.setText("Siguiendo");
                 SeguirCuentaBtn1.setEnabled(false); // Desactiva el botón para evitar múltiples clics
@@ -2840,10 +3385,13 @@ public class Perfil extends javax.swing.JFrame {
             if (filas > 0) {
                 // Éxito: se insertó un nuevo seguidor
                 LabelAviso2.setText("Ahora estás siguiendo a " + idSeguido);
-
+                notificarSeguido(idSeguido);
                 // Cambiar texto y colores del botón
                 SeguirCuentaBtn2.setText("Siguiendo");
-                SeguirCuentaBtn2.setEnabled(false); // Desactiva el botón para evitar múltiples clics
+                SeguirCuentaBtn2.setForeground(new java.awt.Color(0,0,0)); // Cambia el color de la letra (blanco)
+                SeguirCuentaBtn2.setBackground(new java.awt.Color(255,255,255)); 
+                
+                SeguirCuentaBtn2.setEnabled(false); 
             } else {
                 LabelAviso2.setText("Ya lo estás siguiendo");
             }
@@ -2949,6 +3497,132 @@ public class Perfil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_numreacciones2ActionPerformed
 
+    private void UsuarioPub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub1ActionPerformed
+
+    private void meGustaBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn1ActionPerformed
+
+    private void repostearBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn1ActionPerformed
+
+    private void UsuarioPub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub2ActionPerformed
+
+    private void meGustaBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn2ActionPerformed
+
+    private void repostearBtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn2ActionPerformed
+
+    private void Btn_Siguiente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente1ActionPerformed
+
+    }//GEN-LAST:event_Btn_Siguiente1ActionPerformed
+
+    private void Btn_Anterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior1ActionPerformed
+
+    }//GEN-LAST:event_Btn_Anterior1ActionPerformed
+
+    private void UsuarioPub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub3ActionPerformed
+
+    private void meGustaBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn3ActionPerformed
+
+    private void repostearBtn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn3ActionPerformed
+
+    private void meGustaBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn4ActionPerformed
+
+    private void comentarBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comentarBtn4ActionPerformed
+
+    private void repostearBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn4ActionPerformed
+
+    private void UsuarioPub4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub4ActionPerformed
+
+    private void meGustaBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meGustaBtn5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_meGustaBtn5ActionPerformed
+
+    private void comentarBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comentarBtn5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comentarBtn5ActionPerformed
+
+    private void repostearBtn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repostearBtn5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_repostearBtn5ActionPerformed
+
+    private void UsuarioPub5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub5ActionPerformed
+
+    private void Btn_Anterior2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Anterior2ActionPerformed
+
+    private void Btn_Siguiente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_Siguiente2ActionPerformed
+
+    private void UsuarioPub10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub10ActionPerformed
+
+    private void UsuarioPub11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub11ActionPerformed
+
+    private void UsuarioPub12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub12ActionPerformed
+
+    private void UsuarioPub13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsuarioPub13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsuarioPub13ActionPerformed
+
+    private void Btn_Anterior4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Anterior4ActionPerformed
+        if (paginaActual > 1) {
+            paginaActual--;
+            cargarDatos();
+        }
+    }//GEN-LAST:event_Btn_Anterior4ActionPerformed
+
+    private void Btn_Siguiente4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Siguiente4ActionPerformed
+        paginaActual++;
+        cargarDatos();
+    }//GEN-LAST:event_Btn_Siguiente4ActionPerformed
+
+    private void BtnSiguiendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSiguiendoActionPerformed
+        SubMenu.setSelectedIndex(5);
+        tipo = "seguidos";
+        paginaActual = 1; // Reiniciar a la primera página
+        cargarDatos();
+    }//GEN-LAST:event_BtnSiguiendoActionPerformed
+
+    private void BtnSeguidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSeguidoresActionPerformed
+        SubMenu.setSelectedIndex(5);
+        tipo = "seguidores";
+        paginaActual = 1; // Reiniciar a la primera página
+        cargarDatos();
+    }//GEN-LAST:event_BtnSeguidoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2997,21 +3671,28 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JPanel BannerAct;
     private javax.swing.JPanel BannerAct1;
     private javax.swing.JTextField BioText;
+    private javax.swing.JButton BtnSeguidores;
+    private javax.swing.JButton BtnSiguiendo;
+    private javax.swing.JButton Btn_Anterior1;
+    private javax.swing.JButton Btn_Anterior2;
+    private javax.swing.JButton Btn_Anterior4;
+    private javax.swing.JButton Btn_Siguiente1;
+    private javax.swing.JButton Btn_Siguiente2;
+    private javax.swing.JButton Btn_Siguiente4;
     private javax.swing.JComboBox<String> CB_Anio;
     private javax.swing.JComboBox<String> CB_Dia;
     private javax.swing.JComboBox<String> CB_Mes;
     private javax.swing.ButtonGroup Colores;
     private javax.swing.JButton ConfiBtn;
-    private javax.swing.JButton CuentaBtn2;
     private javax.swing.JButton CuentaBtn20;
     private javax.swing.JButton CuentaBtn3;
-    private javax.swing.JButton CuentaBtn5;
-    private javax.swing.JButton CuentaBtn8;
-    private javax.swing.JButton CuentaBtn9;
     private javax.swing.JRadioButton DefaultBanner;
     private javax.swing.JLabel DescLabel;
     private javax.swing.JLabel DescripcionPub1;
     private javax.swing.JLabel DescripcionPub2;
+    private javax.swing.JLabel DescripcionPub3;
+    private javax.swing.JLabel DescripcionPub4;
+    private javax.swing.JLabel DescripcionPub5;
     private javax.swing.JButton Editar1;
     private javax.swing.JButton Editar2;
     private javax.swing.JButton Editar3;
@@ -3027,6 +3708,7 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JLabel Fecha_Label2;
     private javax.swing.JLabel Fecha_Label3;
     private javax.swing.JLabel Fecha_Label4;
+    private javax.swing.JLabel Fecha_Label5;
     private javax.swing.JLabel FotoPerfil;
     private javax.swing.JPanel Header;
     private javax.swing.JLabel IdUsuario2;
@@ -3034,7 +3716,14 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JLabel ImgInt2;
     private javax.swing.JLabel ImgInt3;
     private javax.swing.JLabel ImgPub1;
+    private javax.swing.JLabel ImgPub10;
+    private javax.swing.JLabel ImgPub11;
+    private javax.swing.JLabel ImgPub12;
+    private javax.swing.JLabel ImgPub13;
     private javax.swing.JLabel ImgPub2;
+    private javax.swing.JLabel ImgPub3;
+    private javax.swing.JLabel ImgPub4;
+    private javax.swing.JLabel ImgPub5;
     private javax.swing.JButton InicioBtn1;
     private javax.swing.JPanel J_Archivos;
     private javax.swing.JPanel J_C_Foto;
@@ -3049,20 +3738,36 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JRadioButton NaranjaBanner;
     private javax.swing.JLabel NombreComunidad;
     private javax.swing.JLabel NombrePub1;
+    private javax.swing.JLabel NombrePub10;
+    private javax.swing.JLabel NombrePub11;
+    private javax.swing.JLabel NombrePub12;
+    private javax.swing.JLabel NombrePub13;
     private javax.swing.JLabel NombrePub2;
     private javax.swing.JLabel NombrePub3;
     private javax.swing.JLabel NombrePub4;
+    private javax.swing.JLabel NombrePub5;
     private javax.swing.JTextField NombreText;
     private javax.swing.JLabel NombreUsuario;
     private javax.swing.JButton NotificacionesBtn;
+    private javax.swing.JLabel NumSe5;
+    private javax.swing.JLabel NumSe6;
+    private javax.swing.JLabel NumSe7;
+    private javax.swing.JLabel NumSe8;
+    private javax.swing.JLabel NumSi5;
+    private javax.swing.JLabel NumSi6;
+    private javax.swing.JLabel NumSi7;
+    private javax.swing.JLabel NumSi8;
     private javax.swing.JLabel Num_Reacciones;
     private javax.swing.JLabel Num_Reacciones1;
     private javax.swing.JLabel Num_Reacciones2;
+    private javax.swing.JLabel Num_Seguidores;
+    private javax.swing.JLabel Num_Siguiendo;
     private javax.swing.JPanel PanelFlotante2;
     private javax.swing.JPanel PanelNot1;
     private javax.swing.JPanel PanelNot2;
     private javax.swing.JPanel PanelTxt1;
     private javax.swing.JPanel PanelTxt2;
+    private javax.swing.JPanel PanelTxt3;
     private javax.swing.JButton PerfilBtn;
     private javax.swing.JPanel PerfilPanel;
     private javax.swing.JLabel PerfilPic;
@@ -3077,9 +3782,22 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JButton SalvarBanner;
     private javax.swing.JButton Save;
     private javax.swing.JPanel SaveCambios;
+    private javax.swing.JLabel SeS5;
+    private javax.swing.JLabel SeS6;
+    private javax.swing.JLabel SeS7;
+    private javax.swing.JLabel SeS8;
+    private javax.swing.JPanel Seguidores;
     private javax.swing.JButton SeguirCuentaBtn1;
     private javax.swing.JButton SeguirCuentaBtn2;
     private javax.swing.JButton SeguirCuentaBtn3;
+    private javax.swing.JPanel Si5;
+    private javax.swing.JPanel Si6;
+    private javax.swing.JPanel Si7;
+    private javax.swing.JPanel Si8;
+    private javax.swing.JLabel SiS5;
+    private javax.swing.JLabel SiS6;
+    private javax.swing.JLabel SiS7;
+    private javax.swing.JLabel SiS8;
     private javax.swing.JButton Siguiente2;
     private javax.swing.JTabbedPane SubMenu;
     private javax.swing.JButton TendenciaYapBtn;
@@ -3090,15 +3808,21 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JButton UserInt3;
     private javax.swing.JButton UsuarioComunidad;
     private javax.swing.JButton UsuarioPub1;
+    private javax.swing.JButton UsuarioPub10;
+    private javax.swing.JButton UsuarioPub11;
+    private javax.swing.JButton UsuarioPub12;
+    private javax.swing.JButton UsuarioPub13;
     private javax.swing.JButton UsuarioPub2;
     private javax.swing.JButton UsuarioPub3;
-    private javax.swing.JButton UsuarioPub7;
+    private javax.swing.JButton UsuarioPub4;
+    private javax.swing.JButton UsuarioPub5;
     private javax.swing.JRadioButton VerdeBanner;
     private javax.swing.JLabel Y_logo;
     private javax.swing.JButton comentarBtn1;
     private javax.swing.JButton comentarBtn2;
     private javax.swing.JButton comentarBtn3;
     private javax.swing.JButton comentarBtn4;
+    private javax.swing.JButton comentarBtn5;
     private javax.swing.JLabel imagen1;
     private javax.swing.JLabel imagen2;
     private javax.swing.JButton jButton1;
@@ -3126,22 +3850,22 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JLabel lblComentarLabel2;
     private javax.swing.JLabel lblComentarLabel3;
     private javax.swing.JLabel lblComentarLabel4;
+    private javax.swing.JLabel lblComentarLabel5;
     private javax.swing.JLabel lblLikesLabel1;
     private javax.swing.JLabel lblLikesLabel2;
     private javax.swing.JLabel lblLikesLabel3;
     private javax.swing.JLabel lblLikesLabel4;
+    private javax.swing.JLabel lblLikesLabel5;
     private javax.swing.JLabel lblRepostearLabel1;
     private javax.swing.JLabel lblRepostearLabel2;
     private javax.swing.JLabel lblRepostearLabel3;
     private javax.swing.JLabel lblRepostearLabel4;
-    private javax.swing.JLabel lblTexto_publicacion1;
-    private javax.swing.JLabel lblTexto_publicacion2;
-    private javax.swing.JLabel lblUsuario1;
-    private javax.swing.JLabel lblUsuario2;
+    private javax.swing.JLabel lblRepostearLabel5;
     private javax.swing.JButton meGustaBtn1;
     private javax.swing.JButton meGustaBtn2;
     private javax.swing.JButton meGustaBtn3;
     private javax.swing.JButton meGustaBtn4;
+    private javax.swing.JButton meGustaBtn5;
     private javax.swing.JButton numreacciones;
     private javax.swing.JButton numreacciones1;
     private javax.swing.JButton numreacciones2;
@@ -3149,5 +3873,6 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JButton repostearBtn2;
     private javax.swing.JButton repostearBtn3;
     private javax.swing.JButton repostearBtn4;
+    private javax.swing.JButton repostearBtn5;
     // End of variables declaration//GEN-END:variables
 }
